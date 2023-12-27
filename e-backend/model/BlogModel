@@ -1,0 +1,41 @@
+const mongoose = require('mongoose');
+
+const blogSchema = mongoose.Schema({
+    title:{
+        type:String,
+        required:true
+    },
+    description:{
+        type:String
+    },
+    number_of_view:{
+        type:Number,
+    },
+    likes:[
+        {type:Schema.ObjectId,
+        ref:'User'}
+    ],
+    dislikes:[
+        {type:Schema.ObjectId,
+        ref:'User'}
+    ],
+    image:{
+        type:String,
+    },
+    ratings: [
+        {
+            value: {
+                type: Number,
+                min: 1, // Minimum rating value
+                max: 5, // Maximum rating value
+                required: true,
+            },
+            user: {
+                type: Schema.Types.ObjectId,
+                ref: 'User',
+            },
+        },
+    ],
+
+})
+module.exports = mongoose.model('Blog', blogSchema);
