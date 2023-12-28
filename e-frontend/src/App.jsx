@@ -3,6 +3,7 @@ import {Routes,Route} from "react-router-dom"
 
 import './App.css'
 import Layout from './Component/Layout';
+import { Cartheader } from './Component/Cartheader';
 
 function App() {
   
@@ -11,7 +12,7 @@ function App() {
     <>
     <Routes>
       <Route path='/' element={<Layout/>}>
-      
+        <Route path='/Cartheader' element={<Cartheader/>}/>
       </Route>
     </Routes>
     
