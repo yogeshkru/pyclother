@@ -1,7 +1,8 @@
-import React from 'react'
+import {configureStore} from '@reduxjs/toolkit';
 
-export const Store = () => {
-  return (
-    <div>Store</div>
-  )
-}
+
+export const store=configureStore({
+    reducer:{
+
+    }
+})
