@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Link } from "react-router-dom";
 import Color from "../Component/Colors";
 import ProductCard from "../Component/ProductCard";
@@ -149,3 +150,14 @@ const OurStore = function () {
 };
 
 export default OurStore;
+=======
+import React from 'react'
+
+function OurStore() {
+  return (
+    <div>OurStore</div>
+  )
+}
+
+export default OurStore
+>>>>>>> bd688712cf8889176da1e894382cc4c03860309b
