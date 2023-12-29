@@ -1,44 +1,172 @@
+/* Variables */
 :root {
   --FOOTER-BACKGROUND: #eaebed;
+  --MENS--COLOR: #56ddff;
+  --WOMEN--COLOR: #fcb03f;
+  --KIDS--COLOR: #df0067;
+}
+/* font-family */
+#root {
+  font-family: "Kanit", sans-serif;
 }
 
-li{
-    cursor: pointer;
-}
-#root{
-    font-family: 'Kanit', sans-serif;
-}
-.footer_details2{
-    text-align: center;
-}
-.footer__image2{
-    width: 50%;
+/* //Headers CSS */
+.header--search {
+  position: relative;
 }
 
-.footer__image{
-    width: 20%;
-    margin: auto;
+.header__button1 {
+  font-weight: bold !important;
+  font-size: 20px !important;
+  padding: 5px !important;
 }
-.footer__content1{
-   
+.header__button1:hover {
+  border-radius: 0 !important;
+  border-bottom: 5px solid var(--MENS--COLOR) !important;
 }
-.footer__details1{
-    margin-right: 200px !important;
+.header__button2 {
+  font-weight: bold !important;
+  font-size: 20px !important;
+  padding: 5px !important;
+}
+.header__button2:hover {
+  border-radius: 0 !important;
+  border-bottom: 5px solid var(--WOMEN--COLOR) !important;
+}
+.header__button3 {
+  font-weight: bold !important;
+  font-size: 20px !important;
+  padding: 5px !important;
+}
+.header__button3:hover {
+  border-radius: 0 !important;
+  border-bottom: 5px solid var(--KIDS--COLOR) !important;
+}
+
+.header__input--search {
+  width: 80%;
+  padding: 10px;
+  outline: none;
+  border-radius: 20px;
+
+  border: 1px solid black;
+}
+.header__input--search {
+  color: #b4b4b4;
+  padding-left: 30px;
+}
+.header__icon {
+  position: absolute;
+  top: -3px;
+  left: 54px;
+  font-size: 30px;
+  color: #b4b4b4;
+}
+
+/* Dropdown */
+.dropdown:hover > .dropdown-menu {
+  display: block;
+}
+.dropdown-menu {
+  width: 800px;
+}
+.header__Womens {
+  width: 600px;
+}
+.Headers__menus li {
+  font-size: 13px;
+}
+
+.dropdown > .dropdown-toggle:active {
+  /*Without this, clicking will make it sticky*/
+  pointer-events: none;
+}
+.header_padding {
+  background-color: #ffffff;
+  box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
+    rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  padding: 20px;
+}
+.header_logo {
+  width: 70%;
+}
+
+/* //Footer CSS */
+li {
+  cursor: pointer;
+}
+
+.footer_details2 {
+  text-align: center;
+}
+.footer__image2 {
+  width: 50%;
+}
+
+.footer__image {
+  width: 20%;
+  margin: auto;
+}
+
+.footer__details1 {
+  margin-right: 200px !important;
 }
 .footer_customer {
   margin-left: 120px;
 }
-.footer__followus{
-    text-align: center;
-    cursor: pointer;
+.footer__followus {
+  text-align: center;
+  cursor: pointer;
 }
 
-.footer_users{
-    display: flex;
-    justify-content: space-around;
+.footer_users {
+  display: flex;
+  justify-content: space-around;
 }
 .footer_background {
   background-color: var(--FOOTER-BACKGROUND);
+}
+
+.header__sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.header__sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+
+
+.header__sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .header__sidenavsidenav {
+    padding-top: 15px;
+  }
+  .header__sidenavsidenav a {
+    font-size: 18px;
+  }
 }
 
 @media only screen and (max-width: 600px) {
@@ -49,20 +177,38 @@ li{
     background-color: var(--FOOTER-BACKGROUND);
     height: 600px;
   }
-  .footer__followus{
+  .footer__followus {
     margin-top: 50px !important;
-}
-.footer__details1{
+  }
+  .footer__details1 {
     margin-right: 0 !important;
-}
-.footer__image{
-    width: 40%;
-}
-.footer__image2{
+  }
+  .footer__image {
+    width: 70%;
+  }
+  .footer__image2 {
     margin-top: 20px;
     margin-left: 82px;
-}
-.footer_shopping{
-    margin-left: 122px;
-}
+  }
+  .footer_shopping {
+    margin-left: 110px;
+  }
+  .header__icon {
+    left: 34px;
+  }
+  .header_mobile_menu{
+    width: 200px;
+  }
+  .header__mobile--mens{
+      color: white !important;
+      padding: 8px 8px 8px 32px !important;
+      font-size: 20px !important;
+
+  }
+  .header_mobile_menu{
+    background: none !important;
+  }
+  .header__mobile--content{
+    color: white !important;
+  }
 }
