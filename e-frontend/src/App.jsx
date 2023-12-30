@@ -4,32 +4,22 @@ import { Routes, Route } from "react-router-dom"
 import './App.css'
 import Layout from './Component/Layout';
 import Home from './Pages/Home';
-<<<<<<< HEAD
 import SingleProduct from './Pages/singleProduct';
-=======
->>>>>>> c2b3be7ecb3ab7280f8ce41a18fe385a46a081e0
+import Delivery_address from './Pages/Delivery_address';
 
 function App() {
 
 
   return (
     <>
-<<<<<<< HEAD
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route index element={<Home />} />
           <Route path='/singleProduct' element={<SingleProduct />} />
+          <Route path='/delivery_address' element={<Delivery_address/>} />
         </Route>
       </Routes>
 
-=======
-    <Routes>
-      <Route path='/' element={<Layout/>}>
-     <Route index element={<Home/>}/>
-    </Route>
-    </Routes>
-    
->>>>>>> c2b3be7ecb3ab7280f8ce41a18fe385a46a081e0
     </>
   )
 }
