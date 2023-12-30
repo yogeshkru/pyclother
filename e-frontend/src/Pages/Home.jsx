@@ -14,6 +14,7 @@ import women from "../assets/image/women.png";
 import men from "../assets/image/men1.png";
 import marriage from "../assets/image/marriage.png";
 import men1 from "../assets/image/MEN2.png";
+import Top from '../assets/image/888.jpeg'
 function Home() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [index, setIndex] = useState(0);
@@ -215,8 +216,11 @@ function Home() {
         </div>
       </div>
 
-      <div className="">
-        
+      <div className="header_beast_offers">
+      <div className="text-center">
+          <h1 className="home_top_content">TOP BRANDS</h1>
+          <h4 className="home_top_shopping">BEST OFFERS</h4>
+        </div>
       </div>
     </div>
   );

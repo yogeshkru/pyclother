@@ -5,9 +5,11 @@ import ProductCard from "../Component/ProductCard";
 const OurStore = function () {
   return (
     <>
-      <div className="container py-5 ">
+      <div className="container py-5 ourStore-breadcrumb ">
         <div className="row">
-          <div className="col-4 ">
+          <div className="d-flex justify-content-around">
+
+          <div className="col-4  mb-0 d-flex align-items-center ">
             <nav
               style={{ "--bs-breadcrumb-divider": ">" }}
               aria-label="breadcrumb"
@@ -25,22 +27,24 @@ const OurStore = function () {
               </ol>
             </nav>
           </div>
-          <div className="col-4">
+
+
+          <div className="col-4 d-flex align-items-center ourStore-product-count">
             <div className="d-flex flex-column text-center ">
               <h4>Men Top wear</h4>
-              <p className="">(888888888888)</p>
+              <p className="ourStore-stock">(12345 items)</p>
             </div>
           </div>
-          <div className="col-1"></div>
+      
 
-          <div className="col-3 sort-store ">
-            <div className="d-flex">
-              <p className="mb-0 font-weight-bold ">Sort By:</p>
+          <div className="col-4 sort-store d-flex align-items-center ">
+            <div className="d-flex mx-auto ">
+              <p className="mb-0  ">Sort By:</p>
 
               <select
                 name=""
                 defaultValue={"Low to High"}
-                className="bg-transparent border-0 d-flex ms-2 "
+                className="bg-transparent border-0 d-flex ms-2  "
                 id=""
               >
                 <option value="Low to High">Low to high</option>
@@ -48,14 +52,18 @@ const OurStore = function () {
               </select>
             </div>
           </div>
+
+          </div>
+
         </div>
       </div>
 
-      <div className="container py-3">
-        <div className="row">
-          <div className="col-3">
+      <div className="container py-1 ourStore-border-top  " >
+        <div className="row ">
+
+          <div className="col-3 ourStore-border-right ">
             <div className="ourStore-filter-card ">
-              <h3 className="ourStore-filter-title">CATEGORIES</h3>
+              <h3 className="ourStore-filter-title pt-3">CATEGORIES</h3>
               <div>
                 <ul className="ps-0">
                   <li>Tshirts</li>
@@ -85,7 +93,7 @@ const OurStore = function () {
                 <div className="ourStore-range">
                   <input
                     type="range"
-                    className="form-range"
+                    className="form-range w-75 d-flex mx-auto"
                     min="0"
                     max="5"
                     id="customRange2"
@@ -135,15 +143,23 @@ const OurStore = function () {
               </div>
             </div>
           </div>
-          <div className="col-9">
-          
-          <div className="d-flex gap-10 flex-wrap">
-          <ProductCard />
-          </div>
 
+          <div className="col-9 ourStore-product-render flex-grow-1">
+            <div className="d-flex gap-10 flex-wrap ">
+              <ProductCard />
+            </div>
           </div>
         </div>
       </div>
+
+      <div className="container">
+
+
+      <div className="py-5 ourStore-pagination mt-5">
+      </div>
+
+      </div>
+
     </>
   );
 };
