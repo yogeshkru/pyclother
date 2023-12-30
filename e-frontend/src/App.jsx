@@ -9,6 +9,7 @@ import { Cartheader } from './Component/Cartheader';
 import Home from './Pages/Home';
 
 import SingleProduct from './Pages/singleProduct';
+import Cart from './Pages/Cart';
 
 
 function App() {
@@ -20,7 +21,8 @@ function App() {
         <Route path='/' element={<Layout />}>
           <Route index element={<Home />} />
           <Route path='/singleProduct' element={<SingleProduct />} />
-          <Route path='/Cartheader' element={<Cartheader/>}/>
+          {/* <Route path='/Cartheader' element={<Cartheader/>}/> */}
+          <Route path='/Addtocart' element={<Cart/>}/>
     
         </Route>
       </Routes>
