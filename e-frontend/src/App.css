@@ -5,6 +5,7 @@
   --WOMEN--COLOR: #fcb03f;
   --KIDS--COLOR: #df0067;
 }
+
 /* font-family */
 #root {
   font-family: "Kanit", sans-serif;
@@ -150,14 +151,95 @@ li {
   transition: 0.3s;
 }
 
-
-
 .header__sidenav .closebtn {
   position: absolute;
   top: 0;
   right: 25px;
   font-size: 36px;
   margin-left: 50px;
+}
+
+/* //Home */
+.home_pondicherry {
+  color: transparent;
+  -webkit-text-stroke-color: #ffffff;
+  -webkit-text-stroke-color: #ffffff;
+  -webkit-text-stroke: 1px #ffffff;
+}
+.home_page_welcome {
+  background-image: url(./assets/image/welcome.png);
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 120px;
+
+  border-radius: 20px;
+}
+.home_page_pondicherry {
+  font-size: 100px;
+  font-weight: bold;
+  color: white;
+}
+.home_top_brands {
+  background-image: url(./assets/image/welcomepondi.png);
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100px;
+
+  border-radius: 20px;
+}
+.home_top_content {
+  color: white;
+  font-weight: bold;
+}
+.home_top_shopping {
+  color: transparent;
+  margin-top: 2px;
+  font-size: 30px;
+  font-weight: bold;
+  color: transparent;
+  letter-spacing: 3px;
+  -webkit-text-stroke-color: #cd6eea;
+  -webkit-text-stroke-color: #cd6eea;
+  -webkit-text-stroke: 1px #cd6eea;
+  transform: skewX(15deg) rotate(-2deg);
+}
+.home_rating_top {
+  margin-top: 20px;
+  background-image: url(./assets/image/background_home1.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 400px;
+  padding: 20px;
+  border: 1px solid #D02837;
+  border-radius: 25px;
+}
+.home_rating_content {
+  overflow: hidden;
+}
+.home_rating_details {
+  position: relative;
+}
+.home_rating_content1 {
+  position: absolute;
+  top: 80%;
+  left: 20%;
+  color: white;
+}
+.home_rating_content2 {
+  position: absolute;
+  top: 80%;
+  left: 25%;
+  color: white;
+}
+
+.home_rating_content img {
+  transition: 0.5s ease-in;
+}
+.home_rating_content img:hover {
+  transform: scale(1.2);
+  border-radius: 20px;
 }
 
 @media screen and (max-height: 450px) {
@@ -196,19 +278,35 @@ li {
   .header__icon {
     left: 34px;
   }
-  .header_mobile_menu{
+  .header_mobile_menu {
     width: 200px;
   }
-  .header__mobile--mens{
-      color: white !important;
-      padding: 8px 8px 8px 32px !important;
-      font-size: 20px !important;
-
-  }
-  .header_mobile_menu{
-    background: none !important;
-  }
-  .header__mobile--content{
+  .header__mobile--mens {
     color: white !important;
+    padding: 8px 8px 8px 32px !important;
+    font-size: 20px !important;
+  }
+  .header_mobile_menu {
+    background: white !important;
+  }
+  .header__mobile--content {
+    color: black;
+  }
+  .home_page_pondicherry {
+    font-size: 25px;
+    padding-top: 10px;
+  }
+  .home_page_welcome {
+    min-height: 60px;
+  }
+  .home_top_brands {
+    min-height: 60px;
+  }
+  .home_top_content {
+    font-size: 25px;
+  }
+  .home_top_shopping {
+    font-size: 20px;
+    transform: skewX(10deg) rotate(-1deg);
   }
 }
