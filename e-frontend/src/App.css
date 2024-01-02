@@ -2,9 +2,7 @@
   font-family: kanit;
 }
 
-div {
-  margin: auto;
-}
+
 
 /* Variables */
 /* Add this CSS to your existing app.css or create a new stylesheet */
@@ -589,11 +587,16 @@ li {
 }
 .ourStore-border-top {
   border-top: 1px  rgba(119, 119, 119, 0.4)  solid;
+  border-bottom: 1px  rgba(119, 119, 119, 0.4)  solid;
+  margin-bottom: 20px;
+
 }
 
 .ourStore-pagination {
-  margin-top: 100px;
+  /* margin-top: 100px; */
   width: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .ourStore-page {
@@ -607,16 +610,16 @@ li {
 
 /* Styles for devices with a width of 1080 pixels or less */
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 1080px) {
   .ourStore-border-right {
     display: none;
   }
   .ourStore-breadcrumb {
     display: none;
   }
-  .ourStore-pagination{
+  /* .ourStore-pagination{
     display: none !important;
-  }
+  } */
 }
 
 .ourStore-pagination {
@@ -645,6 +648,14 @@ li {
   font-weight: 100;
 }
 
+
+.ourStore-product-render{
+  overflow-y: scroll;
+}
+
+  .ourStore-product-render::-webkit-scrollbar{
+    width: 0px;
+  }
 /* *******       ourStore  component End's ********* */
 
 /* ************ProductCard Component************ */
