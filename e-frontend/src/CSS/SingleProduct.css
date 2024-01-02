@@ -38,7 +38,10 @@
     }
 }
 .Productview_namesdetils{
-    color: rgb(180, 180, 180);
+    color: rgb(113,113,113);
+}
+.ratings{
+    color: rgb(52,52,52);
 }
 .product-rating{
     font-size: 12px !important;
@@ -49,7 +52,9 @@
 .product-sizes{
     border: 1px solid #000;
     border-radius: 50%;
-    padding: 5px;
+    padding: 10px;
+    width: 44px !important;
+    text-align: center !important;
 }
 .productview_add{
     background-color: #DF0067;

@@ -30,7 +30,7 @@ function SingleProduct() {
               {productData.images.map((image, index) => {
                 return (index < 4) ?
                   <div key={index} onClick={() => setData({ images:image, index })} className="productRow"  >
-                    <img src={image} alt='' />
+                    <img src={image} alt='' className='rounded'/>
                   </div> : null
               })
               }
@@ -38,7 +38,7 @@ function SingleProduct() {
             <div className='col-lg-10 col-8' >
               <div className='displayproduct'>
                 <div >
-                  <img src={data ? data.images : productData.images[0]} alt="" width="100%" />
+                  <img src={data ? data.images : productData.images[0]} alt="" width="100%" className='rounded' />
                 </div>
 
               </div>
@@ -50,28 +50,28 @@ function SingleProduct() {
             <h3 >H&M</h3>
             <p className='Productview_namesdetils'>Pure Cotton Regular Fit Round-Neck T-shirt</p>
             <div>
-              <p className='product-rating'>4.8 <IoIosStar /> (284 Ratings)</p>
+              <p className='product-rating Productview_namesdetils'>4.8 <IoIosStar /> (284 Ratings)</p>
             </div>
             <div></div>
             <div>
-              <h3>RS. 599</h3>
+              <h3 className='ratings'>RS. 599</h3>
               <p className='product-inclusive'>inclusive off all taxes</p>
             </div>
-            <div className='d-flex justify-content-evenly'>
+            <div className='d-flex'>
               <div className='product_sizes_dives'>
-                <p className='product-sizes'>XS</p>
+                <p className='product-sizes rounded-circle'>XS</p>
               </div>
               <div className='product_sizes_dives'>
-                <p className='product-sizes'>S</p>
+                <p className='product-sizes rounded-circle'>S</p>
               </div>
               <div className='product_sizes_dives'>
-                <p className='product-sizes'>M</p>
+                <p className='product-sizes rounded-circle'>M</p>
               </div>
               <div className='product_sizes_dives'>
-                <p className='product-sizes'>L</p>
+                <p className='product-sizes rounded-circle'>L</p>
               </div>
               <div className='product_sizes_dives'>
-                <p className='product-sizes'>XL</p>
+                <p className='product-sizes rounded-circle'>XL</p>
               </div>
             </div>
             <div className='d-flex justify-content-evenly'>
