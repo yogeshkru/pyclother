@@ -385,7 +385,7 @@ function Header() {
                     </div>
                   </div>
                 </div>
-                <div className="col-lg-5 ">
+                <div className="col-lg-4">
                   <div className="text-center header--search">
                     <input
                       type="search"
@@ -399,7 +399,7 @@ function Header() {
                     </div>
                   </div>
                 </div>
-                <div className="col-lg-1 mt-1 ">
+                <div className="col-lg-2 mt-1 ">
                   <div className="d-flex justify-content-between">
                     <div className="d-flex flex-column text-center ">
                       <FaRegUser
