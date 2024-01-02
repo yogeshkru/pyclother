@@ -11,6 +11,9 @@
 .columeTwo{
     flex: 5;
 }
+.curstor-point-default{
+    cursor: default !important;
+}
 .productRow{
     width: 85%;
      padding: 2px;

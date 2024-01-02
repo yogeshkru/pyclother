@@ -1,5 +1,11 @@
 import React from 'react';
-import '../CSS/Delivery_address.css'
+import '../styles/Delivery_address.css'
+import rupay from '../assets/image/pngwing.png';
+import phone from '../assets/image/pngwing-1.png';
+import visa from '../assets/image/pngwing-2.png';
+import pay from '../assets/image/Group 249.png'
+
+
 
 function Delivery_address() {
     const order = {
@@ -61,9 +67,9 @@ function Delivery_address() {
                                         <li className='mt-2'>Pay on delivery available</li>
                                     </ul>
                                 </div>
-                                <div className='d-inline-grid'>
-                                    <button className='bg-white delivery_add_remove_btn text-center mb-3 border-0'>Remove</button>
-                                    <button className='bg-white delivery_add_remove_btn delivery_add_edite_btn text-center border-0'> Edite</button>
+                                <div className='d-inline-grid ms-4'>
+                                    <button className='bg-white delivery_add_remove_btn text-center  border-0'>Remove</button>
+                                    <button className='bg-white delivery_add_remove_btn  delivery_add_edite_btn text-center border-0'> Edite</button>
                                 </div>
                             </div>
                         </form>
@@ -114,18 +120,18 @@ function Delivery_address() {
                 </div>
 
             </div>
-            <div className='d-flex align-items-center'>
-                <div>
-                    <img src='' alt='loading'/>
+            <div className="d-flex justify-content-center gap-4 mt-3 mb-4">
+                <div style={{ width: "6%" }}>
+                    <img src={rupay} width="100%" />
                 </div>
-                <div>
-                    <img src='' alt='loading'/>
+                <div style={{ width: "4%" }}>
+                    <img src={phone} width="100%" />
                 </div>
-                <div>
-                    <img src='' alt='loading'/>
+                <div style={{ width: "4%" }}>
+                    <img src={visa} width="100%" />
                 </div>
-                <div>
-                    <img src='' alt='loading'/>
+                <div style={{ width: "2%" }}>
+                    <img src={pay} width="100%" />
                 </div>
             </div>
             <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

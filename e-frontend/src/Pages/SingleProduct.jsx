@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import '../CSS/SingleProduct.css';
+import '../styles/SingleProduct.css';
 import { TbShoppingBag } from "react-icons/tb";
 import { CiHeart } from "react-icons/ci";
 import { IoIosStar } from "react-icons/io";
+import moneyBlue from '../assets/image/money_blue.jpeg';
+import bruno from '../assets/image/bruno.jpeg'
 
 const productData = {
   id: 3,
@@ -10,8 +12,8 @@ const productData = {
   price: "$ 55.8",
   desciption: "great outerwer jackets",
   images: [
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6zMgoTVr3ZxCmKkiBJQvM41wjcse3ymKYJDVul6NZuelOaBLYSOA-5rtRKQ&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSWfcJ_SJAx9Kv3lBqZNbUYL8XVfm7-HphGc90P6K5z8Hk7GgfrUnresR90g&s",
+    moneyBlue,
+    bruno,
 
   ],
   rating: 3.5,
@@ -58,19 +60,19 @@ function SingleProduct() {
               <p className='product-inclusive'>inclusive off all taxes</p>
             </div>
             <div className='d-flex'>
-              <div className='product_sizes_dives'>
+              <div className='product_sizes_dives mx-3'>
                 <p className='product-sizes rounded-circle'>XS</p>
               </div>
-              <div className='product_sizes_dives'>
+              <div className='product_sizes_dives mx-3'>
                 <p className='product-sizes rounded-circle'>S</p>
               </div>
-              <div className='product_sizes_dives'>
+              <div className='product_sizes_dives mx-3'>
                 <p className='product-sizes rounded-circle'>M</p>
               </div>
-              <div className='product_sizes_dives'>
+              <div className='product_sizes_dives mx-3'>
                 <p className='product-sizes rounded-circle'>L</p>
               </div>
-              <div className='product_sizes_dives'>
+              <div className='product_sizes_dives mx-3'>
                 <p className='product-sizes rounded-circle'>XL</p>
               </div>
             </div>
@@ -86,11 +88,11 @@ function SingleProduct() {
               <h3>PRODUCT DETAILS</h3>
               <div>
                 <ul className='product_details_item'>
-                  <li>Black T-shirt for men</li>
-                  <li>Graphic printed</li>
-                  <li>Regular length</li>
-                  <li>Round neck</li>
-                  <li>Short, regular sleeves</li>
+                  <li className='curstor-point-default'>Black T-shirt for men</li>
+                  <li className='curstor-point-default'>Graphic printed</li>
+                  <li className='curstor-point-default'>Regular length</li>
+                  <li className='curstor-point-default'>Round neck</li>
+                  <li className='curstor-point-default'>Short, regular sleeves</li>
                 </ul>
               </div>
             </div>

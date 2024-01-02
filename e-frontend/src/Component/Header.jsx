@@ -46,7 +46,7 @@ function Header() {
 
               <div class="dropdown">
                 <button
-                  className="btn header__mobile--mens"
+                  className="btn header__mobile--mens mb-0"
                   type="button"
                   id="dropdownMenuButton1"
                   data-bs-toggle="dropdown"
@@ -105,9 +105,9 @@ function Header() {
                 <div className="col-lg-3  ">
                   <div className="d-flex justify-content-between">
                     {/* Mens */}
-                    <div class="dropdown">
+                    <div className="dropdown mb-0">
                       <button
-                        className="btn header__button1"
+                        className="btn header__button1 mb-0"
                         type="button"
                         id="dropdownMenuButton"
                         data-mdb-toggle="dropdown"
@@ -385,7 +385,7 @@ function Header() {
                     </div>
                   </div>
                 </div>
-                <div className="col-lg-5 ">
+                <div className="col-lg-4">
                   <div className="text-center header--search">
                     <input
                       type="search"
@@ -399,7 +399,7 @@ function Header() {
                     </div>
                   </div>
                 </div>
-                <div className="col-lg-1 mt-1 ">
+                <div className="col-lg-2 mt-1 ">
                   <div className="d-flex justify-content-between">
                     <div className="d-flex flex-column text-center ">
                       <FaRegUser

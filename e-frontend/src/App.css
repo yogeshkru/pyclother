@@ -1,13 +1,19 @@
-* {
-  font-family: kanit;
-}
 
-div {
-  margin: auto;
-}
+
+
 
 /* Variables */
 /* Add this CSS to your existing app.css or create a new stylesheet */
+
+/* ***************Global use****************** */
+
+* {
+  border: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: kanit;
+
+}
 
 :root {
   --FOOTER-BACKGROUND: #eaebed;
@@ -20,12 +26,17 @@ div {
   --color-ededed: #ededed;
 }
 
-
-/* ***************Global use****************** */
-
-
 ul {
   list-style: none;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+/* font-family */
+#root {
+  font-family: "Kanit", sans-serif !important;
 }
 
 /* ******************************************** */
@@ -121,21 +132,8 @@ ul {
   border: none !important;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-a {
-  text-decoration: none !important;
-}
-
-
-
-/* font-family */
-#root {
-  font-family: "Kanit", sans-serif;
+.breadcrumb-item {
+  color: var(--color-777777);
 }
 
 /* //Headers CSS */
@@ -222,9 +220,7 @@ a {
 
 .header_padding {
   background-color: #ffffff;
-  box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
-    rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
   padding: 20px;
 }
 
@@ -318,7 +314,21 @@ li {
   min-height: 120px;
 
   border-radius: 20px;
+  margin-top: 60px;
 }
+input[type="radio"]{
+  width: 20px;
+  height: 20px;
+  accent-color: #c10f84
+}
+.home_geniune_product{
+  background-image: url(./assets/image/home_genuis_product.jpeg);
+  background-size: cover;
+  min-height: 120px;
+  margin-top: 40px;
+  border-radius: 20px;
+}
+
 
 .home_page_pondicherry {
   font-size: 100px;
@@ -361,10 +371,19 @@ li {
   background-repeat: no-repeat;
   min-height: 400px;
   padding: 20px;
-  border: 1px solid #d02837;
-  border-radius: 25px;
-}
 
+  border-radius: 20px;
+}
+.payment_details {
+  border: 1px dashed black;
+  padding: 15px;
+}
+.payment_gpay {
+  width: 90px !important;
+}
+.payment_cod {
+  width: 23% !important;
+}
 .home_rating_content {
   overflow: hidden;
 }
@@ -386,6 +405,52 @@ li {
   left: 25%;
   color: white;
 }
+.home_carousel {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.home_slides {
+  width: 100%;
+  min-height: 500px;
+  border-radius: 20px;
+}
+.home_total_indicator {
+  display: flex;
+  position: absolute;
+  top: 100%;
+}
+.home_rating_content img:hover {
+  transform: scale(1.2);
+  border-radius: 20px;
+}
+.header_beast_offers {
+  margin-top: 20px;
+  border-radius: 20px;
+  background-image: url(./assets/image/888.jpeg);
+  background-size: cover;
+  min-height: 120px;
+}
+
+.home_slides_hidden {
+  display: none;
+}
+.home_indicator {
+  background-color: black;
+  cursor: pointer;
+  height: 0.6rem;
+  width: 0.6rem;
+  border-radius: 100%;
+  outline: none;
+  border: none;
+  box-shadow: 0px 0px 5px #555;
+  margin: 0px 10px 10px 0px;
+}
+.home_indicator_active {
+  background-color: white;
+  box-shadow: 0px 0px 5px #555;
+}
 
 .home_rating_content img {
   transition: 0.5s ease-in;
@@ -395,11 +460,11 @@ li {
   transform: scale(1.2);
   border-radius: 20px;
 }
-.header_beast_offers{
+.header_beast_offers {
   margin-top: 20px;
-   background-image: url(./assets/image/888.jpeg);
-   background-size: cover;
-   min-height: 120px;
+  background-image: url(./assets/image/888.jpeg);
+  background-size: cover;
+  min-height: 120px;
 }
 
 @media screen and (max-height: 450px) {
@@ -494,199 +559,5 @@ li {
 
 
 
-/* ******ourStore Page *********/
-
-.ourStore-filter-card ul {
-  color: var(--color-777777);
-  line-height: 30px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid var(--color-ededed);
-}
-.ourStore-filter-title {
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: 600;
-  color: var(--color-1c1c1b);
-  margin-bottom: 20px;
-}
-
-.outStore-brand-card ul {
-  color: var(--color-777777);
-  line-height: 30px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid var(--color-ededed);
-}
-
-.ourStore-brand-title {
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: 600;
-  color: var(--color-1c1c1b);
-  margin-bottom: 20px;
-}
-
-.ourStore-price-title {
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: 600;
-  color: var(--color-1c1c1b);
-  margin-bottom: 20px;
-}
-
-.ourStore-color-title {
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: 600;
-  color: var(--color-1c1c1b);
-  margin-bottom: 20px;
-  margin-bottom: 15px !important;
-}
-
-.ourStore-color {
-  border-bottom: 1px solid var(--color-ededed);
-}
-
-.ourStore-discount-title {
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: 600;
-  color: var(--color-1c1c1b);
-  margin-bottom: 20px;
-}
-
-.li-gap li {
-  margin-bottom: 15px !important;
-}
-.price-range {
-  border-bottom: 1px solid var(--color-ededed);
-}
-.ourStore-price-gap {
-  margin-bottom: 15px !important;
-}
-
-.ourStore-discount {
-  border-bottom: 1px solid var(--color-ededed);
-}
-
-.filter-sort-grid {
-  padding: 10px;
-  background-color: white;
-  border-radius: 10px;
-}
-.sort-store {
-  background-color: var(--FOOTER-BACKGROUND);
-  height: 40px;
-  width: 200px !important;
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-}
-.ourStore-stock{
-  color: var(--color-777777);
-  font-size: 13px;
-}
-
-.ourStore-border-right{
-
-  border-right:1px var(--FOOTER-BACKGROUND) solid ;
-}
-.ourStore-border-top{
-  border-top:1px var(--FOOTER-BACKGROUND) solid ;
 
 
-}
-
-.ourStore-pagination{
-  border-top:1px var(--FOOTER-BACKGROUND) solid;
-}
- 
-/* .ourStore-border-right{
-width: 30% !important;
-} 
-
-.ourStore-product-render{
-  width: 70% !important;
-} */
-
-
-  /* Styles for devices with a width of 1080 pixels or less */
-
-  @media only screen and (max-width: 1080px) {
-    .ourStore-border-right{
-    display: none;
-      } 
-      .ourStore-breadcrumb{
-        display: none ;
-    }
-
-  }
-
-  
- 
-
-/* *******       ourStore  component End's ********* */
-/* ************ProductCard Component************ */
-.productCard-wishlist-icon{
-  position: absolute;
-    top: 7%;
-    right: 20px;
-    color: white;
-    z-index: 2;
-  }
-  
-  .productCard-wistlist-img{
-  color: white;
-  } 
-  
-  
-  .productCard-title{
-    color: var(--color-777777);
-    font-size: 13px;
-  } 
-  
-  
-  
-  .box{
-    border: 5px solid white;
-    border-radius: 20px;
-    overflow: hidden;
-  }
-  
-  
-  .box img{
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: fill;
-    transition: 0.8s;
-    display: flex;
-    align-items: center;
-  }
-  .box img:hover{
-  transform: scale(1.1);
-  
-  }
-  
-  
-  
-  
-  /* ***********ProductCard Component End's********* */
-
-  /******** Colors component **********/
-
-.colors li {
-  width: 10px;
-  height: 10px;
-  background-color: red;
-  border-radius: 50%;
-  margin-bottom: 10px;
-}
-
-.colors {
-  /* list-style-type: none; 
-display: flex; */
-  flex-wrap: wrap;
-  line-height: 30px;
-  gap: 10px;
-}
-
-/* **********Colors Components End*********** */
