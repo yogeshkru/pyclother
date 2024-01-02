@@ -1,17 +1,19 @@
 import { Link } from "react-router-dom";
 import Color from "../Component/Colors";
 import ProductCard from "../Component/ProductCard";
+import "../styles/ourstore.css"
 
 const OurStore = function () {
   return (
     <>
-      <div className="container py-5 ourStore-breadcrumb ">
-        <div className="row">
-          <div className="d-flex justify-content-around">
-            <div className="col-4  mb-0 d-flex align-items-center mb-0 ">
+      <section className="container py-5 ourStore-breadcrumb ">
+        <div className="row ms-0">
+          <div className="d-flex justify-content-around ms-0">
+            <div className="col-4  mb-0 d-flex align-items-center ms-0">
               <nav
                 style={{ "--bs-breadcrumb-divider": ">" }}
                 aria-label="breadcrumb"
+                className="ms-0"
               >
                 <ol className="breadcrumb">
                   <li className="breadcrumb-item">
@@ -27,21 +29,21 @@ const OurStore = function () {
               </nav>
             </div>
 
-            <div className="col-4 d-flex align-items-center ourStore-product-count mb-0">
-              <div className="d-flex flex-column text-center mb-0 ">
-                <h4 className="mb-0">Men Top wear</h4>
-                <p className="ourStore-stock mb-0">(12345 items)</p>
+            <div className="col-4 d-flex align-items-center ourStore-product-count mb-0 ms-0">
+              <div className="d-flex flex-column text-center mb-0 ms-0 ">
+                <h4 className="mb-0 ms-0">Men Top wear</h4>
+                <p className="ourStore-stock mb-0 ms-0">(12345 items)</p>
               </div>
             </div>
 
-            <div className="col-4 sort-store d-flex align-items-center ">
+            <div className="col-4 sort-store d-flex align-items-center  ms-0">
               <div className="d-flex mx-auto ">
-                <p className="mb-0  ">Sort By:</p>
+                <p className="mb-0 ms-0 ">Sort By:</p>
 
                 <select
                   name=""
                   defaultValue={"Low to High"}
-                  className="bg-transparent border-0 d-flex ms-2  "
+                  className="bg-transparent border-0 d-flex ms-0 "
                   id=""
                 >
                   <option value="Low to High">Low to high</option>
@@ -51,9 +53,9 @@ const OurStore = function () {
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div className="container py-1 ourStore-border-top  ">
+      <section className="container py-1 ourStore-border-top  ">
         <div className="row ">
           <div className="col-3 ourStore-border-right ">
             <div className="ourStore-filter-card ">
@@ -138,47 +140,50 @@ const OurStore = function () {
             </div>
           </div>
 
-          <div className="col-9 ourStore-product-render flex-grow-1">
+          <div className="col-9 ourStore-product-render  ">
             <div className="d-flex gap-10 flex-wrap ">
               <ProductCard />
             </div>
+            
 
-            <div className="ourStore-pagination d-lg-flex ">
-              <div className="ourStore-page d-flex align-items-center  ms-3 mb-0">
-                <p className="mb-0">page 1 of 56</p>
+            <div className="ourStore-pagination d-lg-flex mt-5  ">
+              <div className="ourStore-page   ms-3 ">
+                <p className="">page 1 of 56</p>
               </div>
 
-              <div className="ourStore-page-number ">
+              <div className="ourStore-page-number mb-0 ">
                 <nav aria-label="Page navigation example">
                   <ul className="pagination">
                     <li className="page-item">
-                      <a className="page-link" href="#">
+                      <a className="page-link" >
                         Previous
                       </a>
                     </li>
                     <li className="page-item">
-                      <a className="page-link" href="#">
+                      <a className="page-link" >
                         1
                       </a>
                     </li>
                     <li className="page-item">
-                      <a className="page-link" href="#">
+                      <a className="page-link" >
                         2
                       </a>
                     </li>
                  
                     <li className="page-item">
-                      <a className="page-link" href="#">
+                      <a className="page-link" >
                         Next
                       </a>
                     </li>
                   </ul>
                 </nav>
               </div> 
+
+
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 };

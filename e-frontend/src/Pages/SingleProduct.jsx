@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../CSS/SingleProduct.css';
+import '../styles/SingleProduct.css';
 import { TbShoppingBag } from "react-icons/tb";
 import { CiHeart } from "react-icons/ci";
 import { IoIosStar } from "react-icons/io";

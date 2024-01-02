@@ -1,5 +1,5 @@
 import React from 'react';
-import '../CSS/Delivery_address.css'
+import '../styles/Delivery_address.css'
 
 function Delivery_address() {
     const order = {

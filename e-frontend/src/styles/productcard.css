@@ -1,0 +1,38 @@
+
+/* ************ProductCard Component************ */
+.productCard-wishlist-icon {
+    position: absolute;
+    top: 7%;
+    right: 20px;
+    color: white;
+    z-index: 2;
+  }
+  
+  .productCard-wistlist-img {
+    color: white;
+  }
+  
+  .productCard-title {
+    color: var(--color-777777);
+    font-size: 13px;
+  }
+  
+  .box {
+    border: 5px solid white;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  
+  .box img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: fill;
+    transition: 0.8s;
+    display: flex;
+    align-items: center;
+  }
+  .box img:hover {
+    transform: scale(1.1);
+  }
+  
+  /* ***********ProductCard Component End's********* */
