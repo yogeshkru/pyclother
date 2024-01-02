@@ -1,6 +1,14 @@
 /* Variables */
 /* Add this CSS to your existing app.css or create a new stylesheet */
 
+/* ***************Global use****************** */
+
+* {
+  border: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 :root {
   --FOOTER-BACKGROUND: #eaebed;
   --MENS--COLOR: #56ddff;
@@ -12,12 +20,17 @@
   --color-ededed: #ededed;
 }
 
-
-/* ***************Global use****************** */
-
-
 ul {
   list-style: none;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+/* font-family */
+#root {
+  font-family: "Kanit", sans-serif;
 }
 
 /* ******************************************** */
@@ -101,21 +114,9 @@ ul {
   background-color: #c10f84 !important;
   border: none !important;
 }
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
-a {
-  text-decoration: none !important;
-}
-
-
-
-/* font-family */
-#root {
-  font-family: "Kanit", sans-serif;
+.breadcrumb-item {
+  color: var(--color-777777);
 }
 
 /* //Headers CSS */
@@ -191,9 +192,7 @@ a {
 }
 .header_padding {
   background-color: #ffffff;
-  box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
-    rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
   padding: 20px;
 }
 .header_logo {
@@ -348,11 +347,11 @@ li {
   transform: scale(1.2);
   border-radius: 20px;
 }
-.header_beast_offers{
+.header_beast_offers {
   margin-top: 20px;
-   background-image: url(./assets/image/888.jpeg);
-   background-size: cover;
-   min-height: 120px;
+  background-image: url(./assets/image/888.jpeg);
+  background-size: cover;
+  min-height: 120px;
 }
 
 @media screen and (max-height: 450px) {
@@ -426,7 +425,6 @@ li {
     transform: skewX(10deg) rotate(-1deg);
   }
 }
-
 
 /* ******ourStore Page *********/
 
@@ -515,97 +513,113 @@ li {
   display: flex;
   align-items: center;
 }
-.ourStore-stock{
+.ourStore-stock {
   color: var(--color-777777);
   font-size: 13px;
 }
 
-.ourStore-border-right{
-
-  border-right:1px var(--FOOTER-BACKGROUND) solid ;
+.ourStore-border-right {
+  border-right: 1px var(--FOOTER-BACKGROUND) solid;
 }
-.ourStore-border-top{
-  border-top:1px var(--FOOTER-BACKGROUND) solid ;
-
-
+.ourStore-border-top {
+  border-top: 1px var(--FOOTER-BACKGROUND) solid;
 }
 
-.ourStore-pagination{
-  border-top:1px var(--FOOTER-BACKGROUND) solid;
+.ourStore-pagination {
+  margin-top: 100px;
+  width: 100%;
 }
- 
-/* .ourStore-border-right{
-width: 30% !important;
-} 
 
-.ourStore-product-render{
-  width: 70% !important;
-} */
+.ourStore-page {
+  color: var(--color-777777);
+  width: 70%;
+}
 
+.ourStore-page-number {
+  width: 30%;
+}
 
-  /* Styles for devices with a width of 1080 pixels or less */
+/* Styles for devices with a width of 1080 pixels or less */
 
-  @media only screen and (max-width: 1080px) {
-    .ourStore-border-right{
+@media only screen and (max-width: 600px) {
+  .ourStore-border-right {
     display: none;
-      } 
-      .ourStore-breadcrumb{
-        display: none ;
-    }
-
   }
+  .ourStore-breadcrumb {
+    display: none;
+  }
+  .ourStore-pagination{
+    display: none !important;
+  }
+}
 
-  
- 
+.ourStore-pagination {
+  color: var(--color-777777);
+  font-size: small;
+}
+
+.page-link {
+  color: rgb(52, 52, 52) !important;
+}
+.Page {
+  border-radius: 70px !important;
+}
+
+.ourstore-filter {
+  font-size: 12px;
+  font-weight: 0;
+  color: var(--color-777777);
+}
+
+.ourstore-category-filter,
+.ourstore-brand-filter,
+.ourstore-discount-filter {
+  font-size: 13px;
+  color: var(--color-1c1c1b);
+  font-weight: 100;
+}
 
 /* *******       ourStore  component End's ********* */
-/* ************ProductCard Component************ */
-.productCard-wishlist-icon{
-  position: absolute;
-    top: 7%;
-    right: 20px;
-    color: white;
-    z-index: 2;
-  }
-  
-  .productCard-wistlist-img{
-  color: white;
-  } 
-  
-  
-  .productCard-title{
-    color: var(--color-777777);
-    font-size: 13px;
-  } 
-  
-  
-  
-  .box{
-    border: 5px solid white;
-    border-radius: 20px;
-    overflow: hidden;
-  }
-  
-  
-  .box img{
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: fill;
-    transition: 0.8s;
-    display: flex;
-    align-items: center;
-  }
-  .box img:hover{
-  transform: scale(1.1);
-  
-  }
-  
-  
-  
-  
-  /* ***********ProductCard Component End's********* */
 
-  /******** Colors component **********/
+/* ************ProductCard Component************ */
+.productCard-wishlist-icon {
+  position: absolute;
+  top: 7%;
+  right: 20px;
+  color: white;
+  z-index: 2;
+}
+
+.productCard-wistlist-img {
+  color: white;
+}
+
+.productCard-title {
+  color: var(--color-777777);
+  font-size: 13px;
+}
+
+.box {
+  border: 5px solid white;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.box img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: fill;
+  transition: 0.8s;
+  display: flex;
+  align-items: center;
+}
+.box img:hover {
+  transform: scale(1.1);
+}
+
+/* ***********ProductCard Component End's********* */
+
+/******** Colors component **********/
 
 .colors li {
   width: 10px;
