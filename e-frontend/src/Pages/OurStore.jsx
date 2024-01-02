@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Color from "../Component/Colors";
 import ProductCard from "../Component/ProductCard";
+import "../styles/ourstore.css"
 
 const OurStore = function () {
   return (

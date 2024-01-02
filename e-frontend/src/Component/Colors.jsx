@@ -1,5 +1,5 @@
 import React from "react";
-
+import "../styles/color.css"
 function Color (){
     return (
         <>

@@ -1,5 +1,7 @@
 import React from "react";
 
+import "../styles/productcard.css"
+
 import black from "../assets/image/man-black-tshirt.jpeg";
 import blue from "../assets/image/man-blue-tshirt.jpeg";
 import gray from "../assets/image/man-gray-tshirt.jpeg";
@@ -7,7 +9,17 @@ import white from "../assets/image/man-white-tshirt.jpeg";
 import woodie from "../assets/image/man-woodie.jpeg";
 import tshirt from "../assets/image/man_tshirt.jpeg";
 import smoke from "../assets/image/man-Smoke-tshirt.jpeg";
-import yellow from "../assets/image/yellow.jpeg"
+import hairy from "../assets/image/hait-man.jpeg"
+import yellow from "../assets/image/yellow.jpeg";
+import details from "../assets/image/men1.png";
+import back_pose from "../assets/image/back_pose.jpeg";
+import red from "../assets/image/red.jpeg";
+import bruno from "../assets/image/bruno.jpeg";
+import cap2 from "../assets/image/cap2_man.jpeg";
+import smileman from "../assets/image/smile_man.jpeg";
+import twoshirt from "../assets/image/two_shirt.jpeg";
+import bluemoney from "../assets/image/money_blue.jpeg"
+
 import { CiHeart } from "react-icons/ci";
 
 
@@ -20,7 +32,7 @@ const ProductCard = function () {
     
 
 
-      <div className="col-xl-3 col-lg-4 col-md-6 mt-3   ">
+      <div className="col-xl-2 col-lg-4 col-md-6 mt-3   ">
         <div className="productCard position-relative  ">
           <div className="productCard-wishlist-icon position-absolute">
             <Link>
@@ -46,7 +58,8 @@ const ProductCard = function () {
         </div>
       </div>
 
-      <div className="col-xl-3 col-lg-4 col-md-6 mt-3 ">
+
+      <div className="col-xl-2 col-lg-4 col-md-6 mt-3 ">
         <div className="productCard position-relative  ">
           <div className="productCard-wishlist-icon position-absolute">
             <Link>
@@ -71,7 +84,8 @@ const ProductCard = function () {
           </div>
         </div>
       </div>
-      <div className="col-xl-3 col-lg-4 col-md-6 mt-3 ">
+
+      <div className="col-xl-2 col-lg-4 col-md-6 mt-3 ">
         <div className="productCard position-relative  ">
           <div className="productCard-wishlist-icon position-absolute">
             <Link>
@@ -96,7 +110,7 @@ const ProductCard = function () {
           </div>
         </div>
       </div>
-      <div className="col-xl-3 col-lg-4 col-md-6 mt-3 ">
+      <div className="col-xl-2 col-lg-4 col-md-6 mt-3 ">
         <div className="productCard position-relative  ">
           <div className="productCard-wishlist-icon position-absolute">
             <Link>
@@ -122,7 +136,7 @@ const ProductCard = function () {
         </div>
       </div>
       
-      <div className="col-xl-3 col-lg-4 col-md-6 mt-3 ">
+      <div className="col-xl-2 col-lg-4 col-md-6 mt-3 ">
         <div className="productCard position-relative  ">
           <div className="productCard-wishlist-icon position-absolute">
             <Link>
@@ -147,7 +161,7 @@ const ProductCard = function () {
           </div>
         </div>
       </div>
-      <div className="col-xl-3 col-lg-4 col-md-6 mt-3 ">
+      <div className="col-xl-2 col-lg-4 col-md-6 mt-3 ">
         <div className="productCard position-relative  ">
           <div className="productCard-wishlist-icon position-absolute">
             <Link>
@@ -172,7 +186,8 @@ const ProductCard = function () {
           </div>
         </div>
       </div>
-      <div className="col-xl-3 col-lg-4 col-md-6 mt-3 ">
+
+      <div className="col-xl-2 col-lg-4 col-md-6 mt-3 ">
         <div className="productCard position-relative  ">
           <div className="productCard-wishlist-icon position-absolute">
             <Link>
@@ -197,7 +212,8 @@ const ProductCard = function () {
           </div>
         </div>
       </div>
-      <div className="col-xl-3 col-lg-4 col-md-6 mt-3 ">
+
+      <div className="col-xl-2 col-lg-4 col-md-6 mt-3 ">
         <div className="productCard position-relative  ">
           <div className="productCard-wishlist-icon position-absolute">
             <Link>
@@ -222,7 +238,8 @@ const ProductCard = function () {
           </div>
         </div>
       </div>
-      <div className="col-xl-3 col-lg-4 col-md-6 mt-3 ">
+
+      <div className="col-xl-2 col-lg-4 col-md-6 mt-3 ">
         <div className="productCard position-relative  ">
           <div className="productCard-wishlist-icon position-absolute">
             <Link>
@@ -234,7 +251,7 @@ const ProductCard = function () {
           <div className="box ">
 
             
-            <img src={blue} alt="t-shirt" className="ms-2 image-fluid productCard-image d-flex mx-auto" />
+            <img src={hairy} alt="t-shirt" className="ms-2 image-fluid productCard-image d-flex mx-auto" />
 
           </div>
           <div className="product-details">
@@ -247,7 +264,7 @@ const ProductCard = function () {
           </div>
         </div>
       </div>
-      <div className="col-xl-3 col-lg-4 col-md-6 mt-3 ">
+      <div className="col-xl-2 col-lg-4 col-md-6 mt-3 ">
         <div className="productCard position-relative  ">
           <div className="productCard-wishlist-icon position-absolute">
             <Link>
@@ -259,7 +276,7 @@ const ProductCard = function () {
           <div className="box ">
 
             
-            <img src={blue} alt="t-shirt" className="ms-2 image-fluid productCard-image d-flex mx-auto" />
+            <img src={details} alt="t-shirt" className="ms-2 image-fluid productCard-image d-flex mx-auto" />
 
           </div>
           <div className="product-details">
@@ -272,7 +289,7 @@ const ProductCard = function () {
           </div>
         </div>
       </div>
-      <div className="col-xl-3 col-lg-4 col-md-6 mt-3 ">
+      <div className="col-xl-2 col-lg-4 col-md-6 mt-3 ">
         <div className="productCard position-relative  ">
           <div className="productCard-wishlist-icon position-absolute">
             <Link>
@@ -284,7 +301,7 @@ const ProductCard = function () {
           <div className="box ">
 
             
-            <img src={blue} alt="t-shirt" className="ms-2 image-fluid productCard-image d-flex mx-auto" />
+            <img src={back_pose} alt="t-shirt" className="ms-2 image-fluid productCard-image d-flex mx-auto" />
 
           </div>
           <div className="product-details">
@@ -297,7 +314,7 @@ const ProductCard = function () {
           </div>
         </div>
       </div>
-      <div className="col-xl-3 col-lg-4 col-md-6 mt-3 ">
+      <div className="col-xl-2 col-lg-4 col-md-6 mt-3 ">
         <div className="productCard position-relative  ">
           <div className="productCard-wishlist-icon position-absolute">
             <Link>
@@ -309,7 +326,7 @@ const ProductCard = function () {
           <div className="box ">
 
             
-            <img src={blue} alt="t-shirt" className="ms-2 image-fluid productCard-image d-flex mx-auto" />
+            <img src={red} alt="t-shirt" className="ms-2 image-fluid productCard-image d-flex mx-auto" />
 
           </div>
           <div className="product-details">
@@ -322,7 +339,7 @@ const ProductCard = function () {
           </div>
         </div>
       </div>
-      <div className="col-xl-3 col-lg-4 col-md-6 mt-3 ">
+      <div className="col-xl-2 col-lg-4 col-md-6 mt-3 ">
         <div className="productCard position-relative  ">
           <div className="productCard-wishlist-icon position-absolute">
             <Link>
@@ -334,7 +351,7 @@ const ProductCard = function () {
           <div className="box ">
 
             
-            <img src={blue} alt="t-shirt" className="ms-2 image-fluid productCard-image d-flex mx-auto" />
+            <img src={bruno} alt="t-shirt" className="ms-2 image-fluid productCard-image d-flex mx-auto" />
 
           </div>
           <div className="product-details">
@@ -347,7 +364,7 @@ const ProductCard = function () {
           </div>
         </div>
       </div>
-      <div className="col-xl-3 col-lg-4 col-md-6 mt-3 ">
+      <div className="col-xl-2 col-lg-4 col-md-6 mt-3 ">
         <div className="productCard position-relative  ">
           <div className="productCard-wishlist-icon position-absolute">
             <Link>
@@ -359,7 +376,7 @@ const ProductCard = function () {
           <div className="box ">
 
             
-            <img src={blue} alt="t-shirt" className="ms-2 image-fluid productCard-image d-flex mx-auto" />
+            <img src={twoshirt} alt="t-shirt" className="ms-2 image-fluid productCard-image d-flex mx-auto" />
 
           </div>
           <div className="product-details">
@@ -372,7 +389,7 @@ const ProductCard = function () {
           </div>
         </div>
       </div>
-      <div className="col-xl-3 col-lg-4 col-md-6 mt-3 ">
+      <div className="col-xl-2 col-lg-4 col-md-6 mt-3 ">
         <div className="productCard position-relative  ">
           <div className="productCard-wishlist-icon position-absolute">
             <Link>
@@ -384,7 +401,7 @@ const ProductCard = function () {
           <div className="box ">
 
             
-            <img src={blue} alt="t-shirt" className="ms-2 image-fluid productCard-image d-flex mx-auto" />
+            <img src={cap2} alt="t-shirt" className="ms-2 image-fluid productCard-image d-flex mx-auto" />
 
           </div>
           <div className="product-details">
@@ -397,7 +414,7 @@ const ProductCard = function () {
           </div>
         </div>
       </div>
-      <div className="col-xl-3 col-lg-4 col-md-6 mt-3 ">
+      <div className="col-xl-2 col-lg-4 col-md-6 mt-3 ">
         <div className="productCard position-relative  ">
           <div className="productCard-wishlist-icon position-absolute">
             <Link>
@@ -409,7 +426,7 @@ const ProductCard = function () {
           <div className="box ">
 
             
-            <img src={blue} alt="t-shirt" className="ms-2 image-fluid productCard-image d-flex mx-auto" />
+            <img src={red} alt="t-shirt" className="ms-2 image-fluid productCard-image d-flex mx-auto" />
 
           </div>
           <div className="product-details">
@@ -422,7 +439,7 @@ const ProductCard = function () {
           </div>
         </div>
       </div>
-      <div className="col-xl-3 col-lg-4 col-md-6 mt-3 ">
+      <div className="col-xl-2 col-lg-4 col-md-6 mt-3 ">
         <div className="productCard position-relative  ">
           <div className="productCard-wishlist-icon position-absolute">
             <Link>
@@ -434,7 +451,7 @@ const ProductCard = function () {
           <div className="box ">
 
             
-            <img src={blue} alt="t-shirt" className="ms-2 image-fluid productCard-image d-flex mx-auto" />
+            <img src={smileman} alt="t-shirt" className="ms-2 image-fluid productCard-image d-flex mx-auto" />
 
           </div>
           <div className="product-details">
@@ -447,7 +464,7 @@ const ProductCard = function () {
           </div>
         </div>
       </div>
-      <div className="col-xl-3 col-lg-4 col-md-6 mt-3 ">
+      <div className="col-xl-2 col-lg-4 col-md-6 mt-3 ">
         <div className="productCard position-relative  ">
           <div className="productCard-wishlist-icon position-absolute">
             <Link>
@@ -459,82 +476,7 @@ const ProductCard = function () {
           <div className="box ">
 
             
-            <img src={blue} alt="t-shirt" className="ms-2 image-fluid productCard-image d-flex mx-auto" />
-
-          </div>
-          <div className="product-details">
-            <h6 className="productCard-brand mt-3 mb-0 ms-3">H&M</h6>
-            <p className="productCard-title mt-2 mb-0 ms-3">
-              Men's Cotton Pure cotton T-S
-            </p>
-
-            <h6 className="productCard-price mt-2 ms-3">Rs-888</h6>
-          </div>
-        </div>
-      </div>
-      <div className="col-xl-3 col-lg-4 col-md-6 mt-3 ">
-        <div className="productCard position-relative  ">
-          <div className="productCard-wishlist-icon position-absolute">
-            <Link>
-             
-              <CiHeart className="productCard-wistlist-img fs-4" />
-
-            </Link>
-          </div>
-          <div className="box ">
-
-            
-            <img src={blue} alt="t-shirt" className="ms-2 image-fluid productCard-image d-flex mx-auto" />
-
-          </div>
-          <div className="product-details">
-            <h6 className="productCard-brand mt-3 mb-0 ms-3">H&M</h6>
-            <p className="productCard-title mt-2 mb-0 ms-3">
-              Men's Cotton Pure cotton T-S
-            </p>
-
-            <h6 className="productCard-price mt-2 ms-3">Rs-888</h6>
-          </div>
-        </div>
-      </div>
-      <div className="col-xl-3 col-lg-4 col-md-6 mt-3 ">
-        <div className="productCard position-relative  ">
-          <div className="productCard-wishlist-icon position-absolute">
-            <Link>
-             
-              <CiHeart className="productCard-wistlist-img fs-4" />
-
-            </Link>
-          </div>
-          <div className="box ">
-
-            
-            <img src={blue} alt="t-shirt" className="ms-2 image-fluid productCard-image d-flex mx-auto" />
-
-          </div>
-          <div className="product-details">
-            <h6 className="productCard-brand mt-3 mb-0 ms-3">H&M</h6>
-            <p className="productCard-title mt-2 mb-0 ms-3">
-              Men's Cotton Pure cotton T-S
-            </p>
-
-            <h6 className="productCard-price mt-2 ms-3">Rs-888</h6>
-          </div>
-        </div>
-      </div>
-      <div className="col-xl-3 col-lg-4 col-md-6 mt-3 ">
-        <div className="productCard position-relative  ">
-          <div className="productCard-wishlist-icon position-absolute">
-            <Link>
-             
-              <CiHeart className="productCard-wistlist-img fs-4" />
-
-            </Link>
-          </div>
-          <div className="box ">
-
-            
-            <img src={blue} alt="t-shirt" className="ms-2 image-fluid productCard-image d-flex mx-auto" />
+            <img src={bluemoney} alt="t-shirt" className="ms-2 image-fluid productCard-image d-flex mx-auto" />
 
           </div>
           <div className="product-details">

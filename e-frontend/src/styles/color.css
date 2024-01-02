@@ -1,0 +1,22 @@
+
+/******** Colors component **********/
+
+.colors li {
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+  
+  .colors {
+    /* list-style-type: none; 
+  display: flex; */
+    flex-wrap: wrap;
+    line-height: 30px;
+    gap: 10px;
+  }
+  
+
+  /* **********Colors Components End*********** */
+  
