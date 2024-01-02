@@ -1,6 +1,470 @@
-*{
-    font-family: kanit;
+* {
+  font-family: kanit;
 }
-div{
-    margin: auto;
+
+div {
+  margin: auto;
+}
+
+/* Variables */
+/* Add this CSS to your existing app.css or create a new stylesheet */
+.Cartheader-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 35%;
+  margin-left: 23rem;
+}
+
+.Cartheader-line {
+  border-top: 0.5px;
+  flex-grow: 1;
+  height: 10px;
+
+  margin: 0 10px;
+  margin-bottom: 7px;
+}
+
+/* .car:hover::after{
+   border-bottom: 1px solid;
+   
+   background:green ;
+   
+  } */
+.Cart-add-from {
+  background-color: #dee2e6;
+  /* height: 1.6rem; */
+  border-radius: 2rem;
+  padding: 10px;
+  margin: 0 0 10px 10px;
+}
+
+.Cart-card {
+  border-radius: 20px !important;
+  height: 42vh !important;
+}
+
+.cart-desc {
+  color: #bcbec2;
+  font-size: 1.2rem;
+}
+
+.Cart-btn {
+  border-radius: 20px !important;
+  padding: 3px !important;
+  width: 71px !important;
+  background-color: #dee2e6 !important;
+  border: none !important;
+  color: black !important;
+}
+
+.Cart-rate p {
+  /* margin-left: 10px; */
+  margin-right: 10px;
+}
+
+.Cart-offer {
+  font-weight: 500;
+  color: green;
+}
+
+.Cart-dis {
+  color: #a1a3a5 !important;
+  text-decoration: line-through;
+}
+
+.Cart-img {
+  /* border:1px solid; */
+  padding: 10px 10px 10px 20px !important;
+  border-radius: 20px !important;
+  /* right: 10px !important; */
+
+  /* width: 113px !important;  */
+}
+
+.Cart-del button {
+  border: none;
+  background-color: white;
+}
+
+.Cart-card1 {
+  border-radius: 20px !important;
+  border: 1.2px dashed !important;
+}
+
+.Cart-order {
+  padding: 14px !important;
+  width: 100% !important;
+  background-color: #c10f84 !important;
+  border: none !important;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+:root {
+  --FOOTER-BACKGROUND: #eaebed;
+  --MENS--COLOR: #56ddff;
+  --WOMEN--COLOR: #fcb03f;
+  --KIDS--COLOR: #df0067;
+}
+
+/* font-family */
+#root {
+  font-family: "Kanit", sans-serif;
+}
+
+/* //Headers CSS */
+.header--search {
+  position: relative;
+}
+
+.header__button1 {
+  font-weight: bold !important;
+  font-size: 20px !important;
+  padding: 5px !important;
+}
+
+.header__button1:hover {
+  border-radius: 0 !important;
+  border-bottom: 5px solid var(--MENS--COLOR) !important;
+}
+
+.header__button2 {
+  font-weight: bold !important;
+  font-size: 20px !important;
+  padding: 5px !important;
+}
+
+.header__button2:hover {
+  border-radius: 0 !important;
+  border-bottom: 5px solid var(--WOMEN--COLOR) !important;
+}
+
+.header__button3 {
+  font-weight: bold !important;
+  font-size: 20px !important;
+  padding: 5px !important;
+}
+
+.header__button3:hover {
+  border-radius: 0 !important;
+  border-bottom: 5px solid var(--KIDS--COLOR) !important;
+}
+
+.header__input--search {
+  width: 80%;
+  padding: 10px;
+  outline: none;
+  border-radius: 20px;
+
+  border: 1px solid black;
+}
+
+.header__input--search {
+  color: #b4b4b4;
+  padding-left: 30px;
+}
+
+.header__icon {
+  position: absolute;
+  top: -3px;
+  left: 54px;
+  font-size: 30px;
+  color: #b4b4b4;
+}
+
+/* Dropdown */
+.dropdown:hover>.dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu {
+  width: 800px;
+}
+
+.header__Womens {
+  width: 600px;
+}
+
+.Headers__menus li {
+  font-size: 13px;
+}
+
+.dropdown>.dropdown-toggle:active {
+  /*Without this, clicking will make it sticky*/
+  pointer-events: none;
+}
+
+.header_padding {
+  background-color: #ffffff;
+  box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
+    rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  padding: 20px;
+}
+
+.header_logo {
+  width: 70%;
+}
+
+/* //Footer CSS */
+li {
+  cursor: pointer;
+}
+
+.footer_details2 {
+  text-align: center;
+}
+
+.footer__image2 {
+  width: 50%;
+}
+
+.footer__image {
+  width: 20%;
+  margin: auto;
+}
+
+.footer__details1 {
+  margin-right: 200px !important;
+}
+
+.footer_customer {
+  margin-left: 120px;
+}
+
+.footer__followus {
+  text-align: center;
+  cursor: pointer;
+}
+
+.footer_users {
+  display: flex;
+  justify-content: space-around;
+}
+
+.footer_background {
+  background-color: var(--FOOTER-BACKGROUND);
+}
+
+.header__sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.header__sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.header__sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* //Home */
+.home_pondicherry {
+  color: transparent;
+  -webkit-text-stroke-color: #ffffff;
+  -webkit-text-stroke-color: #ffffff;
+  -webkit-text-stroke: 1px #ffffff;
+}
+
+.home_page_welcome {
+  background-image: url(./assets/image/welcome.png);
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 120px;
+
+  border-radius: 20px;
+}
+
+.home_page_pondicherry {
+  font-size: 100px;
+  font-weight: bold;
+  color: white;
+}
+
+.home_top_brands {
+  background-image: url(./assets/image/welcomepondi.png);
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100px;
+
+  border-radius: 20px;
+}
+
+.home_top_content {
+  color: white;
+  font-weight: bold;
+}
+
+.home_top_shopping {
+  color: transparent;
+  margin-top: 2px;
+  font-size: 30px;
+  font-weight: bold;
+  color: transparent;
+  letter-spacing: 3px;
+  -webkit-text-stroke-color: #cd6eea;
+  -webkit-text-stroke-color: #cd6eea;
+  -webkit-text-stroke: 1px #cd6eea;
+  transform: skewX(15deg) rotate(-2deg);
+}
+
+.home_rating_top {
+  margin-top: 20px;
+  background-image: url(./assets/image/background_home1.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 400px;
+  padding: 20px;
+  border: 1px solid #d02837;
+  border-radius: 25px;
+}
+
+.home_rating_content {
+  overflow: hidden;
+}
+
+.home_rating_details {
+  position: relative;
+}
+
+.home_rating_content1 {
+  position: absolute;
+  top: 80%;
+  left: 20%;
+  color: white;
+}
+
+.home_rating_content2 {
+  position: absolute;
+  top: 80%;
+  left: 25%;
+  color: white;
+}
+
+.home_rating_content img {
+  transition: 0.5s ease-in;
+}
+
+.home_rating_content img:hover {
+  transform: scale(1.2);
+  border-radius: 20px;
+}
+
+@media screen and (max-height: 450px) {
+  .header__sidenavsidenav {
+    padding-top: 15px;
+  }
+
+  .header__sidenavsidenav a {
+    font-size: 18px;
+  }
+
+  .footer__details1 {
+    margin-right: 200px !important;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .footer_customer {
+    margin-left: 0;
+  }
+
+  .footer_background {
+    background-color: var(--FOOTER-BACKGROUND);
+    height: 600px;
+  }
+
+  .footer__followus {
+    margin-top: 50px !important;
+  }
+
+  .footer__details1 {
+    margin-right: 0 !important;
+  }
+
+  .footer__image {
+    width: 70%;
+  }
+
+  .footer__image2 {
+    margin-top: 20px;
+    margin-left: 82px;
+  }
+
+  .footer_shopping {
+    margin-left: 110px;
+  }
+
+  .header__icon {
+    left: 34px;
+  }
+
+  .header_mobile_menu {
+    width: 200px;
+  }
+
+  .header__mobile--mens {
+    color: white !important;
+    padding: 8px 8px 8px 32px !important;
+    font-size: 20px !important;
+  }
+
+  .header_mobile_menu {
+    background: white !important;
+  }
+
+  .header__mobile--content {
+    color: black;
+  }
+
+  .home_page_pondicherry {
+    font-size: 25px;
+    padding-top: 10px;
+  }
+
+  .home_page_welcome {
+    min-height: 60px;
+  }
+
+  .home_top_brands {
+    min-height: 60px;
+  }
+
+  .home_top_content {
+    font-size: 25px;
+  }
+
+  .home_top_shopping {
+    font-size: 20px;
+    transform: skewX(10deg) rotate(-1deg);
+  }
 }
