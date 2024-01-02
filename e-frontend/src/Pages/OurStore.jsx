@@ -8,7 +8,7 @@ const OurStore = function () {
       <div className="container py-5 ourStore-breadcrumb ">
         <div className="row">
           <div className="d-flex justify-content-around">
-            <div className="col-4  mb-0 d-flex align-items-center ">
+            <div className="col-4  mb-0 d-flex align-items-center mb-0 ">
               <nav
                 style={{ "--bs-breadcrumb-divider": ">" }}
                 aria-label="breadcrumb"
@@ -27,10 +27,10 @@ const OurStore = function () {
               </nav>
             </div>
 
-            <div className="col-4 d-flex align-items-center ourStore-product-count">
-              <div className="d-flex flex-column text-center ">
-                <h4>Men Top wear</h4>
-                <p className="ourStore-stock">(12345 items)</p>
+            <div className="col-4 d-flex align-items-center ourStore-product-count mb-0">
+              <div className="d-flex flex-column text-center mb-0 ">
+                <h4 className="mb-0">Men Top wear</h4>
+                <p className="ourStore-stock mb-0">(12345 items)</p>
               </div>
             </div>
 

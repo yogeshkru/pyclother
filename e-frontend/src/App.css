@@ -1,3 +1,11 @@
+* {
+  font-family: kanit;
+}
+
+div {
+  margin: auto;
+}
+
 /* Variables */
 /* Add this CSS to your existing app.css or create a new stylesheet */
 
@@ -51,6 +59,7 @@ a {
   margin: 0 10px;
   margin-bottom: 7px;
 }
+
 /* .car:hover::after{
    border-bottom: 1px solid;
    
@@ -64,14 +73,17 @@ a {
   padding: 10px;
   margin: 0 0 10px 10px;
 }
+
 .Cart-card {
   border-radius: 20px !important;
-  height: 42vh !important ;
+  height: 42vh !important;
 }
+
 .cart-desc {
   color: #bcbec2;
   font-size: 1.2rem;
 }
+
 .Cart-btn {
   border-radius: 20px !important;
   padding: 3px !important;
@@ -80,18 +92,22 @@ a {
   border: none !important;
   color: black !important;
 }
+
 .Cart-rate p {
   /* margin-left: 10px; */
   margin-right: 10px;
 }
+
 .Cart-offer {
   font-weight: 500;
   color: green;
 }
+
 .Cart-dis {
   color: #a1a3a5 !important;
   text-decoration: line-through;
 }
+
 .Cart-img {
   /* border:1px solid; */
   padding: 10px 10px 10px 20px !important;
@@ -100,14 +116,17 @@ a {
 
   /* width: 113px !important;  */
 }
+
 .Cart-del button {
   border: none;
   background-color: white;
 }
+
 .Cart-card1 {
   border-radius: 20px !important;
-  border: 1.2px dashed !important ;
+  border: 1.2px dashed !important;
 }
+
 .Cart-order {
   padding: 14px !important;
   width: 100% !important;
@@ -129,24 +148,29 @@ a {
   font-size: 20px !important;
   padding: 5px !important;
 }
+
 .header__button1:hover {
   border-radius: 0 !important;
   border-bottom: 5px solid var(--MENS--COLOR) !important;
 }
+
 .header__button2 {
   font-weight: bold !important;
   font-size: 20px !important;
   padding: 5px !important;
 }
+
 .header__button2:hover {
   border-radius: 0 !important;
   border-bottom: 5px solid var(--WOMEN--COLOR) !important;
 }
+
 .header__button3 {
   font-weight: bold !important;
   font-size: 20px !important;
   padding: 5px !important;
 }
+
 .header__button3:hover {
   border-radius: 0 !important;
   border-bottom: 5px solid var(--KIDS--COLOR) !important;
@@ -160,10 +184,12 @@ a {
 
   border: 1px solid black;
 }
+
 .header__input--search {
   color: #b4b4b4;
   padding-left: 30px;
 }
+
 .header__icon {
   position: absolute;
   top: -3px;
@@ -173,28 +199,33 @@ a {
 }
 
 /* Dropdown */
-.dropdown:hover > .dropdown-menu {
+.dropdown:hover>.dropdown-menu {
   display: block;
 }
+
 .dropdown-menu {
   width: 800px;
 }
+
 .header__Womens {
   width: 600px;
 }
+
 .Headers__menus li {
   font-size: 13px;
 }
 
-.dropdown > .dropdown-toggle:active {
+.dropdown>.dropdown-toggle:active {
   /*Without this, clicking will make it sticky*/
   pointer-events: none;
 }
+
 .header_padding {
   background-color: #ffffff;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
   padding: 20px;
 }
+
 .header_logo {
   width: 70%;
 }
@@ -207,6 +238,7 @@ li {
 .footer_details2 {
   text-align: center;
 }
+
 .footer__image2 {
   width: 50%;
 }
@@ -219,9 +251,11 @@ li {
 .footer__details1 {
   margin-right: 200px !important;
 }
+
 .footer_customer {
   margin-left: 120px;
 }
+
 .footer__followus {
   text-align: center;
   cursor: pointer;
@@ -231,6 +265,7 @@ li {
   display: flex;
   justify-content: space-around;
 }
+
 .footer_background {
   background-color: var(--FOOTER-BACKGROUND);
 }
@@ -272,6 +307,7 @@ li {
   -webkit-text-stroke-color: #ffffff;
   -webkit-text-stroke: 1px #ffffff;
 }
+
 .home_page_welcome {
   background-image: url(./assets/image/welcome.png);
 
@@ -281,11 +317,13 @@ li {
 
   border-radius: 20px;
 }
+
 .home_page_pondicherry {
   font-size: 100px;
   font-weight: bold;
   color: white;
 }
+
 .home_top_brands {
   background-image: url(./assets/image/welcomepondi.png);
 
@@ -295,10 +333,12 @@ li {
 
   border-radius: 20px;
 }
+
 .home_top_content {
   color: white;
   font-weight: bold;
 }
+
 .home_top_shopping {
   color: transparent;
   margin-top: 2px;
@@ -311,6 +351,7 @@ li {
   -webkit-text-stroke: 1px #cd6eea;
   transform: skewX(15deg) rotate(-2deg);
 }
+
 .home_rating_top {
   margin-top: 20px;
   background-image: url(./assets/image/background_home1.png);
@@ -321,18 +362,22 @@ li {
   border: 1px solid #d02837;
   border-radius: 25px;
 }
+
 .home_rating_content {
   overflow: hidden;
 }
+
 .home_rating_details {
   position: relative;
 }
+
 .home_rating_content1 {
   position: absolute;
   top: 80%;
   left: 20%;
   color: white;
 }
+
 .home_rating_content2 {
   position: absolute;
   top: 80%;
@@ -343,6 +388,7 @@ li {
 .home_rating_content img {
   transition: 0.5s ease-in;
 }
+
 .home_rating_content img:hover {
   transform: scale(1.2);
   border-radius: 20px;
@@ -358,9 +404,11 @@ li {
   .header__sidenavsidenav {
     padding-top: 15px;
   }
+
   .header__sidenavsidenav a {
     font-size: 18px;
   }
+
   .footer__details1 {
     margin-right: 200px !important;
   }
@@ -370,61 +418,78 @@ li {
   .footer_customer {
     margin-left: 0;
   }
+
   .footer_background {
     background-color: var(--FOOTER-BACKGROUND);
     height: 600px;
   }
+
   .footer__followus {
     margin-top: 50px !important;
   }
+
   .footer__details1 {
     margin-right: 0 !important;
   }
+
   .footer__image {
     width: 70%;
   }
+
   .footer__image2 {
     margin-top: 20px;
     margin-left: 82px;
   }
+
   .footer_shopping {
     margin-left: 110px;
   }
+
   .header__icon {
     left: 34px;
   }
+
   .header_mobile_menu {
     width: 200px;
   }
+
   .header__mobile--mens {
     color: white !important;
     padding: 8px 8px 8px 32px !important;
     font-size: 20px !important;
   }
+
   .header_mobile_menu {
     background: white !important;
   }
+
   .header__mobile--content {
     color: black;
   }
+
   .home_page_pondicherry {
     font-size: 25px;
     padding-top: 10px;
   }
+
   .home_page_welcome {
     min-height: 60px;
   }
+
   .home_top_brands {
     min-height: 60px;
   }
+
   .home_top_content {
     font-size: 25px;
   }
+
   .home_top_shopping {
     font-size: 20px;
     transform: skewX(10deg) rotate(-1deg);
   }
 }
+
 
 /* ******ourStore Page *********/
 
@@ -432,7 +497,8 @@ li {
   color: var(--color-777777);
   line-height: 30px;
   margin-bottom: 20px;
-  border-bottom: 1px solid var(--color-ededed);
+  border-bottom: 1px solid  rgba(119, 119, 119, 0.4) ;
+  width: 100%;
 }
 .ourStore-filter-title {
   font-size: 16px;
@@ -446,7 +512,7 @@ li {
   color: var(--color-777777);
   line-height: 30px;
   margin-bottom: 20px;
-  border-bottom: 1px solid var(--color-ededed);
+  border-bottom: 1px solid  rgba(119, 119, 119, 0.4) ;
 }
 
 .ourStore-brand-title {
@@ -475,7 +541,7 @@ li {
 }
 
 .ourStore-color {
-  border-bottom: 1px solid var(--color-ededed);
+  border-bottom: 1px solid  rgba(119, 119, 119, 0.4) ;
 }
 
 .ourStore-discount-title {
@@ -490,14 +556,14 @@ li {
   margin-bottom: 15px !important;
 }
 .price-range {
-  border-bottom: 1px solid var(--color-ededed);
+  border-bottom: 1px solid  rgba(119, 119, 119, 0.4) ;
 }
 .ourStore-price-gap {
   margin-bottom: 15px !important;
 }
 
 .ourStore-discount {
-  border-bottom: 1px solid var(--color-ededed);
+  border-bottom: 1px solid  rgba(119, 119, 119, 0.4) ;
 }
 
 .filter-sort-grid {
@@ -519,10 +585,10 @@ li {
 }
 
 .ourStore-border-right {
-  border-right: 1px var(--FOOTER-BACKGROUND) solid;
+  border-right: 1px  rgba(119, 119, 119, 0.4) solid;
 }
 .ourStore-border-top {
-  border-top: 1px var(--FOOTER-BACKGROUND) solid;
+  border-top: 1px  rgba(119, 119, 119, 0.4)  solid;
 }
 
 .ourStore-pagination {

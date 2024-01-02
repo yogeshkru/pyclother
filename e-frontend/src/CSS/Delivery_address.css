@@ -1,0 +1,63 @@
+.w-23{
+    width: 23% !important;
+}
+.delivery_order_details{
+    border: 1px dashed black;
+    border-radius: 20px ;
+    box-shadow: 0px 14px 73px -21px rgba(0,0,0,0.1);    
+    margin-right: 20%;
+}
+.delivery-contine-btn{
+    background: rgb(223,0,103) !important;
+
+}
+td{
+    border-style: none !important;
+}
+.delivery_new_addr_btn{
+    margin-top: 1px !important;
+    margin-bottom: 0px !important;
+    margin-left: 0px !important;
+}
+.delivery-addnew-btn{
+    margin-bottom: 0px !important;
+}
+.delivery-address-home{
+    border: 1px solid rgb(24,172,74);
+    border-radius: 35%;
+    padding: 4px;
+    font-size: 9px;
+}
+.delivery-address-liststyl{
+    list-style-type: none;
+}
+.delivery-address-leftside{
+    box-shadow: 0px 10px 4px 4px rgb(31 29 29 / 10%);
+    border-radius: 5px;
+    border: 1px solid rgb(230 225 225);
+}
+.deliver_address_bordersline{
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    margin-top: 28px;
+}
+.deliver_address_borderleftline{
+    padding-right: 21px;
+    border-right: 1px solid black;
+    margin: 0px !important;
+    margin-top: 25Px !important;
+}
+.deliver_addres_bordertop{
+    margin-top: 25px !important;
+}
+
+@media only screen and (max-width: 800px) {
+    .delivery_order_details{
+        width: 100% !important;
+    }
+    .delivery_add_remove_btn{
+        width: 100% !important;
+        margin-bottom: 1.5rem!important;
+    }
+
+}
