@@ -46,7 +46,7 @@ function Header() {
 
               <div class="dropdown">
                 <button
-                  className="btn header__mobile--mens"
+                  className="btn header__mobile--mens mb-0"
                   type="button"
                   id="dropdownMenuButton1"
                   data-bs-toggle="dropdown"
@@ -105,9 +105,9 @@ function Header() {
                 <div className="col-lg-3  ">
                   <div className="d-flex justify-content-between">
                     {/* Mens */}
-                    <div class="dropdown">
+                    <div className="dropdown mb-0">
                       <button
-                        className="btn header__button1"
+                        className="btn header__button1 mb-0"
                         type="button"
                         id="dropdownMenuButton"
                         data-mdb-toggle="dropdown"

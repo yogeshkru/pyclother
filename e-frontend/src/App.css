@@ -1,5 +1,17 @@
+* {
+  font-family: kanit;
+}
+
 /* Variables */
 /* Add this CSS to your existing app.css or create a new stylesheet */
+
+/* ***************Global use****************** */
+
+* {
+  border: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 :root {
   --FOOTER-BACKGROUND: #eaebed;
@@ -16,6 +28,15 @@
 
 ul {
   list-style: none;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+/* font-family */
+#root {
+  font-family: "Kanit", sans-serif;
 }
 
 /* ******************************************** */
@@ -36,6 +57,7 @@ ul {
   margin: 0 10px;
   margin-bottom: 7px;
 }
+
 /* .car:hover::after{
    border-bottom: 1px solid;
    
@@ -49,14 +71,17 @@ ul {
   padding: 10px;
   margin: 0 0 10px 10px;
 }
+
 .Cart-card {
   border-radius: 20px !important;
-  height: 42vh !important ;
+  height: 42vh !important;
 }
+
 .cart-desc {
   color: #bcbec2;
   font-size: 1.2rem;
 }
+
 .Cart-btn {
   border-radius: 20px !important;
   padding: 3px !important;
@@ -65,18 +90,22 @@ ul {
   border: none !important;
   color: black !important;
 }
+
 .Cart-rate p {
   /* margin-left: 10px; */
   margin-right: 10px;
 }
+
 .Cart-offer {
   font-weight: 500;
   color: green;
 }
+
 .Cart-dis {
   color: #a1a3a5 !important;
   text-decoration: line-through;
 }
+
 .Cart-img {
   /* border:1px solid; */
   padding: 10px 10px 10px 20px !important;
@@ -85,24 +114,22 @@ ul {
 
   /* width: 113px !important;  */
 }
+
 .Cart-del button {
   border: none;
   background-color: white;
 }
+
 .Cart-card1 {
   border-radius: 20px !important;
-  border: 1.2px dashed !important ;
+  border: 1.2px dashed !important;
 }
+
 .Cart-order {
   padding: 14px !important;
   width: 100% !important;
   background-color: #c10f84 !important;
   border: none !important;
-}
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
 }
 
 a {
@@ -112,6 +139,9 @@ a {
 /* font-family */
 #root {
   font-family: "Kanit", sans-serif;
+}
+.breadcrumb-item {
+  color: var(--color-777777);
 }
 
 /* //Headers CSS */
@@ -124,24 +154,29 @@ a {
   font-size: 20px !important;
   padding: 5px !important;
 }
+
 .header__button1:hover {
   border-radius: 0 !important;
   border-bottom: 5px solid var(--MENS--COLOR) !important;
 }
+
 .header__button2 {
   font-weight: bold !important;
   font-size: 20px !important;
   padding: 5px !important;
 }
+
 .header__button2:hover {
   border-radius: 0 !important;
   border-bottom: 5px solid var(--WOMEN--COLOR) !important;
 }
+
 .header__button3 {
   font-weight: bold !important;
   font-size: 20px !important;
   padding: 5px !important;
 }
+
 .header__button3:hover {
   border-radius: 0 !important;
   border-bottom: 5px solid var(--KIDS--COLOR) !important;
@@ -155,10 +190,12 @@ a {
 
   border: 1px solid black;
 }
+
 .header__input--search {
   color: #b4b4b4;
   padding-left: 35px;
 }
+
 .header__icon {
   position: absolute;
   top: -3px;
@@ -171,12 +208,15 @@ a {
 .dropdown:hover > .dropdown-menu {
   display: block;
 }
+
 .dropdown-menu {
   width: 800px;
 }
+
 .header__Womens {
   width: 600px;
 }
+
 .Headers__menus li {
   font-size: 13px;
 }
@@ -185,6 +225,7 @@ a {
   /*Without this, clicking will make it sticky*/
   pointer-events: none;
 }
+
 .header_padding {
   background-color: #ffffff;
 
@@ -193,6 +234,7 @@ a {
     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
   padding: 20px;
 }
+
 .header_logo {
   width: 70%;
 }
@@ -205,6 +247,7 @@ li {
 .footer_details2 {
   text-align: center;
 }
+
 .footer__image2 {
   width: 50%;
 }
@@ -217,9 +260,11 @@ li {
 .footer__details1 {
   margin-right: 200px !important;
 }
+
 .footer_customer {
   margin-left: 120px;
 }
+
 .footer__followus {
   text-align: center;
   cursor: pointer;
@@ -229,6 +274,7 @@ li {
   display: flex;
   justify-content: space-around;
 }
+
 .footer_background {
   background-color: var(--FOOTER-BACKGROUND);
 }
@@ -271,6 +317,7 @@ li {
   -webkit-text-stroke: 1px #ffffff;
   font-weight: bold;
 }
+
 .home_page_welcome {
   background-image: url(./assets/image/welcome.png);
 
@@ -281,11 +328,13 @@ li {
   border-radius: 20px;
   margin-top: 40px;
 }
+
 .home_page_pondicherry {
   font-size: 100px;
   font-weight: bold;
   color: white;
 }
+
 .home_top_brands {
   background-image: url(./assets/image/welcomepondi.png);
 
@@ -295,11 +344,13 @@ li {
 
   border-radius: 20px;
 }
+
 .home_top_content {
   color: white;
   font-weight: bold;
   letter-spacing: 2px;
 }
+
 .home_top_shopping {
   color: transparent;
   margin-top: 2px;
@@ -312,6 +363,7 @@ li {
   -webkit-text-stroke: 1px #cd6eea;
   transform: skewX(15deg) rotate(-2deg);
 }
+
 .home_rating_top {
   margin-top: 20px;
   background-image: url(./assets/image/background_home1.png);
@@ -322,14 +374,16 @@ li {
 
   border-radius: 20px;
 }
-.payment_details{
+.payment_details {
   border: 1px dashed black;
   padding: 10px;
 }
+
 .home_rating_content {
   overflow: hidden;
   border-radius: 20px;
 }
+
 .home_rating_details {
   position: relative;
 }
@@ -337,35 +391,37 @@ li {
   overflow: hidden;
   border-radius: 25px;
 }
-.orderpalced_btn{
-  padding:10px 80px;
+.orderpalced_btn {
+  padding: 10px 80px;
   outline: none;
-  background-color: #DF0067;
+  background-color: #df0067;
   color: white;
   font-weight: 600;
-  border: 1px solid #DF0067;
+  border: 1px solid #df0067;
   border-radius: 10px;
 }
 
-.orderplaced_img{
-   animation: orderplaced 2s linear infinite;
+.orderplaced_img {
+  animation: orderplaced 2s linear infinite;
 }
-@keyframes orderplaced{
-  0%{
-    transform: scale(0.75);opacity: 1;
+@keyframes orderplaced {
+  0% {
+    transform: scale(0.75);
+    opacity: 1;
   }
-  50%{
-    transform: scale(1);opacity: 1;
+  50% {
+    transform: scale(1);
+    opacity: 1;
   }
-  100%{
-    transform: scale(0.75);opacity: 1;
+  100% {
+    transform: scale(0.75);
+    opacity: 1;
   }
 }
-.payment_page_design{
+.payment_page_design {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   padding: 20px;
   border-radius: 10px;
- 
 }
 
 .home_details_img {
@@ -387,6 +443,7 @@ li {
   left: 30%;
   color: white;
 }
+
 .home_rating_content2 {
   position: absolute;
   top: 75%;
@@ -408,6 +465,16 @@ li {
   display: flex;
   position: absolute;
   top: 100%;
+}
+.home_rating_content img:hover {
+  transform: scale(1.2);
+  border-radius: 20px;
+}
+.header_beast_offers {
+  margin-top: 20px;
+  background-image: url(./assets/image/888.jpeg);
+  background-size: cover;
+  min-height: 120px;
 }
 
 .home_slides_hidden {
@@ -619,9 +686,11 @@ li {
   .header__sidenavsidenav {
     padding-top: 15px;
   }
+
   .header__sidenavsidenav a {
     font-size: 18px;
   }
+
   .footer__details1 {
     margin-right: 200px !important;
   }
@@ -631,56 +700,72 @@ li {
   .footer_customer {
     margin-left: 0;
   }
+
   .footer_background {
     background-color: var(--FOOTER-BACKGROUND);
     height: 600px;
   }
+
   .footer__followus {
     margin-top: 50px !important;
   }
+
   .footer__details1 {
     margin-right: 0 !important;
   }
+
   .footer__image {
     width: 70%;
   }
+
   .footer__image2 {
     margin-top: 20px;
     margin-left: 82px;
   }
+
   .footer_shopping {
     margin-left: 110px;
   }
+
   .header__icon {
     left: 20px;
   }
+
   .header_mobile_menu {
     width: 200px;
   }
+
   .header__mobile--mens {
     color: white !important;
     padding: 8px 8px 8px 32px !important;
     font-size: 20px !important;
   }
+
   .header_mobile_menu {
     background: white !important;
   }
+
   .header__mobile--content {
     color: black;
   }
+
   .home_page_pondicherry {
     font-size: 25px;
     padding-top: 10px;
   }
+
   .home_page_welcome {
     min-height: 60px;
   }
+
   .home_top_brands {
     min-height: 60px;
   }
+
   .home_top_content {
     font-size: 25px;
   }
+
   .home_top_shopping {
     font-size: 20px;
     transform: skewX(10deg) rotate(-1deg);
@@ -693,7 +778,8 @@ li {
   color: var(--color-777777);
   line-height: 30px;
   margin-bottom: 20px;
-  border-bottom: 1px solid var(--color-ededed);
+  border-bottom: 1px solid rgba(119, 119, 119, 0.4);
+  width: 100%;
 }
 .ourStore-filter-title {
   font-size: 16px;
@@ -707,7 +793,7 @@ li {
   color: var(--color-777777);
   line-height: 30px;
   margin-bottom: 20px;
-  border-bottom: 1px solid var(--color-ededed);
+  border-bottom: 1px solid rgba(119, 119, 119, 0.4);
 }
 
 .ourStore-brand-title {
@@ -736,7 +822,7 @@ li {
 }
 
 .ourStore-color {
-  border-bottom: 1px solid var(--color-ededed);
+  border-bottom: 1px solid rgba(119, 119, 119, 0.4);
 }
 
 .ourStore-discount-title {
@@ -751,14 +837,14 @@ li {
   margin-bottom: 15px !important;
 }
 .price-range {
-  border-bottom: 1px solid var(--color-ededed);
+  border-bottom: 1px solid rgba(119, 119, 119, 0.4);
 }
 .ourStore-price-gap {
   margin-bottom: 15px !important;
 }
 
 .ourStore-discount {
-  border-bottom: 1px solid var(--color-ededed);
+  border-bottom: 1px solid rgba(119, 119, 119, 0.4);
 }
 
 .filter-sort-grid {
@@ -794,13 +880,18 @@ li {
 width: 30% !important;
 } 
 
-.ourStore-product-render{
-  width: 70% !important;
-} */
+.ourStore-page {
+  color: var(--color-777777);
+  width: 70%;
+}
+
+.ourStore-page-number {
+  width: 30%;
+}
 
 /* Styles for devices with a width of 1080 pixels or less */
 
-@media only screen and (max-width: 1080px) {
+@media only screen and (max-width: 600px) {
   .ourStore-border-right {
     display: none;
   }
@@ -810,6 +901,47 @@ width: 30% !important;
 }
 
 /* *******       ourStore  component End's ********* */
+/* ************ProductCard Component************ */
+.productCard-wishlist-icon {
+  position: absolute;
+  top: 7%;
+  right: 20px;
+  color: white;
+  z-index: 2;
+}
+
+.ourStore-pagination {
+  display: none !important;
+}
+
+.ourStore-pagination {
+  color: var(--color-777777);
+  font-size: small;
+}
+
+.page-link {
+  color: rgb(52, 52, 52) !important;
+}
+.Page {
+  border-radius: 70px !important;
+}
+
+.ourstore-filter {
+  font-size: 12px;
+  font-weight: 0;
+  color: var(--color-777777);
+}
+
+.ourstore-category-filter,
+.ourstore-brand-filter,
+.ourstore-discount-filter {
+  font-size: 13px;
+  color: var(--color-1c1c1b);
+  font-weight: 100;
+}
+
+/* *******       ourStore  component End's ********* */
+
 /* ************ProductCard Component************ */
 .productCard-wishlist-icon {
   position: absolute;
@@ -859,8 +991,6 @@ width: 30% !important;
 }
 
 .colors {
-  /* list-style-type: none; 
-display: flex; */
   flex-wrap: wrap;
   line-height: 30px;
   gap: 10px;
