@@ -336,7 +336,7 @@ input[type="radio"]{
 .home_geniune_product{
   background-image: url(./assets/image/home_genuis_product.jpeg);
   background-size: cover;
-  min-height: 120px;
+  min-height: 150px;
   margin-top: 40px;
   border-radius: 20px;
 }

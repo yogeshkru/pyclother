@@ -98,7 +98,11 @@ function Home() {
         </div>
       </div>
       <div className="home_geniune_product">
+          <div className="row">
+                <div >
 
+                </div>
+          </div>
       </div>
 
       <div className=" home_page_welcome">
