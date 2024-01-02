@@ -61,7 +61,7 @@ function Home() {
   useEffect(() => {
     const intervalId = setInterval(() => {
       setData((prevData) => (prevData + 1) % slides.length);
-    }, 1000);
+    }, 2000);
 
     return () => clearInterval(intervalId);
   }, [slides.length]);
@@ -97,8 +97,11 @@ function Home() {
           </span>
         </div>
       </div>
+      <div className="home_geniune_product">
 
-      <div className="mt-4 home_page_welcome">
+      </div>
+
+      <div className=" home_page_welcome">
         <div className="text-center">
           <h1 className="home_page_pondicherry">
             WELCOME <span className="home_pondicherry">PONDICHERRY</span>

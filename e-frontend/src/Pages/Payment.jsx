@@ -9,7 +9,7 @@ import rupay from "../assets/image/pngwing.png";
 function Payment() {
   return (
     <>
-    <div style={{border:'1px solid #DEDEDE'}}>
+    <div style={{border:'2px solid #DEDEDE'}}>
       <div className="container">
         <div className="row mt-5">
           <div className="col-lg-1"></div>
@@ -30,7 +30,7 @@ function Payment() {
               </div>
               <div className="row">
                 <div className="col-lg-1 col-1 mt-4">
-                  <input type="radio" />
+                  <input type="radio" className="payment_radio_button"/>
                 </div>
                 <div className="col-lg-6 col-7 mt-4 fw-bold">
                   <p>Cash on Delivery (COD)</p>
@@ -89,17 +89,17 @@ function Payment() {
        
       </div>
     </div>
-    <div className="d-flex justify-content-center gap-5">
-          <div style={{ width: "8%" }}>
+    <div className="d-flex justify-content-center gap-4 mt-3 mb-4">
+          <div style={{ width: "6%" }}>
             <img src={rupay} width="100%" />
           </div>
-          <div style={{ width: "5%" }}>
+          <div style={{ width: "4%" }}>
             <img src={phone} width="100%" />
           </div>
-          <div style={{ width: "5%" }}>
+          <div style={{ width: "4%" }}>
             <img src={visa} width="100%" />
           </div>
-          <div style={{ width: "3%" }}>
+          <div style={{ width: "2%" }}>
             <img src={pay} width="100%" />
           </div>
         </div>

@@ -314,7 +314,21 @@ li {
   min-height: 120px;
 
   border-radius: 20px;
+  margin-top: 60px;
 }
+input[type="radio"]{
+  width: 20px;
+  height: 20px;
+  accent-color: #c10f84
+}
+.home_geniune_product{
+  background-image: url(./assets/image/home_genuis_product.jpeg);
+  background-size: cover;
+  min-height: 120px;
+  margin-top: 40px;
+  border-radius: 20px;
+}
+
 
 .home_page_pondicherry {
   font-size: 100px;
@@ -357,10 +371,19 @@ li {
   background-repeat: no-repeat;
   min-height: 400px;
   padding: 20px;
-  border: 1px solid #d02837;
-  border-radius: 25px;
-}
 
+  border-radius: 20px;
+}
+.payment_details {
+  border: 1px dashed black;
+  padding: 15px;
+}
+.payment_gpay {
+  width: 90px !important;
+}
+.payment_cod {
+  width: 23% !important;
+}
 .home_rating_content {
   overflow: hidden;
 }
@@ -381,6 +404,52 @@ li {
   top: 80%;
   left: 25%;
   color: white;
+}
+.home_carousel {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.home_slides {
+  width: 100%;
+  min-height: 500px;
+  border-radius: 20px;
+}
+.home_total_indicator {
+  display: flex;
+  position: absolute;
+  top: 100%;
+}
+.home_rating_content img:hover {
+  transform: scale(1.2);
+  border-radius: 20px;
+}
+.header_beast_offers {
+  margin-top: 20px;
+  border-radius: 20px;
+  background-image: url(./assets/image/888.jpeg);
+  background-size: cover;
+  min-height: 120px;
+}
+
+.home_slides_hidden {
+  display: none;
+}
+.home_indicator {
+  background-color: black;
+  cursor: pointer;
+  height: 0.6rem;
+  width: 0.6rem;
+  border-radius: 100%;
+  outline: none;
+  border: none;
+  box-shadow: 0px 0px 5px #555;
+  margin: 0px 10px 10px 0px;
+}
+.home_indicator_active {
+  background-color: white;
+  box-shadow: 0px 0px 5px #555;
 }
 
 .home_rating_content img {
