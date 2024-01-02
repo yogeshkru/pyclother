@@ -8,6 +8,28 @@ div {
 
 /* Variables */
 /* Add this CSS to your existing app.css or create a new stylesheet */
+
+:root {
+  --FOOTER-BACKGROUND: #eaebed;
+  --MENS--COLOR: #56ddff;
+  --WOMEN--COLOR: #fcb03f;
+  --KIDS--COLOR: #df0067;
+  --color-232f3e: #232f3e;
+  --color-777777: #777777;
+  --color-1c1c1b: #1c1c1b;
+  --color-ededed: #ededed;
+}
+
+
+/* ***************Global use****************** */
+
+
+ul {
+  list-style: none;
+}
+
+/* ******************************************** */
+
 .Cartheader-inner {
   display: flex;
   justify-content: space-between;
@@ -109,12 +131,7 @@ a {
   text-decoration: none !important;
 }
 
-:root {
-  --FOOTER-BACKGROUND: #eaebed;
-  --MENS--COLOR: #56ddff;
-  --WOMEN--COLOR: #fcb03f;
-  --KIDS--COLOR: #df0067;
-}
+
 
 /* font-family */
 #root {
@@ -378,6 +395,12 @@ li {
   transform: scale(1.2);
   border-radius: 20px;
 }
+.header_beast_offers{
+  margin-top: 20px;
+   background-image: url(./assets/image/888.jpeg);
+   background-size: cover;
+   min-height: 120px;
+}
 
 @media screen and (max-height: 450px) {
   .header__sidenavsidenav {
@@ -467,4 +490,206 @@ li {
     font-size: 20px;
     transform: skewX(10deg) rotate(-1deg);
   }
+<<<<<<< HEAD
 }
+=======
+}
+
+
+/* ******ourStore Page *********/
+
+.ourStore-filter-card ul {
+  color: var(--color-777777);
+  line-height: 30px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--color-ededed);
+}
+.ourStore-filter-title {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+  color: var(--color-1c1c1b);
+  margin-bottom: 20px;
+}
+
+.outStore-brand-card ul {
+  color: var(--color-777777);
+  line-height: 30px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--color-ededed);
+}
+
+.ourStore-brand-title {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+  color: var(--color-1c1c1b);
+  margin-bottom: 20px;
+}
+
+.ourStore-price-title {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+  color: var(--color-1c1c1b);
+  margin-bottom: 20px;
+}
+
+.ourStore-color-title {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+  color: var(--color-1c1c1b);
+  margin-bottom: 20px;
+  margin-bottom: 15px !important;
+}
+
+.ourStore-color {
+  border-bottom: 1px solid var(--color-ededed);
+}
+
+.ourStore-discount-title {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+  color: var(--color-1c1c1b);
+  margin-bottom: 20px;
+}
+
+.li-gap li {
+  margin-bottom: 15px !important;
+}
+.price-range {
+  border-bottom: 1px solid var(--color-ededed);
+}
+.ourStore-price-gap {
+  margin-bottom: 15px !important;
+}
+
+.ourStore-discount {
+  border-bottom: 1px solid var(--color-ededed);
+}
+
+.filter-sort-grid {
+  padding: 10px;
+  background-color: white;
+  border-radius: 10px;
+}
+.sort-store {
+  background-color: var(--FOOTER-BACKGROUND);
+  height: 40px;
+  width: 200px !important;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+}
+.ourStore-stock{
+  color: var(--color-777777);
+  font-size: 13px;
+}
+
+.ourStore-border-right{
+
+  border-right:1px var(--FOOTER-BACKGROUND) solid ;
+}
+.ourStore-border-top{
+  border-top:1px var(--FOOTER-BACKGROUND) solid ;
+
+
+}
+
+.ourStore-pagination{
+  border-top:1px var(--FOOTER-BACKGROUND) solid;
+}
+ 
+/* .ourStore-border-right{
+width: 30% !important;
+} 
+
+.ourStore-product-render{
+  width: 70% !important;
+} */
+
+
+  /* Styles for devices with a width of 1080 pixels or less */
+
+  @media only screen and (max-width: 1080px) {
+    .ourStore-border-right{
+    display: none;
+      } 
+      .ourStore-breadcrumb{
+        display: none ;
+    }
+
+  }
+
+  
+ 
+
+/* *******       ourStore  component End's ********* */
+/* ************ProductCard Component************ */
+.productCard-wishlist-icon{
+  position: absolute;
+    top: 7%;
+    right: 20px;
+    color: white;
+    z-index: 2;
+  }
+  
+  .productCard-wistlist-img{
+  color: white;
+  } 
+  
+  
+  .productCard-title{
+    color: var(--color-777777);
+    font-size: 13px;
+  } 
+  
+  
+  
+  .box{
+    border: 5px solid white;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  
+  
+  .box img{
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: fill;
+    transition: 0.8s;
+    display: flex;
+    align-items: center;
+  }
+  .box img:hover{
+  transform: scale(1.1);
+  
+  }
+  
+  
+  
+  
+  /* ***********ProductCard Component End's********* */
+
+  /******** Colors component **********/
+
+.colors li {
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.colors {
+  /* list-style-type: none; 
+display: flex; */
+  flex-wrap: wrap;
+  line-height: 30px;
+  gap: 10px;
+}
+
+/* **********Colors Components End*********** */
+>>>>>>> fed3d0fae9ff7712539d5a453e5bfb01463ea1c8
