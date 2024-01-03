@@ -3,6 +3,7 @@ import footer from "../assets/image/logo (3).png";
 import footer1 from "../assets/image/logo12.png"
 import { FaFacebook, FaInstagramSquare } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
+import '../styles/Home.css'
 function Footer() {
   const handleData = {
     width: "15%",

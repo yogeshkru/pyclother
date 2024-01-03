@@ -4,7 +4,7 @@ import phone from "../assets/image/pngwing-4.png";
 import cod from "../assets/image/Group 266.png";
 import visa from "../assets/image/pngwing-2.png";
 import pay from "../assets/image/Group 249.png";
-
+import '../styles/Home.css'
 import rupay from "../assets/image/pngwing.png";
 function Payment() {
   return (

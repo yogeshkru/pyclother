@@ -10,6 +10,8 @@ import Cart from "./Pages/Cart";
 import OurStore from "./Pages/OurStore";
 import Orderplaced from "./Pages/Orderplaced";
 import Payment from "./Pages/Payment";
+import Whislist from "./Pages/Whislist";
+import Otp from "./Pages/Otp";
 
 function App() {
   return (
@@ -24,7 +26,9 @@ function App() {
           <Route path="Addtocart" element={<Cart />} />
           <Route path="ourstore" element={<OurStore />} />
           <Route path="orderpalced" element={<Orderplaced />} />
+          <Route path="whislist" element={<Whislist />} />
           <Route path="payment" element={<Payment />} />
+          <Route path="otp" element={<Otp />} />
         </Route>
       </Routes>
     </>

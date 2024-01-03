@@ -1,6 +1,6 @@
 import React from "react";
 import Order from "../assets/image/orderpalced_icons.png";
-
+import '../styles/Home.css'
 function Orderplaced() {
   return (
     <div className="container">
