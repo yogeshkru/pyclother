@@ -2,17 +2,18 @@ import React from 'react'
 import { Cartheader } from '../Component/Cartheader'
 import tick from "../assets/image/tick.png"
 import rounded from "../assets/image/rounded.jpeg"
+import ProductCard from '../Component/ProductCard'
 function Cart() {
   return (
     <div>
       <Cartheader />
       <div className='container'>
         <div className='mt-3 d-flex col-lg-8 justify-content-between'>
-          <p><b>My Bag</b> (1 items)</p>
+          <p className='m-1 fs-10'><b>My Bag</b> (1 items)</p>
           <p className='Cart-add-from'><b>+</b> Add from Wishlist</p>
         </div>
         <div className='row'>
-          <div className='col-12 col-lg-8 mt-4'>
+          <div className='col-12 col-lg-8 mt-4 '>
             <div class="Cart-card card mb-3" >
               <div class="row no-gutters">
                 <div class=" col-lg-3 Cart-img col-12" >
@@ -106,7 +107,14 @@ function Cart() {
             </div>
           </div>
         </div>
+        <div className='border-top mt-5'></div>
+      <div className='mt-4 mb-4'>
+        <h5>You may also like:</h5>
+        <div className='d-flex flex-wrap col-lg-12 '><ProductCard/></div>
       </div>
+      <div></div>
+      </div>
+    
     </div>
 
   )
