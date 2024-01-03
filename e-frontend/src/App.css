@@ -1,4 +1,5 @@
 /* Add this CSS to your existing app.css or create a new stylesheet */
+/***************cart*******************/
 .Cartheader-inner {
     display: flex;
     justify-content: space-between;
@@ -10,7 +11,7 @@
   }
   
   .Cartheader-line {
-    border-top:0.5px;
+    border-top:0.5px dashed !important;
     flex-grow: 1;
     height: 10px;
  
@@ -206,7 +207,7 @@ display: flex; */
     cursor: pointer;
   }
   #root {
-    font-family: "Kanit", sans-serif;
+    font-family: "Kanit", sans-serif !important;
   }
   .footer_details2 {
     text-align: center;
@@ -264,5 +265,68 @@ display: flex; */
     .footer_shopping {
       margin-left: 122px;
     }
+  }
+}
+/********************************Delivery details****************************************/
+.deliver{
+  display: flex;
+    flex-direction: column;
+}
+.deliver-input{
+  height: 49px;
+  border:1px solid;
+    border-radius: 10px;  
+    padding: 18px;
+    color:#dee2e6;
+}
+.Delivery-btn{
+  height: 49px;
+  padding: 15px;
+  border:none;
+  border-radius: 10px;
+  width: 30%;
+  background-color: #dee2e6;;
+}
+.deliver-btn{
+  padding: 5px;
+  border-radius: 15px;
+  border:1px solid;
+  width: 100px;
+  background-color: none;
+}
+.delivery-card{
+  border-radius: 15px !important;
+}
+.deliver-address-btn{
+  padding: 14px !important;
+  width: 100% !important;
+  background-color:#c10f84 !important;
+  border: none !important;
+  border-radius: 10px !important;
+  color: white !important;
+}
+.delivery-card1{
+  width: 30%;
+  /* margin-left: 20px !important; */
+}
+@media only screen and (max-width:800px) {
+  
+
+  .Cartheader-inner{
+    width: 100% !important;
+    margin-left: 7px;
+    /* font-size: 13px; */
+  }
+  .Cart-card{
+    height: auto !important;
+  }
+  .Cart-img{
+    padding: 10px !important;
+    width: 90% !important;
+    margin-left: 15px;
+  }
+ 
+  .secure{
+    margin-top: 13px !important;
   }
 }
