@@ -26,7 +26,7 @@ function Footer() {
                   <img src={footer1} width="100%" />
                 </div>
                 <div className="footer__details1">
-                  <div className="mt-3">
+                  <div className="mt-4">
                     <p className="fw-bold fs-5 text-center">Online Shopping</p>
                   </div>
                   <ul>
