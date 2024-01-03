@@ -1,5 +1,95 @@
 /* Variables */
 /* Add this CSS to your existing app.css or create a new stylesheet */
+/***************cart*******************/
+.Cartheader-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 35%;
+    margin-left: 23rem;
+    
+    
+  }
+  
+  .Cartheader-line {
+    border-top:0.5px dashed !important;
+    flex-grow: 1;
+    height: 10px;
+ 
+    margin: 0 10px;
+    margin-bottom: 7px;
+  }
+  /* .car:hover::after{
+   border-bottom: 1px solid;
+   
+   background:green ;
+   
+  } */
+  .Cart-add-from{
+    background-color:#dee2e6;
+    /* height: 1.6rem; */
+    border-radius: 2rem;
+    padding: 10px;
+    margin: 0 0 10px 10px;
+  }
+  .Cart-card{
+    border-radius: 20px !important;
+    height: 42vh !important ;
+  }
+  .cart-desc{
+    color:#bcbec2;
+    font-size: 1.2rem;
+  }
+  .Cart-btn{
+    border-radius: 20px !important;
+    padding: 3px !important;
+    width: 71px !important;
+    background-color:#dee2e6 !important;
+    border: none !important;
+    color: black !important;
+  }
+  .Cart-rate p{
+    
+    /* margin-left: 10px; */
+    margin-right: 10px;
+  }
+.Cart-offer{
+  font-weight: 500;
+  color: green;
+}
+.Cart-dis{
+  color:#a1a3a5 !important;
+  text-decoration: line-through;
+}
+.Cart-img{
+  /* border:1px solid; */
+  padding: 10px 10px 10px 20px!important;
+  border-radius: 20px !important;
+  /* right: 10px !important; */
+ 
+    /* width: 113px !important;  */
+}
+.Cart-del button{
+  border: none;
+  background-color: white;
+}
+.Cart-card1{
+  border-radius: 20px !important;
+  border: 1.2px dashed !important ;
+}
+.Cart-order{
+  padding: 14px !important;
+  width: 100% !important;
+  background-color:#c10f84 !important;
+  border: none !important;
+}
+* {
+  border: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: kanit;
+
+}
 
 :root {
   --FOOTER-BACKGROUND: #eaebed;
@@ -18,6 +108,15 @@
 
 ul {
   list-style: none;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+/* font-family */
+#root {
+  font-family: "Kanit", sans-serif !important;
 }
 
 /* ******************************************** */
@@ -39,6 +138,36 @@ ul {
   margin-bottom: 7px;
 }
 
+.colors {
+  /* list-style-type: none; 
+display: flex; */
+  flex-wrap: wrap;
+  line-height: 30px;
+  gap: 10px;
+  :root {
+    --FOOTER-BACKGROUND: #eaebed;
+  }
+
+  li {
+    cursor: pointer;
+  }
+  #root {
+    font-family: "Kanit", sans-serif !important;
+  }
+  .footer_details2 {
+    text-align: center;
+  }
+  .footer__image2 {
+    width: 50%;
+  }
+
+  .footer__image {
+    width: 20%;
+    margin: auto;
+  }
+}
+  /* .footer__content1 {
+  } */
 .Cart-add-from {
   background-color: #dee2e6;
  

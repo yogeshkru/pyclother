@@ -51,7 +51,23 @@ td{
 .deliver_addres_bordertop{
     margin-top: 25px !important;
 }
+.modal-contentes{
+    width: 50% !important;
+}
+.Delivery_detils_mobile{
+    margin-left: 0px !important;
+}
+.deliver_addres_point{
+    background: rgb(215,215,215);
+    border-color: rgb(215,215,215);
+}
+.delivery_add_remove_btn:hover{
+    color: red !important;
+}
+.delivery_add_edite_btn:hover{
+    color: green !important;
 
+}
 @media only screen and (max-width: 800px) {
     .delivery_order_details{
         width: 100% !important;
@@ -59,6 +75,42 @@ td{
     .delivery_add_remove_btn{
         width: 100% !important;
         margin-bottom: 1.5rem!important;
+    }
+    .Delivery_imges_mobile{
+        width: 85% !important;
+        margin-left: 36px !important;
+    }
+    .delivery_details_mobile{
+        width: max-content;
+        font-size: x-large;
+    }
+    .modal-contents {
+        width: 100% !important;
+    }
+    .Delivery_imges_mobile{
+        width: 85% !important;
+        margin-left: 109px !important;
+    }
+    .Delivery_detils_mobile{
+        margin-left: 126px !important;
+    }
+
+}
+
+@media only screen and (max-width: 450px) {
+    .delivery_details_mobile{
+        width: max-content;
+        font-size: large !important;
+    }
+    .Delivery_imges_mobile{
+        width: 85% !important;
+        margin-left: 36px !important;
+    }
+    .Delivery_detils_mobile{
+        margin-left: 60px !important;
+    }
+    .modal-contents{
+        width: 100% !important;
     }
 
 }

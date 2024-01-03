@@ -11,14 +11,14 @@ function Cart() {
           <p><b>My Bag</b> (1 items)</p>
           <p className='Cart-add-from'><b>+</b> Add from Wishlist</p>
         </div>
-        <div className='d-flex'>
-          <div className=' col-lg-8 mt-4'>
+        <div className='row'>
+          <div className='col-12 col-lg-8 mt-4'>
             <div class="Cart-card card mb-3" >
               <div class="row no-gutters">
-                <div class="col-md-3 col-lg-3 Cart-img col-sm-12" >
+                <div class=" col-lg-3 Cart-img col-12" >
                   <img src={rounded} class="card-img" alt="..." width='100%' />
                 </div>
-                <div class="col-md-9 col-lg-9">
+                <div class="col-12 col-lg-9">
                   <div class="card-body">
                     <div className='Cart-title d-flex justify-content-between'>
                       <h4 class="card-title">H&M</h4>
@@ -77,7 +77,7 @@ function Cart() {
               </div>
             </div>
           </div>
-          <div class="col-sm-6 col-lg-4 mt-4 mx-3 ">
+          <div class="col-12 col-lg-4 mt-4  ">
             <div class="Cart-card1 card ">
               <div class="card-body">
                 <h5 className="card-title mb-2">Order Details</h5>
@@ -99,7 +99,7 @@ function Cart() {
                   <p>RS.698</p>
                 </div>
               <div className=''>
-              <a href="#" class="btn btn-primary Cart-order  ">Place Order</a>
+              <a class="btn btn-primary Cart-order  ">Place Order</a>
               </div>
                 
               </div>
