@@ -136,7 +136,7 @@
       display: none;
     }
     .ourStore-product-render {
-      overflow-y: hidden; /* Set to 'hidden' to disable scrolling */
+      overflow-y: hidden;
     min-width: 100%  !important;
   
     }
@@ -146,6 +146,8 @@
     .ourStore-page-number{
       width: 20% ;
     }
+    
+
    
   
   }

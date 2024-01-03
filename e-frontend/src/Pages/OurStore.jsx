@@ -2,10 +2,20 @@ import { Link } from "react-router-dom";
 import Color from "../Component/Colors";
 import ProductCard from "../Component/ProductCard";
 import "../styles/ourstore.css"
+import Slider from "../Component/Slider";
+import { useState } from "react";
 
 const OurStore = function () {
+
+ const [mobile,setMobile]=useState(false) 
+
+function mobileScroll(){
+  setMobile(!mobile)
+}
+
   return (
     <>
+
       <section className="container py-5 ourStore-breadcrumb ">
         <div className="row ms-0">
           <div className="d-flex justify-content-around ms-0">
@@ -55,9 +65,11 @@ const OurStore = function () {
         </div>
       </section>
 
+      {/* "col-lg-3 col-12 ourStore-border-right " */}
+
       <section className="container py-1 ourStore-border-top  ">
         <div className="row ">
-          <div className="col-3 ourStore-border-right ">
+          <div className={ "col-lg-3 ourStore-border-right col-12"}>
             <div className="ourStore-filter-card ">
               <h3 className="ourStore-filter-title pt-3">CATEGORIES</h3>
               <div >
@@ -140,7 +152,7 @@ const OurStore = function () {
             </div>
           </div>
 
-          <div className="col-9 ourStore-product-render  ">
+          <div className="col-lg-9 col-6 ourStore-product-render  ">
             <div className="d-flex gap-10 flex-wrap ">
               <ProductCard />
             </div>
