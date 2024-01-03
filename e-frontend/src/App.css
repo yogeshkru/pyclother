@@ -723,3 +723,59 @@ input[type="radio"]{
     margin-top: 13px !important;
   }
 }
+/* Login Page */
+
+
+.kanit-font {
+  font-family: 'Kanit', sans-serif;
+
+}
+.login {
+  font-weight: bold;
+}
+.singup{
+  font-weight: bold;
+}
+.terms{
+  font-weight: bold;
+  color: rgb(223,0,103);
+
+}
+.continue{
+   font-weight:lighter;
+   font-size: 11px;
+   text-align: center !important;
+}
+.background{
+  background: rgb(253,236,244);
+
+}
+.logcard{
+  border-radius: 15px !important;
+border-style: none !important;
+box-shadow: 4px 4px 4px 4px rgba(136, 136, 136, 0.1);
+}
+.logcont{
+  background: rgb(223,0,103);
+  width: 90%;
+  border-radius: 6px;
+  color: white;
+  padding: 10px;
+  
+}
+.help{
+  
+  color: rgb(223,0,103);
+}
+.logmob{
+  width: 90% !important;
+  justify-content: center;
+  margin: auto;
+  padding: 10px !important;
+  display: flex;
+  border-radius: 8px !important;
+  border-color: #2c2c2c !important;
+}
+.login{
+  font-size: 13px; 
+}
