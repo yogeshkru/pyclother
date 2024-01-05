@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/SingleProduct.css";
+import { IoBagOutline } from "react-icons/io5";
 import { TbShoppingBag } from "react-icons/tb";
 import { CiHeart } from "react-icons/ci";
 import { IoIosStar } from "react-icons/io";
@@ -9,7 +10,7 @@ import { Link } from "react-router-dom";
 import twoshirt from "../assets/image/two_shirt.jpeg";
 import bluemoney from "../assets/image/money_blue.jpeg";
 import { FaStar } from "react-icons/fa6";
-import { IoBagOutline } from "react-icons/io5";
+
 import ProductCard from "../Component/ProductCard";
 
 function SingleProduct() {
@@ -18,6 +19,11 @@ function SingleProduct() {
     { id: 2, src: bluemoney },
   ]);
   const [select, setSelectimage] = useState(null);
+  const handleStyle = {
+    border: "1px solid black",
+    padding: "10px",
+    borderRadius: "14px",
+  };
 
   const handleClick = (i) => {
     const selectItem = details.filter((item) =>
@@ -32,9 +38,9 @@ function SingleProduct() {
 
   return (
     <>
-      <section className="container pt-5">
+      <section className="container pt-5 single-product-bread ">
         <div className="row ms-0">
-          <div className="col-4 mb-0 d-flex align-items-center ms-0 col-lg-4 col-md-6 ">
+          <div className="col-4 mb-0 d-flex align-items-center  ms-0 ">
             <nav
               style={{ "--bs-breadcrumb-divider": ">" }}
               aria-label="breadcrumb"
@@ -61,14 +67,16 @@ function SingleProduct() {
                   Men Top wear
                 </li>
                 &nbsp;/&nbsp;
-                <li className="singleProduct-breadcrumb">T-Shirts</li>
+                <li className="singleProduct-breadcrumb singleproduct-bread">
+                  T-Shirts
+                </li>
               </ol>
             </nav>
           </div>
         </div>
       </section>
 
-      <section className="py-4">
+      <section className="py-4 ">
         <div className="container">
           <div className="row">
             <div className="col-lg-6 col-md-12 d-flex justify-content-evenly">
@@ -105,14 +113,14 @@ function SingleProduct() {
             </div>
 
             <div className="col-lg-6 col-md-12">
-              <div>
-                <h2>H&M</h2>
+              <div className="">
+                <h2 className="mt-1">H&M</h2>
                 <p className="singleProduct_content">
                   Pure Cotton Regular Fit Round-Neck T-Shirt
                 </p>
                 <div className="mt-1">
                   <p>
-                    4.8{" "}
+                    4.8
                     <span>
                       <FaStar color="yellow" style={{ fontSize: "13px" }} />
                     </span>{" "}
@@ -141,21 +149,30 @@ function SingleProduct() {
                   </div>
                 </div>
                 <div className="mt-4">
-                  <div className="d-flex gap-2 col-12">
-                    <button className="single-product-button d-flex col-7 ">
-                      <div className="d-flex mx-auto singleproduct-mobile-view">
-                        <IoBagOutline className="mb-0 fs-4 " />
-                        <span className=" mb-0 ms-2 mt-auto fs-5 specialproduct-addtobag">
-                          Add to Bag
-                        </span>
+                  <div className="row ms-2">
+                    <div
+                      className="col-lg-7 col-5 button1-background"
+                      style={handleStyle}
+                    >
+                      <div className="d-flex justify-content-center gap-2">
+                        <div>
+                          <IoBagOutline className="fs-6 text-white" />
+                        </div>
+                        <p className="fs-6 text-white ">Add to Bag</p>
                       </div>
-                    </button>
-                    <button className="single-product-button1 d-flex col-4">
-                      <div className="d-flex mx-auto ">
-                        <CiHeart className="fs-3 mt-auto  single-product-icon"  />
-                        <span className="ms-1 fw-light fs-5 mb-0 mt-auto ">Wishlist</span>
+                    </div>
+                    {/* <div className="col-lg-1 col-1"></div> */}
+                    <div
+                      className="col-lg-4 col-5 button2-background ms-3"
+                      style={handleStyle}
+                    >
+                      <div className="d-flex justify-content-center gap-2 mb-0">
+                        <div>
+                          <CiHeart className="fs-5 mb- text-white" />
+                        </div>
+                        <p className="fs-6 mb-0 text-white">Wishlist</p>
                       </div>
-                    </button>
+                    </div>
                   </div>
                 </div>
 
@@ -175,7 +192,6 @@ function SingleProduct() {
       <section className=" container py-5">
         <div className="row ms-0">
           <div className="col-12">
-
             <p className="text-center fs-5 py-3">Shop More T-shirt</p>
             <div className="d-flex flex-wrap">
               <ProductCard />
