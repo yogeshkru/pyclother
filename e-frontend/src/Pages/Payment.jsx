@@ -9,7 +9,7 @@ import rupay from "../assets/image/pngwing.png";
 function Payment() {
   return (
     <>
-    <div style={{border:'2px solid #DEDEDE'}}>
+    <div>
       <div className="container">
         <div className="row mt-5">
           <div className="col-lg-1"></div>
@@ -60,7 +60,7 @@ function Payment() {
             </div>
           </div>
           <div className="col-lg-2"></div>
-          <div className="col-lg-4">
+          <div className="col-lg-4 ">
             <div className="payment_details">
               <h6>Order Details</h6>
               <div className="d-flex justify-content-between p-2">
@@ -69,7 +69,7 @@ function Payment() {
               </div>
               <div className="d-flex justify-content-between p-2 ">
                 <span>Discount</span>
-                <span>-Rs. 1000</span>
+                <span style={{color:"#18AC4A"}}>-Rs. 1000</span>
               </div>
               <div className="d-flex justify-content-between p-2">
                 <span>Shipping Fee</span>
@@ -79,7 +79,7 @@ function Payment() {
                 style={{ borderBottom: "1px solid black", padding: "5px" }}
               ></div>
               <div className="d-flex justify-content-between p-2">
-                <span>Total MRP</span>
+                <span><span className="fw-bold">Total</span> MRP</span>
                 <span>Rs. 698</span>
               </div>
             </div>

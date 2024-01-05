@@ -5,7 +5,7 @@ export const Cartheader = () => {
 
 
   return (
-    <div className='d-flex justify-content-around overflow-hidden'>
+    <div className='d-flex justify-content-around overflow-hidden py-5'>
       <div className='Cartheader-inner d-flex'>
 
         <p className="car">Bag</p>

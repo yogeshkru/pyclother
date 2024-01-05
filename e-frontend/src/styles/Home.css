@@ -1,6 +1,9 @@
 .header--search {
   position: relative;
 }
+#root {
+  font-family: "Kanit", sans-serif !important;
+}
 
 .header__button1 {
   font-weight: bold !important;
@@ -76,9 +79,12 @@ input[type="radio"] {
 .header_padding {
   background-color: #ffffff;
 
- /* !important ; */
-    filter: drop-shadow( 0 0  10px #ffaad1  );
+  /* !important ; */
+  filter: drop-shadow(0 0 10px #ffaad1);
   padding: 20px;
+}
+.whislist_horziation {
+  margin: 0 !important;
 }
 .header_logo {
   width: 70%;
@@ -210,9 +216,10 @@ li {
   border-radius: 20px;
 }
 .payment_details {
-  border: 1px dashed black;
+  border: 2px dashed #9E9E9E;
   padding: 20px;
   border-radius: 20px;
+  margin-top: 20px;
 }
 .home_rating_content {
   overflow: hidden;
@@ -459,8 +466,11 @@ p {
   margin: auto;
 }
 .home_mens-details1 {
+  width: 80%;
+
   position: absolute;
-  top: 76%;
+  top: 75%;
+  left: 10%;
 }
 
 .home_mens-details img {
@@ -621,7 +631,7 @@ p {
 .otp_font_welcome {
   text-align: center !important;
   font-weight: 200;
-  padding-top: 50px;
+  padding-top: 20px;
 }
 .otp_welcome_img {
   margin: auto;
@@ -631,6 +641,7 @@ p {
   margin: auto !important;
 }
 .otp_box {
+  border-radius: 20px;
   background-color: #fff !important;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
@@ -640,8 +651,118 @@ p {
 }
 .otp_background {
   background-color: #fdd8e9;
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
+}
+.login_input {
+  margin: 10px 0px !important;
+  border: 1px solid gray;
+  width: 90%;
+  margin: auto;
+  padding: 10px;
+  border-radius: 15px;
+  padding-left: 60px;
+}
+.login_input:focus-visible {
+  outline: none;
+}
+.login_input1 {
+  position: relative;
+}
+.login_button {
+  border: 1px solid var(--KIDS--COLOR);
+  padding: 10px 150px;
+  width: calc(100% -300px);
+  border-radius: 15px;
+  background-color: var(--KIDS--COLOR);
+  color: white;
+
+  font-size: 20px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+.login_size {
+  font-size: 14px;
+}
+.login_error1 {
+  border: 1px solid red;
+}
+.login_success_1 {
+  border: 1px solid green;
+}
+.login_label_2 {
+  position: absolute;
+  top: 14px;
+  left: 20px;
+}
+.login_label_3 {
+  position: absolute;
+  top: 14px;
+  right: 50px;
+}
+.login_color {
+  color: var(--KIDS--COLOR);
+
+  font-weight: bold;
+}
+.login_label_1 {
+  position: absolute;
+  top: 21px;
+  left: 20px;
+}
+.login_label {
+  border-right: 1px solid gray;
+  padding-right: 5px;
+}
+
+.login_font_padding {
+  padding: 40px;
+}
+.deliverydetails_input_fild {
+  border: 1px solid black;
+  outline: none;
+  padding: 10px;
+  width: 100%;
+  border-radius: 15px;
+}
+.delviery_details_row {
+  margin: 0 !important;
+}
+.orderplaced_height {
+  height: 100vh;
+}
+.Delviery_Details_label {
+  padding: 5px 15px;
+  border: 1px solid black;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.deliverydetails_radio-button21 {
+  display: none;
+}
+.otp_page_padding {
+  padding-top: 7%;
+}
+.delivery-details_button{
+  padding: 15px 20px;
+  width: 100%;
+  background-color: #df0067;
+  border-radius: 15px;
+  color: white;
+  font-size: 18px;
+}
+
+.deliverydetails_input_fild::placeholder {
+  padding-left: 20px;
 }
 @media screen and (max-height: 450px) {
   .header__sidenavsidenav {
@@ -757,5 +878,22 @@ p {
   }
   .home_background_details {
     margin: auto;
+  }
+  .login_button {
+    padding: 10px 80px;
+  }
+  .login_input {
+    width: 100%;
+  }
+  .login_label_3 {
+    right: 13px !important;
+  }
+  .otp_page_padding {
+    padding-top: 80px !important;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .login_label_3 {
+    right: 70px !important;
   }
 }
