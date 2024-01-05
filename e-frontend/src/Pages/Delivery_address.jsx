@@ -29,7 +29,7 @@ function Delivery_address() {
         return totalAmount;
     };
     return (
-        <div className='container mt-5'>
+        <div className='container mt-5 '>
             <div className='row deliver_address_bordersline'>
                 <div className='col-12 col-lg-6 deliver_address_borderleftline'>
                     <div className='d-flex justify-content-between'>

@@ -20,15 +20,12 @@ function App() {
   return (
     <>
       <Routes>
-      <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login />} />
 
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="/singleProduct" element={<SingleProduct />} />
-
-
-          <Route path="/delivery_address" element={<Delivery_address />} />
-
+          <Route path="singleProduct" element={<SingleProduct />} />
+          <Route path="delivery_address" element={<Delivery_address />} />
           <Route path="Addtocart" element={<Cart />} />
           <Route path="ourstore" element={<OurStore />} />
           <Route path="delivery-details" element={<DeliveryDetails />} />

@@ -1,7 +1,6 @@
-.productViewerSection{
+ /* .productViewerSection{
     width: 100%;
     padding: 10px;
-    /* border: 1px solid black; */
     margin: 30px;
 }
 .columeOne{
@@ -87,4 +86,92 @@
     .product_sizes_dives{
         margin-left: 12px !important;
     }
-} 
+}   */
+
+
+
+
+.singleProduct_content{
+    color: gray;
+    font-size: 19px;
+    font-weight: 100;
+}
+
+.singleProduct-breadcrumb{
+
+    color: var(--color-777777) !important;
+    font-size: 16px;
+    font-weight: 100;
+
+}
+.singleProduct_amount{
+    font-size: 25px;
+    font-weight: 500;
+}
+.singleProduct_size{
+    padding: 15px;
+    border: 1px solid var(--color-777777);
+    border-radius: 50%;
+}
+.singleProduct_size1{
+    padding: 15px 20px;
+    border: 1px solid var(--color-777777);
+    border-radius: 50%;
+}
+.single_product_border:hover{
+    border-color: var( --KIDS--COLOR);
+    cursor: pointer;
+}
+.single-product-button {
+    background-color: var(--KIDS--COLOR);
+    color: white;
+    font-size: 14px;
+    font-weight: 300;
+    padding: 13px 33px;
+    border-radius: 10px;
+    margin-bottom: 0;
+    /* width: 65%; Set the width for the first button */
+    /* max-width: 400px; Set a maximum width if needed */
+    /* margin: auto; Center the button */
+  }
+  
+  .single-product-button1 {
+    background-color: var(--color-777777);
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 13px 33px;
+    border-radius: 10px;
+  }
+
+.singleproduct-product-info{
+
+    font-weight: 100;
+    color: --color-777777;
+
+}
+
+
+@media only screen and (max-width: 1080px) {
+    .singleproduct-main-image{
+        height: 300px;
+        width: 200px;
+    }
+    .specialproduct-addtobag{
+        font-size: 10px;
+    }.single-product-button{
+        width: 50% !important;
+        padding: 0;
+    }
+    .singleproduct-mobile-view{
+        margin: auto;
+    }
+    .single-product-button1{
+        width: 50% !important;
+    }
+    .single-product-icon{
+        margin: auto;
+        display: flex;
+    }
+
+}
