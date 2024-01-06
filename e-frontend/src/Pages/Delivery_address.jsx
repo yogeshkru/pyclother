@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import React from 'react';
 // import '../styles/Delivery_address.css'
 // import rupay from '../assets/image/pngwing.png';
@@ -15,6 +16,15 @@
 //         shoppingFee: 5,
 //         discount: 10,
 //     };
+=======
+import React from "react";
+import "../styles/Delivery_address.css";
+import rupay from "../assets/image/pngwing.png";
+import phone from "../assets/image/pngwing-1.png";
+import visa from "../assets/image/pngwing-2.png";
+import pay from "../assets/image/Group 249.png";
+import StepHeader from "../Component/StepHeader";
+>>>>>>> 86978216f0f2d37a81956d73c0c44bb75319563a
 
 //     const calculateTotalMRP = () => {
 //         return order.items.reduce((total, item) => total + item.price, 0);

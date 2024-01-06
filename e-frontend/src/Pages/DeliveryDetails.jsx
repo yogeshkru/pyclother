@@ -6,6 +6,7 @@ import visa from "../assets/image/pngwing-2.png";
 import rupay from "../assets/image/pngwing.png";
 
 import pay from "../assets/image/Group 249.png";
+import StepHeader from "../Component/StepHeader";
 function DeliveryDetails() {
     const [isChecked, setIsChecked] = useState(false);
 
@@ -14,6 +15,12 @@ function DeliveryDetails() {
       };
   return (
     <div>
+      <section className="container">
+<StepHeader/>
+
+      </section>
+
+
       <div className="row mt-5 p-3 delviery_details_row">
         <div className="col-lg-2"></div>
 

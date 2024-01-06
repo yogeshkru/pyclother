@@ -1,15 +1,19 @@
 import React from "react";
-import { Cartheader } from "../Component/Cartheader";
+// import { Cartheader } from "../Component/Cartheader";
+
 import tick from "../assets/image/tick.png";
 import rounded from "../assets/image/rounded.jpeg";
 import "../styles/cart.css";
 import ProductCard from "../Component/ProductCard";
+import StepHeader from "../Component/StepHeader";
 function Cart() {
   return (
     <>
-      <Cartheader />
+
+<StepHeader/>
+      {/* <Cartheader /> */}
       {/* <div className='container'>
-        <div className='mt-3 d-flex col-lg-8 justify-content-between'>
+        <div className='mt-3 jd-flex col-lg-8 justify-content-between'>
           <p><b>My Bag</b> (1 items)</p>
           <p className='Cart-add-from'><b>+</b> Add from Wishlist</p>
         </div>
