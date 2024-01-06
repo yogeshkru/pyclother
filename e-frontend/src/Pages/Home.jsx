@@ -72,7 +72,7 @@ function Home() {
   }, [slides.length]);
 
   return (
-    <div className="container py-5">
+    <div className=" container-fluid overflow-hidden">
       <div className="home_carousel">
         {slides.map((item, i) => (
           <img
@@ -104,7 +104,7 @@ function Home() {
         </div>
       </div>
       <div className="home_geniune_product">
-        <div className="row home_geniune_product1">
+        <div className="row ">
           <div className="col-lg-4 home_geniune_border">
             <div className="d-flex justify-content-center gap-4">
               <div className="home_geniune_product_img">
@@ -265,7 +265,7 @@ function Home() {
         </div>
       </div>
 
-      <div className="row mt-3">
+      <div className="row home_mens--total mt-3">
         <div className="col-lg-4 home_mens--upto">
           <div className="home_mens--upto1">
             <div className="home_mens-details">

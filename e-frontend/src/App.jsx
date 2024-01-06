@@ -28,7 +28,7 @@ function App() {
           <Route path="delivery_address" element={<Delivery_address />} />
           <Route path="Addtocart" element={<Cart />} />
           <Route path="ourstore" element={<OurStore />} />
-          <Route path="delivery-details" element={<DeliveryDetails />} />
+          <Route path="deliveryDetails" element={<DeliveryDetails />} />
           <Route path="orderpalced" element={<Orderplaced />} />
           <Route path="whislist" element={<Whislist />} />
           <Route path="payment" element={<Payment />} />
