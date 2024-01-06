@@ -72,7 +72,7 @@ function Home() {
   }, [slides.length]);
 
   return (
-    <div className="container-fluid">
+    <div className="container py-5">
       <div className="home_carousel">
         {slides.map((item, i) => (
           <img

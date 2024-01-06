@@ -1,12 +1,14 @@
-import React from 'react'
-import { Cartheader } from '../Component/Cartheader'
-import tick from "../assets/image/tick.png"
-import rounded from "../assets/image/rounded.jpeg"
+import React from "react";
+import { Cartheader } from "../Component/Cartheader";
+import tick from "../assets/image/tick.png";
+import rounded from "../assets/image/rounded.jpeg";
+import "../styles/cart.css";
+import ProductCard from "../Component/ProductCard";
 function Cart() {
   return (
-    <div>
+    <>
       <Cartheader />
-      <div className='container'>
+      {/* <div className='container'>
         <div className='mt-3 d-flex col-lg-8 justify-content-between'>
           <p><b>My Bag</b> (1 items)</p>
           <p className='Cart-add-from'><b>+</b> Add from Wishlist</p>
@@ -106,10 +108,180 @@ function Cart() {
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </div> */}
+      <div>
+        <section className="container">
+          <div className="d-flex py-4 ms-4">
+            <h4 className="mb-0">My Bag </h4>
+            <p className=" ms-2 fw-100  fs-5 mb-0 cart-total">(1 items)</p>
+          </div>
 
-  )
+          <div className="pt-2 pb-5 w-100 ">
+            <div className="row d-flex justify-content-center w-100 ">
+              <div className="col-lg-7  col-7 border rounded-4   d-flex">
+                <div className=" cart-image p-1 d-flex w-100">
+                  <div className="my-auto px-auto" style={{width:'35%',height:'95%'}}>
+                  <img
+                    src={rounded}
+                    alt="image"
+                    className="img-fluid p-1 rounded-4 "
+                    // height="800]]=px"
+                    width="100%"
+                    height="100%"
+                  />
+                  </div>
+
+                  <div className="ms-4 w-100">
+                    <div className="d-flex justify-content-between mb-0 mt-3">
+                      <h4 className="mb-0">H&M</h4>
+                    </div>
+                    <div className="mt-4">
+                      <h3 className="cart-h3 ">
+                        Pure Cotton Regular Fit Round-Neck T-shirt
+                      </h3>
+                    </div>
+
+                    <div className="d-flex mt-3 mb-0 ">
+                      <div className="dropdown  ">
+                        <button
+                          className="  dropdown-toggle rounded-3 p-1 fw-light"
+                          type="button"
+                          id="dropdownMenuButton"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          Size:M
+                        </button>
+                        <div
+                          className="dropdown-menu cart_dropdown"
+                          aria-labelledby="dropdownMenuButton"
+                        >
+                          <a className="dropdown-item w-100 p-auto  d-flex  ">
+                            a
+                          </a>
+                          <a className="dropdown-item w-100">M</a>
+                          <a className="dropdown-item w-100">K</a>
+                        </div>
+                      </div>
+
+                      <div className="dropdown ms-3 ">
+                        <button
+                          className="  dropdown-toggle rounded-3 p-1 fw-light"
+                          type="button"
+                          id="dropdownMenuButton"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          Qty:1
+                        </button>
+                        <div
+                          className="dropdown-menu cart_dropdown"
+                          aria-labelledby="dropdownMenuButton"
+                        >
+                          <a className="dropdown-item w-100 p-auto  d-flex  ">
+                            1
+                          </a>
+                          <a className="dropdown-item w-100">2</a>
+                          <a className="dropdown-item w-100">3</a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mt-3 d-flex">
+                      <div>
+                        <span className="fw-300 mb-0 mt-2">Rs. 599</span>
+                      </div>
+                      <div className="ms-3">
+                        <span
+                          style={{ textDecoration: "line-through" }}
+                          className="mb-0 fw-light"
+                        >
+                          Rs.1888
+                        </span>
+                      </div>
+
+                      <div className="ms-3">
+                        <p className="text-success">75%OFF</p>
+                      </div>
+                    </div>
+
+                    <div className="d-flex justify-content-between cart-end-tag">
+                      <p className="fw-light">Delivery between 17Dec -19Dec</p>
+
+                      <div>
+                        <button className="border-0 bg-transparent fw-light">
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-4  col-5  ms-5 cart-border">
+                <table>
+                  <thead>
+                    <tr>
+                      <th colspan="2">Order Details</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Total MRP</td>
+                      <td>Rs. 1599</td>
+                    </tr>
+                    <tr>
+                      <td>Discount</td>
+                      <td>-Rs. 1000</td>
+                    </tr>
+                    <tr>
+                      <td>Shipping Fee</td>
+                      <td>Rs. 99</td>
+                    </tr>
+                    <tr className="">
+                      <td>Total MRP</td>
+                      <td>Rs. 698</td>
+                    </tr>
+                  </tbody>
+                  <tfoot className="cart-foot-top">
+                    <tr>
+                      <td colspan="2">
+                        <input
+                          type="submit"
+                          className="w-100 rounded-3"
+                          value="Place Order"
+                        />
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        
+     
+      </div>
+
+      {/* <div className="section-2 "> */}
+
+      <section className=" container py-5">
+        <div className="row ms-0">
+          <div className="col-12">
+            <p className="text-left fs-5 py-3 ms-3">You may also like:</p>
+            <div className="d-flex flex-wrap">
+              <ProductCard />
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* </div> */}
+
+    </>
+  );
 }
 
-export default Cart
+export default Cart;
