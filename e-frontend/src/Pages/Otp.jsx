@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import OtpInput from "react-otp-input";
 import logo from "../assets/image/logo12.png";
+import '../styles/Home.css';
 function Otp() {
   const [otp, setOtp] = useState("");
   const handleColor = {
@@ -12,7 +13,7 @@ function Otp() {
   return (
     <div className="otp_background">
       <div className="row otp_page_scroll justify-content-center">
-        <div className="col-lg-4  pt-5">
+        <div className="col-lg-4 otp_page_padding" >
           <div className="otp_box">
             <div className="otp_font_welcome">
               <h3>Welcome</h3>

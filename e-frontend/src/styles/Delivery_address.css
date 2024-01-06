@@ -68,6 +68,11 @@ td{
     color: green !important;
 
 }
+
+
+.delivery-input-border input{
+    border: 2px solid #e1e2e2;
+}
 @media only screen and (max-width: 800px) {
     .delivery_order_details{
         width: 100% !important;

@@ -121,6 +121,47 @@ a {
 
 /* ******************************************** */
 
+
+/* ****************Stepper file in util's folder ******************* */
+.css-z7uhs0-MuiStepConnector-line{
+  border: dashed #bdbdbd 1px !important;
+}
+
+.Mui-active{
+  font-weight: bold !important;
+  color:var(--KIDS--COLOR) !important;
+
+}
+/* ******************************************************************* */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* .Cartheader-inner {
   display: flex;
   justify-content: space-between;

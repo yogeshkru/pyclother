@@ -9,7 +9,7 @@ function Whislist() {
   return (
     <div className="mt-3 ">
       <div className="container">
-        <div className="">
+        <div className="row">
           <div className="col-lg-2">
             <div class="card">
               <div className="whislist_content_1">
@@ -30,7 +30,7 @@ function Whislist() {
                 <p class="card-text">Men 's Cotton Pure cotton T-shirts</p>
                 <p>Rs-499</p>
               </div>
-              <hr />
+              <hr className="whislist_horziation"/>
               <div className="whislist_button">
                 <Link className="whislist_button_color">Add To Bag</Link>
               </div>
@@ -56,7 +56,7 @@ function Whislist() {
                 <p class="card-text">Men 's Cotton Pure cotton T-shirts</p>
                 <p>Rs-499</p>
               </div>
-              <hr />
+              <hr className="whislist_horziation"/>
               <div className="whislist_button">
                 <Link className="whislist_button_color">Add To Bag</Link>
               </div>
@@ -82,7 +82,7 @@ function Whislist() {
                 <p class="card-text">Men 's Cotton Pure cotton T-shirts</p>
                 <p>Rs-499</p>
               </div>
-              <hr />
+              <hr className="whislist_horziation"/>
               <div className="whislist_button">
                 <Link className="whislist_button_color">Add To Bag</Link>
               </div>

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../styles/Home.css";
 import useCode from "../assets/image/usecode.jpeg";
-
+import men_wear from "../assets/image/men_wear.png";
+import women_wear from "../assets/image/women_wear.png";
+import kids_wear from "../assets/image/Kids.png"
 import Marquee from "react-fast-marquee";
 import home_end from "../assets/image/end_of_season1.jpeg";
 import home from "../assets/image/home_carousel1.jpeg";
@@ -70,7 +72,7 @@ function Home() {
   }, [slides.length]);
 
   return (
-    <div className="container-fluid">
+    <div className="container py-5">
       <div className="home_carousel">
         {slides.map((item, i) => (
           <img
@@ -269,30 +271,30 @@ function Home() {
             <div className="home_mens-details">
               <img src={men_details} width="100%" />
             </div>
-
             <div className="home_mens-details1">
-              <div className="home_bprder-men12">
-                {/* <img src={border_men} width="100%" /> */}
-                <div>
-                  <div className="home_bprder-men34">
-                    <h5>MENS WEAR</h5>
-                    <h5>UPTO OF 80% OFF</h5>
-                  </div>
-                </div>
-              </div>
+              <img src={men_wear} width="100%" />
             </div>
           </div>
         </div>
         <div className="col-lg-4 home_mens--upto">
-          <div className="home_mens-details ">
-            <img src={women_details} width="100%" />
+          <div className="home_mens--upto1">
+            <div className="home_mens-details">
+              <img src={women_details} width="100%" />
+            </div>
+            <div className="home_mens-details1">
+              <img src={women_wear} width="100%" />
+            </div>
           </div>
         </div>
         <div className="col-lg-4 home_mens--upto">
-          <div className="home_mens-details">
-            <img src={kids_details} width="100%" />
+          <div className="home_mens--upto1">
+            <div className="home_mens-details">
+              <img src={kids_details} width="100%" />
+            </div>
+            <div className="home_mens-details1">
+              <img src={kids_wear} width="100%" />
+            </div>
           </div>
-          <div></div>
         </div>
       </div>
 
