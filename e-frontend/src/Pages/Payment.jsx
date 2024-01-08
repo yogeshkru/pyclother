@@ -14,10 +14,10 @@ function Payment() {
         <StepHeader />
       </section>
       <div>
-        <div className="container">
-          <div className="row mt-5">
+        <div className="">
+          <div className="row payment_row_margin " >
             <div className="col-lg-1"></div>
-            <div className="col-lg-4 col-12">
+            <div className="col-lg-4 col-12 pt-5">
               <h5>Recommended Payment Mode</h5>
               <div className="payment_page_design">
                 <div className="row">
@@ -63,8 +63,8 @@ function Payment() {
                 </button>
               </div>
             </div>
-            <div className="col-lg-2"></div>
-            <div className="col-lg-4 ">
+            <div className="col-lg-2 "style={{borderRight:'2px solid #DEDEDE',margin:' 0 50px'}}></div>
+            <div className="col-lg-4 pt-5">
               <div className="payment_details">
                 <h6>Order Details</h6>
                 <div className="d-flex justify-content-between p-2">

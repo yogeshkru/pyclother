@@ -72,7 +72,9 @@ function Home() {
   }, [slides.length]);
 
   return (
+    <>
     <div className=" container-fluid overflow-hidden">
+    
       <div className="home_carousel">
         {slides.map((item, i) => (
           <img
@@ -148,7 +150,7 @@ function Home() {
             WELCOME <span className="home_pondicherry">PONDICHERRY</span>
           </h1>
         </div>
-      </div>
+      </div>  
 
       <div
         id="carouselExampleDark"
@@ -571,6 +573,8 @@ function Home() {
         </div>
       </div>
     </div>
+    </>
+
   );
 }
 

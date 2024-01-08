@@ -183,7 +183,7 @@
 
 // export default Delivery_address;
 
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import phone from "../assets/image/pngwing-4.png";
 import rupay from "../assets/image/pngwing.png";
@@ -191,11 +191,42 @@ import visa from "../assets/image/pngwing-2.png";
 import pay from "../assets/image/Group 249.png";
 import women from "../assets/image/women.png";
 function Delivery_address() {
+  const [show, setShow] = useState(false);
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+  });
+  const modalRef = useRef();
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const handleClickOutside = (e) => {
+    if (modalRef.current && !modalRef.current.contains(e.target)) {
+      handleClose();
+    }
+  };
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div className="mt-5">
       <div className="row delivery_address_1">
         <div className="col-lg-2"></div>
-        <div className="col-lg-5">
+        <div className="col-lg-4 pt-4">
           <div className="d-flex justify-content-between">
             <div className="mt-2 delviery_address_content">
               <h5>Selcet Delivery Address</h5>
@@ -203,41 +234,109 @@ function Delivery_address() {
             </div>
             <div>
               <button
-                type="button"
-                class="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop"
+                className="delivery_address-modal-btn"
+                onClick={handleShow}
               >
-                Add Address
+                Add New Address
               </button>
-              <div
-                class="modal fade"
-                id="staticBackdrop"
-                data-bs-backdrop="static"
-                data-bs-keyboard="false"
-                tabindex="-1"
-                aria-labelledby="staticBackdropLabel"
-                aria-hidden="true"
-              >
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    
-                    <div class="modal-body">...</div>
-                    <div class="modal-footer">
+              {show && (
+                <div className="delivery-address-overlay">
+                  <div className="delivery-address-overlay1" ref={modalRef}>
+                    <div className="d-flex justify-content-between">
+                      <h6 className="fs-5 mt-3">Add New Address</h6>
                       <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal"
+                        className="close-modal-btn "
+                        onClick={handleClose}
                       >
-                        Close
-                      </button>
-                      <button type="button" class="btn btn-primary">
-                        Understood
+                        &times;
                       </button>
                     </div>
+                    <hr />
+                    <h5 className="fs-6 ">ADDRESS</h5>
+                    <form onSubmit={handleSubmit}>
+                      <div className="mt-4">
+                        <div>
+                          <input
+                            type="text"
+                            className="deliverydetails_input_fild"
+                            placeholder="Pin code"
+                          />
+                        </div>
+                      </div>
+                      <div className="mt-4">
+                        <div>
+                          <input
+                            type="text"
+                            className="deliverydetails_input_fild"
+                            placeholder="Address"
+                          />
+                        </div>
+                      </div>
+                      <div className="mt-4">
+                        <div>
+                          <input
+                            type="text"
+                            className="deliverydetails_input_fild"
+                            placeholder="Locality/Town"
+                          />
+                        </div>
+                      </div>
+                      <div className="mt-4">
+                        <h5 className="fs-6 fw-bold">SAVE ADDRESS AS</h5>
+                      </div>
+                      <div className="mt-4">
+                        <div className="row">
+                          <div className="col-lg-2 col-4">
+                            <input
+                              type="radio"
+                              className="deliverydetails_radio-button21"
+                              id="lang-2"
+                            />
+                            <label
+                              className="Delviery_Details_label"
+                              style={{
+                                border: "2px solid rgb(133 133 133) ",
+                                color: "rgb(133 133 133)",
+                              }}
+                            >
+                              Home
+                            </label>
+                          </div>
+                          <div className="col-lg-2 col-4 ms-2">
+                            <input
+                              type="radio"
+                              className="deliverydetails_radio-button21"
+                              id="lang-1"
+                            />
+                            <label
+                              className="Delviery_Details_label"
+                              style={{
+                                border: "2px solid rgb(133 133 133)",
+                                color: "rgb(133 133 133)",
+                              }}
+                            >
+                              Work
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="mt-4">
+                        <input type="checkbox" /> Make this my default address
+                      </div>
+                      <div className="mt-4">
+                        <div>
+                          <button
+                            type="submit"
+                            className="delivery-details_button1"
+                          >
+                            Add Address
+                          </button>
+                        </div>
+                      </div>
+                    </form>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
 
@@ -245,7 +344,7 @@ function Delivery_address() {
             <div className="delviery_address_boxShow">
               <div className="row ">
                 <div className="col-lg-1">
-                  <input type="radio" className="" />
+                  <input type="radio" />
                 </div>
 
                 <div className="col-lg-6">
@@ -283,6 +382,7 @@ function Delivery_address() {
           </div>
         </div>
         <div className="col-lg-1"></div>
+        <div className="col-lg-1 Delivery_address_border"></div>
         <div className="col-lg-3">
           <div className="mt-2">
             <h5>Delivery Details</h5>
@@ -322,7 +422,7 @@ function Delivery_address() {
               </div>
             </div>
           </div>
-          <div className="mt-3 text-center">
+          <div className="m-3 text-center">
             <button className="orderpalced_btn w-75">Continue</button>
           </div>
         </div>

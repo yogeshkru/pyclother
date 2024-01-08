@@ -221,6 +221,12 @@ li {
   border-radius: 20px;
   margin-top: 20px;
 }
+.payment_row_margin{
+  margin: 0 !important;
+ 
+  border-top: 2px solid #DEDEDE;
+  border-bottom: 2px solid #DEDEDE;
+}
 .home_rating_content {
   overflow: hidden;
   border-radius: 20px;
@@ -465,6 +471,12 @@ p {
 }
 .delivery_address_1{
   margin: 0 !important;
+  border-top: 2px solid #DEDEDE;
+  border-bottom: 2px solid #DEDEDE;
+
+}
+.Delivery_address_border{
+  border-left: 2px solid #DEDEDE;
 }
 .delivery_address_edite{
   background:transparent;
@@ -777,7 +789,10 @@ input[type="number"] {
 }
 .delviery_details_row {
   margin: 0 !important;
+  border-top: 2px solid #DEDEDE;
+  border-bottom: 2px solid #DEDEDE;
 }
+
 .orderplaced_height {
   height: 100vh;
 }
@@ -933,9 +948,52 @@ input[type="number"] {
   .otp_page_padding {
     padding-top: 80px !important;
   }
+  .delivery-address-overlay1{
+    width: 80% !important;
+  }
 }
 @media only screen and (max-width: 800px) {
   .login_label_3 {
     right: 70px !important;
   }
+}
+
+
+.delivery-address-overlay{
+  position: fixed;
+  top:0;
+  left:0;
+ 
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+.delivery-address-overlay1{
+  margin-top: 100px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 28%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.close-modal-btn{
+  background: none;
+  font-size: 30px;
+}
+.delivery_address-modal-btn{
+  background:none;
+  margin-top: 10px;
+  padding: 5px 15px;
+  border: 1px solid black;
+  border-radius: 14px;
+}
+.delivery-details_button1{
+  width: 100%;
+  background-color: #df0067;
+  padding: 10px 10px;
+  border-radius: 15px;
+  color: white;
 }
