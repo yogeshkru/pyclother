@@ -1,0 +1,79 @@
+.otp_background {
+  background-color: #fdd8e9;
+  min-height: 100vh;
+  width: 100%;
+}
+.otp_page_scroll {
+  margin: auto !important;
+  padding-top: 60px;
+}
+.otp_font_welcome {
+  text-align: center !important;
+  font-weight: bold !important;
+  padding-top: 20px;
+}
+.otp_welcome_img {
+  margin: auto;
+  width: 50%;
+}
+.login_font_padding {
+  padding: 40px;
+}
+.login_input1 {
+  position: relative;
+}
+.login_input:focus-visible {
+  outline: none;
+}
+.login_label_2 {
+  position: absolute;
+  top: 14px;
+  left: 20px;
+}
+.login_label_3 {
+  position: absolute;
+  top: 14px;
+  right: 50px;
+}
+.login_input1 {
+  position: relative;
+}
+.login_input {
+  margin: 10px 0px !important;
+  border: 1px solid gray;
+  width: 90%;
+  margin: auto;
+  padding: 10px;
+  border-radius: 15px;
+  padding-left: 60px;
+  font-weight: 600;
+}
+.login_error1{
+  border: 1px solid red;
+}
+.login_success_1{
+  border: 1px solid green;
+}
+.login_input:focus-visible {
+  outline: none;
+}
+.login_label_3 {
+  position: absolute;
+  top: 14px;
+  right: 50px;
+}
+.login_button {
+  border: 1px solid var(--KIDS--COLOR);
+  padding: 10px 150px;
+  width: calc(100% -300px);
+  border-radius: 15px;
+  background-color: var(--KIDS--COLOR);
+  color: white;
+
+  font-size: 20px;
+}
+.otp_box {
+  border-radius: 20px;
+  background-color: #fff !important;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}

@@ -15,11 +15,13 @@ import Login from "./Pages/Login";
 import Payment from "./Pages/Payment";
 import Whislist from "./Pages/Whislist";
 import Otp from "./Pages/Otp";
+import Signup from "./Pages/Signup";
 
 function App() {
   return (
     <>
       <Routes>
+      <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
          <Route path="/otp" element={<Otp/>}/>
         <Route path="/" element={<Layout />}>

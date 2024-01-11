@@ -1,35 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 
+
+import "./App.css";
+import {BrowserRouter,Routes,Route} from 'react-router-dom'
+import Loginadmin from "./pages/Loginadmin";
+import Mainlayout from "./component/Mainlayout";
+import Dashboard from "./pages/Dashboard";
+import Enquiries from "./pages/Enquiries";
+import Orders from "./pages/Orders";
+import Customers from "./pages/Customers";
+import Colorlist from "./pages/Colorlist";
+import Categorylist from "./pages/Categorylist";
+import Brandlist from "./pages/Brandlist";
+import Productlist from "./pages/Productlist";
+import Addcolor from "./pages/Addcolor";
+import Addcategory from "./pages/Addcategory";
+import Addbrand from "./pages/Addbrand";
+import Addproduct from "./pages/Addproduct";
 function App() {
-  const [count, setCount] = useState(0)
+  return <>
+  <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Loginadmin/>}/>
+        <Route path="/admin" element={<Mainlayout/>}>
+          <Route index element={<Dashboard/>}/>
+          <Route path="enquiries" element={<Enquiries/>}/>
+          <Route path="customers" element={<Customers/>}/>
+          <Route path="orders" element={<Orders/>}/>
+          <Route path="color-list" element={<Colorlist/>}/>
+          <Route path="category-list" element={<Categorylist/>}/>
+          <Route path="brand-list" element={<Brandlist/>}/>
+          <Route path="product-list" element={<Productlist/>}/>
+          <Route path="color" element={<Addcolor/>}/>
+          <Route path="category" element={<Addcategory/>}/>
+          <Route path="brand" element={<Addbrand/>}/>
+          <Route path="product" element={<Addproduct/>}/>
+        </Route>
+       
+      </Routes>
+  </BrowserRouter>
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  
+  </>;
 }
 
-export default App
+export default App;
