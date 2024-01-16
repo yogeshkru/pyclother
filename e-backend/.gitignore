@@ -1,2 +1,10 @@
 /node_modules
-.env
+.env.BASE_URL
+.env.ACITIVATE_SECERT
+.env.SECERT_STRING
+.env.EXPIRE_DAYS
+.env.STEP_PASSWORD
+.env.STEP_HOST
+.env.STEP_PORT
+.env.STEP_GMAIL
+.env.STEP_SERVICE
