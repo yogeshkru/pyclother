@@ -706,7 +706,7 @@ p {
 .login_input {
   margin: 10px 0px !important;
   border: 1px solid gray;
-  width: 90%;
+  width: 100%;
   margin: auto;
   padding: 10px;
   border-radius: 15px;
@@ -755,7 +755,7 @@ input[type="number"] {
 .login_label_3 {
   position: absolute;
   top: 14px;
-  right: 50px;
+  right: 20px;
 }
 .login_color {
   color: var(--KIDS--COLOR);

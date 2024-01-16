@@ -57,7 +57,7 @@ function Signup() {
             </div>
             <div className="login_font_padding">
               <p>
-                Login 
+                Sign Up
               </p>
               <form className="mt-3" onSubmit={handleSubmit}>
                 <div className="login_input1">
