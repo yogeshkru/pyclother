@@ -6,6 +6,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { PiHandbagBold } from "react-icons/pi";
 import HeadRoom from "react-headroom";
 import { useMediaQuery } from "react-responsive";
+import '../styles/Home.css';
 function Header() {
   const [sidenavWidth, setSidenavWidth] = useState(0);
   const isMobile = useMediaQuery({ maxWidth: 600 });

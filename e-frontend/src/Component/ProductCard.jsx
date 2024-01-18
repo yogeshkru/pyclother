@@ -32,7 +32,7 @@ const ProductCard = function () {
     
 
 
-      <div className="col-xl-2 col-lg-4 col-md-6 mt-3   ">
+      <div className="col-xl-2 col-lg-4 col-md-6 mt-3  productcard-mobile-view  ">
         <div className="productCard position-relative  ">
           <div className="productCard-wishlist-icon position-absolute">
             <Link>
@@ -58,7 +58,7 @@ const ProductCard = function () {
         </div>
       </div>
 
-
+ 
       <div className="col-xl-2 col-lg-4 col-md-6 mt-3 ">
         <div className="productCard position-relative  ">
           <div className="productCard-wishlist-icon position-absolute">
@@ -488,7 +488,7 @@ const ProductCard = function () {
             <h6 className="productCard-price mt-2 ms-3">Rs-888</h6>
           </div>
         </div>
-      </div>
+      </div> 
     </>
   );
 };

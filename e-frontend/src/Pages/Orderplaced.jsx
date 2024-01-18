@@ -1,9 +1,9 @@
 import React from "react";
 import Order from "../assets/image/orderpalced_icons.png";
-
+import '../styles/Home.css'
 function Orderplaced() {
   return (
-    <div className="container">
+    <div className="container orderplaced_height">
       <div className="row justify-content-center">
         <div className="col-lg-6 mt-5">
           <div className="text-center">

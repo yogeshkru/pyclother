@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from "react";
+import "../styles/Home.css";
+import useCode from "../assets/image/usecode.jpeg";
+import men_wear from "../assets/image/men_wear.png";
+import women_wear from "../assets/image/women_wear.png";
+import kids_wear from "../assets/image/Kids.png"
 import Marquee from "react-fast-marquee";
 import home_end from "../assets/image/end_of_season1.jpeg";
 import home from "../assets/image/home_carousel1.jpeg";
@@ -7,7 +12,7 @@ import home2 from "../assets/image/home_carousel3.jpeg";
 import home3 from "../assets/image/home_carousel4.jpeg";
 import home4 from "../assets/image/home_carousel5.jpeg";
 import home5 from "../assets/image/home_carousel6.jpeg";
-
+import vector from "../assets/image/Vector.png";
 import home6 from "../assets/image/homeslide.jpeg";
 import home7 from "../assets/image/homeslide1.jpeg";
 import home8 from "../assets/image/homeslide2.jpeg";
@@ -33,13 +38,14 @@ import home_details6 from "../assets/image/home_details4.jpeg";
 import home_details7 from "../assets/image/home_details3.jpeg";
 import home_details8 from "../assets/image/home_details2.jpeg";
 import home_details9 from "../assets/image/home_details1.jpeg";
+import delivery from "../assets/image/delviery.png";
+import exchange from "../assets/image/exchange.png";
 function Home() {
   //slides
   const [data, setData] = useState(0);
 
   const [index, setIndex] = useState(0);
 
- 
   useEffect(() => {
     const intervalId = setInterval(() => {
       setIndex((prevIndex) => (prevIndex + 1) % 4);
@@ -48,7 +54,6 @@ function Home() {
     return () => clearInterval(intervalId);
   }, [index]);
 
- 
   //carousel
   const slides = [
     { id: 1, scr: home, alt: "home_carousel1" },
@@ -67,8 +72,9 @@ function Home() {
   }, [slides.length]);
 
   return (
-    <div className="container-fluid">
-      
+    <>
+    <div className=" container-fluid overflow-hidden">
+    
       <div className="home_carousel">
         {slides.map((item, i) => (
           <img
@@ -76,7 +82,9 @@ function Home() {
             src={item.scr}
             alt={item.alt}
             width="100%"
-            className={data === i ? "home_slides" : "home_slides home_slides_hidden"}
+            className={
+              data === i ? "home_slides" : "home_slides home_slides_hidden"
+            }
           />
         ))}
         <div className="home_total_indicator">
@@ -98,7 +106,42 @@ function Home() {
         </div>
       </div>
       <div className="home_geniune_product">
+        <div className="row ">
+          <div className="col-lg-4 home_geniune_border">
+            <div className="d-flex justify-content-center gap-4">
+              <div className="home_geniune_product_img">
+                <img src={vector} width="100%" />
+              </div>
+              <div className="home_geniune_border_content">
+                <p>100% GENIUNE</p>
+                <p>PRODUCTS</p>
+              </div>
+            </div>
+          </div>
 
+          <div className="col-lg-4 home_geniune_border">
+            <div className="d-flex justify-content-center gap-4">
+              <div className="home_geniune_product_img1">
+                <img src={exchange} width="100%" />
+              </div>
+              <div className="home_geniune_border_content">
+                <p>SUPERFAST DELIVERY</p>
+                <p>PRODUCTS</p>
+              </div>
+            </div>
+          </div>
+          <div className="col-lg-4">
+            <div className="d-flex justify-content-center gap-4">
+              <div className="home_geniune_product_img3">
+                <img src={delivery} width="100%" />
+              </div>
+              <div className="home_geniune_border_content">
+                <p>EASY EXCHANGE& RETURNS</p>
+                <p>PRODUCTS</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className=" home_page_welcome">
@@ -107,7 +150,7 @@ function Home() {
             WELCOME <span className="home_pondicherry">PONDICHERRY</span>
           </h1>
         </div>
-      </div>
+      </div>  
 
       <div
         id="carouselExampleDark"
@@ -224,24 +267,36 @@ function Home() {
         </div>
       </div>
 
-      <div className="row mt-3">
+      <div className="row home_mens--total mt-3">
         <div className="col-lg-4 home_mens--upto">
-          <div className="home_mens-details">
-            <img src={men_details} width="100%" />
+          <div className="home_mens--upto1">
+            <div className="home_mens-details">
+              <img src={men_details} width="100%" />
+            </div>
+            <div className="home_mens-details1">
+              <img src={men_wear} width="100%" />
+            </div>
           </div>
-          <div></div>
         </div>
         <div className="col-lg-4 home_mens--upto">
-          <div className="home_mens-details">
-            <img src={women_details} width="100%" />
+          <div className="home_mens--upto1">
+            <div className="home_mens-details">
+              <img src={women_details} width="100%" />
+            </div>
+            <div className="home_mens-details1">
+              <img src={women_wear} width="100%" />
+            </div>
           </div>
-          <div></div>
         </div>
         <div className="col-lg-4 home_mens--upto">
-          <div className="home_mens-details">
-            <img src={kids_details} width="100%" />
+          <div className="home_mens--upto1">
+            <div className="home_mens-details">
+              <img src={kids_details} width="100%" />
+            </div>
+            <div className="home_mens-details1">
+              <img src={kids_wear} width="100%" />
+            </div>
           </div>
-          <div></div>
         </div>
       </div>
 
@@ -274,6 +329,50 @@ function Home() {
                 </div>
               </div>
             </Marquee>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div className="row home_flat_useCode1">
+          <div className="col-lg-6">
+            <div className="home_flat_useCode_onallproduct">
+              <div className="home_flat_img">
+                <img src={useCode} width="100%" />
+              </div>
+              <div className="home_flat_useCode_onallproduct1">
+                <div className="home_flat_useCode_onallproduct_detail">
+                  <div>
+                    <h3 className="home_onallproduct_1">FLAT ₹100 OFF</h3>
+                    <h5 className="home_onallproduct_">ON ALL PRODUCTS</h5>
+                  </div>
+                  <div>
+                    <h5 className="home_onallproduct_">USE CODE</h5>
+                    <h5 className="home_flat_background">012345678</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="col-lg-6">
+            <div className="home_flat_useCode_onallproduct">
+              <div className="home_flat_img">
+                <img src={useCode} width="100%" />
+              </div>
+              <div className="home_flat_useCode_onallproduct1">
+                <div className="home_flat_useCode_onallproduct_detail">
+                  <div>
+                    <h3 className="home_onallproduct_1">FLAT ₹200 OFF</h3>
+                    <h5 className="home_onallproduct_">ON ALL PRODUCTS</h5>
+                  </div>
+                  <div>
+                    <h5 className="home_onallproduct_">USE CODE</h5>
+                    <h5 className="home_flat_background">012345678</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -474,6 +573,8 @@ function Home() {
         </div>
       </div>
     </div>
+    </>
+
   );
 }
 
