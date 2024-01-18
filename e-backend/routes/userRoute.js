@@ -1,13 +1,15 @@
 module.exports = (app) => {
   const router = require("express").Router();
-  const { createUser } = require("../controllers/userController");
+  const {
+    createUser,
+    login,
+    updatePassword,
+  } = require("../controllers/userController");
+  const { userProtect } = require("../middleware/auth");
 
+  router.route("/createUser").post(createUser);
+  router.route("/login").post(login);
+  router.route("/updatePassword").patch(userProtect, updatePassword);
 
-  router.route("/createUser").post(createUser)
-
-
-
-
-  app.use("/api/user",router)
+  app.use("/api/user", router);
 };
-

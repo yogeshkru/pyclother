@@ -40,6 +40,7 @@ function App() {
           <Route path="orderpalced" element={<Orderplaced />} />
           <Route path="whislist" element={<Whislist />} />
           <Route path="payment" element={<Payment />} />
+          <Route path="wishlist" element={<WishList/>}/>
         </Route>
       </Routes>
 
