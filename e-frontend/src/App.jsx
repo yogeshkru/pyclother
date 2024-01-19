@@ -6,7 +6,7 @@ import "./App.css";
 import Layout from "./Component/Layout";
 import Home from "./Pages/Home";
 import OurStore from "./Pages/OurStore";
-import  DeliveryDetails  from "./Pages/DeliveryDetails";
+import DeliveryDetails from "./Pages/DeliveryDetails";
 import SingleProduct from "./Pages/SingleProduct";
 import Delivery_address from "./Pages/Delivery_address";
 import Cart from "./Pages/Cart";
@@ -17,17 +17,23 @@ import Whislist from "./Pages/Whislist";
 import Otp from "./Pages/Otp";
 import Signup from "./Pages/Signup";
 
+import { ActivationPage } from "./Routes/AdminRoutes";
+
 function App() {
   return (
     <>
+  <BrowserRouter>
+
       <Routes>
-      <Route path="/signup" element={<Signup />} />
+
+        <Route path="/admin-activation/:activation_token" element={<ActivationPage/>}/>
+        <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-         <Route path="/otp" element={<Otp/>}/>
+        <Route path="/otp" element={<Otp />} />
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="singleProduct" element={<SingleProduct />} />
-          <Route path="delivery-address" element={<Delivery_address/>}/>
+          <Route path="delivery-address" element={<Delivery_address />} />
           <Route path="Addtocart" element={<Cart />} />
           <Route path="ourstore" element={<OurStore />} />
           <Route path="deliveryDetails" element={<DeliveryDetails />} />
@@ -37,6 +43,21 @@ function App() {
         
         </Route>
       </Routes>
+
+      <ToastContainer
+            position="bottom-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+          />
+  </BrowserRouter>
+
     </>
   );
 }
