@@ -3,25 +3,25 @@ const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const userSchema = new mongoose.Schema(
   {
-    name: {
+    user_name: {
       type: String,
       required: [true, "name is required"],
       trim: true,
     },
-    email: {
+    user_email: {
       type: String,
       required: [true, "Email is required"],
     },
-    phone: {
+    user_phone: {
       type: Number,
       required: [true, "Phone is required"],
     },
-    password: {
+    user_password: {
       type: String,
       required: [true, "Password is required"],
       select: false,
     },
-    wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
+    user_wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
     passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetTokenExpired: Date,
@@ -59,4 +59,4 @@ userSchema.methods.createResetPasswordToken = async function () {
   this.passwordResetTokenExpired = Date.now() + 10 * 60 * 1000;
   return resetToken;
 };
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("tbl_User", userSchema);

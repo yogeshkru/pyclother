@@ -4,12 +4,14 @@ module.exports=(app)=>{
         colorCreate,
         colorGet,
         colorUpdate,
-        colorDelete
+        colorDelete,
+        colorfindone
     }=require('../controllers/colorController')
     router.route("/colors").post(colorCreate)
     router.route("/colorget").get(colorGet)
     router.route("/colorUpdates/:id").patch(colorUpdate)
     router.route("/colorDelete/:id").delete(colorDelete)
+    router.route("/colorFind/:id").get(colorfindone)
 
 
 
