@@ -18,7 +18,7 @@ function Cart() {
           <p className='Cart-add-from'><b>+</b> Add from Wishlist</p>
         </div>
         <div className='row'>
-          <div className='col-12 col-lg-8 mt-4'>
+          <div className='col-12 col-lg-8 mt-4 '>
             <div class="Cart-card card mb-3" >
               <div class="row no-gutters">
                 <div class=" col-lg-3 Cart-img col-12" >
