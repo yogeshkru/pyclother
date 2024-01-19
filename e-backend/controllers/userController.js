@@ -73,7 +73,7 @@ exports.login = asyncErrorhandler(async (req, res, next) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      // phone: user.phone,
+   
     };
 
     createSendResponse(user, 200, res);
