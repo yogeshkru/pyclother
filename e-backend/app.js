@@ -21,6 +21,8 @@ if(process.env.NODE_ENV !== "PRODUCTION"){
 
 
 require("./routes/userRoute")(app)
+
+require("./routes/colorRoutes")(app)
 //Routes error handler
 app.all("*",(req,res,next)=>{
     const error=new customError(
