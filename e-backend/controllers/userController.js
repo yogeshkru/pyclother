@@ -22,7 +22,7 @@ const createSendResponse = function (user, statusCode, res) {
 };
 
 //Signup
-exports.createUser = asyncErrorhandler(async (req, res, next) => {
+exports.createUser = (async (req, res, next)asyncErrorhandler => {
   try {
     const userAlready = await userModel.findOne({ email: req.body.email });
     if (userAlready) {
