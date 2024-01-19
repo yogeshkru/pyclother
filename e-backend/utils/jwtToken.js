@@ -10,7 +10,7 @@ const sendToken = async (user, statusCode, res) => {
   const token = generateToken(user._id);
 
   const options = {
-    maxAge: process.env.EXPIRE_DAYS,
+    maxAge: 30 * 24 * 60 * 60 * 1000,
     httpOnly: true,
   };
 
@@ -18,11 +18,11 @@ const sendToken = async (user, statusCode, res) => {
     options.secure = true;
   }
 
-  res.cookie("user", token, options);
+  res.cookie("shop_user", token, options);
 
-  user.password = undefined;
+  // user.password = undefined;
 
   res.status(statusCode).json({ status: "success", token, data: { user } });
 };
 
-module.exports = sendToken;
+module.exports = { sendToken };

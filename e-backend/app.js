@@ -23,7 +23,7 @@ let limiter = rateLimit({
 
 app.use("/api", limiter);
 
-if (process.env.NODE_ENV !== "PRODUCTION") {
+if (process.env.NODE_ENV == "PRODUCTION") {
   require("dotenv").config();
 }
 

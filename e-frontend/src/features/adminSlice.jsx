@@ -1,6 +1,7 @@
 import { createAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import adminService from "./adminService";
 import { toast } from "react-toastify";
+import asyncErrorhandler from "../../../e-backend/utils/asyncErrorhandler";
 export const resetState = createAction("Reset_all");
 
 export const registerAdminUser = createAsyncThunk(
@@ -29,6 +30,19 @@ export const activateNewAdminUser = createAsyncThunk(
   }
 );
 
+export const adminLogout = createAsyncThunk(
+  "auth/adminlogout",
+  async (thunkAPI) => {
+    try {
+      const response = await adminService.adminLogout();
+      return response;
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+      return thunkAPI.rejectWithValue(asyncErrorhandler);
+    }
+  }
+);
+
 const initialState = {
   isError: false,
   isSuccess: false,
@@ -39,7 +53,7 @@ const initialState = {
 export const authAdminSlice = createSlice({
   name: "adminauth",
   initialState,
-  reducers:{},
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(registerAdminUser.pending, (state) => {
@@ -71,9 +85,24 @@ export const authAdminSlice = createSlice({
         state.isSuccess = false;
         state.isLoading = false;
         state.message = action.error;
-      });
+      })
+      .addCase(adminLogout.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(adminLogout.fulfilled, (state, action) => {
+        state.isError = false;
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.userLogout = action.payload;
+      })
+      .addCase(adminLogout.rejected, (state, action) => {
+        state.isError = true;
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+      .addCase(resetState, () => initialState);
   },
 });
-
 
 export default authAdminSlice.reducer;

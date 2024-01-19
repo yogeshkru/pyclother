@@ -18,9 +18,17 @@ const activationToken = async function (userToken) {
   }
 };
 
+ async function adminLogout  (){
+  const response= await axios.get(`${base_url}admin/logout`,{withCredentials:true})
+  if(response.data){
+    return response.data
+  }
+}
+
 const adminService = {
   register,
   activationToken,
+  adminLogout
 };
 
 export default adminService;
