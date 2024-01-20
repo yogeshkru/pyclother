@@ -4,13 +4,15 @@ const cors = require("cors");
 const bodyparser = require("body-parser");
 const cookie = require("cookie-parser");
 const rateLimit = require("express-rate-limit");
+const helmet = require("helmet");
 
 const globalError = require("./utils/globalErrorhandler");
 const customError = require("./utils/customError");
 
 // *****************Third part liberary****************
-
+app.use(helmet());
 app.use(bodyparser.json());
+// app.use(bodyparser.json({limit:'10kb'})) // Important
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(cookie());
 app.use(cors());
@@ -29,6 +31,11 @@ if (process.env.NODE_ENV == "PRODUCTION") {
 
 require("./routes/userRoute")(app);
 require("./routes/adminUserRoutes")(app);
+require("./routes/userRoute")(app);
+require("./routes/brandRoute")(app);
+require("./routes/categoryRoute")(app);
+require("./routes/colorRoutes")(app);
+require("./routes/productRoutes")(app);
 
 //Routes error handler
 app.all("*", (req, res, next) => {

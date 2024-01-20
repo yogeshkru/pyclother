@@ -38,10 +38,15 @@ const productSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    numViews: {
+      type: Number,
+      default: 0,
+    },
     Available: { type: Boolean, default: true },
     // companyId:{},
     // branchId:{}
     size: String,
+
 
     sku: String,
     tags: String,
@@ -50,4 +55,4 @@ const productSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Product", productSchema);
+module.exports = mongoose.model("Tbl_product", productSchema);
