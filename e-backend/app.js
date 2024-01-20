@@ -29,6 +29,7 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
 
 require("./routes/userRoute")(app);
 require("./routes/adminUserRoutes")(app);
+require("./routes/cartRoutes")(app);
 
 //Routes error handler
 app.all("*", (req, res, next) => {

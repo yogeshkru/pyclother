@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Routes, Route } from "react-router-dom";
-
+import { Routes, Route,BrowserRouter } from "react-router-dom";
+import {ToastContainer} from "react-toastify";
 import "./App.css";
 
 import Layout from "./Component/Layout";
