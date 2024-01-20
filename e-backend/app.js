@@ -4,13 +4,15 @@ const cors = require("cors");
 const bodyparser = require("body-parser");
 const cookie = require("cookie-parser");
 const rateLimit = require("express-rate-limit");
+const helmet = require("helmet");
 
 const globalError = require("./utils/globalErrorhandler");
 const customError = require("./utils/customError");
 
 // *****************Third part liberary****************
-
+app.use(helmet());
 app.use(bodyparser.json());
+// app.use(bodyparser.json({limit:'10kb'})) // Important
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(cookie());
 app.use(cors());
@@ -23,11 +25,10 @@ let limiter = rateLimit({
 
 app.use("/api", limiter);
 
-if (process.env.NODE_ENV !== "PRODUCTION") {
+if (process.env.NODE_ENV == "PRODUCTION") {
   require("dotenv").config();
 }
 
-require("./routes/userRoute")(app);
 require("./routes/adminUserRoutes")(app);
 require("./routes/couponRoutes")(app);
 

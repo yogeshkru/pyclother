@@ -1,5 +1,4 @@
 const categorySchema = require("../model/categoryModel");
-const asyncErrorhandler = require("../utils/asyncErrorhandler");
 const customError = require("../utils/customError");
 
 class categoryController {
