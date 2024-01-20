@@ -5,7 +5,7 @@ const customError = require("../utils/customError");
 //inbuild module
 const crypto = require("crypto");
 const util = require("util");
-
+const { senduseToken } = require("../utils/jwtToken");
 //send email
 const sendEmail = require("../utils/sendMail");
 //Token generate
@@ -38,7 +38,7 @@ exports.createUser = asyncErrorhandler(async (req, res, next) => {
       phone: user.phone,
     };
 
-    createSendResponse(user, 201, res);
+    senduseToken(user, 201, res);
   } catch (err) {
     return next(new customError(err.message, 400));
   }
@@ -73,10 +73,9 @@ exports.login = asyncErrorhandler(async (req, res, next) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      // phone: user.phone,
     };
 
-    createSendResponse(user, 200, res);
+    senduseToken(user, 200, res);
   } catch (err) {
     return next(new customError(err.message, 500));
   }
@@ -136,9 +135,7 @@ exports.resetPassword = asyncErrorhandler(async (req, res, next) => {
   update.passwordChangedAt = Date.now();
   await update.save();
 
-  const jwttoken = generateToken(update._id);
-
-  res.status(200).json({ status: "success", jwttoken });
+  senduseToken(user, 200, res);
 });
 
 exports.updatePassword = asyncErrorhandler(async (req, res, next) => {
@@ -160,7 +157,10 @@ exports.updatePassword = asyncErrorhandler(async (req, res, next) => {
   await user.save();
 
   // Login User & Send Jwt
-  const token = generateToken(user._id);
-
-  res.status(200).json({ status: "success", token, data: { user } });
+  user = {
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+  };
+  senduseToken(user, 201, res);
 });
