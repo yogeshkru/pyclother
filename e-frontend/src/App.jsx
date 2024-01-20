@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import {BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "./App.css";
 
@@ -18,6 +18,7 @@ import Otp from "./Pages/Otp";
 import Signup from "./Pages/Signup";
 
 import { ActivationPage } from "./Routes/AdminRoutes";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
