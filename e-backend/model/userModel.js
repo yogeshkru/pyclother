@@ -21,10 +21,16 @@ const userSchema = new mongoose.Schema(
       required: [true, "Password is required"],
       select: false,
     },
+    user_active: {
+      type: Boolean,
+      default: true,
+      select: false,
+    },
+
     user_wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
-    passwordChangedAt: Date,
-    passwordResetToken: String,
-    passwordResetTokenExpired: Date,
+    user_passwordChangedAt: Date,
+    user_passwordResetToken: String,
+    user_passwordResetTokenExpired: Date,
   },
   {
     timestamps: true,
