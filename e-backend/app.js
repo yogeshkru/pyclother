@@ -30,6 +30,8 @@ if (process.env.NODE_ENV == "PRODUCTION") {
 }
 
 require("./routes/adminUserRoutes")(app);
+require("./routes/cartRoutes")(app);
+require("./routes/enquiryRoutes")(app);
 require("./routes/couponRoutes")(app);
 require("./routes/userRoute")(app);
 require("./routes/brandRoute")(app);
