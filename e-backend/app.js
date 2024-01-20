@@ -30,12 +30,13 @@ if (process.env.NODE_ENV == "PRODUCTION") {
 }
 
 require("./routes/adminUserRoutes")(app);
-require("./routes/couponRoutes")(app)
-require("./routes/userRoute")(app)
-require("./routes/brandRoute")(app)
-require("./routes/categoryRoute")(app)
-require("./routes/addressRoute")(app)
-require("./routes/colorRoutes")(app)
+require("./routes/couponRoutes")(app);
+require("./routes/userRoute")(app);
+require("./routes/brandRoute")(app);
+require("./routes/categoryRoute")(app);
+require("./routes/addressRoute")(app);
+require("./routes/colorRoutes")(app);
+require("./routes/blogRoutes")(app);
 //Routes error handler
 app.all("*", (req, res, next) => {
   const error = new customError(

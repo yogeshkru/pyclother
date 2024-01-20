@@ -8,7 +8,7 @@ class Blog {
     const newBlog = await blogModel.create(req.body);
     res.status(200).json({ status: "success", newBlog });
   }
-
+// ***********************************************************
   updateBlog = async (req, res) => {
     const patchedBlog = await blogModel.findByIdAndUpdate(
       req.params.id,
@@ -17,7 +17,7 @@ class Blog {
     );
     res.status(200).json({ patchedBlog });
   };
-
+// ***********************************************************
   getBlog = async function (req, res) {
     const { id } = req.params;
 
@@ -49,11 +49,13 @@ class Blog {
 
     res.status(200).json({ data: getBlog[0] });
   };
+//   **************************************************************
 
   getAllBlogs = async (req, res) => {
     const getBlogs = await blogModel.find();
     res.status(200).json({ getBlogs });
   };
+//   **************************************************************
 
   async deleteBlog(res, req, next) {
     const deleteBlog = await blogModel.findByIdAndDelete(req.params.id);
@@ -65,8 +67,9 @@ class Blog {
 
     res.status(200).json({ status: "Deleted" });
   }
+  //   ******************************************************************
 
-  likeBlog = async function (req, res) {
+  async likeBlog(req, res) {
     const { blogId } = req.body;
 
     const blog = await blogModel.findById(blogId);
@@ -107,7 +110,48 @@ class Blog {
       );
       return res.status(200).json({ blog });
     }
-  };
+  }
+
+  // *********************************************************************
+  async disLikeBlog() {
+    const { blogId } = req.body;
+
+    const blog = await blogModel.findById(blogId);
+
+    const loginUserId = req.user?._id;
+    const isDisliked = blog?.blog_isDisLiked;
+
+    const alreadyliked = blog?.blog_likes.find(
+      (user_id) => user_id.toString() === loginUserId.toString()
+    );
+
+    if (alreadyliked) {
+      await blogModel.findByIdAndUpdate(
+        blogId,
+        { $pull: { blog_likes: loginUserId } },
+        { new: true }
+      );
+    }
+
+    if (isDisliked) {
+      const blog = await blogModel.findByIdAndUpdate(
+        blogId,
+        {
+          $pull: { blog_dislikes: loginUserId },
+          blog_dislikes: false,
+        },
+        { new: true }
+      );
+      return res.status(200).json({ blog });
+    } else {
+      const blog = await blogModel.findByIdAndUpdate(
+        blogId,
+        { $push: { blog_dislikes: loginUserId }, blog_isDisLiked: true },
+        { new: true }
+      );
+      return res.status(200).json({ blog });
+    }
+  }
 }
 
 module.exports = Blog;
