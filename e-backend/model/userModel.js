@@ -59,4 +59,4 @@ userSchema.methods.createResetPasswordToken = async function () {
   this.passwordResetTokenExpired = Date.now() + 10 * 60 * 1000;
   return resetToken;
 };
-module.exports = mongoose.model("tbl_User", userSchema);
+module.exports = mongoose.model("Tbl_user", userSchema);
