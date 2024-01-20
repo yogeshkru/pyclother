@@ -34,6 +34,7 @@ require("./routes/userRoute")(app)
 require("./routes/brandRoute")(app)
 require("./routes/categoryRoute")(app)
 require("./routes/addressRoute")(app)
+require("./routes/colorRoutes")(app)
 //Routes error handler
 app.all("*", (req, res, next) => {
   const error = new customError(
