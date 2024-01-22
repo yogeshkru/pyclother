@@ -11,23 +11,6 @@ const createActivationToken = (data) => {
   return jwt.sign({ data }, process.env.ACITIVATE_SECERT);
 };
 
-// const createSendResponse = function (user, statusCode, res) {
-//   const token = generateToken(user._id);
-
-//   const options = {
-//     maxAge: process.env.EXPIRE_DAYS,
-//     httpOnly: true,
-//   };
-
-//   if (process.env.NODE_ENV === "PRODUCTION") {
-//     options.secure = true;
-//   }
-
-//   res.cookie("jwt", token, options);
-
-//   // user.password = undefined; ===> IMPORTANT
-//   res.status(statusCode).json({ status: "success", token, data: { user } });
-// };
 
 exports.createNewUser = asyncErrorhandler(async (req, res, next) => {
   try {

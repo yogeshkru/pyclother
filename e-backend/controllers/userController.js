@@ -5,9 +5,9 @@ const { sendUserToken } = require("../utils/jwtToken");
 
 //inbuild module
 const crypto = require("crypto");
-const util = require("util");
 //send email
 const sendEmail = require("../utils/sendMail");
+const { default: mongoose } = require("mongoose");
 
 //Signup
 exports.createUser = asyncErrorhandler(async (req, res, next) => {
@@ -96,8 +96,8 @@ exports.forgetPassword = asyncErrorhandler(async (req, res, next) => {
       message: message,
     });
   } catch (err) {
-    findUser.passwordResetToken = undefined;
-    findUser.passwordResetTokenExpired = undefined;
+    findUser.user_passwordResetToken = undefined;
+    findUser.user_passwordResetTokenExpired = undefined;
     findUser.save({ validateBeforeSave: false });
     return next(
       new customError(`there was a error sending password reset email`, 500)
@@ -129,32 +129,37 @@ exports.resetPassword = asyncErrorhandler(async (req, res, next) => {
   sendUserToken(user, 200, res);
 });
 
-exports.updatePassword = asyncErrorhandler(async (req, res, next) => {
-  //  Get Current User Data From DataBase
-  const user = await userModel.findById(req.user._id).select("+password");
+exports.updatePasswordByUserLogin = asyncErrorhandler(
+  async (req, res, next) => {
+    //  Get Current User Data From DataBase
+    const user = await userModel.findById(req.user._id).select("+password");
 
-  // check if the password
+    // check if the password
 
-  if (
-    !(await user.comparePasswordInDb(req.body.currentPassword, user.password))
-  ) {
-    return next(
-      new customError("The current password you provided is wrong", 401)
-    );
+    if (
+      !(await user.comparePasswordInDb(
+        req.body.currentPassword,
+        user.user_password
+      ))
+    ) {
+      return next(
+        new customError("The current password you provided is wrong", 401)
+      );
+    }
+
+    user.user_password = req.body.password;
+    // user.confirmPassword = req.body.confirmPassword;
+    await user.save();
+
+    // Login User & Send Jwt
+    user = {
+      _id: user._id,
+      name: user.user_name,
+      email: user.user_email,
+    };
+    sendUserToken(user, 201, res);
   }
-
-  user.user_password = req.body.password;
-  // user.confirmPassword = req.body.confirmPassword;
-  await user.save();
-
-  // Login User & Send Jwt
-  user = {
-    _id: user._id,
-    name: user.name,
-    email: user.email,
-  };
-  sendUserToken(user, 201, res);
-});
+);
 
 exports.updatePasswordByUserLogin = asyncErrorhandler(
   async (req, res, next) => {
@@ -232,7 +237,7 @@ exports.deleteMe = asyncErrorhandler(async (req, res) => {
 const filterReqObj = (obj, ...allowedFileds) => {
   const newObj = {};
   Object.keys(obj).forEach((prop) => {
-    if (allowedFileds.includes(prop)) newObj[prop] = obj = [prop];
+    if (allowedFileds.includes(prop)) newObj[prop] = obj[prop];
   });
 
   return newObj;
@@ -265,6 +270,58 @@ exports.updateMe = asyncErrorhandler(async (req, res, next) => {
 });
 
 // ************************************************************************
+
+exports.getUserById = asyncErrorhandler(async (req, res, next) => {
+  const { id } = req.params;
+
+  const user = await userModel.findById(id);
+  if (!user) {
+    const error = new customError("user with that Id is not found", 404);
+    next(error);
+  }
+
+  res.status(200).json({ status: "success", data: { user } });
+});
+
+exports.getUserDelete = asyncErrorhandler(async (req, res, next) => {
+  const { id } = req.params;
+
+  const user = await userModel.findByIdAndDelete(id);
+
+  if (!user) {
+    const error = new customError("User with Id is not found", 404);
+    return next(error);
+  }
+  res.status(200).json({ status: "Deleted", data: null });
+});
+
+exports.fetchAllUser = asyncErrorhandler(async (req, res, next) => {
+  const Allusers = await userModel.find();
+  res.status(200).json({ message: "success", Allusers });
+});
+
+exports.getWishList = asyncErrorhandler(async (req, res) => {
+  const { _id } = req.user;
+
+  const Userwishlist = await userModel.aggregate([
+    { $match: { _id: new mongoose.Types.ObjectId(_id) } },
+    {
+      $lookup: {
+        from: "tbl_products",
+        localField: "user_wishlist",
+        foreignField: "_id",
+        as: "wishlist",
+      },
+    },
+  ]);
+
+  res.status(200).json({ getBlog: Userwishlist[0] });
+});
+
+
+
+
+
 exports.logout = asyncErrorhandler(async (req, res, next) => {
   const { user } = req.cookies;
 

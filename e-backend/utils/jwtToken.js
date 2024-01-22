@@ -8,22 +8,22 @@ const generateToken = (id) => {
 
 
 
-const sendAdminToken = async (user, statuscode, res) => {
-  const token = generateToken(user._id);
-  const options = {
-    maxAge: 30 * 24 * 60 * 60 * 1000,
-    httpOnly: true,
-  };
-  if (process.env.NODE_ENV === "PRODUCTION") {
-    options.secure = true;
-  }
+// const sendAdminToken = async (user, statuscode, res) => {
+//   const token = generateToken(user._id);
+//   const options = {
+//     maxAge: 30 * 24 * 60 * 60 * 1000,
+//     httpOnly: true,
+//   };
+//   if (process.env.NODE_ENV === "PRODUCTION") {
+//     options.secure = true;
+//   }
 
-  res.cookie("shop_user", token, options);
+//   res.cookie("shop_user", token, options);
 
-  // user.password = undefined;
+//   // user.password = undefined;
 
-  res.status(statuscode).json({ status: "success", token, data: { user } });
-};
+//   res.status(statuscode).json({ status: "success", token, data: { user } });
+// };
 
 const sendUserToken = async (user, statusCode, res) => {
   const token = generateToken(user._id);
@@ -57,4 +57,4 @@ const sendShopToken = async(user,statusCode,res)=>{
 
   res.status(statusCode).json({status:"success",token,data:{user}})
 }
-module.exports = { sendAdminToken, sendUserToken ,sendShopToken };
+module.exports = { sendUserToken ,sendShopToken };
