@@ -19,5 +19,5 @@ module.exports = (app) => {
   router.route("/update_blog").patch(updateBlog)
   router.route("/dislike_blog").post(disLikeBlog)
 
-  app.use("/api/brand",router)
+  app.use("/api/blog",router)
 };

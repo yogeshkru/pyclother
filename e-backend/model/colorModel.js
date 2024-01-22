@@ -10,4 +10,4 @@ const colorSchema = new mongoose.Schema(
 );
 
 
-module.exports = new mongoose.model("Tbl_color",colorSchema);
+module.exports =  mongoose.model("Tbl_color",colorSchema);
