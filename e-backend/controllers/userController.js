@@ -24,7 +24,7 @@ const createSendResponse = function (user, statusCode, res) {
 //Signup
 exports.createUser = asyncErrorhandler(async (req, res, next) => {
   try {
-    const userAlready = await userModel.findOne({ email: req.body.email });
+    const userAlready = await userModel.findOne({ user_email: req.body.email });
     if (userAlready) {
       return next(new customError("Email is already exists", 409));
     }

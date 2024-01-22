@@ -6,4 +6,6 @@ module.exports=(app)=>{
     router.route('/getEnquiry').get(enquiryController.getAllEnquiry);
     router.route('/getOne/:id').get(enquiryController.getEnquiry);
     router.route('deleteEnquiry/:id').delete(enquiryController.deleteEnquiry)
+
+    app.use("/api/enquiry", router);
 }
