@@ -318,10 +318,6 @@ exports.getWishList = asyncErrorhandler(async (req, res) => {
   res.status(200).json({ getBlog: Userwishlist[0] });
 });
 
-
-
-
-
 exports.logout = asyncErrorhandler(async (req, res, next) => {
   const { user } = req.cookies;
 

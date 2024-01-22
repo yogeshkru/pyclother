@@ -72,6 +72,7 @@ const adminProtect = asyncErrorhandler(async (req, res, next) => {
   }
 
   req.user = users;
+  next()
 });
 
 const protect = asyncErrorhandler(async (req, res, next) => {
@@ -100,6 +101,7 @@ const protect = asyncErrorhandler(async (req, res, next) => {
     return next(error);
   }
   res.user = users;
+  next()
 });
 
 const restrict = (...role) => {

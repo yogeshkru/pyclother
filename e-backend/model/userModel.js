@@ -26,12 +26,11 @@ const userSchema = new mongoose.Schema(
       default: true,
       select: false,
     },
-    user_role:{
-      type:String,
-      enum:["user","superadmin"],
-      default:"user"
-    }
-,
+    user_role: {
+      type: String,
+      enum: ["user", "superadmin"],
+      default: "user",
+    },
     user_wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
     user_passwordChangedAt: Date,
     user_passwordResetToken: String,
@@ -42,17 +41,17 @@ const userSchema = new mongoose.Schema(
   }
 );
 userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
-  this.password = await bcrypt.hash(this.password, 14);
+  if (!this.isModified("user_password")) return next();
+  this.user_password = await bcrypt.hash(this.user_password, 14);
 });
 userSchema.methods.comparePasswordInDb = async function (pwd, pswDB) {
   return await bcrypt.compare(pwd, pswDB);
 };
 
 userSchema.methods.isPasswordChange = async function (jwttoken) {
-  if (this.passwordChangedAt) {
+  if (this.user_passwordChangedAt) {
     const passwordChangedtimestamp = parseInt(
-      this.passwordChangedAt.getTime() / 1000,
+      this.user_passwordChangedAt.getTime() / 1000,
       10
     );
     return jwttoken < passwordChangedtimestamp;
