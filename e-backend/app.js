@@ -9,27 +9,29 @@ const helmet = require("helmet");
 const path = require("path");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
-const hpp = require("hpp")
+const hpp = require("hpp");
 const globalError = require("./utils/globalErrorhandler");
 
 const customError = require("./utils/customError");
 
 // *****************Third part liberary****************
 app.use(helmet());
-app.use(bodyparser.json());
-// app.use(bodyparser.json({limit:'10kb'})) // Important
+// app.use(bodyparser.json());
+app.use(bodyparser.json({ limit: "10kb" })); // Important
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(cookie());
 app.use(cors());
+
+// prevent the data do not inject the SQL query
 app.use(mongoSanitize());
+
+// prevent the data do injecting from javascript code
 app.use(xss());
 
 // prevent parameter pollution
-app.use(hpp())
+app.use(hpp());
 
 app.use(express.static(path.join(__dirname, "public")));
-
-
 
 // *********************************************************************
 let limiter = rateLimit({
@@ -42,7 +44,7 @@ let limiter = rateLimit({
 app.use("/api", limiter);
 
 // *********************************************************************
-if (process.env.NODE_ENV == "PRODUCTION") {
+if (process.env.NODE_ENV == "production") {
   require("dotenv").config();
 }
 

@@ -26,12 +26,11 @@ const userSchema = new mongoose.Schema(
       default: true,
       select: false,
     },
-    user_role:{
-      type:String,
-      enum:["user","superadmin"],
-      default:"user"
-    }
-,
+    user_role: {
+      type: String,
+      enum: ["user", "superadmin"],
+      default: "user",
+    },
     user_wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
     user_passwordChangedAt: Date,
     user_passwordResetToken: String,

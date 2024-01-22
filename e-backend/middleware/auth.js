@@ -72,6 +72,7 @@ const adminProtect = asyncErrorhandler(async (req, res, next) => {
   }
 
   req.user = users;
+  next()
 });
 
 const protect = asyncErrorhandler(async (req, res, next) => {
