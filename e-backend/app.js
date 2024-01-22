@@ -4,9 +4,11 @@ const cors = require("cors");
 const bodyparser = require("body-parser");
 const cookie = require("cookie-parser");
 const rateLimit = require("express-rate-limit");
+
 const helmet = require("helmet");
 
 const globalError = require("./utils/globalErrorhandler");
+
 const customError = require("./utils/customError");
 
 // *****************Third part liberary****************
@@ -31,7 +33,7 @@ if (process.env.NODE_ENV == "PRODUCTION") {
 
 require("./routes/adminUserRoutes")(app);
 require("./routes/couponRoutes")(app);
-
+require("./routes/userRoute")(app)
 require("./routes/brandRoute")(app);
 require("./routes/categoryRoute")(app);
 require("./routes/addressRoute")(app);
