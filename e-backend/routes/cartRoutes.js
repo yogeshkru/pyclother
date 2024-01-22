@@ -5,6 +5,7 @@ module.exports = (app)=>{
     router.route('/createcart').post(cartRoute.cart)
     router.route('/deletefromcart/:id').delete(cartRoute.deleteItemCart)
     router.route('/showtocart').get(cartRoute.getUserCart)
+    router.route("/update-cartitem/id/:newQuantity").patch(cartRoute.updateProductQuantity)
 
     app.use("/api/cart", router);
 }

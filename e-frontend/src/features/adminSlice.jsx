@@ -1,7 +1,6 @@
 import { createAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import adminService from "./adminService";
 import { toast } from "react-toastify";
-import asyncErrorhandler from "../../../e-backend/utils/asyncErrorhandler";
 export const resetState = createAction("Reset_all");
 
 export const registerAdminUser = createAsyncThunk(

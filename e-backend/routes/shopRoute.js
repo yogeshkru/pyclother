@@ -1,7 +1,7 @@
 module.exports = (app) => {
     const Shop = require('../controllers/shopController');
     const router = require('express').Router();
-    const asyncErrorHandler = require('../utils/asyncErrorHandler');
+    const asyncErrorHandler = require("../utils/asyncErrorhandler")
 
     const { shopCreate } = new Shop();
 

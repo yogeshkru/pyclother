@@ -1,4 +1,3 @@
-const { default: mongoose } = require("mongoose");
 const enquiryModel = require("../model/enquiryModel");
 const asyncErrorhandler = require("../utils/asyncErrorhandler");
 const customError = require("../utils/customError");
@@ -28,7 +27,7 @@ exports.enquiry = asyncErrorhandler(async (req, res, next) => {
 exports.getEnquiry = asyncErrorhandler(async (req, res, next) => {
   const { id } = req.params;
   try {
-    const enquiryOne = await enquiryModel.findOne({ where: { _id: id } });
+    const enquiryOne = await enquiryModel.findById({ id });
     res.status(201).json({ enquiryOne });
   } catch (error) {
     next(new customError(error.message, 500));
@@ -37,21 +36,34 @@ exports.getEnquiry = asyncErrorhandler(async (req, res, next) => {
 
 exports.getAllEnquiry = asyncErrorhandler(async (req, res, next) => {
   try {
-    const enquiryAll = await enquiryModel.findAll();
-    res.status(201).json({ enquiryAll });
+    const enquiryAll = await enquiryModel.find();
+    res.status(200).json({ enquiryAll });
   } catch (error) {
     next(new customError(error.message, 500));
   }
+});
+
+exports.updateEnquiry = asyncErrorhandler(async (req, res, next) => {
+  const { id } = req.params;
+  const updatedQuery = await enquiryModel.findByIdAndUpdate(id, req.body, {
+    runValidators: true,
+    new: true,
+  });
+
+  if (!updatedQuery) {
+    const error = new customError("Given Id not exist in DB", 404);
+    return next(error);
+  }
+
+  res.status(200).json({ updatedQuery });
 });
 
 exports.deleteEnquiry = asyncErrorhandler(async (req, res, next) => {
   const { id } = req.params;
   try {
-    const delEnquiry = await enquiryModel.destory({ where: { _id: id } });
-    res.status(203).json({ delEnquiry });
+    await enquiryModel.findByIdAndDelete(id);
+    res.status(200).json({ message: "Deleted" });
   } catch (error) {
     next(new customError(error.message, 500));
   }
 });
-
-

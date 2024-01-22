@@ -21,27 +21,38 @@ const userSchema = new mongoose.Schema(
       required: [true, "Password is required"],
       select: false,
     },
+    user_active: {
+      type: Boolean,
+      default: true,
+      select: false,
+    },
+    user_role:{
+      type:String,
+      enum:["user","superadmin"],
+      default:"user"
+    }
+,
     user_wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
-    passwordChangedAt: Date,
-    passwordResetToken: String,
-    passwordResetTokenExpired: Date,
+    user_passwordChangedAt: Date,
+    user_passwordResetToken: String,
+    user_passwordResetTokenExpired: Date,
   },
   {
     timestamps: true,
   }
 );
 userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
-  this.password = await bcrypt.hash(this.password, 14);
+  if (!this.isModified("user_password")) return next();
+  this.user_password = await bcrypt.hash(this.user_password, 14);
 });
 userSchema.methods.comparePasswordInDb = async function (pwd, pswDB) {
   return await bcrypt.compare(pwd, pswDB);
 };
 
 userSchema.methods.isPasswordChange = async function (jwttoken) {
-  if (this.passwordChangedAt) {
+  if (this.user_passwordChangedAt) {
     const passwordChangedtimestamp = parseInt(
-      this.passwordChangedAt.getTime() / 1000,
+      this.user_passwordChangedAt.getTime() / 1000,
       10
     );
     return jwttoken < passwordChangedtimestamp;
@@ -52,11 +63,11 @@ userSchema.methods.isPasswordChange = async function (jwttoken) {
 
 userSchema.methods.createResetPasswordToken = async function () {
   const resetToken = crypto.randomBytes(32).toString("hex");
-  this.passwordResetToken = crypto
+  this.user_passwordResetToken = crypto
     .createHash("sha256")
     .update(resetToken)
     .digest("hex");
-  this.passwordResetTokenExpired = Date.now() + 10 * 60 * 1000;
+  this.user_passwordResetTokenExpired = Date.now() + 10 * 60 * 1000;
   return resetToken;
 };
 module.exports = mongoose.model("Tbl_user", userSchema);

@@ -5,29 +5,12 @@ const CustomError = require("../utils/customError");
 const crypto = require("crypto");
 const util = require("util");
 const sendEmail = require("../utils/sendMail");
-const { sendToken } = require("../utils/jwtToken");
+const { sendAdminToken } = require("../utils/jwtToken");
 
 const createActivationToken = (data) => {
   return jwt.sign({ data }, process.env.ACITIVATE_SECERT);
 };
 
-// const createSendResponse = function (user, statusCode, res) {
-//   const token = generateToken(user._id);
-
-//   const options = {
-//     maxAge: process.env.EXPIRE_DAYS,
-//     httpOnly: true,
-//   };
-
-//   if (process.env.NODE_ENV === "PRODUCTION") {
-//     options.secure = true;
-//   }
-
-//   res.cookie("jwt", token, options);
-
-//   // user.password = undefined; ===> IMPORTANT
-//   res.status(statusCode).json({ status: "success", token, data: { user } });
-// };
 
 exports.createNewUser = asyncErrorhandler(async (req, res, next) => {
   try {
@@ -126,7 +109,7 @@ exports.activation = asyncErrorhandler(async (req, res, next) => {
       branchid: user.admin_branchid,
     };
 
-    return await sendToken(data, 201, res);
+    return await sendAdminToken(data, 201, res);
   } catch (error) {
     return next(new CustomError(error.message, 500));
   }
@@ -161,7 +144,7 @@ exports.login = asyncErrorhandler(async (req, res, next) => {
       email: user.admin_email,
     };
 
-    return await sendToken(data, 200, res);
+    return await sendAdminToken(data, 200, res);
   } catch (error) {
     return next(new CustomError("User doesn't exists", 400));
   }
@@ -183,7 +166,7 @@ exports.updatePassword = asyncErrorhandler(async (req, res, next) => {
   user.admin_password = req.body.admin_password;
   await user.save();
 
-  return await sendToken(user, 200, res);
+  return await sendAdminToken(user, 200, res);
 });
 
 // *************************************************************************
@@ -226,7 +209,7 @@ exports.updateMe = asyncErrorhandler(async (req, res, next) => {
 // *********************************************************************
 
 exports.deleteMe = asyncErrorhandler(async (req, res) => {
-  await adminUserModel.findByIdAndUpdate(req.user._id, { admin_active: false });
+  await adminUserModel.findByIdAndUpdate(req.user._id, { admin_active: false },{runValidators:true,new:true});
 });
 
 exports.forgotPassword = asyncErrorhandler(async (req, res, next) => {
@@ -288,7 +271,7 @@ exports.resetPassword = asyncErrorhandler(async (req, res, next) => {
   update.admin_passwordChangedAt = Date.now();
   update.save();
 
-  return await sendToken(update._id, 200, res);
+  return await sendAdminToken(update._id, 200, res);
 });
 
 exports.getUserById = asyncErrorhandler(async (req, res, next) => {
@@ -314,11 +297,15 @@ exports.blockUser = asyncErrorhandler(async function (req, res, next) {
   const { id } = req.params;
 
   try {
+
+    
     const block = await adminUserModel.findByIdAndUpdate(
       id,
       { admin_active: false },
       { runValidators: true, new: true }
     );
+
+    
 
     res.status(200).json({ blocked: "userblocked", block });
   } catch (error) {
@@ -337,7 +324,7 @@ exports.unblockUser = asyncErrorhandler(async (req, res, next) => {
     );
     res.status(200).json({ unblocked: "userUnblocked", unblock });
   } catch (error) {
-    res.status(200).json({ message: error.message });
+    res.status(404).json({ message: error.message });
   }
 });
 

@@ -6,7 +6,10 @@ const cookie = require("cookie-parser");
 const rateLimit = require("express-rate-limit");
 
 const helmet = require("helmet");
-
+const path = require("path");
+const mongoSanitize = require("express-mongo-sanitize");
+const xss = require("xss-clean");
+const hpp = require("hpp")
 const globalError = require("./utils/globalErrorhandler");
 
 const customError = require("./utils/customError");
@@ -18,8 +21,19 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(cookie());
 app.use(cors());
+app.use(mongoSanitize());
+app.use(xss());
+
+// prevent parameter pollution
+app.use(hpp())
+
+app.use(express.static(path.join(__dirname, "public")));
+
+
+
+// *********************************************************************
 let limiter = rateLimit({
-  max: 1000,
+  max: 100,
   windowMs: 60 * 60 * 1000,
   message:
     "We have received too many request from this UP. Please try after one hour",
@@ -27,6 +41,7 @@ let limiter = rateLimit({
 
 app.use("/api", limiter);
 
+// *********************************************************************
 if (process.env.NODE_ENV == "PRODUCTION") {
   require("dotenv").config();
 }
@@ -42,6 +57,10 @@ require("./routes/addressRoute")(app);
 require("./routes/colorRoutes")(app);
 require("./routes/blogRoutes")(app);
 require("./routes/shopRoute")(app)
+require("./routes/orderRoutes")(app);
+require("./routes/uploadRouts")(app);
+
+// ***********************************************************************
 //Routes error handler
 app.all("*", (req, res, next) => {
   const error = new customError(

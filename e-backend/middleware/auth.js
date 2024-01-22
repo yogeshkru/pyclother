@@ -71,7 +71,36 @@ const adminProtect = asyncErrorhandler(async (req, res, next) => {
     return next(error);
   }
 
-  req.users=users
+  req.user = users;
+});
+
+const protect = asyncErrorhandler(async (req, res, next) => {
+  const { user } = req.cookies;
+  if (!user) {
+    return next(new CustomError("yor are not logged in", 401));
+  }
+  const decodedToken = await util.promisify(jwt.verify)(
+    user,
+    process.env.SECERT_STRING
+  );
+
+  const users = await userModel.findById(decodedToken.id);
+
+  if (!users) {
+    const error = new CustomError("The user with given token does not exist");
+    return next(error);
+  }
+
+  if (await user.isPasswordInDb(decodedToken.iat)) {
+    const error = new CustomError(
+      "The password has been change recently. please login again",
+      401
+    );
+
+    return next(error);
+  }
+  res.user = users;
+  next()
 });
 
 const restrict = (...role) => {
@@ -87,4 +116,4 @@ const restrict = (...role) => {
   };
 };
 
-module.exports = { adminProtect, restrict };
+module.exports = { adminProtect, restrict, protect };

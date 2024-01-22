@@ -3,12 +3,12 @@ module.exports = (app) => {
   const {
     createUser,
     login,
-    updatePassword,
+    updatePasswordByUserLogin,
   } = require("../controllers/userController");
 
   router.route("/createUser").post(createUser);
   router.route("/login").post(login);
-  router.route("/updatePassword").patch(updatePassword);
+  router.route("/updatePassword").patch(updatePasswordByUserLogin);
 
   app.use("/api/user", router);
 };
