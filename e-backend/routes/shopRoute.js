@@ -3,11 +3,14 @@ module.exports = (app) => {
     const router = require('express').Router();
     const asyncErrorHandler = require("../utils/asyncErrorhandler")
 
-    const { shopCreate } = new Shop();
+    const { shopCreate,shopLogin,shopForget,shopResetPassword } = new Shop();
 
-    // Define the route for creating a shop
+    
     router.route("/create-shop").post(asyncErrorHandler(shopCreate));
-
-    // Mount the router under the "/api/shop" path
+    router.route("/login-shop").post(asyncErrorHandler(shopLogin))
+    router.route("/update-shop").post(asyncErrorHandler(shopForget))
+    router.route("/patch-shop").patch(asyncErrorHandler(shopResetPassword))
+    
+   
     app.use("/api/shop", router);
 };
