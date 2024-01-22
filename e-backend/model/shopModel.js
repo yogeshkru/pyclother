@@ -29,8 +29,8 @@ const shopSchema=new mongoose.Schema(
         },
         shop_role:{
            type:String,
-           enum:["admin"],
-           default:"admin"
+           enum:["shop admin"],
+           default:"shop admin"
         },
     
 
@@ -44,4 +44,4 @@ shopSchema.pre("save",async function(next){
     this.shop_password=await bcrypt.hash(this.shop_password,14)
 })
 
-module.exports=mongoose.model("Tbl_shop",shopModel)
+module.exports=mongoose.model("Tbl_shop",shopSchema)
