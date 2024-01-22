@@ -62,11 +62,11 @@ userSchema.methods.isPasswordChange = async function (jwttoken) {
 
 userSchema.methods.createResetPasswordToken = async function () {
   const resetToken = crypto.randomBytes(32).toString("hex");
-  this.passwordResetToken = crypto
+  this.user_passwordResetToken = crypto
     .createHash("sha256")
     .update(resetToken)
     .digest("hex");
-  this.passwordResetTokenExpired = Date.now() + 10 * 60 * 1000;
+  this.user_passwordResetTokenExpired = Date.now() + 10 * 60 * 1000;
   return resetToken;
 };
 module.exports = mongoose.model("Tbl_user", userSchema);

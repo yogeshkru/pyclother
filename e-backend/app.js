@@ -4,12 +4,14 @@ const cors = require("cors");
 const bodyparser = require("body-parser");
 const cookie = require("cookie-parser");
 const rateLimit = require("express-rate-limit");
+
 const helmet = require("helmet");
 const path = require("path");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const hpp = require("hpp");
 const globalError = require("./utils/globalErrorhandler");
+
 const customError = require("./utils/customError");
 
 // *****************Third part liberary****************
@@ -56,6 +58,7 @@ require("./routes/categoryRoute")(app);
 require("./routes/addressRoute")(app);
 require("./routes/colorRoutes")(app);
 require("./routes/blogRoutes")(app);
+require("./routes/shopRoute")(app)
 require("./routes/orderRoutes")(app);
 require("./routes/uploadRouts")(app);
 
