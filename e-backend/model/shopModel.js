@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const crypto=require('crypto')
+const crypto = require("crypto");
 const shopSchema = new mongoose.Schema(
   {
     shop_name: {
@@ -17,14 +17,14 @@ const shopSchema = new mongoose.Schema(
       minlength: [8, "password is min 8 character"],
       select: false,
     },
-    shop_description:{
-      type:String,
-      required:[true,"Description is required"]
+    shop_description: {
+      type: String,
+      required: [true, "Description is required"],
     },
-    shp_address:{
-        type:String,
-        required:[true,"Address is required"]
-      },
+    shp_address: {
+      type: String,
+      required: [true, "Address is required"],
+    },
     shop_phone: {
       type: Number,
       required: ["Phone number is required"],
@@ -38,31 +38,35 @@ const shopSchema = new mongoose.Schema(
     },
     shop_role: {
       type: String,
-      enum: ["shop admin"],
+      enum: ["shop admin","super admin"],
       default: "shop admin",
     },
-    withDrawalMethod:{
-        type:Object
+    withDrawalMethod: {
+      type: Object,
     },
-    transaction:[
-        {
-            amount:{
-                type:String
-            },
-            status:{
-                type:String,
-                default:"Processing"
-            },
-            created_At:{
-                type:Date,
-                default:Date.now()
-            },
-            updated_At:{
-                type:Date,
-                default:Date.now()
-            }
-
-        }
+    shop_active: {
+      type: Boolean,
+      default: true,
+      select: false,
+    },
+    transaction: [
+      {
+        amount: {
+          type: String,
+        },
+        status: {
+          type: String,
+          default: "Processing",
+        },
+        created_At: {
+          type: Date,
+          default: Date.now(),
+        },
+        updated_At: {
+          type: Date,
+          default: Date.now(),
+        },
+      },
     ],
     shop_passwordChangedAt: Date,
     shop_passwordResetToken: String,
@@ -76,28 +80,28 @@ shopSchema.pre("save", async function (next) {
   if (!this.isModified("shop_password")) return next();
   this.shop_password = await bcrypt.hash(this.shop_password, 14);
 });
-shopSchema.methods.comparePasswordInDb=async function(pwd,pswDB){
-    return await bcrypt.compare(pwd,pswDB)
-}
+shopSchema.methods.comparePasswordInDb = async function (pwd, pswDB) {
+  return await bcrypt.compare(pwd, pswDB);
+};
 
-shopSchema.methods.isPasswordChange=async function(jwttoken){
-    if(this.shop_password){
-        const passwordChangedtimeStamp=parseInt(
-            this.shop_passwordChangedAt.getTime()/1000,10
-        )
-        return jwttoken < passwordChangedtimeStamp
-    }
-    else{
-         return false
-    }
-}
+shopSchema.methods.isPasswordChange = async function (jwttoken) {
+  if (this.shop_password) {
+    const passwordChangedtimeStamp = parseInt(
+      this.shop_passwordChangedAt.getTime() / 1000,
+      10
+    );
+    return jwttoken < passwordChangedtimeStamp;
+  } else {
+    return false;
+  }
+};
 shopSchema.methods.createResetPasswordToken = async function () {
-    const resetToken = crypto.randomBytes(32).toString("hex");
-    this.shop_passwordResetToken = crypto
-      .createHash("sha256")
-      .update(resetToken)
-      .digest("hex");
-    this.shop_passwordResetTokenExpired = Date.now() + 10 * 60 * 1000;
-    return resetToken;
-  };
+  const resetToken = crypto.randomBytes(32).toString("hex");
+  this.shop_passwordResetToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+  this.shop_passwordResetTokenExpired = Date.now() + 10 * 60 * 1000;
+  return resetToken;
+};
 module.exports = mongoose.model("Tbl_shop", shopSchema);

@@ -12,7 +12,7 @@ const { default: mongoose } = require("mongoose");
 //Signup
 exports.createUser = asyncErrorhandler(async (req, res, next) => {
   try {
-    const userAlready = await userModel.findOne({ email: req.body.user_email });
+    const userAlready = await userModel.findOne({ user_email: req.body.email });
     if (userAlready) {
       return next(new customError("Email is already exists", 409));
     }
@@ -44,7 +44,7 @@ exports.login = asyncErrorhandler(async (req, res, next) => {
       );
       return next(error);
     }
-    let user = await userModel.findOne({ user_email }).select("+password");
+    let user = await userModel.findOne({ user_email }).select("+user_password");
 
     if (!user) {
       const error = new customError("User not found", 404);
@@ -161,32 +161,32 @@ exports.updatePasswordByUserLogin = asyncErrorhandler(
   }
 );
 
-exports.updatePasswordByUserLogin = asyncErrorhandler(
-  async (req, res, next) => {
-    const user = userModel.findById(req.user._id).select("user_password");
-    if (
-      !(await user.comparePasswordInDb(
-        req.body.currentPassword,
-        user.user_password
-      ))
-    ) {
-      return next(
-        new customError("The current password you provided is wrong", 401)
-      );
-    }
+// exports.updatePasswordByUserLogin = asyncErrorhandler(
+//   async (req, res, next) => {
+//     const user = userModel.findById(req.user._id).select("user_password");
+//     if (
+//       !(await user.comparePasswordInDb(
+//         req.body.currentPassword,
+//         user.user_password
+//       ))
+//     ) {
+//       return next(
+//         new customError("The current password you provided is wrong", 401)
+//       );
+//     }
 
-    user.user_password = req.body.user_password;
-    await user.save();
+//     user.user_password = req.body.user_password;
+//     await user.save();
 
-    const data = {
-      _id: user._id,
-      name: user.user_name,
-      email: user.user_email,
-    };
+//     const data = {
+//       _id: user._id,
+//       name: user.user_name,
+//       email: user.user_email,
+//     };
 
-    return await sendUserToken(data, 200, res);
-  }
-);
+//     return await sendUserToken(data, 200, res);
+//   }
+// );
 
 exports.fetchAllUser = asyncErrorhandler(async (req, res) => {
   const allUser = await userModel.find();
@@ -277,7 +277,7 @@ exports.getUserById = asyncErrorhandler(async (req, res, next) => {
   const user = await userModel.findById(id);
   if (!user) {
     const error = new customError("user with that Id is not found", 404);
-    next(error);
+  return   next(error);
   }
 
   res.status(200).json({ status: "success", data: { user } });
@@ -295,10 +295,6 @@ exports.getUserDelete = asyncErrorhandler(async (req, res, next) => {
   res.status(200).json({ status: "Deleted", data: null });
 });
 
-exports.fetchAllUser = asyncErrorhandler(async (req, res, next) => {
-  const Allusers = await userModel.find();
-  res.status(200).json({ message: "success", Allusers });
-});
 
 exports.getWishList = asyncErrorhandler(async (req, res) => {
   const { _id } = req.user;
