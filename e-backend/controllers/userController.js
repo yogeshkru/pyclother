@@ -87,14 +87,18 @@ exports.forgetPassword = asyncErrorhandler(async (req, res, next) => {
 
   const reseturl = `${req.protocol}://${req.get(
     "host"
-  )}/users/resetpassword/${resetToken}`;
+  )}/api/user/reset/${resetToken}`;
   const message = `we have received a password reset required. please use below link to reset passsword\n\n ${reseturl} \n\n this link valid for 10 minutes`;
+
   try {
     await sendEmail({
       email: findUser.user_email,
       subject: "password change request received",
       message: message,
     });
+
+    res.status(200).json({message:`Password reset token send to your email ${findUser.user_email} `})
+
   } catch (err) {
     findUser.user_passwordResetToken = undefined;
     findUser.user_passwordResetTokenExpired = undefined;
@@ -115,6 +119,7 @@ exports.resetPassword = asyncErrorhandler(async (req, res, next) => {
     user_passwordResetToken: token,
     user_passwordResetTokenExpired: { $gt: Date.now() },
   });
+  console.log(token,"jgvbwHGUIHWEU")
 
   if (!update) {
     const err = new customError("tokens is invalid or has expired", 400);
