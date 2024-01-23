@@ -17,10 +17,11 @@ const customError = require("./utils/customError");
 // *****************Third part liberary****************
 app.use(helmet());
 // app.use(bodyparser.json());
-app.use(bodyparser.json({ limit: "10kb" })); // Important
+app.use(cors());
+
+app.use(bodyparser.json({limit: "10kb"})); // Important
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(cookie());
-app.use(cors());
 
 // prevent the data do not inject the SQL query
 app.use(mongoSanitize());

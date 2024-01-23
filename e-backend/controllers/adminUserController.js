@@ -11,7 +11,6 @@ const createActivationToken = (data) => {
   return jwt.sign({ data }, process.env.ACITIVATE_SECERT);
 };
 
-
 exports.createNewUser = asyncErrorhandler(async (req, res, next) => {
   try {
     const {
@@ -128,7 +127,7 @@ exports.login = asyncErrorhandler(async (req, res, next) => {
       .findOne({ admin_email })
       .select("+admin_password");
 
-    const isMatch = await adminUserModel.comparePasswordDb(
+    const isMatch = await user.comparePasswordDb(
       admin_password,
       user.admin_password
     );
@@ -209,7 +208,11 @@ exports.updateMe = asyncErrorhandler(async (req, res, next) => {
 // *********************************************************************
 
 exports.deleteMe = asyncErrorhandler(async (req, res) => {
-  await adminUserModel.findByIdAndUpdate(req.user._id, { admin_active: false },{runValidators:true,new:true});
+  await adminUserModel.findByIdAndUpdate(
+    req.user._id,
+    { admin_active: false },
+    { runValidators: true, new: true }
+  );
 });
 
 exports.forgotPassword = asyncErrorhandler(async (req, res, next) => {
@@ -239,7 +242,7 @@ exports.forgotPassword = asyncErrorhandler(async (req, res, next) => {
     });
     res
       .status(200)
-      .json({ message: "password reset link send to the user email" });
+      .json({ message: `password reset link send to the user email ${findUser.admin_email}`});
   } catch (error) {
     findUser.admin_passwordResetToken = undefined;
     findUser.admin_passwordResetTokenExpired = undefined;
@@ -297,15 +300,11 @@ exports.blockUser = asyncErrorhandler(async function (req, res, next) {
   const { id } = req.params;
 
   try {
-
-    
     const block = await adminUserModel.findByIdAndUpdate(
       id,
       { admin_active: false },
       { runValidators: true, new: true }
     );
-
-    
 
     res.status(200).json({ blocked: "userblocked", block });
   } catch (error) {

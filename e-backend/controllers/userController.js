@@ -61,7 +61,7 @@ exports.login = asyncErrorhandler(async (req, res, next) => {
       return next(error);
     }
     user = {
-      _id: user._id,
+      _id: user._id, 
       name: user.user_name,
       email: user.user_email,
     };
@@ -79,7 +79,7 @@ exports.forgetPassword = asyncErrorhandler(async (req, res, next) => {
   const findUser = await userModel.findOne({ user_email });
   if (!findUser) {
     return next(
-      new customError(`we could not find the user email with given email `, 404)
+      new customError(`we could not find the ${user_email} on the server `, 404)
     );
   }
   const resetToken = await findUser.createResetPasswordToken();
@@ -124,9 +124,9 @@ exports.resetPassword = asyncErrorhandler(async (req, res, next) => {
   update.user_passwordResetToken = undefined;
   update.user_passwordResetTokenExpired = undefined;
   update.user_passwordChangedAt = Date.now();
-  await update.save();
+  await update.save(); 
 
-  sendUserToken(user, 200, res);
+  sendUserToken(update, 200, res);
 });
 
 exports.updatePasswordByUserLogin = asyncErrorhandler(

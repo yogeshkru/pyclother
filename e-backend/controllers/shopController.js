@@ -1,5 +1,4 @@
 const shopModel = require("../model/shopModel");
-const asyncErrorhandler = require("../utils/asyncErrorhandler");
 const CustomError = require("../utils/customError");
 const { sendShopToken } = require("../utils/jwtToken");
 
@@ -103,7 +102,7 @@ class Shop {
     res.status(200).json({ message: "Your account successfully deleted" });
   }
 
-  // *********************************************************************
+  // ***********************
 
   filterReqObj = (obj, ...allowedFields) => {
     const newObj = {};
@@ -138,7 +137,7 @@ class Shop {
     res.status(200).json({ message: "Shop Profile Updated", updateShop });
   }
 
-  // **************************************************************************
+  // **************************
 
   getUserById = async (req, res, next) => {
     const { id } = req.params;
