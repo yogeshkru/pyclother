@@ -8,10 +8,15 @@ module.exports = (app) => {
     findBrand,
   } = require("../controllers/brandController");
 
-  router.route("/brands").post(brandTitle);
-  router.route("/allbrands").get(getAllbrands);
-  router.route("/updatebrand/:id").patch(updateBrand);
-  router.route("/deleteBrand/:id").delete(deleteBrand);
-  router.route("/findBrand/:id").get(findBrand)
+  const { shopProtect,restrict } = require("../middleware/auth");
+
+     
+  
+
+  router.route("/brands").post(shopProtect,restrict("shop admin","super admin"),brandTitle);
+  router.route("/allbrands").get(shopProtect,restrict("shop admin","super admin"),getAllbrands);
+  router.route("/updatebrand/:id").patch(shopProtect,restrict("shop admin","super admin"),updateBrand);
+  router.route("/deleteBrand/:id").delete(shopProtect,restrict("shop admin","super admin"),deleteBrand);
+  router.route("/findBrand/:id").get(shopProtect,restrict("shop admin","shop admin"),findBrand)
   app.use("/api/brand", router);
 };
