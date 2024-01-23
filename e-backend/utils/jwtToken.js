@@ -57,4 +57,6 @@ const sendShopToken = async(user,statusCode,res)=>{
 
   res.status(statusCode).json({status:"success",token,data:{user}})
 }
+
+
 module.exports = { sendUserToken ,sendShopToken };
