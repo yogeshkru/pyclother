@@ -1,13 +1,31 @@
 module.exports = (app) => {
-    const Shop = require('../controllers/shopController');
-    const router = require('express').Router();
-    const asyncErrorHandler = require("../utils/asyncErrorhandler")
+  const Shop = require("../controllers/shopController");
+  const router = require("express").Router();
+  const asyncErrorHandler = require("../utils/asyncErrorhandler");
 
-    const { shopCreate } = new Shop();
+  const {
+    shopCreate,
+    fetchAllShop,
+    unblockUser,
+    updateMe,
+    updatePasswordByLogin,
+    blockUser,
+    deleteMe,
+    getUserById,
+    getUserDelete,
+    shoplogout,
+  } = new Shop();
 
-    // Define the route for creating a shop
-    router.route("/create-shop").post(asyncErrorHandler(shopCreate));
+  router.route("/create-shop").post(asyncErrorHandler(shopCreate));
+  router.route("/fetch-all").get(asyncErrorHandler(fetchAllShop));
+  router.route("/unblock-shop").patch(asyncErrorHandler(unblockUser));
+  router.route("/update-shop").patch(asyncErrorHandler(updateMe));
+  router.route("/update-shoppassword").patch(asyncErrorHandler(updatePasswordByLogin));
+  router.route("/block-shop").patch(asyncErrorHandler(blockUser));
+  router.route("/delete-shop").delete(asyncErrorHandler(deleteMe));
+  router.route("/getuser").get(asyncErrorHandler(getUserById));
+  router.route("/shop-delete").delete(asyncErrorHandler(getUserDelete));
+  router.route("/shop-logout").get(asyncErrorHandler(shoplogout));
 
-    // Mount the router under the "/api/shop" path
-    app.use("/api/shop", router);
+  app.use("/api/shop", router);
 };

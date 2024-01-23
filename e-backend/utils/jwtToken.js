@@ -49,7 +49,7 @@ const sendShopToken = async(user,statusCode,res)=>{
     httpOnly:true
   }
 
-  if(process.env.NODE_ENV==="PRODUCTION"){
+  if(process.env.NODE_ENV==="production"){
     options.secure=true
   }
 
