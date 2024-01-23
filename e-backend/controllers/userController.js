@@ -95,6 +95,7 @@ exports.forgetPassword = asyncErrorhandler(async (req, res, next) => {
       subject: "password change request received",
       message: message,
     });
+    
   } catch (err) {
     findUser.user_passwordResetToken = undefined;
     findUser.user_passwordResetTokenExpired = undefined;
