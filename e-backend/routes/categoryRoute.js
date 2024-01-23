@@ -13,13 +13,49 @@ module.exports = (app) => {
   const CategoryController = require("../controllers/categoryController");
   const router = require("express").Router();
   const asyncErrorhandler = require("../utils/asyncErrorhandler");
+  let { shopProtect, restrict } = require("../middleware/auth");
+  const {
+    categoryDetail,
+    categoriesAllget,
+    categorieUpdate,
+    categorieDelete,
+    categorieFind,
+  } = new CategoryController();
 
-  const { categoryDetail,categoriesAllget,categorieUpdate,categorieDelete,categorieFind } = new CategoryController();
-
-  router.route("/create-category").post(asyncErrorhandler(categoryDetail));
-  router.route("/get-category").get(asyncErrorhandler(categoriesAllget))
-  router.route("/patch-category/:id").patch(asyncErrorhandler(categorieUpdate))
-  router.route("/delete-category/:id").delete(asyncErrorhandler(categorieDelete))
-  router.route("/find-category/:id").get(asyncErrorhandler(categorieFind))
+  router
+    .route("/create-category")
+    .post(
+      shopProtect,
+      restrict("shop admin", "super admin"),
+      asyncErrorhandler(categoryDetail)
+    );
+  router
+    .route("/get-category")
+    .get(
+      shopProtect,
+      restrict("shop admin", "super admin"),
+      asyncErrorhandler(categoriesAllget)
+    );
+  router
+    .route("/patch-category/:id")
+    .patch(
+      shopProtect,
+      restrict("shop admin", "super admin"),
+      asyncErrorhandler(categorieUpdate)
+    );
+  router
+    .route("/delete-category/:id")
+    .delete(
+      shopProtect,
+      restrict("shop admin", "super admin"),
+      asyncErrorhandler(categorieDelete)
+    );
+  router
+    .route("/find-category/:id")
+    .get(
+      shopProtect,
+      restrict("shop admin", "super admin"),
+      asyncErrorhandler(categorieFind)
+    );
   app.use("/api/category", router);
 };

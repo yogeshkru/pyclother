@@ -29,17 +29,16 @@ module.exports = (app) => {
 
   // with authorization
 
-  router.route("/update-shop").patch(shopProtect ,asyncErrorHandler(updateMe));
+  router.route("/update-shop").patch(shopProtect, asyncErrorHandler(updateMe));
   router
-    .route("/update-shoppassword")
+    .route("/update-shopassword")
     .patch(shopProtect, asyncErrorHandler(updatePasswordByLogin));
   router.route("/delete-shop").delete(shopProtect, asyncErrorHandler(deleteMe));
   router
     .route("/shop-delete/:id")
     .delete(shopProtect, asyncErrorHandler(getUserDelete));
 
-
-    //super admin
+  //super admin
 
   router
     .route("/fetch-all")

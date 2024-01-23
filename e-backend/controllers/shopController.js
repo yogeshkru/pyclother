@@ -1,5 +1,4 @@
 const shopModel = require("../model/shopModel");
-const asyncErrorhandler = require("../utils/asyncErrorhandler");
 const CustomError = require("../utils/customError");
 const { sendShopToken } = require("../utils/jwtToken");
 
@@ -225,7 +224,7 @@ class Shop {
 
     if (!findShop) {
       return next(
-        new CustomError(`We can't the given ${shop_email} on the server, 404 `)
+        new CustomError(`We can't the given ${shop_email} on the server`, 404)
       );
     }
     const resetToken = await findShop.createResetPasswordToken();

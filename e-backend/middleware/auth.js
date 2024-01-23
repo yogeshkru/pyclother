@@ -59,7 +59,7 @@ const shopProtect = asyncErrorhandler(async (req, res, next) => {
 
   if (!user) {
     const error = new CustomError(
-      "The user with give token does not exist",
+      "The user with given token does not exist",
       401
     );
     return next(error);
@@ -71,6 +71,36 @@ const shopProtect = asyncErrorhandler(async (req, res, next) => {
     );
     return next(error);
   }
+  req.user = user;
+  next();
+});
+
+let adminUser = asyncErrorhandler(async (req, res, next) => {
+  const testToken = req.headers.authorization;
+
+  let token;
+  if (testToken && testToken.startsWith("Bearer")) {
+    token = testToken.split(" ")[1];
+  }
+  if (!token) {
+    const error = new CustomError("you are not logged in", 401);
+    return next(error);
+  }
+
+  let decodedToken = await util.promisify(jwt.verify)(
+    token,
+    process.env.SECERT_STRING
+  );
+
+  const user = await adminUserModel.findById(decodedToken.id);
+  if (!user) {
+    const error = new CustomError(
+      "The user with given token does not exist",
+      401
+    );
+    return next(error);
+  }
+
   req.user = user;
   next();
 });
@@ -151,4 +181,4 @@ const restrict = (...role) => {
   };
 };
 
-module.exports = { userProtect, shopProtect, restrict };
+module.exports = { userProtect, shopProtect, adminUser, restrict };
