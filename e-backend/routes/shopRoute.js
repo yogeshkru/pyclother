@@ -14,13 +14,21 @@ module.exports = (app) => {
     getUserById,
     getUserDelete,
     shoplogout,
+    shopLogin,
+    shopForget,
+    shopResetPassword,
   } = new Shop();
 
+  router.route("/login-shop").post(asyncErrorHandler(shopLogin));
+  router.route("/update-shop").post(asyncErrorHandler(shopForget));
+  router.route("/patch-shop").patch(asyncErrorHandler(shopResetPassword));
   router.route("/create-shop").post(asyncErrorHandler(shopCreate));
   router.route("/fetch-all").get(asyncErrorHandler(fetchAllShop));
   router.route("/unblock-shop").patch(asyncErrorHandler(unblockUser));
   router.route("/update-shop").patch(asyncErrorHandler(updateMe));
-  router.route("/update-shoppassword").patch(asyncErrorHandler(updatePasswordByLogin));
+  router
+    .route("/update-shoppassword")
+    .patch(asyncErrorHandler(updatePasswordByLogin));
   router.route("/block-shop").patch(asyncErrorHandler(blockUser));
   router.route("/delete-shop").delete(asyncErrorHandler(deleteMe));
   router.route("/getuser").get(asyncErrorHandler(getUserById));

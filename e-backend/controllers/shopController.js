@@ -177,6 +177,105 @@ class Shop {
 
     res.status(200).json({ message: "Logout" });
   };
+
+
+
+  //login
+  async shopLogin(req, res, next) {
+    try {
+      const { shop_email, shop_password } = req.body;
+      if (!shop_email || !shop_password) {
+        const error = new CustomError(
+          "Please provide email & password for login",
+          400
+        );
+        return next(error);
+      }
+      let user = await shopModel
+        .findOne({ shop_email })
+        .select("+shop_password");
+      if (!user) {
+        const error = new CustomError("User is not found", 404);
+        return next(error);
+      }
+
+      const isMatch = await user.comparePasswordInDb(
+        shop_password,
+        user.shop_password
+      );
+      if (!isMatch) {
+        const error = new CustomError("Inncorrect password ", 400);
+        next(error);
+      }
+      user = {
+        _id: user._id,
+        name: user.shop_name,
+        email: user.shop_password,
+      };
+      sendShopToken(user, 200, res);
+    } catch (err) {
+      return next(new CustomError(err.message, 500));
+    }
+  }
+
+  //Forget Password
+  async shopForget(req, res, next) {
+    const { shop_email } = req.body;
+    const findShop = await shopModel.findOne({ shop_email });
+
+    if (!findShop) {
+      return next(
+        new CustomError(`We can't the given ${shop_email} on the server`, 404)
+      );
+    }
+    const resetToken = await findShop.createResetPasswordToken();
+    await findShop.save({ validateBeforeSave: false });
+
+    const resetUrl = `${req.protocol}:// ${req.get(
+      "host"
+    )}/shop/resetpassword/${resetToken}`;
+    const message =` we have received a password reset required. Please use below link to reset the password \n\n ${resetUrl} \n\n this link valid for 10 minutes.`;
+
+    try {
+      await sendEmail({
+        email: findShop.shop_email,
+        subject: "password change request received",
+        message: message,
+      });
+    } catch (error) {
+      (findShop.shop_passwordResetToken = undefined),
+        (findShop.shop_passwordResetToken = undefined),
+        findShop.save({ validateBeforeSave: false });
+      return next(new CustomError(error.message, 500));
+    }
+  }
+  //resetpassword
+
+  async shopResetPassword(req, res, next) {
+    try {
+      const token = Crypto.createHash("sha256")
+        .update(req.params.token)
+        .digest("hex");
+
+      const updateShop = await shopModel.findOne({
+        shop_passwordResetToken: token,
+        shop_passwordResetTokenExpired: { $gt: Date.now() },
+      });
+      if (!updateShop) {
+        const err = new CustomError("token is invalid or expired", 400);
+        return next(err);
+      }
+      updateShop.shop_password = req.body.password;
+      updateShop.shop_passwordResetToken = undefined;
+      updateShop.shop_passwordResetTokenExpired = undefined;
+      updateShop.shop_passwordChangedAt = Date.now();
+      await updateShop.save();
+
+      sendShopToken(res, updateShop, 201);
+    } catch (err) {
+      return next(new CustomError(err.message, 500));
+    }
+  }
 }
 
 module.exports = Shop;
