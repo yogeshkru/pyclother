@@ -36,7 +36,7 @@ exports.createUser = asyncErrorhandler(async (req, res, next) => {
 exports.login = asyncErrorhandler(async (req, res, next) => {
   try {
     const { user_email, user_password } = req.body;
-
+       
     if (!user_email || !user_password) {
       const error = new customError(
         "Please provide email & password for login",
