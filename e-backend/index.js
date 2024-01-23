@@ -1,16 +1,19 @@
-const app=require("./app")
 //db 
 const connectDatabase=require('./db/Database')
+
+// ******************************
 process.on('uncaughtException',(err)=>{
     console.log(`Error ${err.message}`)
     console.log(`shutting down the server for handling uncaught exception`)
 })
 
+const app=require("./app")
+
 
 //config
-if(process.env.NODE_ENV !== "PRODUCTION"){
-    require('dotenv').config()
-}
+// if(process.env.NODE_ENV == "production"){
+//     require('dotenv').config()
+// }
 
 //db connect
 connectDatabase()
