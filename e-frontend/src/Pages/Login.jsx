@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../styles/Home.css";
+import { Link } from "react-router-dom";
 import logo from "../assets/image/logo12.png";
 import {useFormik} from "formik";
 import * as Yup from "yup";
@@ -8,7 +9,7 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { IoEyeOutline } from "react-icons/io5";
 
-function Login() {
+function Forget() {
 
   const {values,errors,handleChange,handleBlur,handleSubmit,touched}=useFormik({
   initialValues:{
@@ -43,7 +44,7 @@ function Login() {
   return (
     <div className="otp_background">
       <div className="row otp_page_scroll justify-content-center">
-        <div className="col-lg-4 pt-1">
+        <div className="col-lg-4 pt-5">
           <div className="otp_box">
             <div className="otp_font_welcome">
               <h3>Welcome</h3>
@@ -52,7 +53,7 @@ function Login() {
                 <img src={logo} width="100%" />
               </div>
             </div>
-            <div className="login_font_padding">
+            <div className="login_font_padding ">
               <p>
                 Login 
               </p>
@@ -113,8 +114,13 @@ function Login() {
                     <span className="login_color">Terms of use</span> &{" "}
                     <span className="login_color">Privacy policy</span>
                   </p>
+               
+                  <Link to="/forget" className="float-end mt-4 mb-4 text-dark">
+  Forget Password...?
+</Link>
+
                 </div>
-                <div className="mt-5">
+                <div className="mt-5 ">
                   <button className="login_button" type="submit">LogIn</button>
                 </div>
               </form>
@@ -134,4 +140,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Forget;
