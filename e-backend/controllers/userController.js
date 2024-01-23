@@ -44,7 +44,7 @@ exports.login = asyncErrorhandler(async (req, res, next) => {
       );
       return next(error);
     }
-    let user = await userModel.findOne({ user_email }).select("+password");
+    let user = await userModel.findOne({ user_email }).select("+user_password");
 
     if (!user) {
       const error = new customError("User not found", 404);
