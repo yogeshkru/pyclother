@@ -25,7 +25,7 @@ const generateToken = (id) => {
 //   res.status(statuscode).json({ status: "success", token, data: { user } });
 // };
 
-const sendUserToken = async (user, statusCode, res) => {
+const sendUserToken = async (user, statusCode, res,message) => {
   const token = generateToken(user._id);
   const options = {
     maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -39,7 +39,7 @@ const sendUserToken = async (user, statusCode, res) => {
   res.cookie("user", token, options);
   // user.password = undefined;
 
-  res.status(statusCode).json({ status: "success", token, data: { user } });
+  res.status(statusCode).json({ status:true, token, data: { user } ,message});
 };
 
 const sendShopToken = async(user,statusCode,res)=>{

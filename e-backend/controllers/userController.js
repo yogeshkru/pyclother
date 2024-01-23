@@ -12,7 +12,7 @@ const { default: mongoose } = require("mongoose");
 //Signup
 exports.createUser = asyncErrorhandler(async (req, res, next) => {
   try {
-    const userAlready = await userModel.findOne({ user_email: req.body.email });
+    const userAlready = await userModel.findOne({ user_email: req.body.user_email });
     if (userAlready) {
       return next(new customError("Email is already exists", 409));
     }
@@ -26,7 +26,7 @@ exports.createUser = asyncErrorhandler(async (req, res, next) => {
       phone: user.user_phone,
     };
 
-    sendUserToken(user, 201, res);
+    sendUserToken(user, 201, res ,{message:"Your account Created"});
   } catch (err) {
     return next(new customError(err.message, 400));
   }

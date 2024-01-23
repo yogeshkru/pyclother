@@ -1,8 +1,8 @@
 import axios from "axios";
-import { base_url } from "../utils/base_url";
+
 
 const register = async (userData) => {
-  const response = await axios.post(`${base_url}admin/creatuser`, userData);
+  const response = await axios.post(`${process.env.BASIC_URL}admin/creatuser`, userData);
 
   if (response.data) {
     return response.data;
@@ -10,7 +10,7 @@ const register = async (userData) => {
 };
 
 const activationToken = async function (userToken) {
-  const response = await axios.post(`${base_url}admin/activate`, userToken, {
+  const response = await axios.post(`${process.env.BASIC_URL}admin/activate`, userToken, {
     withCredentials: true,
   });
   if (response.data) {
@@ -19,7 +19,7 @@ const activationToken = async function (userToken) {
 };
 
  async function adminLogout  (){
-  const response= await axios.get(`${base_url}admin/logout`,{withCredentials:true})
+  const response= await axios.get(`${process.env.BASIC_URL}admin/logout`,{withCredentials:true})
   if(response.data){
     return response.data
   }

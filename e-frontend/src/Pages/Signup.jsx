@@ -1,48 +1,57 @@
 import React, { useState } from "react";
 import "../styles/Home.css";
 import logo from "../assets/image/logo12.png";
-import {useFormik} from "formik";
+import { useFormik } from "formik";
 import * as Yup from "yup";
-import { FaRegUserCircle,FaRegEyeSlash } from "react-icons/fa";
+import { FaRegUserCircle, FaRegEyeSlash } from "react-icons/fa";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { IoEyeOutline } from "react-icons/io5";
-
+import { useDispatch, useSelector } from "react-redux";
+import { usersSignup } from "../features/usersSlice";
 function Signup() {
+  const dispatch = useDispatch();
+  const { values, errors, handleChange, handleBlur, handleSubmit, touched } =
+    useFormik({
+      initialValues: {
+        user_name: "",
+        user_phone: "",
+        user_email: "",
+        user_password: "",
+      },
+      validationSchema: Yup.object({
+        user_phone: Yup.string()
+          .matches(/^\d{10}$/, "Must be exactly 10 digits")
+          .required("Mobile Number is required"),
+          user_name: Yup.string()
+          .matches(
+            /^[A-Z][a-z]*$/,
+            "Name must start with a capital letter and be followed by lowercase letters"
+          )
+          .required("Name is required"),
+          user_email: Yup.string()
+          .required("Email is required")
+          .matches(
+            /^[a-zA-Z][a-zA-Z0-9._-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+            "Invalid email address"
+          ),
+          user_password: Yup.string()
+          .min(8, "Password must be 8 characters long")
+          .matches(/[0-9]/, "Password requires a number")
+          .matches(/[a-z]/, "Password requires a lowercase letter")
+          .matches(/[A-Z]/, "Password requires an uppercase letter")
+          .matches(/[^\w]/, "Password requires a symbol")
+          .required("Please enter new password"),
+      }),
+      onSubmit: (value) => {
+        dispatch(usersSignup(value))
+      },
+    });
+  const [show, setShow] = useState(true);
+  const handleShow = () => {
+    setShow(!show);
+  };
 
-  const {values,errors,handleChange,handleBlur,handleSubmit,touched}=useFormik({
-  initialValues:{
-    name:'',
-    phone:'',
-    email:'',
-    password:'',
-   
-  },
-  validationSchema : Yup.object({
-    phone: Yup.string()
-      .matches(/^\d{10}$/, 'Must be exactly 10 digits')
-      .required('Mobile Number is required'),
-    name:Yup.string().matches(/^[A-Z][a-z]*$/, 'Name must start with a capital letter and be followed by lowercase letters').required('Name is required'),
-    email:Yup.string()
-    .required('Email is required')
-    .matches(/^[a-zA-Z][a-zA-Z0-9._-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/, 'Invalid email address'),
-    password: Yup.string().min(8, 'Password must be 8 characters long')
-    .matches(/[0-9]/, 'Password requires a number')
-    .matches(/[a-z]/, 'Password requires a lowercase letter')
-    .matches(/[A-Z]/, 'Password requires an uppercase letter')
-    .matches(/[^\w]/, 'Password requires a symbol').required("Please enter new password"),
-  
-
-  }),
-  onSubmit:(value)=>{
-    console.log(value)
-  }
-
-  })
-  const [show,setShow]=useState(true)
-  const handleShow=()=>{
-    setShow(!show)
-  }
   return (
     <div className="otp_background">
       <div className="row otp_page_scroll justify-content-center">
@@ -56,94 +65,119 @@ function Signup() {
               </div>
             </div>
             <div className="login_font_padding">
-              <p>
-                Sign Up
-              </p>
+              <p>Sign Up</p>
               <form className="mt-3" onSubmit={handleSubmit}>
                 <div className="login_input1">
                   <input
                     type="text"
-                    className={`login_input ${errors.name && touched.name ? "login_error1":""} ${touched.name && !errors.name ? 'login_success_1':''}`}
+                    className={`login_input ${
+                      errors.user_name && touched.user_name ? "login_error1" : ""
+                    } ${touched.user_name && !errors.user_name ? "login_success_1" : ""}`}
                     placeholder="Name"
-                    name="name"
-                   
-                    value={values.name}
+                    name="user_name"
+                    value={values.user_name}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     autoComplete="off"
-                    
-                  
                   />
                   <div className="login_label_2">
-                    <label className="fs-4"><FaRegUserCircle /></label>
+                    <label className="fs-4">
+                      <FaRegUserCircle />
+                    </label>
                   </div>
                 </div>
-                {touched.name && errors.name ? (<div style={{color:'red'}}>{errors.name}</div>): ""}
-            
+                {touched.user_name && errors.user_name ? (
+                  <div style={{ color: "red" }}>{errors.user_name}</div>
+                ) : (
+                  ""
+                )}
+
                 <div className="login_input1">
                   <input
                     type="text"
-                    className={`login_input ${errors.email && touched.email ? "login_error1":""} ${touched.email && !errors.email ? 'login_success_1':''}`}
+                    className={`login_input ${
+                      errors.user_email && touched.user_email ? "login_error1" : ""
+                    } ${
+                      touched.user_email && !errors.user_email ? "login_success_1" : ""
+                    }`}
                     placeholder="Email"
-                    name="email"
-                   
-                    value={values.email}
+                    name="user_email"
+                    value={values.user_email}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     autoComplete="off"
-                    
-                  
                   />
                   <div className="login_label_2">
-                    <label className="fs-4"><MdOutlineMailOutline /></label>
+                    <label className="fs-4">
+                      <MdOutlineMailOutline />
+                    </label>
                   </div>
                 </div>
-                {touched.email && errors.email ? (<div style={{color:'red'}}>{errors.email}</div>): ""}
+                {touched.user_email && errors.user_email ? (
+                  <div style={{ color: "red" }}>{errors.user_email}</div>
+                ) : (
+                  ""
+                )}
                 <div className="login_input1">
                   <input
                     type="number"
-                    className={`login_input ${touched.phone && errors.phone ? 'login_error1' : ''} ${touched.phone && !errors.phone ? 'login_success_1':''}`}
+                    className={`login_input ${
+                      touched.user_phone && errors.user_phone ? "login_error1" : ""
+                    } ${
+                      touched.user_phone && !errors.user_phone ? "login_success_1" : ""
+                    }`}
                     placeholder="Mobile Number"
-                    name="phone"
+                    name="user_phone"
                     maxlength="10"
-                    value={values.phone}
+                    value={values.user_phone}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     autoComplete="off"
-                    
-                  
                   />
                   <div className="login_label_1">
                     <label className="login_label">+91</label>
                   </div>
                 </div>
-                {touched.phone && errors.phone ? <div style={{color:'red'}}>{errors.phone}</div> : ""}
+                {touched.user_phone && errors.user_phone ? (
+                  <div style={{ color: "red" }}>{errors.user_phone}</div>
+                ) : (
+                  ""
+                )}
 
                 <div className="login_input1">
                   <input
-                    type={show ? "password" :"text"}
-                    className={`login_input ${touched.password && errors.password ? 'login_error1' : ''} ${touched.password && !errors.password ? 'login_success_1':''}`}
+                    type={show ? "password" : "text"}
+                    className={`login_input ${
+                      touched.user_password && errors.user_password ? "login_error1" : ""
+                    } ${
+                      touched.user_password && !errors.user_password
+                        ? "login_success_1"
+                        : ""
+                    }`}
                     placeholder="Password"
-                    name="password"
-                  
-                    value={values.password}
+                    name="user_password"
+                    value={values.user_password}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     autoComplete="off"
-                    
-                  
                   />
                   <div className="login_label_2">
-                    <label className="fs-4"><RiLockPasswordLine/></label>
+                    <label className="fs-4">
+                      <RiLockPasswordLine />
+                    </label>
                   </div>
                   <div className="login_label_3">
-                    <label className="fs-4" onClick={handleShow}>{show ? (<FaRegEyeSlash/>):<IoEyeOutline/>}</label>
+                    <label className="fs-4" onClick={handleShow}>
+                      {show ? <FaRegEyeSlash /> : <IoEyeOutline />}
+                    </label>
                   </div>
                 </div>
-                {touched.password && errors.password ? <div style={{color:'red'}}>{errors.password}</div> : ""}
+                {touched.user_password && errors.user_password ? (
+                  <div style={{ color: "red" }}>{errors.user_password}</div>
+                ) : (
+                  ""
+                )}
 
-
-               
                 <div className="mt-4">
                   <p className="login_size">
                     By continuing. I agree to the{" "}
@@ -152,17 +186,18 @@ function Signup() {
                   </p>
                 </div>
                 <div className="mt-5">
-                  <button className="login_button" type="submit">Continue</button>
+                  <button className="login_button" type="submit">
+                    Continue
+                  </button>
                 </div>
               </form>
 
               <div className="mt-4">
-                  <p className="login_size">
-                   Having trouble while logging in{" "}
-                    <span className="login_color">Get Help</span> {" "}
-                    
-                  </p>
-                </div>
+                <p className="login_size">
+                  Having trouble while logging in{" "}
+                  <span className="login_color">Get Help</span>{" "}
+                </p>
+              </div>
             </div>
           </div>
         </div>
