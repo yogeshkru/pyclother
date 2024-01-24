@@ -1,58 +1,67 @@
-const customError = require("./customError");
+const CustomError = require("./customError");
 
-// const devError = (res, err) => {
-//   res.status(err.statuscode).json({
-//     status: err.statuscode,
-//     message: err.message,
-//     stackTrace: err.message,
-//     error: err,
-//   });
-// };
+const devError = (res, error) => {
+  res.status(error.statuscode).json({
+    status: error.statuscode,
+    message: error.message,
+    stackTrace: error.stack,
+    error: error,
+  });
+};
 
-// const prodError = (res, err) => {
-//   if (err.isOperational) {
-//     res.status(error.statuscode).json({
-//       status: err.statuscode,
-//       message: err.message,
-//     });
-//   } else {
-//     res
-//       .status(500)
-//       .json({
-//         status: "error",
-//         message: "Something went wrong! Please try again later.",
-//       });
-//   }
-// };
-
-module.exports = (err, req, res, next) => {
-  err.statuscode = err.statuscode || 500;
-  err.message = err.message || "Internal server error";
-
-  //Wrong mangodb id error
-  if(err.name=== "CastError"){
-    const message=`Resources not found with this id.. Invalid ${err.path}`
-    err=new customError(message,400)
+const prodError = (res, err) => {
+  if (err.isOperational) {
+    return res.status(err.statuscode).json({
+      status: err.statuscode,
+      message: err.message,
+    });
+  } else {
+    res.status(500).json({
+      status: "error",
+      message: "Something went wrong! Please try again later.",
+    });
   }
-  console.log(err.name)
+};
 
-  // Duplicate key error
-  if(err.code === 11000){
-    const message=`Dulipcate key ${Object.keys(err.keyValue)} Entered`
-    err=new customError(message,400)
+// ******************************************************************************************
+
+const castErrorHandler = (err) => {
+  const msg = `Invalid value for ${err.path}: ${err.value}`;
+
+  return new CustomError(msg, 400);
+};
+
+const duplicateKerHandler = function (err) {
+  const message = `Dulipcate key ${Object.keys(err.message)} Entered`;
+
+  return new CustomError(message, 200);
+};
+
+const validationErrorHandler = (err) => {
+  console.log(err)
+  const error = Object.values(err.errors).map((val) => val.message);
+  const errorMessages = error.join(". ");
+  const msg = `Invalid input data: ${errorMessages}`;
+  return new CustomError(msg, 200);
+};
+// *****************************************************************************************
+
+
+
+// *******************************Global Error Handling*************************************
+module.exports = (error, req, res, next) => {
+  error.statuscode = error.statuscode || 500;
+  error.message = error.message || "Internal server error";
+
+  if (process.env.NODE_ENV === "development") {
+    return devError(res, error);
+  } else if (process.env.NODE_ENV === "production") {
+    // let err = { ...error };
+    if (error.name === "CastError") error = castErrorHandler(error);
+    if (error.code === 11000) error = duplicateKerHandler(error);
+    if (error.name === "validationError") error = validationErrorHandler(error);
+    return prodError(res, error);
   }
 
-  //wrong jwt error
-  if(err.name === "JsonwebTokenError"){
-    const message=`your url is invalid please try again later`
-    err=new customError(message,400)
-  }
-
-  // if (process.env.NODE_ENV === "development") {
-  //   devError(res, err);
-  // } else if (process.env.NODE_ENV === "production") {
-  //   prodError(res, err);
-  // }
-
-  res.status(err.statuscode).json({ success: false, message: err.message });
+  res.status(error.statuscode).json({ success: false, message: error.message });
 };

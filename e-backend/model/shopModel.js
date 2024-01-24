@@ -9,6 +9,8 @@ const shopSchema = new mongoose.Schema(
     },
     shop_email: {
       type: String,
+      unique:true,
+
       required: [true, "Email is required"],
     },
     shop_password: {
@@ -27,6 +29,8 @@ const shopSchema = new mongoose.Schema(
     },
     shop_phone: {
       type: Number,
+      unique:true,
+
       required: ["Phone number is required"],
     },
     shop_avatar: {

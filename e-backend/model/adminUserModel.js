@@ -11,10 +11,13 @@ const adminUserSchema = new mongoose.Schema(
     },
     admin_email: {
       type: String,
+      unique:true,
+
       required: [true, "Email is required"],
     },
     admin_phone: {
       type: Number,
+      unique:true,
       required: [true, "Phone is required"],
     },
     admin_password: {

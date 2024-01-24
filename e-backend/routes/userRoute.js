@@ -31,12 +31,14 @@ module.exports = (app) => {
 
   router.route("/update-user").patch(userProtect, updateMe);
   router.route("/deleteme").patch(userProtect, deleteMe);
-  router.route("/getuser/:id").get( getUserById);
   router.route("/getwishlist").get(userProtect, getWishList);
   router.route("/updatePassword").patch(userProtect, updatePasswordByUserLogin);
 
   // the below urt's will manipulate by admin's
 
+  router
+    .route("/getuser/:id")
+    .get(userProtect, restrict("super admin"), getUserById);
   router
     .route("/block-user")
     .patch(userProtect, restrict("super admin"), blockUser);

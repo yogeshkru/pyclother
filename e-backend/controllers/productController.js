@@ -63,7 +63,7 @@ class Product {
       .paginate();
 
     const getAllProducts = await getProduct.query;
-    res.status(200).json({ getAllProducts });
+    res.status(200).json({ getAllProducts, length: getProduct.length });
   };
 
   addToWishList = async function (req, res, next) {
