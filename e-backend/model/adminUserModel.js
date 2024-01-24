@@ -22,7 +22,7 @@ const adminUserSchema = new mongoose.Schema(
       required: [true, "Password is required"],
       select: false,
     },
-    admin_role: {
+    role: {
       type: String,
       enum: ["admin", "employee","super admin"],
     },

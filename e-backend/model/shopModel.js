@@ -36,7 +36,7 @@ const shopSchema = new mongoose.Schema(
       type: String,
       required: [true, "Zipcode is required"],
     },
-    shop_role: {
+    role: {
       type: String,
       enum: ["shop admin","super admin"],
       default: "shop admin",
