@@ -31,7 +31,7 @@ module.exports = (app) => {
 
   router.route("/update-user").patch(userProtect, updateMe);
   router.route("/deleteme").patch(userProtect, deleteMe);
-  router.route("/getuser/:id").get(userProtect, getUserById);
+  router.route("/getuser/:id").get( getUserById);
   router.route("/getwishlist").get(userProtect, getWishList);
   router.route("/updatePassword").patch(userProtect, updatePasswordByUserLogin);
 

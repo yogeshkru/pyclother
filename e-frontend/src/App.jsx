@@ -12,6 +12,8 @@ import Delivery_address from "./Pages/Delivery_address";
 import Cart from "./Pages/Cart";
 import Orderplaced from "./Pages/Orderplaced";
 import Login from "./Pages/Login";
+import Forget from "./Pages/Forget";
+import Reset from "./Pages/ResetPassword";
 import Payment from "./Pages/Payment";
 import Whislist from "./Pages/Whislist";
 import Otp from "./Pages/Otp";
@@ -30,6 +32,8 @@ function App() {
         <Route path="/admin-activation/:activation_token" element={<ActivationPage/>}/>
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="forget" element={<Forget />} />
+        <Route path="/reset" element={<Reset />} />
         <Route path="/otp" element={<Otp />} />
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />

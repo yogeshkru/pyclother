@@ -19,7 +19,7 @@ app.use(helmet());
 // app.use(bodyparser.json());
 app.use(cors());
 
-app.use(bodyparser.json({limit: "10kb"})); // Important
+app.use(bodyparser.json({ limit: "10kb" })); // Important
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(cookie());
 
@@ -30,7 +30,9 @@ app.use(mongoSanitize());
 app.use(xss());
 
 // prevent parameter pollution
-app.use(hpp());
+app.use(
+  hpp({ whitelist: ["brand", "quantity", "ratings", "price", "createdAt"] })
+);
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -45,9 +47,9 @@ let limiter = rateLimit({
 app.use("/api", limiter);
 
 // *********************************************************************
-if (process.env.NODE_ENV == "production") {
-  require("dotenv").config();
-}
+// if (process.env.NODE_ENV == "production") {
+require("dotenv").config();
+// }
 
 require("./routes/adminUserRoutes")(app);
 require("./routes/cartRoutes")(app);
@@ -59,7 +61,7 @@ require("./routes/categoryRoute")(app);
 require("./routes/addressRoute")(app);
 require("./routes/colorRoutes")(app);
 require("./routes/blogRoutes")(app);
-require("./routes/shopRoute")(app)
+require("./routes/shopRoute")(app);
 require("./routes/orderRoutes")(app);
 require("./routes/uploadRouts")(app);
 require("./routes/productRoutes")(app)
