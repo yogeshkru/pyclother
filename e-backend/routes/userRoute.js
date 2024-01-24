@@ -25,7 +25,6 @@ module.exports = (app) => {
   router.route("/forgot").post(forgetPassword);
   router.route("/reset/:token").patch(resetPassword);
   router.route("/deleteuser/:id").delete(getUserDelete);
-  router.route("/fetchuser").get(fetchAllUser);
 
   // the below url update by authorized user;
 
@@ -45,6 +44,9 @@ module.exports = (app) => {
   router
     .route("/unblock-user")
     .patch(userProtect, restrict("super admin"), unblockUser);
+  router
+    .route("/fetchuser")
+    .get(userProtect, restrict("super admin"), fetchAllUser);
 
   app.use("/api/user", router);
 };
