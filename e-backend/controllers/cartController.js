@@ -15,6 +15,7 @@ exports.cart = asyncErrorhandler(async (req, res, next) => {
       cart_price: price,
       cart_quantity: quantity,
     });
+    console.log(newCart,"jcfgbwiuegfvw3ug8v")
     res.status(200).json({ newCart });
   } catch (error) {
     next(new customError(error.message, 500));
@@ -49,7 +50,7 @@ exports.getUserCart = asyncErrorhandler(async (req, res, next) => {
     },
     {
       $lookup: {
-        from: "tbl_Products",
+        from: "tbl_products",
         localField: "cart_product_product_Id",
         foreignField: "_id",
         as: "product",
@@ -57,7 +58,7 @@ exports.getUserCart = asyncErrorhandler(async (req, res, next) => {
     },
     {
       $lookup: {
-        from: "tbl_Colors",
+        from: "tbl_colors",
         localField: "cart_color_color_Id",
         foreignField: "_id",
         as: "color",
@@ -65,6 +66,7 @@ exports.getUserCart = asyncErrorhandler(async (req, res, next) => {
     },
   ]);
   res.status(200).json({ cart });
+  console.log(cart,"rygvfiugvweriuggiu")
 });
 
 exports.updateProductQuantity = asyncErrorhandler(async (req, res, next) => {
