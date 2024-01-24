@@ -23,5 +23,3 @@ module.exports = (app) => {
 
   app.use("/api/order", router);
 };
-
-

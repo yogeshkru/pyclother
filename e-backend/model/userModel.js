@@ -11,10 +11,15 @@ const userSchema = new mongoose.Schema(
     user_email: {
       type: String,
       required: [true, "Email is required"],
+      unique:true
     },
     user_phone: {
-      type: Number,
+      type: String,
       required: [true, "Phone is required"],
+      unique:true,
+      minlength:[10,"Phone number must have atleast 10 characters"],
+      maxlength:[10]
+
     },
     user_password: {
       type: String,
