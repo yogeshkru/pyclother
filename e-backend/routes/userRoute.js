@@ -24,7 +24,6 @@ module.exports = (app) => {
   router.route("/login").post(login);
   router.route("/forgot").post(forgetPassword);
   router.route("/reset/:token").patch(resetPassword);
-  router.route("/deleteuser/:id").delete(getUserDelete);
 
   // the below url update by authorized user;
 
@@ -47,6 +46,9 @@ module.exports = (app) => {
   router
     .route("/fetchuser")
     .get(userProtect, restrict("super admin"), fetchAllUser);
+  router
+    .route("/deleteuser/:id")
+    .delete(userProtect, restrict("super admin"), getUserDelete);
 
   app.use("/api/user", router);
 };

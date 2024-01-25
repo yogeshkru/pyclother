@@ -122,7 +122,6 @@ exports.resetPassword = asyncErrorhandler(async (req, res, next) => {
     user_passwordResetToken: token,
     user_passwordResetTokenExpired: { $gt: Date.now() },
   });
-  console.log(token, "jgvbwHGUIHWEU");
 
   if (!update) {
     const err = new customError("tokens is invalid or has expired", 400);

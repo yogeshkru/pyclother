@@ -10,7 +10,7 @@ const register = async (userData) => {
 };
 
 const activationToken = async function (userToken) {
-  const response = await axios.post(`${base_url}admin/activate`, userToken);
+  const response = await axios.post(`${base_url}admin/activate/${userToken}`);
   if (response.data) {
     return response.data;
   }
@@ -22,6 +22,12 @@ async function adminLogout() {
     return response.data;
   }
 }
+
+// adminLogin
+
+const adminLogin = async () => {
+  const response = await axios.post(`${base_url}admin`);
+};
 
 const adminService = {
   register,
