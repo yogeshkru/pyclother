@@ -10,25 +10,23 @@ const register = async (userData) => {
 };
 
 const activationToken = async function (userToken) {
-  const response = await axios.post(`${base_url}admin/activate`, userToken, {
-    withCredentials: true,
-  });
+  const response = await axios.post(`${base_url}admin/activate`, userToken);
   if (response.data) {
     return response.data;
   }
 };
 
- async function adminLogout  (){
-  const response= await axios.get(`${base_url}admin/logout`,{withCredentials:true})
-  if(response.data){
-    return response.data
+async function adminLogout() {
+  const response = await axios.get(`${base_url}admin/logout`);
+  if (response.data) {
+    return response.data;
   }
 }
 
 const adminService = {
   register,
   activationToken,
-  adminLogout
+  adminLogout,
 };
 
 export default adminService;

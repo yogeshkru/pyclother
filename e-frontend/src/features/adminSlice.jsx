@@ -59,7 +59,7 @@ export const authAdminSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(registerAdminUser.fulfilled, (state, action) => {
-        state.isError = false
+        state.isError = false;
         state.isLoading = false;
         state.isSuccess = true;
         state.createUser = action.payload;
