@@ -19,7 +19,7 @@ module.exports = (app) => {
     .post(userProtect, asyncErrorhandler(addressCreate));
   router.route("/address_get").get(userProtect, asyncErrorhandler(addressGet));
   router
-    .route("address_patch/:id")
+    .route("/address_patch/:id")
     .patch(userProtect, asyncErrorhandler(addressUpdate));
   router
     .route("/address_delete/:id")

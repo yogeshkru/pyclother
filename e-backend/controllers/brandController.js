@@ -4,6 +4,7 @@ const customError = require("../utils/customError");
 
 //Post
 exports.brandTitle = asyncErrorhandler(async (req, res, next) => {
+
   try {
     const brandAlready = await brandModel.findOne({ brand_title: req.body.brand_title });
     if (brandAlready) {

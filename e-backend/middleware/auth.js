@@ -56,6 +56,7 @@ const shopProtect = asyncErrorhandler(async (req, res, next) => {
   );
 
   const user = await shopModel.findById(decodedToken.id);
+  console.log(user)
 
   if (!user) {
     const error = new CustomError(

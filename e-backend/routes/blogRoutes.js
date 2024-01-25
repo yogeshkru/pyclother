@@ -12,7 +12,7 @@ module.exports = (app) => {
     disLikeBlog,
   } = new BlogController();
 
-  router.route("/getblog").get(asyncErrorhandler(getBlog));
+  router.route("/getblog/:id").get(asyncErrorhandler(getBlog));
   router.route("/getall_blog").get(asyncErrorhandler(getAllBlogs));
   router.route("/like_blog").post(asyncErrorhandler(likeBlog));
   router.route("/create_blog").post(asyncErrorhandler(creatBlog));
