@@ -4,7 +4,9 @@ module.exports = (app) => {
   const { userProtect } = require("../middleware/auth");
 
   router.route("/createcart").post(userProtect, cartRoute.cart);
-  router.route("/deletefromcart/:id").delete(userProtect, cartRoute.deleteItemCart);
+  router
+    .route("/deletefromcart/:id")
+    .delete(userProtect, cartRoute.deleteItemCart);
   router.route("/showtocart").get(userProtect, cartRoute.getUserCart);
   router
     .route("/update-cartitem/id/:newQuantity")

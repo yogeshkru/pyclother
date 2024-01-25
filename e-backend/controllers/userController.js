@@ -36,7 +36,7 @@ exports.createUser = asyncErrorhandler(async (req, res, next) => {
 exports.login = asyncErrorhandler(async (req, res, next) => {
   try {
     const { user_email, user_password } = req.body;
-       
+
     if (!user_email || !user_password) {
       const error = new customError(
         "Please provide email & password for login",
@@ -47,7 +47,7 @@ exports.login = asyncErrorhandler(async (req, res, next) => {
     let user = await userModel.findOne({ user_email }).select("+user_password");
 
     if (!user) {
-      const error = new customError("User not found", 404);
+      const error = new customError("User Not Found", 404);
       return next(error);
     }
 
@@ -57,16 +57,16 @@ exports.login = asyncErrorhandler(async (req, res, next) => {
       user.user_password
     );
     if (!isMatch) {
-      const error = new customError("incorrect password", 400);
+      const error = new customError("Incorrect Password", 400);
       return next(error);
     }
     user = {
-      _id: user._id, 
+      _id: user._id,
       name: user.user_name,
       email: user.user_email,
     };
 
-    sendUserToken(user, 200, res);
+    sendUserToken(user, 200, res,{message:"Login Successfully"});
   } catch (err) {
     return next(new customError(err.message, 500));
   }
@@ -85,16 +85,21 @@ exports.forgetPassword = asyncErrorhandler(async (req, res, next) => {
   const resetToken = await findUser.createResetPasswordToken();
   await findUser.save({ validateBeforeSave: false });
 
-  const reseturl = `${req.protocol}://${req.get(
-    "host"
-  )}/users/resetpassword/${resetToken}`;
-  const message = `we have received a password reset required. please use below link to reset passsword\n\n ${reseturl} \n\n this link valid for 10 minutes`;
+  const reseturl = `http://localhost:5173/reset/${resetToken}`;
+  const message = `we have received a password reset request yogesh. please use below link to reset passsword\n\n ${reseturl} \n\n this link valid for 10 minutes`;
+
   try {
     await sendEmail({
       email: findUser.user_email,
       subject: "password change request received",
       message: message,
     });
+
+    res
+      .status(200)
+      .json({
+        message: `Password reset token send to your email ${findUser.user_email} `,
+      });
   } catch (err) {
     findUser.user_passwordResetToken = undefined;
     findUser.user_passwordResetTokenExpired = undefined;
@@ -115,7 +120,7 @@ exports.resetPassword = asyncErrorhandler(async (req, res, next) => {
     user_passwordResetToken: token,
     user_passwordResetTokenExpired: { $gt: Date.now() },
   });
-
+  // console.log(token, "jgvbwHGUIHWEU");
   if (!update) {
     const err = new customError("tokens is invalid or has expired", 400);
     return next(err);
@@ -124,15 +129,17 @@ exports.resetPassword = asyncErrorhandler(async (req, res, next) => {
   update.user_passwordResetToken = undefined;
   update.user_passwordResetTokenExpired = undefined;
   update.user_passwordChangedAt = Date.now();
-  await update.save(); 
+  await update.save();
 
-  sendUserToken(update, 200, res);
+  sendUserToken(update, 200, res,{message:"Your password has been successfully changed"});
 });
 
 exports.updatePasswordByUserLogin = asyncErrorhandler(
   async (req, res, next) => {
     //  Get Current User Data From DataBase
-    const user = await userModel.findById(req.user._id).select("+user_password");
+    const user = await userModel
+      .findById(req.user._id)
+      .select("+user_password");
 
     // check if the password
 
@@ -277,7 +284,7 @@ exports.getUserById = asyncErrorhandler(async (req, res, next) => {
   const user = await userModel.findById(id);
   if (!user) {
     const error = new customError("user with that Id is not found", 404);
-  return   next(error);
+    return next(error);
   }
 
   res.status(200).json({ status: "success", data: { user } });
@@ -294,7 +301,6 @@ exports.getUserDelete = asyncErrorhandler(async (req, res, next) => {
   }
   res.status(200).json({ status: "Deleted", data: null });
 });
-
 
 exports.getWishList = asyncErrorhandler(async (req, res) => {
   const { _id } = req.user;

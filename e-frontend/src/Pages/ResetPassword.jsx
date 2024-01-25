@@ -1,46 +1,51 @@
 import React, { useState } from "react";
 import "../styles/Home.css";
-import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import logo from "../assets/image/logo12.png";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FaRegUserCircle, FaRegEyeSlash } from "react-icons/fa";
-import { MdOutlineMailOutline } from "react-icons/md";
+import { userResetAPI } from "../features/usersSlice";
+import { useDispatch } from "react-redux";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { IoEyeOutline } from "react-icons/io5";
-import { useDispatch } from "react-redux";
-import { userLogin } from "../features/usersSlice";
 
-function Forget() {
-  const dispatch = useDispatch();
+function Reset() {
+  const { token } = useParams();
+
+  const dispatch=useDispatch()
   const { values, errors, handleChange, handleBlur, handleSubmit, touched } =
     useFormik({
       initialValues: {
-        user_email: "",
-        user_password: "",
+        password: "",
+        cpassword: "",
       },
       validationSchema: Yup.object({
-        user_email: Yup.string()
-          .required("Email is required")
-          .matches(
-            /^[a-zA-Z][a-zA-Z0-9._-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-            "Invalid email address"
-          ),
-        user_password: Yup.string()
+        password: Yup.string()
           .min(8, "Password must be 8 characters long")
           .matches(/[0-9]/, "Password requires a number")
           .matches(/[a-z]/, "Password requires a lowercase letter")
           .matches(/[A-Z]/, "Password requires an uppercase letter")
           .matches(/[^\w]/, "Password requires a symbol")
           .required("Please enter new password"),
+        cpassword: Yup.string()
+          .oneOf([Yup.ref("password")], "Passwords must match")
+          .required("Confirm Password is required"),
+        
       }),
-      onSubmit: (value) => {
-        dispatch(userLogin(value));
-      },
+      onSubmit:(value)=>{
+        const data={password:value.password,token:token}
+        dispatch(userResetAPI(data))
+       
+      }
     });
   const [show, setShow] = useState(true);
   const handleShow = () => {
     setShow(!show);
+  };
+  const [cshow, csetShow] = useState(true);
+  const chandleShow = () => {
+    csetShow(!cshow);
   };
   return (
     <div className="otp_background">
@@ -55,54 +60,21 @@ function Forget() {
               </div>
             </div>
             <div className="login_font_padding ">
-              <p>Login</p>
+              <p>Reset your password...</p>
               <form className="mt-3" onSubmit={handleSubmit}>
-                <div className="login_input1">
-                  <input
-                    type="text"
-                    className={`login_input ${
-                      errors.user_email && touched.user_email
-                        ? "login_error1"
-                        : ""
-                    } ${
-                      touched.user_email && !errors.user_email
-                        ? "login_success_1"
-                        : ""
-                    }`}
-                    placeholder="Email"
-                    name="user_email"
-                    value={values.user_email}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    autoComplete="off"
-                  />
-                  <div className="login_label_2">
-                    <label className="fs-4">
-                      <MdOutlineMailOutline />
-                    </label>
-                  </div>
-                </div>
-                {touched.user_email && errors.user_email ? (
-                  <div style={{ color: "red" }}>{errors.user_email}</div>
-                ) : (
-                  ""
-                )}
-
                 <div className="login_input1">
                   <input
                     type={show ? "password" : "text"}
                     className={`login_input ${
-                      touched.user_password && errors.user_password
-                        ? "login_error1"
-                        : ""
+                      touched.password && errors.password ? "login_error1" : ""
                     } ${
-                      touched.user_password && !errors.user_password
+                      touched.password && !errors.password
                         ? "login_success_1"
                         : ""
                     }`}
                     placeholder="Password"
-                    name="user_password"
-                    value={values.user_password}
+                    name="password"
+                    value={values.password}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     autoComplete="off"
@@ -118,36 +90,54 @@ function Forget() {
                     </label>
                   </div>
                 </div>
-                {touched.user_password && errors.user_password ? (
-                  <div style={{ color: "red" }}>{errors.user_password}</div>
+                {touched.password && errors.password ? (
+                  <div style={{ color: "red" }}>{errors.password}</div>
                 ) : (
                   ""
                 )}
 
-                <div className="mt-4">
-                  <p className="login_size">
-                    By continuing. I agree to the{" "}
-                    <span className="login_color">Terms of use</span> &{" "}
-                    <span className="login_color">Privacy policy</span>
-                  </p>
-
-                  <Link to="/forget" className="float-end mt-4 mb-4 text-dark">
-                    Forget Password...?
-                  </Link>
+                <div className="login_input1">
+                  <input
+                    type={cshow ? "password" : "text"}
+                    className={`login_input ${
+                      touched.cpassword && errors.cpassword
+                        ? "login_error1"
+                        : ""
+                    } ${
+                      touched.cpassword && !errors.cpassword
+                        ? "login_success_1"
+                        : ""
+                    }`}
+                    placeholder="Confirm Password"
+                    name="cpassword"
+                    value={values.cpassword}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    autoComplete="off"
+                  />
+                  <div className="login_label_2">
+                    <label className="fs-4">
+                      <RiLockPasswordLine />
+                    </label>
+                  </div>
+                  <div className="login_label_3">
+                    <label className="fs-4" onClick={chandleShow}>
+                      {cshow ? <FaRegEyeSlash /> : <IoEyeOutline />}
+                    </label>
+                  </div>
                 </div>
+                {touched.cpassword && errors.cpassword ? (
+                  <div style={{ color: "red" }}>{errors.cpassword}</div>
+                ) : (
+                  ""
+                )}
+
                 <div className="mt-5 ">
                   <button className="login_button" type="submit">
                     LogIn
                   </button>
                 </div>
               </form>
-
-              <div className="mt-4">
-                <p className="login_size">
-                  Having trouble while logging in{" "}
-                  <span className="login_color">Get Help</span>{" "}
-                </p>
-              </div>
             </div>
           </div>
         </div>
@@ -156,4 +146,4 @@ function Forget() {
   );
 }
 
-export default Forget;
+export default Reset;

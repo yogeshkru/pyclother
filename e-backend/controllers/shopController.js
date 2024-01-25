@@ -177,8 +177,6 @@ class Shop {
     res.status(200).json({ message: "Logout" });
   };
 
-
-
   //login
   async shopLogin(req, res, next) {
     try {
@@ -233,7 +231,7 @@ class Shop {
     const resetUrl = `${req.protocol}:// ${req.get(
       "host"
     )}/shop/resetpassword/${resetToken}`;
-    const message =` we have received a password reset required. Please use below link to reset the password \n\n ${resetUrl} \n\n this link valid for 10 minutes.`;
+    const message = ` we have received a password reset required. Please use below link to reset the password \n\n ${resetUrl} \n\n this link valid for 10 minutes.`;
 
     try {
       await sendEmail({
@@ -242,9 +240,9 @@ class Shop {
         message: message,
       });
     } catch (error) {
-      (findShop.shop_passwordResetToken = undefined),
-        (findShop.shop_passwordResetToken = undefined),
-        findShop.save({ validateBeforeSave: false });
+      findShop.shop_passwordResetToken = undefined;
+      findShop.shop_passwordResetToken = undefined;
+      findShop.save({ validateBeforeSave: false });
       return next(new CustomError(error.message, 500));
     }
   }
