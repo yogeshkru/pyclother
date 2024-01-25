@@ -22,7 +22,7 @@ const brandGet=async()=>{
 //patch
 
 const brandPatch=async(data)=>{
-    const response=await axios.patch(`${URL.BASE_URL}brand/updatebrand/${data.id}`,data)
+    const response=await axios.patch(`${URL.BASE_URL}brand/updatebrand/${data._id}`,data)
     if(response.data){
         return response.data
     }
@@ -32,7 +32,7 @@ const brandPatch=async(data)=>{
 //delete
 
 const brandDelete=async(data)=>{
-    const response=await axios.delete(`${URL.BASE_URL}brand/deleteBrand/${data.id}`,data)
+    const response=await axios.delete(`${URL.BASE_URL}brand/deleteBrand/${data._id}`,data)
     if(response.data){
         return response.data
     }
@@ -41,7 +41,7 @@ const brandDelete=async(data)=>{
 //find
 
 const brandFind=async(data)=>{
-    const response=await axios.get(`${URL.BASE_URL}brand/findBrand/${data.id}`,data)
+    const response=await axios.get(`${URL.BASE_URL}brand/findBrand/${data._id}`,data)
     if(response.data){
         return response.data
     }
