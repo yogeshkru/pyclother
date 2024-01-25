@@ -44,7 +44,9 @@ module.exports = (app) => {
     .route("/unblock-user")
     .patch(userProtect, restrict("super admin"), unblockUser);
   router
-    .route("/fetchuser")
+    .route("/deleteuser/:id")
+    .delete(userProtect, restrict("super admin"), getUserDelete);
+    router.route("/fetchuser")
     .get(userProtect, restrict("super admin"), fetchAllUser);
   router
     .route("/deleteuser/:id")

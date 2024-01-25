@@ -1,23 +1,17 @@
 import axios from "axios";
-import { base_url } from "../utils/base_url";
-
-const register = async (userData) => {
-  const response = await axios.post(`${base_url}admin/creatuser`, userData);
-
-  if (response.data) {
-    return response.data;
-  }
-};
+import CONN from "../utils/Url";
 
 const activationToken = async function (userToken) {
-  const response = await axios.post(`${base_url}admin/activate/${userToken}`);
+  const response = await axios.post(
+    `${CONN.BASE_URL}admin/activate/${userToken}`
+  );
   if (response.data) {
     return response.data;
   }
 };
 
 async function adminLogout() {
-  const response = await axios.get(`${base_url}admin/logout`);
+  const response = await axios.get(`${CONN.BASE_URL}admin/logout`);
   if (response.data) {
     return response.data;
   }
@@ -25,14 +19,57 @@ async function adminLogout() {
 
 // adminLogin
 
-const adminLogin = async () => {
-  const response = await axios.post(`${base_url}admin`);
+const adminLogin = async (userData) => {
+  const response = await axios.post(
+    `${CONN.BASE_URL}admin/admin-login`,
+    userData
+  );
+
+  if (response.data) {
+    return response.data;
+  }
+};
+
+// **************************Authorized login ***************************
+
+async function updateUser(userData) {
+  const response = await axios.patch(
+    `${CONN.BASE_URL}admin/admin-updateme`,
+    userData
+  );
+
+  if (response.data) {
+    return response.data;
+  }
+}
+
+const deleteMe = async () => {
+  const response = await axios.delete(`${CONN.BASE_URL}admin/admin-delete-me`);
+  if (response.data) {
+    return response.data;
+  }
+};
+
+const register = async (userData) => {
+  const response = await axios.post(
+    `${CONN.BASE_URL}admin/creatuser`,
+    userData
+  );
+
+  if (response.data) {
+    return response.data;
+  }
 };
 
 const adminService = {
-  register,
   activationToken,
   adminLogout,
+  adminLogin,
+  
+  // Authorized login
+  register,
+  updateUser,
+  deleteMe,
 };
 
 export default adminService;

@@ -178,8 +178,6 @@ class Shop {
     res.status(200).json({ message: "Logout" });
   };
 
-
-
   //login
   async shopLogin(req, res, next) {
     try {

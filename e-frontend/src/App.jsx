@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "./App.css";
 
@@ -18,10 +18,9 @@ import Payment from "./Pages/Payment";
 import Whislist from "./Pages/Whislist";
 import Otp from "./Pages/Otp";
 import Signup from "./Pages/Signup";
-
+import {ToastContainer} from "react-toastify"
 import { ActivationPage } from "./Routes/AdminRoutes";
-import { ToastContainer } from "react-toastify";
-
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
   return (
     <>
@@ -32,8 +31,8 @@ function App() {
         <Route path="/admin-activation/:activation_token" element={<ActivationPage/>}/>
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route path="forget" element={<Forget />} />
-        <Route path="/reset" element={<Reset />} />
+        <Route path="/forget" element={<Forget />} />
+        <Route path="/reset/:token" element={<Reset />} />
         <Route path="/otp" element={<Otp />} />
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
@@ -49,20 +48,21 @@ function App() {
         </Route>
       </Routes>
 
-      <ToastContainer
-            position="bottom-center"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="dark"
-          />
-  </BrowserRouter>
-
+   
+        <ToastContainer
+          position="bottom-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
+       
+      </BrowserRouter>
     </>
   );
 }
