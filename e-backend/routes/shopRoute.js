@@ -21,7 +21,7 @@ module.exports = (app) => {
 
   // without using authorization
   router.route("/login-shop").post(asyncErrorHandler(shopLogin));
-  router.route("/update-shop").post(asyncErrorHandler(shopForget));
+  router.route("/update-shop-forgot").post(asyncErrorHandler(shopForget));
   router
     .route("/patch-shop/:token")
     .patch(asyncErrorHandler(shopResetPassword));

@@ -24,18 +24,20 @@ module.exports = (app) => {
   router.route("/login").post(login);
   router.route("/forgot").post(forgetPassword);
   router.route("/reset/:token").patch(resetPassword);
-  router.route("/fetchuser").get(fetchAllUser);
+  router.route("/deleteuser/:id").delete(getUserDelete);
 
   // the below url update by authorized user;
 
   router.route("/update-user").patch(userProtect, updateMe);
   router.route("/deleteme").patch(userProtect, deleteMe);
-  router.route("/getuser/:id").get(getUserById);
   router.route("/getwishlist").get(userProtect, getWishList);
   router.route("/updatePassword").patch(userProtect, updatePasswordByUserLogin);
 
   // the below urt's will manipulate by admin's
 
+  router
+    .route("/getuser/:id")
+    .get(userProtect, restrict("super admin"), getUserById);
   router
     .route("/block-user")
     .patch(userProtect, restrict("super admin"), blockUser);
@@ -45,6 +47,8 @@ module.exports = (app) => {
   router
     .route("/deleteuser/:id")
     .delete(userProtect, restrict("super admin"), getUserDelete);
+    router.route("/fetchuser")
+    .get(userProtect, restrict("super admin"), fetchAllUser);
 
   app.use("/api/user", router);
 };

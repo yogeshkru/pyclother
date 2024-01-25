@@ -1,7 +1,8 @@
 const shopModel = require("../model/shopModel");
 const CustomError = require("../utils/customError");
 const { sendShopToken } = require("../utils/jwtToken");
-
+const sendEmail = require("../utils/sendMail")
+const crypto = require("crypto");
 class Shop {
   //Post
   async shopCreate(req, res, next) {
@@ -218,42 +219,57 @@ class Shop {
   //Forget Password
   async shopForget(req, res, next) {
     const { shop_email } = req.body;
-    const findShop = await shopModel.findOne({ shop_email });
-
-    if (!findShop) {
-      return next(
-        new CustomError(`We can't the given ${shop_email} on the server`, 404)
-      );
-    }
-    const resetToken = await findShop.createResetPasswordToken();
-    await findShop.save({ validateBeforeSave: false });
-
-    const resetUrl = `${req.protocol}:// ${req.get(
-      "host"
-    )}/shop/resetpassword/${resetToken}`;
-    const message = ` we have received a password reset required. Please use below link to reset the password \n\n ${resetUrl} \n\n this link valid for 10 minutes.`;
-
     try {
-      await sendEmail({
-        email: findShop.shop_email,
-        subject: "password change request received",
-        message: message,
-      });
+      const findShop = await shopModel.findOne({ shop_email });
+  
+      if (!findShop) {
+        return next(
+          new CustomError(`We can't find the given ${shop_email} on the server`, 404)
+        );
+      }
+  
+      const resetToken = await findShop.createResetPasswordToken();
+      await findShop.save({ validateBeforeSave: false });
+  
+      const resetUrl = `${req.protocol}://${req.get(
+        "host"
+      )}/api/shop/patch-shop/${resetToken}`;
+      const message =`We have received a password reset request. Please use the link below to reset your password: \n\n ${resetUrl} \n\n This link is valid for 10 minutes.`;
+  
+      try {
+        await sendEmail({
+          email: findShop.shop_email,
+          subject: "Password Change Request Received",
+          message: message,
+        });
+    
+        return res.status(200).json({
+          message: `Password reset token sent to your email.`,
+        });
+   
+      } catch (error) {
+        return next(new CustomError(error.message, 500)) 
+      }
+     
+
+
     } catch (error) {
       findShop.shop_passwordResetToken = undefined;
       findShop.shop_passwordResetToken = undefined;
       findShop.save({ validateBeforeSave: false });
+  
       return next(new CustomError(error.message, 500));
     }
   }
+  
   //resetpassword
 
   async shopResetPassword(req, res, next) {
     try {
-      const token = Crypto.createHash("sha256")
+      const token = crypto.createHash("sha256")
         .update(req.params.token)
         .digest("hex");
-
+        // console.log(token,'ufgsIUDFGIUDFGIUGIKUFGIUDG')
       const updateShop = await shopModel.findOne({
         shop_passwordResetToken: token,
         shop_passwordResetTokenExpired: { $gt: Date.now() },
@@ -261,7 +277,8 @@ class Shop {
       if (!updateShop) {
         const err = new CustomError("token is invalid or expired", 400);
         return next(err);
-      }
+      } 
+      
       updateShop.shop_password = req.body.password;
       updateShop.shop_passwordResetToken = undefined;
       updateShop.shop_passwordResetTokenExpired = undefined;
