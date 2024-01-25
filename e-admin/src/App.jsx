@@ -16,6 +16,9 @@ import Addcolor from "./pages/Addcolor";
 import Addcategory from "./pages/Addcategory";
 import Addbrand from "./pages/Addbrand";
 import Addproduct from "./pages/Addproduct";
+import {ToastContainer} from "react-toastify"
+
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
   return <>
   <BrowserRouter>
@@ -37,6 +40,19 @@ function App() {
         </Route>
        
       </Routes>
+
+      <ToastContainer
+          position="bottom-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
   </BrowserRouter>
 
   

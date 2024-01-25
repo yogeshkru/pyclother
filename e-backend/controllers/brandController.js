@@ -6,6 +6,7 @@ const customError = require("../utils/customError");
 exports.brandTitle = asyncErrorhandler(async (req, res, next) => {
   try {
     const brandAlready = await brandModel.findOne({ brand_title: req.body.brand_title });
+    console.log(brandAlready)
     if (brandAlready) {
       return next(new customError("Brand is already exists", 409));
     }
