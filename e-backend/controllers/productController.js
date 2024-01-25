@@ -5,13 +5,13 @@ const Apifeatures = require("../utils/reuseable");
 
 class Product {
   createProduct = async (req, res) => {
-    const newProduct = await ProductModel.create(req.body);
+    const newProduct = await productModel.create(req.body);
 
     res.status(201).json({ newProduct });
   };
 
   updateProduct = async function (req, res, next) {
-    const updateProduct = await ProductModel.findOneAndUpdate(
+    const updateProduct = await productModel.findOneAndUpdate(
       { _id: req.params.id },
       req,
       body,
@@ -39,7 +39,7 @@ class Product {
   getOneProduct = async (req, res, next) => {
     const { id } = req.params;
 
-    const product = await ProductModel.findById(id).populate("color");
+    const product = await productModel.findById(id).populate("color");
 
     if (!product) {
       const error = new CustomError(`Product with that ID is not found`, 404);
@@ -55,7 +55,7 @@ class Product {
   };
 
   getAllProduct = async (req, res) => {
-    const getProduct = new Apifeatures(ProductModel.find(), req.query)
+    const getProduct = new Apifeatures(productModel.find(), req.query)
       .excludes()
       .filter()
       .sort()
@@ -63,7 +63,7 @@ class Product {
       .paginate();
 
     const getAllProducts = await getProduct.query;
-    res.status(200).json({ getAllProducts });
+    res.status(200).json({ getAllProducts, length: getProduct.length });
   };
 
   addToWishList = async function (req, res, next) {

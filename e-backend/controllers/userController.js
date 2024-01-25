@@ -12,7 +12,7 @@ const { default: mongoose } = require("mongoose");
 //Signup
 exports.createUser = asyncErrorhandler(async (req, res, next) => {
   try {
-    const userAlready = await userModel.findOne({ user_email: req.body.email });
+    const userAlready = await userModel.findOne({ user_email: req.body.user_email });
     if (userAlready) {
       return next(new customError("Email is already exists", 409));
     }
@@ -26,7 +26,7 @@ exports.createUser = asyncErrorhandler(async (req, res, next) => {
       phone: user.user_phone,
     };
 
-    sendUserToken(user, 201, res);
+    sendUserToken(user, 201, res ,{message:"Your account Created"});
   } catch (err) {
     return next(new customError(err.message, 400));
   }
@@ -47,7 +47,7 @@ exports.login = asyncErrorhandler(async (req, res, next) => {
     let user = await userModel.findOne({ user_email }).select("+user_password");
 
     if (!user) {
-      const error = new customError("User not found", 404);
+      const error = new customError("User Not Found", 404);
       return next(error);
     }
 
@@ -57,7 +57,7 @@ exports.login = asyncErrorhandler(async (req, res, next) => {
       user.user_password
     );
     if (!isMatch) {
-      const error = new customError("incorrect password", 400);
+      const error = new customError("Incorrect Password", 400);
       return next(error);
     }
     user = {
@@ -66,7 +66,7 @@ exports.login = asyncErrorhandler(async (req, res, next) => {
       email: user.user_email,
     };
 
-    sendUserToken(user, 200, res);
+    sendUserToken(user, 200, res,{message:"Login Successfully"});
   } catch (err) {
     return next(new customError(err.message, 500));
   }
@@ -85,10 +85,8 @@ exports.forgetPassword = asyncErrorhandler(async (req, res, next) => {
   const resetToken = await findUser.createResetPasswordToken();
   await findUser.save({ validateBeforeSave: false });
 
-  const reseturl = `${req.protocol}://${req.get(
-    "host"
-  )}/api/user/reset/${resetToken}`;
-  const message = `we have received a password reset required. please use below link to reset passsword\n\n ${reseturl} \n\n this link valid for 10 minutes`;
+  const reseturl = `http://localhost:5173/reset/${resetToken}`;
+  const message = `we have received a password reset request yogesh. please use below link to reset passsword\n\n ${reseturl} \n\n this link valid for 10 minutes`;
 
   try {
     await sendEmail({
@@ -122,7 +120,6 @@ exports.resetPassword = asyncErrorhandler(async (req, res, next) => {
     user_passwordResetToken: token,
     user_passwordResetTokenExpired: { $gt: Date.now() },
   });
-  console.log(token, "jgvbwHGUIHWEU");
 
   if (!update) {
     const err = new customError("tokens is invalid or has expired", 400);
@@ -134,7 +131,7 @@ exports.resetPassword = asyncErrorhandler(async (req, res, next) => {
   update.user_passwordChangedAt = Date.now();
   await update.save();
 
-  sendUserToken(update, 200, res);
+  sendUserToken(update, 200, res,{message:"Your password has been successfully changed"});
 });
 
 exports.updatePasswordByUserLogin = asyncErrorhandler(

@@ -1,5 +1,5 @@
-const getTokenFromLoacalStorage = localStorage.getItem("user")
-  ? JSON.parse(localStorage.getItem("user"))
+const getTokenFromLoacalStorage = localStorage.getItem("admin_user")
+  ? JSON.parse(localStorage.getItem("admin_user"))
   : null;
 
 export const config = {
@@ -7,6 +7,6 @@ export const config = {
     Authorization: getTokenFromLoacalStorage
       ? `Bearer ${getTokenFromLoacalStorage.token}`
       : null,
-      Accept:"application/json"
+    Accept: "application/json",
   },
 };

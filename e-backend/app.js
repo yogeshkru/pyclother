@@ -1,22 +1,36 @@
 const express = require("express");
-const app = express();
 const cors = require("cors");
 const bodyparser = require("body-parser");
+const mongoose = require("mongoose");
 const cookie = require("cookie-parser");
 const rateLimit = require("express-rate-limit");
-
 const helmet = require("helmet");
-const path = require("path");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
+const morgan = require("morgan")
 const hpp = require("hpp");
-const globalError = require("./utils/globalErrorhandler");
+const path = require("path");
 
+const app = express();
+
+const globalError = require("./utils/globalErrorhandler");
 const customError = require("./utils/customError");
+
+// *************************************************
+if (process.env.NODE_ENV =="production") {
+require("dotenv").config({ path: "./config.env" });
+}
+
+if(process.env.NODE_ENV == 'development'){
+    app.use(morgan('dev'))
+require("dotenv").config({ path: "./config.env" });
+
+
+  
+}
 
 // *****************Third part liberary****************
 app.use(helmet());
-// app.use(bodyparser.json());
 app.use(cors());
 
 app.use(bodyparser.json({ limit: "10kb" })); // Important
@@ -46,11 +60,24 @@ let limiter = rateLimit({
 
 app.use("/api", limiter);
 
-// *********************************************************************
-// if (process.env.NODE_ENV == "production") {
-require("dotenv").config();
-// }
+// ********************************************************************************************************
+function DataBaseConnect() {
+  mongoose
+    .connect(process.env.BASE_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    .then((data) => {
+      console.log(`${data.connection.host}`);
+    })
+    .catch((err) => {
+      console.log("connection error" + err);
+    });
+}
 
+DataBaseConnect();
+
+// ********************************************************************************************************
 require("./routes/adminUserRoutes")(app);
 require("./routes/cartRoutes")(app);
 require("./routes/enquiryRoutes")(app);
@@ -64,7 +91,7 @@ require("./routes/blogRoutes")(app);
 require("./routes/shopRoute")(app);
 require("./routes/orderRoutes")(app);
 require("./routes/uploadRouts")(app);
-
+require("./routes/productRoutes")(app)
 // ***********************************************************************
 //Routes error handler
 app.all("*", (req, res, next) => {
