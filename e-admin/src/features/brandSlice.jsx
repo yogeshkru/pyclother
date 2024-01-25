@@ -19,7 +19,8 @@ export const brandSignup = createAsyncThunk(
 
 //get
 
-export const brandGets = createAsyncThunk("auth/get", async (thunkApi) => {
+export const brandGets = createAsyncThunk(
+  "auth/get", async (thunkApi) => {
   try {
     const response = await brandeService.brandGet();
     return response;
@@ -62,9 +63,9 @@ export const brandDelete = createAsyncThunk(
 
 export const brandFinds = createAsyncThunk(
     "auth/find",
-    async (userData, thunkApi) => {
+    async ( thunkApi) => {
       try {
-        const response = await brandeService.brandFind(userData);
+        const response = await brandeService.brandFind();
         return response;
       } catch (err) {
         toast.error(err?.response?.data?.message);
