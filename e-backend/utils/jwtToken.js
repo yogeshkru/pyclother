@@ -16,7 +16,9 @@ const generateShopToken = function (id, boolean) {
 
   // let tokenObject = JSON.stringify(tokenObjectCreation);
   // const  tokenParse= JSON.parse(tokenObject);
-  return jwt.sign({ tokenCreateObject }, process.env.SECERT_STRING);
+  return jwt.sign({ tokenCreateObject }, process.env.SECERT_STRING, {
+    expiresIn: process.env.EXPIRE_DAYS,
+  });
 };
 // ********************************************************************
 

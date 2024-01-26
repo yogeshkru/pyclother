@@ -40,6 +40,7 @@ class Addressdetails {
   addressUpdate=async(req,res,next)=>{
        try{
           const addressPut=await addressModel.findByIdAndUpdate(req.params.id,req.body,{runValidators:true,new:true})
+       
           if(!addressPut){
             return next(new CustomError("The give id is not found",404))
           }
