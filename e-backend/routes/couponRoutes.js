@@ -6,13 +6,12 @@ module.exports = (app) => {
   const { couponCreate, couponGet, couponOneGet, couponPatch, couponeDelete } =
     new Coupon();
   const { shopProtect, restrict } = require("../middleware/auth");
-  router
-    .route("/create-coupon")
-    .post(
-      shopProtect,
-      restrict("super admin", "shop admin"),
-      asyncErrorhandler(couponCreate)
-    );
+  router.route("/create-coupon").post(
+    shopProtect,
+
+    restrict("super admin", "shop admin"),
+    asyncErrorhandler(couponCreate)
+  );
   router
     .route("/get-coupon")
     .get(

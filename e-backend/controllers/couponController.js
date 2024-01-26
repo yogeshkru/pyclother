@@ -1,7 +1,7 @@
 const couponSchmea = require("../model/couponModel");
 const CustomError = require("../utils/customError");
 
-class coupoundeatils {
+class Coupoundeatils {
   //create
   async couponCreate(req, res, next) {
     try {
@@ -73,4 +73,4 @@ class coupoundeatils {
   }
 }
 
-module.exports = coupoundeatils;
+module.exports = Coupoundeatils;

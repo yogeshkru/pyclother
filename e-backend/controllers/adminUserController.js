@@ -8,7 +8,7 @@ const sendEmail = require("../utils/sendMail");
 const { sendAdminToken } = require("../utils/jwtToken");
 
 const createActivationToken = (data) => {
-  return jwt.sign({ data }, process.env.ACITIVATE_SECERT);
+  return jwt.sign({ data }, process.env.ACITIVATE_SECERT,{expiresIn:"5m"});
 };
 
 exports.createNewUser = asyncErrorhandler(async (req, res, next) => {
@@ -49,13 +49,14 @@ exports.createNewUser = asyncErrorhandler(async (req, res, next) => {
         message: `Hello ${user.admin_name}. please click on the link to activate your account:${activevationUrl}`,
       });
 
-      return res.status(200).json({
+       res.status(200).json({
         success: true,
         message: `Please check your email ${user.admin_email} to activate your account`,
       });
     } catch (error) {
       return next(new CustomError(error.message, 500));
     }
+
   } catch (error) {
     return next(new CustomError(error.message, 404));
   }

@@ -1,12 +1,15 @@
 module.exports = (app) => {
   const router = require("express").Router();
-  const enquiryController = require("../controllers/enquiryController.js");
+  const Enquiry = require("../controllers/enquiryController");
+  const { enquiry, getAllEnquiry, updateEnquiry, deleteEnquiry, getEnquiry } =
+    new Enquiry();
+  const asyncErrorhandler = require("../utils/asyncErrorhandler");
 
-  router.route("/createEnquiry").post(enquiryController.enquiry);
-  router.route("/getEnquiry").get(enquiryController.getAllEnquiry);
-  router.route("/getOne/:id").get(enquiryController.getEnquiry);
-  router.route("deleteEnquiry/:id").delete(enquiryController.deleteEnquiry);
-  router.route("/updateEnquiry/:id").patch(enquiryController.updateEnquiry);
+  router.route("/createEnquiry").post(asyncErrorhandler(enquiry));
+  router.route("/getEnquiry").get(asyncErrorhandler(getAllEnquiry));
+  router.route("/getOne/:id").get(asyncErrorhandler(getEnquiry));
+  router.route("deleteEnquiry/:id").delete(asyncErrorhandler(deleteEnquiry));
+  router.route("/updateEnquiry/:id").patch(asyncErrorhandler(updateEnquiry));
 
   app.use("/api/enquiry", router);
 };

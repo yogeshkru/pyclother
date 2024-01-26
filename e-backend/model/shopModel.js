@@ -21,9 +21,8 @@ const shopSchema = new mongoose.Schema(
     },
     shop_description: {
       type: String,
-      required: [true, "Description is required"],
     },
-    shp_address: {
+    shop_address: {
       type: String,
       required: [true, "Address is required"],
     },

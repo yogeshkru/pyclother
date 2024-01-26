@@ -13,12 +13,14 @@ module.exports = (app) => {
     updateMe,
     updatePassword,
     deleteMe,
+    forgotPassword
   } = require("../controllers/adminUserController");
   const { shopProtect, restrict, adminUser } = require("../middleware/auth");
 
   router.route("/activate/:activation_token").post(activation);
   router.route("/admin-login").post(login);
   router.route("/admin-reset-password/:token").post(resetPassword);
+  router.route("/admin-forgot").post(forgotPassword)
 
   // ************************* authorized user**********************
 
@@ -29,7 +31,7 @@ module.exports = (app) => {
 
   //   *********************protect and roles Url's***********************
   router
-    .route("/creatuser")
+    .route("/creat-admin-user")
     .post(shopProtect, restrict("shop admin", "super admin"), createNewUser);
 
   router

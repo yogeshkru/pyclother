@@ -55,8 +55,16 @@ const shopProtect = asyncErrorhandler(async (req, res, next) => {
     process.env.SECERT_STRING
   );
 
-  const user = await shopModel.findById(decodedToken.id);
+  let user;
 
+  if (
+    decodedToken.tokenCreateObject &&
+    decodedToken.tokenCreateObject?.shopAdmin
+  ) {
+    user = await shopModel.findById(decodedToken.tokenCreateObject.id);
+  } else {
+    user = await userModel.findById(decodedToken.id);
+  }
   if (!user) {
     const error = new CustomError(
       "The user with given token does not exist",

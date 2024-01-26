@@ -49,3 +49,53 @@ module.exports = (app) => {
 
   app.use("/api/product", router);
 };
+// router
+//   .route("/create_product")
+//   .post(
+//     asyncErrorhandler(async (req, res, next) => {
+//       const testToken = req.headers.authorization;
+//       let token;
+//       if (testToken && testToken.startsWith("Bearer")) {
+//         token = testToken.split(" ")[1];
+//       }
+//       if (!token) {
+//         const error = new CustomError("You are not logged in", 401);
+//         return next(error);
+//       }
+
+//       let user;
+//       const decodedToken = await util.promisify(jwt.verify)(
+//         token,
+//         process.env.SECRET_STRING
+//       );
+
+//       // Check if the decoded token corresponds to a shop user
+//       if (decodedToken.shopAdmin) {
+//         user = await shopModel.findById(decodedToken.id);
+//       } else {
+//         // Otherwise, assume it's a regular user
+//         user = await userModel.findById(decodedToken.id);
+//       }
+
+//       if (!user) {
+//         const error = new CustomError(
+//           "The user with the given token does not exist",
+//           401
+//         );
+//         return next(error);
+//       }
+
+//       if (await user.isPasswordChange(decodedToken.iat)) {
+//         const error = new CustomError(
+//           "The password has been changed recently. Please log in again",
+//           401
+//         );
+//         return next(error);
+//       }
+
+//       req.user = user;
+//       next();
+//     }),
+//     restrict("shop admin", "super admin"),
+//     asyncErrorHandler(createProduct)
+//   );
