@@ -25,7 +25,7 @@ const Getenquiry=async()=>{
 //getone
 
 const GetoneEnquiry=async(data)=>{
-    const response=await axios.get(`${URL.BASE_URL}enquiry/getOne/${data._id}`)
+    const response=await axios.get(`${URL.BASE_URL}enquiry/getOne/${data}`)
     if(response.data){
         return response.data
     }
@@ -34,7 +34,7 @@ const GetoneEnquiry=async(data)=>{
 // delete
 
 const DeleteEnquiry=async(data)=>{
-    const response=await axios.delete(`${URL.BASE_URL}enquiry/deleteEnquiry/${data._id}`)
+    const response=await axios.delete(`${URL.BASE_URL}enquiry/deleteEnquiry/${data}`)
     if(response.data){
         return response.data
     }
@@ -43,7 +43,7 @@ const DeleteEnquiry=async(data)=>{
 //patch
 
 const Patchenquiry=async(data)=>{
-    const response=await axios.patch(`${URL.BASE_URL}enquiry/updateEnquiry/${data._id}`,data)
+    const response=await axios.patch(`${URL.BASE_URL}enquiry/updateEnquiry/${data}`,data)
     if(response.data){
         return response.data
     }
