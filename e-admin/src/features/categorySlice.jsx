@@ -25,7 +25,7 @@ export const Categoryget = createAsyncThunk = (
             const response = await Category.Categoryget();
             return response;
         } catch (err) {
-        
+
             toast.error(err?.response?.data?.message)
             return thunkApi.rejectWithValue(err)
         }
@@ -79,8 +79,8 @@ const initialState = {
     isError: false,
     isSuccess: false,
     message: "",
- 
-    createCategories:{},
+
+    createCategories: {},
     isLoader: false
 }
 export const Categorydetails = createSlice({
@@ -89,17 +89,18 @@ export const Categorydetails = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
+            // CREATE
             .addCase(Categorypost.pending, (state, action) => {
                 state.isLoader = true
 
             })
 
-            // CREATE
+
             .addCase(Categorypost.fulfilled, (state, action) => {
                 state.isLoader = false
                 state.isSuccess = true
                 state.isError = false
-                state.createCategories=action.payload
+                state.createCategoriesPosts = action.payload
 
                 // if(state.isSuccess){
                 //     state.message=action.payload?.message?.message
@@ -120,7 +121,7 @@ export const Categorydetails = createSlice({
             .addCase(Categoryget.fulfilled, (state, action) => {
                 state.isLoader = false
                 state.isError = false
-                state.categories=action.payload
+                state.categories = action.payload
                 state.isSuccess = true
             })
             .addCase(Categoryget.rejected, (state, action) => {
@@ -159,7 +160,7 @@ export const Categorydetails = createSlice({
             .addCase(Categorydelete.fulfilled, (state, action) => {
                 state.isLoader = false
                 state.isError = false
-                state.message = action.error
+                state.categoriesdelete = action.payload
                 state.isSuccess = true
             })
             .addCase(Categorydelete.rejected, (state, action) => {
@@ -178,7 +179,7 @@ export const Categorydetails = createSlice({
             .addCase(Categoryfind.fulfilled, (state, action) => {
                 state.isLoader = false
                 state.isError = false
-                state.createCategories = action.payload
+                state.createCategoriefinds = action.payload
                 state.isSuccess = true
 
 
