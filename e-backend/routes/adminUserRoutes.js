@@ -16,7 +16,7 @@ module.exports = (app) => {
     updatePassword,
     deleteMe,
   } = new AdminUserController();
-  const { shopProtect, restrict, adminUser } = require("../middleware/auth");
+  const { authenticateUser, restrict } = require("../middleware/auth");
 
   router
     .route("/activate/:activation_token")
@@ -28,20 +28,20 @@ module.exports = (app) => {
 
   // ************************* authorized user**********************
 
-  router.route("/admin-updateme").patch(adminUser, asyncErrorhandler(updateMe));
+  router.route("/admin-updateme").patch(authenticateUser, asyncErrorhandler(updateMe));
   router
     .route("/admin-updatepassword")
-    .patch(adminUser, asyncErrorhandler(updatePassword));
+    .patch(authenticateUser, asyncErrorhandler(updatePassword));
   router
     .route("/admin-delete-me")
-    .delete(adminUser, asyncErrorhandler(deleteMe));
+    .delete(authenticateUser, asyncErrorhandler(deleteMe));
   router.route("/admin-logout").get(asyncErrorhandler(logout));
 
   //   *********************protect and roles Url's***********************
   router
     .route("/creatuser")
     .post(
-      shopProtect,
+      authenticateUser,
       restrict("shop admin", "super admin"),
       asyncErrorhandler(createNewUser)
     );
@@ -49,7 +49,7 @@ module.exports = (app) => {
   router
     .route("/getalluser")
     .get(
-      shopProtect,
+      authenticateUser,
       restrict("shop admin", "super admin"),
       asyncErrorhandler(fetchAllUser)
     );
@@ -57,15 +57,15 @@ module.exports = (app) => {
   // ***************These url's only manipulate by super admin*************************
   router
     .route("/getuser/:id")
-    .get(shopProtect, restrict("super admin"), asyncErrorhandler(getUserById));
+    .get(authenticateUser, restrict("super admin","shop admin"), asyncErrorhandler(getUserById));
   router
     .route("/block-user/:id")
-    .patch(shopProtect, restrict("super admin"), asyncErrorhandler(blockUser));
+    .patch(authenticateUser, restrict("super admin","shop admin"), asyncErrorhandler(blockUser));
   router
     .route("/unblock/:id")
     .patch(
-      shopProtect,
-      restrict("super admin"),
+      authenticateUser,
+      restrict("super admin","shop admin"),
       asyncErrorhandler(unblockUser)
     );
 

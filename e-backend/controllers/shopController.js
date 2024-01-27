@@ -1,6 +1,6 @@
 const shopModel = require("../model/shopModel");
 const CustomError = require("../utils/customError");
-const { sendShopToken } = require("../utils/jwtToken");
+const { adminToken } = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendMail")
 const crypto = require("crypto");
 class Shop {
@@ -27,7 +27,7 @@ class Shop {
         shop_role: shopes.shop_role,
       };
 
-      return await sendShopToken(shopes, 201, res);
+      return await adminToken(shopes, 201, res);
     } catch (err) {
       return next(new CustomError(err.message, 409));
     }
@@ -56,7 +56,7 @@ class Shop {
       email: user.shop_email,
     };
 
-    return await sendShopToken(user, 201, res);
+    return await adminToken(user, 201, res);
   }
 
   fetchAllShop = async function (req, res) {
@@ -210,7 +210,7 @@ class Shop {
         name: user.shop_name,
         email: user.shop_password,
       };
-      sendShopToken(user, 200, res);
+      adminToken(user, 200, res);
     } catch (err) {
       return next(new CustomError(err.message, 500));
     }
@@ -285,7 +285,7 @@ class Shop {
       updateShop.shop_passwordChangedAt = Date.now();
       await updateShop.save();
 
-      sendShopToken(res, updateShop, 201);
+      adminToken(updateShop, 201, res);
     } catch (err) {
       return next(new CustomError(err.message, 500));
     }

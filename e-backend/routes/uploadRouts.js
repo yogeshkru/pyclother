@@ -4,12 +4,12 @@ module.exports = (app) => {
   const { uploadImages } = require("../controllers/uploadControl");
   // const {protect,restrict}
   const { uploadPhoto } = require("../middleware/uploadImages");
-  var { shopProtect, restrict } = require("../middleware/auth");
+  var { authenticateUser, restrict } = require("../middleware/auth");
 
   router
     .route("/img-upload")
     .get(
-      shopProtect,
+      authenticateUser,
       restrict("shop admin", "super admin"),
       uploadPhoto.array("images", 10),
       uploadImages

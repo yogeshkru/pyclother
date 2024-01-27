@@ -13,7 +13,7 @@ module.exports = (app) => {
 
   const asyncErrorHandler = require("../utils/asyncErrorhandler");
 
-  var { shopProtect, restrict, userProtect } = require("../middleware/auth");
+  var { authenticateUser, restrict } = require("../middleware/auth");
 
   router.route("/product-id/:id").get(asyncErrorHandler(getOneProduct));
   router.route("/getall-product").get(asyncErrorHandler(getAllProduct));
@@ -21,28 +21,28 @@ module.exports = (app) => {
   // The below url's manipulate by user's
   router
     .route("/addwishlist")
-    .post(userProtect, asyncErrorHandler(addToWishList));
-  router.route("/ratings").post(userProtect, asyncErrorHandler(ratingfunc));
+    .post(authenticateUser, asyncErrorHandler(addToWishList));
+  router.route("/ratings").post(authenticateUser, asyncErrorHandler(ratingfunc));
 
   // The below url's manipulate by admin's
   router
     .route("/create-product")
     .post(
-      shopProtect,
+      authenticateUser,
       restrict("shop admin", "super admin"),
       asyncErrorHandler(createProduct)
     );
   router
     .route("/update-product/:id")
     .patch(
-      shopProtect,
+      authenticateUser,
       restrict("super admin", "shop admin"),
       asyncErrorHandler(updateProduct)
     );
   router
     .route("/delete/:id")
     .delete(
-      shopProtect,
+      authenticateUser,
       restrict("super admin", "shop admin"),
       asyncErrorHandler(deleteProduct)
     );

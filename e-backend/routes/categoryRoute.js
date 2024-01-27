@@ -13,7 +13,7 @@ module.exports = (app) => {
   const CategoryController = require("../controllers/categoryController");
   const router = require("express").Router();
   const asyncErrorhandler = require("../utils/asyncErrorhandler");
-  let { shopProtect, restrict } = require("../middleware/auth");
+  let { authenticateUser, restrict } = require("../middleware/auth");
   const {
     categoryDetail,
     categoriesAllget,
@@ -25,35 +25,35 @@ module.exports = (app) => {
   router
     .route("/create-category")
     .post(
-      shopProtect,
+      authenticateUser,
       restrict("shop admin", "super admin"),
       asyncErrorhandler(categoryDetail)
     );
   router
     .route("/get-category")
     .get(
-      shopProtect,
+      authenticateUser,
       restrict("shop admin", "super admin"),
       asyncErrorhandler(categoriesAllget)
     );
   router
     .route("/patch-category/:id")
     .patch(
-      shopProtect,
+      authenticateUser,
       restrict("shop admin", "super admin"),
       asyncErrorhandler(categorieUpdate)
     );
   router
     .route("/delete-category/:id")
     .delete(
-      shopProtect,
+      authenticateUser,
       restrict("shop admin", "super admin"),
       asyncErrorhandler(categorieDelete)
     );
   router
     .route("/find-category/:id")
     .get(
-      shopProtect,
+      authenticateUser,
       restrict("shop admin", "super admin"),
       asyncErrorhandler(categorieFind)
     );

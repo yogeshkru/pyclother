@@ -1,6 +1,6 @@
 module.exports = (app) => {
   const router = require("express").Router();
-  const { userProtect, restrict } = require("../middleware/auth");
+  const { authenticateUser, restrict } = require("../middleware/auth");
   const UserController = require("../controllers/userController");
   const asyncErrorhandler = require("../utils/asyncErrorhandler");
   const {
@@ -29,42 +29,60 @@ module.exports = (app) => {
 
   // the below url update by authorized user;
 
-  router.route("/update-user").patch(userProtect, asyncErrorhandler(updateMe));
-  router.route("/deleteme").patch(userProtect, asyncErrorhandler(deleteMe));
-  router.route("/getwishlist").get(userProtect, asyncErrorhandler(getWishList));
+  router
+    .route("/update-user")
+    .patch(authenticateUser, asyncErrorhandler(updateMe));
+  router
+    .route("/deleteme")
+    .patch(authenticateUser, asyncErrorhandler(deleteMe));
+  router
+    .route("/getwishlist")
+    .get(authenticateUser, asyncErrorhandler(getWishList));
   router
     .route("/updatePassword")
-    .patch(userProtect, asyncErrorhandler(updatePasswordByUserLogin));
+    .patch(authenticateUser, asyncErrorhandler(updatePasswordByUserLogin));
 
   // the below urt's will manipulate by admin's
 
   router
     .route("/getuser/:id")
-    .get(userProtect, restrict("super admin"), asyncErrorhandler(getUserById));
+    .get(
+      authenticateUser,
+      restrict("super admin"),
+      asyncErrorhandler(getUserById)
+    );
   router
     .route("/block-user")
-    .patch(userProtect, restrict("super admin"), asyncErrorhandler(blockUser));
+    .patch(
+      authenticateUser,
+      restrict("super admin"),
+      asyncErrorhandler(blockUser)
+    );
   router
     .route("/unblock-user")
     .patch(
-      userProtect,
+      authenticateUser,
       restrict("super admin"),
       asyncErrorhandler(unblockUser)
     );
   router
     .route("/deleteuser/:id")
     .delete(
-      userProtect,
+      authenticateUser,
       restrict("super admin"),
       asyncErrorhandler(getUserDelete)
     );
   router
     .route("/fetchuser")
-    .get(userProtect, restrict("super admin"), asyncErrorhandler(fetchAllUser));
+    .get(
+      authenticateUser,
+      restrict("super admin"),
+      asyncErrorhandler(fetchAllUser)
+    );
   router
     .route("/deleteuser/:id")
     .delete(
-      userProtect,
+      authenticateUser,
       restrict("super admin"),
       asyncErrorhandler(getUserDelete)
     );

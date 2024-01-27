@@ -1,43 +1,3 @@
-// import axios from "axios";
-// import URL from "../../utilis/Url";
-
-// // Post Admin ?
-
-// const AdminSignup=async(userDate)=>{
-//     const response=await axios.post(`${URL.BASE_URL}admin/activate/${userDate}`,userDate)
-//     if(response.data){
-//         return response.data
-//     }
-// }
-
-
-// //Login
-
-// const AdminLogin=async(userDate)=>{
-//     const response=await axios.post(`${URL.BASE_URL}admin/admin-login`,userDate)
-//     if(response.data){
-//         return response.data
-//     }
-// }
-
-// //Patch
-
-// const AdminReset=async(userDate)=>{
-//     const response=await axios.patch(`${URL.BASE_URL}admin/admin-reset-password/${userDate}`,userDate)
-//     if(response.data){
-//         return response.data
-//     }
-// }
-
-// const adminData={
-//     AdminSignup,
-//     AdminLogin,
-//     AdminReset
-// }
-// export default adminData;
-
-
-
 import axios from "axios";
 import CONN from "../../utilis/Url";
 
@@ -101,15 +61,33 @@ const register = async (userData) => {
   }
 };
 
+const blockAdminUser = async (data) => {
+  const response = await axios.patch(
+    `${CONN.BASE_URL}admin/block-user/${data}`
+  );
+  if (response.data) {
+    return response.data;
+  }
+};
+
+const unBlockAdminUser = async (data) => {
+  const response = await axios.patch(`${CONN.BASE_URL}admin/unblock${data}`);
+  if (response.data) {
+    return response.data;
+  }
+};
+
 const adminService = {
   activationToken,
   adminLogout,
   adminLogin,
-  
+
   // Authorized login
   register,
   updateUser,
   deleteMe,
+  blockAdminUser,
+  unBlockAdminUser,
 };
 
 export default adminService;
