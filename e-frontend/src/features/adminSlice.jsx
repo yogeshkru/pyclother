@@ -1,8 +1,8 @@
 import { createAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import adminService from "./adminService";
 import { toast } from "react-toastify";
-export const resetState = createAction("Reset_all");
 
+export const resetState = createAction("Reset_all");
 
 export const activateNewAdminUser = createAsyncThunk(
   "auth/adminactivate",
@@ -58,7 +58,6 @@ export const registerAdminUser = createAsyncThunk(
     }
   }
 );
-
 
 export const adminUpdateServer = createAsyncThunk(
   "auth/adminupdate",
@@ -176,7 +175,6 @@ export const authAdminSlice = createSlice({
       })
       .addCase(userDeleteServer.pending, (state) => {
         state.isLoading = true;
-
       })
       .addCase(userDeleteServer.fulfilled, (state, action) => {
         state.isError = false;
