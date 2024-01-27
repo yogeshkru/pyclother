@@ -79,6 +79,7 @@ const initialState = {
   isSuccess: false,
   isLoader: false,
   isMessage: "",
+  createBrand:{}
 };
 
 export const brandDetails = createSlice({
@@ -95,6 +96,7 @@ export const brandDetails = createSlice({
         state.isError = false;
         state.isLoader = false;
         state.isSuccess = action.payload?.status;
+        state.createBrand={};
 
         if (state.isSuccess) {
           toast.success(action.payload?.message?.message);
@@ -116,6 +118,7 @@ export const brandDetails = createSlice({
         state.isError = false;
         state.isLoader = false;
         state.isSuccess = action.payload?.status;
+        state.createBrand=action.payload
 
         if (state.isSuccess) {
           toast.success(action.payload?.message?.message);
@@ -138,6 +141,7 @@ export const brandDetails = createSlice({
         state.isError = false;
         state.isLoader = false;
         state.isSuccess = action.payload?.status;
+        state.createBrand=action.payload;
 
         if (state.isSuccess) {
           toast.success(action.payload?.message?.message);
