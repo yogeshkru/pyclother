@@ -20,7 +20,7 @@ export const brandSignup = createAsyncThunk(
 //get
 
 export const brandGets = createAsyncThunk(
-  "auth/get", async (thunkApi) => {
+  "auth/brand/get", async (thunkApi) => {
   try {
     const response = await brandeService.brandGet();
     return response;
@@ -33,7 +33,7 @@ export const brandGets = createAsyncThunk(
 //patch
 
 export const brandPatchs = createAsyncThunk(
-  "auth/patch",
+  "auth/brand/patch",
   async (userData, thunkApi) => {
     try {
       const response = await brandeService.brandPatch(userData);
@@ -47,7 +47,7 @@ export const brandPatchs = createAsyncThunk(
 //delete
 
 export const brandDelete = createAsyncThunk(
-  "auth/delete",
+  "auth/brand/delete",
   async (userData, thunkApi) => {
     try {
       const response = await brandeService.brandDelete(userData);
@@ -62,7 +62,7 @@ export const brandDelete = createAsyncThunk(
 //find
 
 export const brandFinds = createAsyncThunk(
-    "auth/find",
+    "auth/brand/find",
     async ( thunkApi) => {
       try {
         const response = await brandeService.brandFind();
@@ -79,6 +79,7 @@ const initialState = {
   isSuccess: false,
   isLoader: false,
   isMessage: "",
+  createBrand:{}
 };
 
 export const brandDetails = createSlice({
@@ -95,6 +96,7 @@ export const brandDetails = createSlice({
         state.isError = false;
         state.isLoader = false;
         state.isSuccess = action.payload?.status;
+        state.createBrand={};
 
         if (state.isSuccess) {
           toast.success(action.payload?.message?.message);
@@ -116,6 +118,7 @@ export const brandDetails = createSlice({
         state.isError = false;
         state.isLoader = false;
         state.isSuccess = action.payload?.status;
+        state.createBrand=action.payload
 
         if (state.isSuccess) {
           toast.success(action.payload?.message?.message);
@@ -138,6 +141,7 @@ export const brandDetails = createSlice({
         state.isError = false;
         state.isLoader = false;
         state.isSuccess = action.payload?.status;
+        state.createBrand=action.payload;
 
         if (state.isSuccess) {
           toast.success(action.payload?.message?.message);
