@@ -75,5 +75,7 @@ export const colorFinds = createAsyncThunk(
 
 const initialState={
     isError:false,
+    isSuccess:false,
+    
     
 }
