@@ -1,4 +1,4 @@
-import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createAction, createSlice } from "@reduxjs/toolkit";
 import Coupondetails from "./couponservice";
 import { toast } from "react-toastify";
 
@@ -17,8 +17,8 @@ export const couponPostData = createAsyncThunk(
   }
 );
 
-export const couponGetData = createAsyncThunk(
-  "auth/coupon/get",
+export const Categoryget = createAsyncThunk(
+  "auth/get",
   async (thunkApi) => {
     try {
       const response = await Coupondetails.couponGet();
@@ -29,6 +29,7 @@ export const couponGetData = createAsyncThunk(
     }
   }
 );
+
 
 export const couponPatchData = createAsyncThunk(
   "auth/coupon/patch",
@@ -79,7 +80,7 @@ const initialState = {
   couponDelete: undefined,
   couponFind: undefined,
 };
-export const Coupondetails = createSlice({
+export const CouponSlice = createSlice({
   name: "coupon",
   initialState,
   reducers: {},
@@ -102,16 +103,16 @@ export const Coupondetails = createSlice({
       })
 
       //Get
-      .addCase(couponGetData.pending, (state, action) => {
+      .addCase(Categoryget.pending, (state, action) => {
         state.Loaders = true;
       })
-      .addCase(couponGetData.fulfilled, (state, action) => {
+      .addCase(Categoryget.fulfilled, (state, action) => {
         state.Success = true;
         state.Error = false;
         state.Loaders = false;
         state.couponGet = action.payload;
       })
-      .addCase(couponGetData.rejected, (state, action) => {
+      .addCase(Categoryget.rejected, (state, action) => {
         state.Error = true;
         state.Loaders = false;
         state.Success = false;
@@ -175,4 +176,4 @@ export const Coupondetails = createSlice({
   },
 });
 
-export default Coupondetails.reducer;
+export default CouponSlice.reducer;
