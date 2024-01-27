@@ -27,7 +27,7 @@ exports.enquiry = asyncErrorhandler(async (req, res, next) => {
 exports.getEnquiry = asyncErrorhandler(async (req, res, next) => {
   const { id } = req.params;
   try {
-    const enquiryOne = await enquiryModel.findById({ id });
+    const enquiryOne = await enquiryModel.findById( id );
     res.status(201).json({ enquiryOne });
   } catch (error) {
     next(new customError(error.message, 500));
