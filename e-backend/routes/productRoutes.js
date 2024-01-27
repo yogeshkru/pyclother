@@ -15,8 +15,8 @@ module.exports = (app) => {
 
   var { shopProtect, restrict, userProtect } = require("../middleware/auth");
 
-  router.route("/product_id/:id").get(asyncErrorHandler(getOneProduct));
-  router.route("/getall_product").get(asyncErrorHandler(getAllProduct));
+  router.route("/product-id/:id").get(asyncErrorHandler(getOneProduct));
+  router.route("/getall-product").get(asyncErrorHandler(getAllProduct));
 
   // The below url's manipulate by user's
   router
@@ -26,14 +26,14 @@ module.exports = (app) => {
 
   // The below url's manipulate by admin's
   router
-    .route("/create_product")
+    .route("/create-product")
     .post(
       shopProtect,
       restrict("shop admin", "super admin"),
       asyncErrorHandler(createProduct)
     );
   router
-    .route("/update_product/:id")
+    .route("/update-product/:id")
     .patch(
       shopProtect,
       restrict("super admin", "shop admin"),

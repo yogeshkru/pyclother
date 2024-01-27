@@ -15,17 +15,17 @@ module.exports = (app) => {
 
   // ********************** Routes ****************************//
   router
-    .route("/address_create")
+    .route("/address-create")
     .post(userProtect, asyncErrorhandler(addressCreate));
-  router.route("/address_get").get(userProtect, asyncErrorhandler(addressGet));
+  router.route("/address-get").get(userProtect, asyncErrorhandler(addressGet));
   router
-    .route("/address_patch/:id")
+    .route("/address-patch/:id")
     .patch(userProtect, asyncErrorhandler(addressUpdate));
   router
-    .route("/address_delete/:id")
+    .route("/address-delete/:id")
     .delete(userProtect, asyncErrorhandler(addressDelete));
   router
-    .route("/address_findid/:id")
+    .route("/address-findid/:id")
     .get(userProtect, asyncErrorhandler(addressfind));
 
   app.use("/api/address", router);
