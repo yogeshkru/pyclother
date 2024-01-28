@@ -4,7 +4,7 @@ import URL from "../../utilis/Url";
 // normal product
 //post
 
-const productService = async (productData) => {
+const productPost = async (productData) => {
   const response = await axios.post(
     `${URL.BASE_URL}product/create-product`,
     productData
@@ -52,3 +52,13 @@ const productDelete = async function (data) {
     return response.data;
   }
 };
+
+const productService = {
+  productDelete,
+  productGetAll,
+  productOne,
+  productPost,
+  productUpdate,
+};
+
+export default productService;

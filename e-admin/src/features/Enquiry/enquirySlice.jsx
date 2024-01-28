@@ -18,7 +18,7 @@ export const Postenquiry = createAsyncThunk(
 );
 export const Getenquirys = createAsyncThunk(
   "auth/enq/enqget",
-  async (thunkApi) => {
+  async (_,thunkApi) => {
     try {
       const response = await Enquiries.Getenquiry();
       return response;
@@ -29,9 +29,9 @@ export const Getenquirys = createAsyncThunk(
   }
 );
 
-export const Getone = createAsyncThunk("auth/enq/getone", async (thunkApi) => {
+export const Getone = createAsyncThunk("auth/enq/getone", async (data,thunkApi) => {
   try {
-    const response = await Enquiries.GetoneEnquiry();
+    const response = await Enquiries.GetoneEnquiry(data);
     return response;
   } catch (err) {
     toast.error(err?.response?.data?.message);
@@ -41,7 +41,7 @@ export const Getone = createAsyncThunk("auth/enq/getone", async (thunkApi) => {
 
 export const DeleteEnquiry = createAsyncThunk(
   "auth/enq/deleteenq",
-  async (thunkApi) => {
+  async (_,thunkApi) => {
     try {
       const response = await Enquiries.DeleteEnquiry(data);
       return response;
@@ -65,10 +65,10 @@ export const Patchenquiry = createAsyncThunk(
   }
 );
 const initialState = {
-  isError: "false",
-  isSuccess: "false",
+  isError: false,
+  isSuccess: false,
   message: "",
-  isLoader: "false",
+  isLoader: false,
 };
 export const EnquiryDetail = createSlice({
   name: "enq",

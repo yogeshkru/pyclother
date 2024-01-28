@@ -18,7 +18,7 @@ export const createColor = createAsyncThunk(
 );
 
 //GET
-export const colorget = createAsyncThunk("auth/get", async (thunkApi) => {
+export const colorget = createAsyncThunk("auth/get", async (_,thunkApi) => {
   try {
     const response = await colordata.colorGet();
     return response;

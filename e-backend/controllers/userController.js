@@ -209,14 +209,17 @@ class UserController {
     }
   };
 
+
   deleteMe = async (req, res) => {
     await userModel.findByIdAndUpdate(
       req.user._id,
       { user_active: false },
       { runValidators: true, new: true }
     );
+    res.state(200).json({message:"Account deleted"})
   };
 
+  // *********************************************************************
   filterReqObj = (obj, ...allowedFileds) => {
     const newObj = {};
     Object.keys(obj).forEach((prop) => {
@@ -251,7 +254,7 @@ class UserController {
 
     res.status(200).json({ message: "Userprofileupdated", updateUser });
   };
-
+// **********************************************************************
   getUserById = async (req, res, next) => {
     const { id } = req.params;
 
@@ -264,7 +267,7 @@ class UserController {
     res.status(200).json({ status: "success", data: { user } });
   };
 
-  getUserDelete = async (req, res, next) => {
+ deleteUser = async (req, res, next) => {
     const { id } = req.params;
 
     const user = await userModel.findByIdAndDelete(id);

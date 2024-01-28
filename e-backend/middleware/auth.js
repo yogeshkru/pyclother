@@ -5,7 +5,7 @@ const shopModel = require("../model/shopModel");
 const util = require("util");
 const CustomError = require("../utils/customError");
 const adminUserModel = require("../model/adminUserModel");
-
+// ******************************************************************************
 const authenticateUser = asyncErrorhandler(async (req, res, next) => {
   const testToken = req.headers.authorization;
   let token;
@@ -51,7 +51,7 @@ const authenticateUser = asyncErrorhandler(async (req, res, next) => {
   req.user = user;
   next();
 });
-
+// ******************************************************************************
 const restrict = (...role) => {
   return (req, res, next) => {
     if (!role.includes(req.user.role)) {
@@ -64,7 +64,7 @@ const restrict = (...role) => {
     next();
   };
 };
-
+// **********************************************************************************
 // middleware for cookies
 
 // const adminProtect = asyncErrorhandler(async (req, res, next) => {

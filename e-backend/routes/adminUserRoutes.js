@@ -28,7 +28,9 @@ module.exports = (app) => {
 
   // ************************* authorized user**********************
 
-  router.route("/admin-updateme").patch(authenticateUser, asyncErrorhandler(updateMe));
+  router
+    .route("/admin-updateme")
+    .patch(authenticateUser, asyncErrorhandler(updateMe));
   router
     .route("/admin-updatepassword")
     .patch(authenticateUser, asyncErrorhandler(updatePassword));
@@ -57,15 +59,23 @@ module.exports = (app) => {
   // ***************These url's only manipulate by super admin*************************
   router
     .route("/getuser/:id")
-    .get(authenticateUser, restrict("super admin","shop admin"), asyncErrorhandler(getUserById));
+    .get(
+      authenticateUser,
+      restrict("super admin", "shop admin"),
+      asyncErrorhandler(getUserById)
+    );
   router
     .route("/block-user/:id")
-    .patch(authenticateUser, restrict("super admin","shop admin"), asyncErrorhandler(blockUser));
+    .patch(
+      authenticateUser,
+      restrict("super admin", "shop admin"),
+      asyncErrorhandler(blockUser)
+    );
   router
     .route("/unblock/:id")
     .patch(
       authenticateUser,
-      restrict("super admin","shop admin"),
+      restrict("super admin", "shop admin"),
       asyncErrorhandler(unblockUser)
     );
 

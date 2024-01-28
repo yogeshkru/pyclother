@@ -14,8 +14,9 @@ module.exports = (app) => {
     blockUser,
     deleteMe,
     getUserById,
-    getUserDelete,
+    deleteUser,
     getWishList,
+    
 
     updatePasswordByUserLogin,
   } = new UserController();
@@ -52,14 +53,14 @@ module.exports = (app) => {
       asyncErrorhandler(getUserById)
     );
   router
-    .route("/block-user")
+    .route("/block-user/:id")
     .patch(
       authenticateUser,
       restrict("super admin"),
       asyncErrorhandler(blockUser)
     );
   router
-    .route("/unblock-user")
+    .route("/unblock-user/:id")
     .patch(
       authenticateUser,
       restrict("super admin"),
@@ -70,7 +71,7 @@ module.exports = (app) => {
     .delete(
       authenticateUser,
       restrict("super admin"),
-      asyncErrorhandler(getUserDelete)
+      asyncErrorhandler(deleteUser)
     );
   router
     .route("/fetchuser")
@@ -79,13 +80,7 @@ module.exports = (app) => {
       restrict("super admin"),
       asyncErrorhandler(fetchAllUser)
     );
-  router
-    .route("/deleteuser/:id")
-    .delete(
-      authenticateUser,
-      restrict("super admin"),
-      asyncErrorhandler(getUserDelete)
-    );
+ 
 
   app.use("/api/user", router);
 };

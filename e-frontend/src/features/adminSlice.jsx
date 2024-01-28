@@ -19,7 +19,7 @@ export const activateNewAdminUser = createAsyncThunk(
 
 export const adminLogout = createAsyncThunk(
   "auth/adminlogout",
-  async (thunkAPI) => {
+  async (_,thunkAPI) => {
     try {
       const response = await adminService.adminLogout();
       return response;
@@ -74,7 +74,7 @@ export const adminUpdateServer = createAsyncThunk(
 
 export const userDeleteServer = createAsyncThunk(
   "auth/admindelete",
-  async (thunkAPI) => {
+  async (_,thunkAPI) => {
     try {
       const response = await adminService.deleteMe();
       return response;
