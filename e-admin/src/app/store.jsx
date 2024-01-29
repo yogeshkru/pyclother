@@ -5,6 +5,6 @@ import categorySlice from "../features/categorySlice";
 export const store = configureStore({
     reducer:{
         brand:brandDetails,
-        category:categorySlice
+        // category:categorySlice
     }
 })
