@@ -83,11 +83,7 @@ const Mainlayout = () => {
                   label: "Product List",
                   icon: <MdShoppingCart />,
                 },
-                {
-                  key: "brand",
-                  label: "Brand",
-                  icon: <TbBrandBooking />,
-                },
+               
                 {
                   key: "brand-list",
                   label: "Brand List",
