@@ -1,6 +1,8 @@
 module.exports = (app) => {
   const router = require("express").Router();
-  const { userProtect, restrict } = require("../middleware/auth");
+  const { authenticateUser, restrict } = require("../middleware/auth");
+  const UserController = require("../controllers/userController");
+  const asyncErrorhandler = require("../utils/asyncErrorhandler");
   const {
     createUser,
     login,
@@ -12,45 +14,73 @@ module.exports = (app) => {
     blockUser,
     deleteMe,
     getUserById,
-    getUserDelete,
+    deleteUser,
     getWishList,
+    
 
     updatePasswordByUserLogin,
-  } = require("../controllers/userController");
+  } = new UserController();
 
   // urls without protect
 
-  router.route("/createUser").post(createUser);
-  router.route("/login").post(login);
-  router.route("/forgot").post(forgetPassword);
-  router.route("/reset/:token").patch(resetPassword);
+  router.route("/createUser").post(asyncErrorhandler(createUser));
+  router.route("/login").post(asyncErrorhandler(login));
+  router.route("/forgot").post(asyncErrorhandler(forgetPassword));
+  router.route("/reset/:token").patch(asyncErrorhandler(resetPassword));
 
   // the below url update by authorized user;
 
-  router.route("/update-user").patch(userProtect, updateMe);
-  router.route("/deleteme").patch(userProtect, deleteMe);
-  router.route("/getwishlist").get(userProtect, getWishList);
-  router.route("/updatePassword").patch(userProtect, updatePasswordByUserLogin);
+  router
+    .route("/update-user")
+    .patch(authenticateUser, asyncErrorhandler(updateMe));
+  router
+    .route("/deleteme")
+    .patch(authenticateUser, asyncErrorhandler(deleteMe));
+  router
+    .route("/getwishlist")
+    .get(authenticateUser, asyncErrorhandler(getWishList));
+  router
+    .route("/updatePassword")
+    .patch(authenticateUser, asyncErrorhandler(updatePasswordByUserLogin));
 
   // the below urt's will manipulate by admin's
 
   router
     .route("/getuser/:id")
-    .get(userProtect, restrict("super admin"), getUserById);
+    .get(
+      authenticateUser,
+      restrict("super admin"),
+      asyncErrorhandler(getUserById)
+    );
   router
-    .route("/block-user")
-    .patch(userProtect, restrict("super admin"), blockUser);
+    .route("/block-user/:id")
+    .patch(
+      authenticateUser,
+      restrict("super admin"),
+      asyncErrorhandler(blockUser)
+    );
   router
-    .route("/unblock-user")
-    .patch(userProtect, restrict("super admin"), unblockUser);
+    .route("/unblock-user/:id")
+    .patch(
+      authenticateUser,
+      restrict("super admin"),
+      asyncErrorhandler(unblockUser)
+    );
   router
     .route("/deleteuser/:id")
-    .delete(userProtect, restrict("super admin"), getUserDelete);
-    router.route("/fetchuser")
-    .get(userProtect, restrict("super admin"), fetchAllUser);
+    .delete(
+      authenticateUser,
+      restrict("super admin"),
+      asyncErrorhandler(deleteUser)
+    );
   router
-    .route("/deleteuser/:id")
-    .delete(userProtect, restrict("super admin"), getUserDelete);
+    .route("/fetchuser")
+    .get(
+      authenticateUser,
+      restrict("super admin"),
+      asyncErrorhandler(fetchAllUser)
+    );
+ 
 
   app.use("/api/user", router);
 };

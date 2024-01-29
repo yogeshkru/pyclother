@@ -375,7 +375,7 @@ const CustomError = require("../utils/customError");
 const crypto = require("crypto");
 const util = require("util");
 const sendEmail = require("../utils/sendMail");
-const { sendAdminToken } = require("../utils/jwtToken");
+const { sendShopToken } = require("../utils/jwtToken");
 
 class AdminUserController {
   createActivationToken(data) {
@@ -479,7 +479,7 @@ class AdminUserController {
         branchid: user.admin_branchid,
       };
 
-      return await sendAdminToken(data, 201, res);
+      return await sendShopToken(data, 201, res);
     } catch (error) {
       return next(new CustomError(error.message, 500));
     }
@@ -531,7 +531,7 @@ class AdminUserController {
         email: user.admin_email,
       };
 
-      return await sendAdminToken(data, 200, res);
+      return await sendShopToken(data, 200, res);
     } catch (error) {
       return next(new CustomError("User doesn't exists", 400));
     }
@@ -555,7 +555,7 @@ class AdminUserController {
     user.admin_password = req.body.admin_password;
     await user.save();
 
-    return await sendAdminToken(user, 200, res);
+    return await sendShopToken(user, 200, res);
   };
   // *******************************************
 
@@ -602,23 +602,23 @@ class AdminUserController {
   };
   forgotPassword = async (req, res, next) => {
     const { admin_email } = req.body;
-  
+
     const findUser = await adminUserModel.findOne({ admin_email });
-  
+
     if (!findUser) {
       return next(
         new CustomError("we could not find the user email with given email")
       );
     }
-  
+
     const resetToken = await adminUserModel.createResetPasswordToken();
     await findUser.save({ validateBeforeSave: false });
     const resetUrl = `${req.protocol}://${req.get(
       "host"
     )}/user/resetpassword/${resetToken}`;
-  
+
     const message = `we have received a password reset request. please use below link to reset your password\n\n${resetUrl}\n\n this link valid for 10 minutes`;
-  
+
     try {
       await sendEmail({
         email: findUser.admin_email,
@@ -627,7 +627,9 @@ class AdminUserController {
       });
       res
         .status(200)
-        .json({ message: `password reset link send to the user email ${findUser.admin_email}`});
+        .json({
+          message: `password reset link send to the user email ${findUser.admin_email}`,
+        });
     } catch (error) {
       findUser.admin_passwordResetToken = undefined;
       findUser.admin_passwordResetTokenExpired = undefined;
@@ -643,12 +645,12 @@ class AdminUserController {
       .createHash("sha256")
       .update(req.params.token)
       .digest("hex");
-  
+
     const update = await adminUserModel.findOne({
       admin_passwordResetToken: token,
       admin_passwordResetTokenExpired: { $gt: Date.now() },
     });
-  
+
     if (!update) {
       const error = new CustomError("token is invalid or has expired !", 400);
       return next(error);
@@ -658,20 +660,20 @@ class AdminUserController {
     update.admin_passwordResetTokenExpired = undefined;
     update.admin_passwordChangedAt = Date.now();
     update.save();
-  
-    return await sendAdminToken(update._id, 200, res);
+
+    return await sendShopToken(update, 200, res);
   };
 
   getUserById = async (req, res, next) => {
     const { id } = req.params;
-  
+
     const user = await adminUserModel.findById(id);
-  
+
     if (!user) {
       const error = new CustomError("User with that ID is not found", 404);
       return next(error);
     }
-  
+
     res.status(200).json({ status: "success", data: { user } });
   };
 
@@ -683,14 +685,14 @@ class AdminUserController {
   blockUser = async function (req, res, next) {
     // admin_user_id
     const { id } = req.params;
-  
+
     try {
       const block = await adminUserModel.findByIdAndUpdate(
         id,
         { admin_active: false },
         { runValidators: true, new: true }
       );
-  
+
       res.status(200).json({ blocked: "userblocked", block });
     } catch (error) {
       res.status(404).json({ message: error.message });
@@ -699,7 +701,7 @@ class AdminUserController {
 
   unblockUser = async (req, res, next) => {
     const { id } = req.params;
-  
+
     try {
       const unblock = await adminUserModel.findByIdAndUpdate(
         id,
@@ -711,7 +713,7 @@ class AdminUserController {
       res.status(404).json({ message: error.message });
     }
   };
-  logout =async (req, res, next) => {
+  logout = async (req, res, next) => {
     const cookie = req.cookies;
     if (!cookie?.refreshToken) {
       const error = new CustomError("No Refresh Token in Cookies");
@@ -723,7 +725,7 @@ class AdminUserController {
       res.clearCookie("refreshToken", { httpOnly: true, secure: true });
       return res.status(204).send();
     }
-  
+
     await userModel.findOneAndUpdate(
       { refreshToken },
       {
@@ -731,11 +733,9 @@ class AdminUserController {
       }
     );
     res.clearCookie("refreshToken", { httpOnly: true, secure: true });
-  
+
     return res.status(204).send();
   };
-
-
 }
 
 module.exports = AdminUserController;

@@ -9,7 +9,7 @@ const shopSchema = new mongoose.Schema(
     },
     shop_email: {
       type: String,
-      unique:true,
+      unique: true,
 
       required: [true, "Email is required"],
     },
@@ -21,15 +21,14 @@ const shopSchema = new mongoose.Schema(
     },
     shop_description: {
       type: String,
-      required: [true, "Description is required"],
     },
-    shp_address: {
+    shop_address: {
       type: String,
       required: [true, "Address is required"],
     },
     shop_phone: {
       type: Number,
-      unique:true,
+      unique: true,
 
       required: ["Phone number is required"],
     },
@@ -42,7 +41,7 @@ const shopSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["shop admin","super admin"],
+      enum: ["shop admin"],
       default: "shop admin",
     },
     withDrawalMethod: {

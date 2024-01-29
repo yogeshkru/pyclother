@@ -5,39 +5,38 @@ module.exports = (app) => {
 
   const { couponCreate, couponGet, couponOneGet, couponPatch, couponeDelete } =
     new Coupon();
-  const { shopProtect, restrict } = require("../middleware/auth");
-  router
-    .route("/create-coupon")
-    .post(
-      shopProtect,
-      restrict("super admin", "shop admin"),
-      asyncErrorhandler(couponCreate)
-    );
+  const { authenticateUser, restrict } = require("../middleware/auth");
+  router.route("/createcoupon").post(
+    authenticateUser,
+
+    restrict("super admin", "shop admin"),
+    asyncErrorhandler(couponCreate)
+  );
   router
     .route("/get-coupon")
     .get(
-      shopProtect,
+      authenticateUser,
       restrict("super admin", "shop admin"),
       asyncErrorhandler(couponGet)
     );
   router
     .route("/patch-coupon/:id")
     .patch(
-      shopProtect,
+      authenticateUser,
       restrict("super admin", "shop admin"),
       asyncErrorhandler(couponPatch)
     );
   router
     .route("/delete-coupon/:id")
     .delete(
-      shopProtect,
+      authenticateUser,
       restrict("super admin", "shop admin"),
       asyncErrorhandler(couponeDelete)
     );
   router
     .route("/find-coupon/:id")
     .get(
-      shopProtect,
+      authenticateUser,
       restrict("super admin", "shop admin"),
       asyncErrorhandler(couponOneGet)
     );

@@ -1,7 +1,7 @@
 module.exports = (app) => {
   const router = require("express").Router();
-  const AdminUserController=require("../controllers/adminUserController")
-  const asyncErrorhandler=require('../utils/asyncErrorhandler')
+  const AdminUserController = require("../controllers/adminUserController");
+  const asyncErrorhandler = require("../utils/asyncErrorhandler");
   const {
     createNewUser,
     activation,
@@ -16,38 +16,68 @@ module.exports = (app) => {
     updatePassword,
     deleteMe,
   } = new AdminUserController();
-  const { shopProtect, restrict, adminUser } = require("../middleware/auth");
+  const { authenticateUser, restrict } = require("../middleware/auth");
 
-  router.route("/activate/:activation_token").post(asyncErrorhandler(activation));
+  router
+    .route("/activate/:activation_token")
+    .post(asyncErrorhandler(activation));
   router.route("/admin-login").post(asyncErrorhandler(login));
-  router.route("/admin-reset-password/:token").post(asyncErrorhandler(resetPassword));
+  router
+    .route("/admin-reset-password/:token")
+    .post(asyncErrorhandler(resetPassword));
 
   // ************************* authorized user**********************
 
-  router.route("/admin-updateme").patch(adminUser, asyncErrorhandler(updateMe));
-  router.route("/admin-updatepassword").patch(adminUser, asyncErrorhandler(updatePassword));
-  router.route("/admin-delete-me").delete(adminUser, asyncErrorhandler(deleteMe));
+  router
+    .route("/admin-updateme")
+    .patch(authenticateUser, asyncErrorhandler(updateMe));
+  router
+    .route("/admin-updatepassword")
+    .patch(authenticateUser, asyncErrorhandler(updatePassword));
+  router
+    .route("/admin-delete-me")
+    .delete(authenticateUser, asyncErrorhandler(deleteMe));
   router.route("/admin-logout").get(asyncErrorhandler(logout));
 
   //   *********************protect and roles Url's***********************
   router
     .route("/creatuser")
-    .post(shopProtect, restrict("shop admin", "super admin"), asyncErrorhandler(createNewUser));
+    .post(
+      authenticateUser,
+      restrict("shop admin", "super admin"),
+      asyncErrorhandler(createNewUser)
+    );
 
   router
     .route("/getalluser")
-    .get(shopProtect, restrict("shop admin", "super admin"), asyncErrorhandler(fetchAllUser));
+    .get(
+      authenticateUser,
+      restrict("shop admin", "super admin"),
+      asyncErrorhandler(fetchAllUser)
+    );
 
   // ***************These url's only manipulate by super admin*************************
   router
     .route("/getuser/:id")
-    .get(shopProtect, restrict("super admin"), asyncErrorhandler(getUserById));
+    .get(
+      authenticateUser,
+      restrict("super admin", "shop admin"),
+      asyncErrorhandler(getUserById)
+    );
   router
     .route("/block-user/:id")
-    .patch(shopProtect, restrict("super admin"), asyncErrorhandler(blockUser));
+    .patch(
+      authenticateUser,
+      restrict("super admin", "shop admin"),
+      asyncErrorhandler(blockUser)
+    );
   router
     .route("/unblock/:id")
-    .patch(shopProtect, restrict("super admin"),asyncErrorhandler(unblockUser));
+    .patch(
+      authenticateUser,
+      restrict("super admin", "shop admin"),
+      asyncErrorhandler(unblockUser)
+    );
 
   app.use("/api/admin", router);
 };

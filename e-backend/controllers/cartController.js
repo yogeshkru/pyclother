@@ -3,8 +3,6 @@ const cartModel = require("../model/cartModel");
 const asyncErrorhandler = require("../utils/asyncErrorhandler");
 const customError = require("../utils/customError");
 
-
-
 // exports.cart = asyncErrorhandler(async (req, res, next) => {
 //   const { productId, color, quantity, price } = req.body;
 //   const { _id } = req.user;
@@ -85,13 +83,11 @@ const customError = require("../utils/customError");
 //   }
 // });
 
-
-
-class Carts{
+class Carts {
   cart = async (req, res, next) => {
     const { productId, color, quantity, price } = req.body;
     const { _id } = req.user;
-  
+
     try {
       const newCart = await cartModel.create({
         cart_user_user_Id: _id,
@@ -100,7 +96,7 @@ class Carts{
         cart_price: price,
         cart_quantity: quantity,
       });
-      console.log(newCart,"jcfgbwiuegfvw3ug8v")
+      console.log(newCart, "jcfgbwiuegfvw3ug8v");
       res.status(200).json({ newCart });
     } catch (error) {
       next(new customError(error.message, 500));
@@ -150,17 +146,17 @@ class Carts{
       },
     ]);
     res.status(200).json({ cart });
-    console.log(cart,"rygvfiugvweriuggiu")
+    console.log(cart, "rygvfiugvweriuggiu");
   });
 
   updateProductQuantity = asyncErrorhandler(async (req, res, next) => {
     const { _id } = req.user;
     const { id, newQuantity } = req.params;
-  
+
     try {
       const cartItem = await cartModel.findOne({ userId: _id, id: id });
       cartItem.cart_quantity = newQuantity;
-      await cartItem.save()
+      await cartItem.save();
       res.status(200).json({ cartItem });
     } catch (error) {
       next(new customError(error.message, 400));
@@ -168,5 +164,4 @@ class Carts{
   });
 }
 
-
-module.exports=Carts
+module.exports = Carts;

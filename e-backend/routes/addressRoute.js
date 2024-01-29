@@ -2,7 +2,7 @@ module.exports = (app) => {
   const Address = require("../controllers/addressController");
 
   const router = require("express").Router();
-  const { userProtect, restrict } = require("../middleware/auth");
+  const { authenticateUser } = require("../middleware/auth");
 
   const asyncErrorhandler = require("../utils/asyncErrorhandler");
   const {
@@ -15,18 +15,20 @@ module.exports = (app) => {
 
   // ********************** Routes ****************************//
   router
-    .route("/address_create")
-    .post(userProtect, asyncErrorhandler(addressCreate));
-  router.route("/address_get").get(userProtect, asyncErrorhandler(addressGet));
+    .route("/address-create")
+    .post(authenticateUser, asyncErrorhandler(addressCreate));
   router
-    .route("/address_patch/:id")
-    .patch(userProtect, asyncErrorhandler(addressUpdate));
+    .route("/address-get")
+    .get(authenticateUser, asyncErrorhandler(addressGet));
   router
-    .route("/address_delete/:id")
-    .delete(userProtect, asyncErrorhandler(addressDelete));
+    .route("/address-patch/:id")
+    .patch(authenticateUser, asyncErrorhandler(addressUpdate));
   router
-    .route("/address_findid/:id")
-    .get(userProtect, asyncErrorhandler(addressfind));
+    .route("/address-delete/:id")
+    .delete(authenticateUser, asyncErrorhandler(addressDelete));
+  router
+    .route("/address-findid/:id")
+    .get(authenticateUser, asyncErrorhandler(addressfind));
 
   app.use("/api/address", router);
 };
