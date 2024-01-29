@@ -68,7 +68,7 @@ async function updateShopPassword(data) {
 
 async function deleteAuthShop() {
   const response = await axios.delete(`${URL.BASE_URL}shop/delete-shop`);
-  if (response) {
+  if (response.data) {
     return response.data;
   }
 }

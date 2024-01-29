@@ -94,6 +94,7 @@ export const CouponSlice = createSlice({
         state.Success = true;
         state.Error = false;
         state.Loaders = false;
+        state.couponCreated=action.payload
       })
       .addCase(couponPostData.rejected, (state, action) => {
         state.Error = true;
