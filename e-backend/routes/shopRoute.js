@@ -38,9 +38,6 @@ module.exports = (app) => {
   router
     .route("/delete-shop")
     .delete(authenticateUser, asyncErrorHandler(deleteMe));
-  router
-    .route("/shop-delete/:id")
-    .delete(authenticateUser, asyncErrorHandler(getUserDelete));
 
   //super admin
 
@@ -71,6 +68,13 @@ module.exports = (app) => {
       authenticateUser,
       restrict("super admin"),
       asyncErrorHandler(getUserById)
+    );
+  router
+    .route("/shop-delete/:id")
+    .delete(
+      authenticateUser,
+      restrict("super admin"),
+      asyncErrorHandler(getUserDelete)
     );
 
   router.route("/shop-logout").get(asyncErrorHandler(shoplogout));

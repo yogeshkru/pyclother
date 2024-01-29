@@ -5,7 +5,7 @@ export const resetAll = createAction("reset_All");
 
 //CREATE
 export const createColor = createAsyncThunk(
-  "ayth/color",
+  "color/create",
   async (userData, thunkApi) => {
     try {
       const response = await colordata.colorCreate(userData);
@@ -18,7 +18,7 @@ export const createColor = createAsyncThunk(
 );
 
 //GET
-export const colorget = createAsyncThunk("auth/get", async (_,thunkApi) => {
+export const colorget = createAsyncThunk("color/get", async (_,thunkApi) => {
   try {
     const response = await colordata.colorGet();
     return response;
@@ -31,10 +31,10 @@ export const colorget = createAsyncThunk("auth/get", async (_,thunkApi) => {
 //PATCH
 
 export const colorpatch = createAsyncThunk(
-  "auth/patch",
-  async (userData, thunkApi) => {
+  "colot/patch",
+  async (data, thunkApi) => {
     try {
-      const response = await colordata.colorPatch(userData);
+      const response = await colordata.colorPatch(data);
       return response;
     } catch (err) {
       toast.error(err?.response?.data?.message);
@@ -46,10 +46,10 @@ export const colorpatch = createAsyncThunk(
 //delete
 
 export const colorDelete = createAsyncThunk(
-  "auth/delete",
-  async (userData, thunkApi) => {
+  "colot/delete",
+  async (data, thunkApi) => {
     try {
-      const response = await colordata.colordelete(userData);
+      const response = await colordata.colordelete(data);
       return response;
     } catch (err) {
       toast.error(err?.response?.data?.message);
@@ -61,10 +61,10 @@ export const colorDelete = createAsyncThunk(
 //find
 
 export const colorFinds = createAsyncThunk(
-  "auth/find",
-  async (userData, thunkApi) => {
+  "color/find",
+  async (data, thunkApi) => {
     try {
-      const response = await colordata.colorfind(userData);
+      const response = await colordata.colorfind(dat);
       return response;
     } catch (err) {
       toast.error(err?.response?.data?.message);

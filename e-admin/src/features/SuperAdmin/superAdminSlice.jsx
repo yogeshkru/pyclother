@@ -615,7 +615,8 @@ export const superAdminSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = false;
         state.message = action.error;
-      });
+      })
+      .addCase(resetAll, () => initialState);
   },
 });
 
