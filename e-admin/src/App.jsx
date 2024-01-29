@@ -33,7 +33,7 @@ function App() {
           <Route path="category-list" element={<Categorylist/>}/>
           <Route path="brand-list" element={<Brandlist/>}/>
           <Route path="product-list" element={<Productlist/>}/>
-          <Route path="color" element={<Addcolor/>}/>
+          <Route path="/admin/color-list/color" element={<Addcolor/>}/>
           <Route path="category" element={<Addcategory/>}/>
           <Route path="/admin/brand-list/brand" element={<Addbrand/>}/>
           <Route path="product" element={<Addproduct/>}/>

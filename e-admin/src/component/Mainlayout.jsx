@@ -73,11 +73,7 @@ const Mainlayout = () => {
                 />
               ),
               children: [
-                {
-                  key: "product",
-                  label: "Add Product",
-                  icon: <MdShoppingCart />,
-                },
+              
                 {
                   key: "product-list",
                   label: "Product List",
@@ -89,21 +85,13 @@ const Mainlayout = () => {
                   label: "Brand List",
                   icon: <TbBrandBooking />,
                 },
-                {
-                  key: "category",
-                  label: "Category",
-                  icon: <BiCategory />,
-                },
+               
                 {
                   key: "category-list",
                   label: "Category List",
                   icon: <BiCategory />,
                 },
-                {
-                  key: "color",
-                  label: "Color",
-                  icon: <IoColorFillOutline />,
-                },
+             
                 {
                   key: "color-list",
                   label: "Color List",
