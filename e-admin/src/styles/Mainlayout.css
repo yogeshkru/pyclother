@@ -35,7 +35,16 @@
     
     overflow: hidden;
 }
-
+.brand-button_padding{
+    padding: 8px 10px;
+    border-radius: 10px;
+    width: 30%;
+    font-weight: 700;
+  
+    border: 1px solid #B66DFF;
+    background-color: #B66DFF;
+    color: white;
+}
 
 .ant-menu-item{
      background:none !important;
