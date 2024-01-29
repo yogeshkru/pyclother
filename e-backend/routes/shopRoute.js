@@ -2,7 +2,7 @@ module.exports = (app) => {
   const Shop = require("../controllers/shopController");
   const router = require("express").Router();
   const asyncErrorHandler = require("../utils/asyncErrorhandler");
-  const { shopProtect, restrict } = require("../middleware/auth");
+  const { authenticateUser, restrict } = require("../middleware/auth");
   const {
     shopCreate,
     fetchAllShop,
@@ -29,33 +29,53 @@ module.exports = (app) => {
 
   // with authorization
 
-  router.route("/update-shop").patch(shopProtect, asyncErrorHandler(updateMe));
+  router
+    .route("/update-shop")
+    .patch(authenticateUser, asyncErrorHandler(updateMe));
   router
     .route("/update-shopassword")
-    .patch(shopProtect, asyncErrorHandler(updatePasswordByLogin));
-  router.route("/delete-shop").delete(shopProtect, asyncErrorHandler(deleteMe));
+    .patch(authenticateUser, asyncErrorHandler(updatePasswordByLogin));
   router
-    .route("/shop-delete/:id")
-    .delete(shopProtect, asyncErrorHandler(getUserDelete));
+    .route("/delete-shop")
+    .delete(authenticateUser, asyncErrorHandler(deleteMe));
 
   //super admin
 
   router
     .route("/fetch-all")
-    .get(shopProtect, restrict("super admin"), asyncErrorHandler(fetchAllShop));
+    .get(
+      authenticateUser,
+      restrict("super admin"),
+      asyncErrorHandler(fetchAllShop)
+    );
   router
     .route("/unblock-shop/:id")
     .patch(
-      shopProtect,
+      authenticateUser,
       restrict("super admin"),
       asyncErrorHandler(unblockUser)
     );
   router
     .route("/block-shop/:id")
-    .patch(shopProtect, restrict("super admin"), asyncErrorHandler(blockUser));
+    .patch(
+      authenticateUser,
+      restrict("super admin"),
+      asyncErrorHandler(blockUser)
+    );
   router
-    .route("/getuser/:id")
-    .get(shopProtect, restrict("super admin"), asyncErrorHandler(getUserById));
+    .route("/getshop/:id")
+    .get(
+      authenticateUser,
+      restrict("super admin"),
+      asyncErrorHandler(getUserById)
+    );
+  router
+    .route("/shop-delete/:id")
+    .delete(
+      authenticateUser,
+      restrict("super admin"),
+      asyncErrorHandler(getUserDelete)
+    );
 
   router.route("/shop-logout").get(asyncErrorHandler(shoplogout));
 

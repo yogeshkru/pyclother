@@ -1,14 +1,23 @@
 const jwt = require("jsonwebtoken");
-// *******************************************************
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.SECERT_STRING, {
-    expiresIn: process.env.EXPIRE_DAYS,
-  });
-};
+// *********************Object creation******************************
 
 const ShopToken = function (id, boolean) {
+  this.shop = boolean;
+  this.id = id;
+};
+
+const ShopAdminToken = function (id, boolean) {
   this.shopAdmin = boolean;
   this.id = id;
+};
+
+// ************************Generate(-----)Token*******************************
+
+const generateAdminToken = function (id, boolean) {
+  const adminTokenObject = new ShopAdminToken(id, boolean);
+  return jwt.sign({ adminTokenObject }, process.env.SECERT_STRING, {
+    expiresIn: process.env.EXPIRE_DAYS,
+  });
 };
 
 const generateShopToken = function (id, boolean) {
@@ -20,8 +29,16 @@ const generateShopToken = function (id, boolean) {
     expiresIn: process.env.EXPIRE_DAYS,
   });
 };
+
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.SECERT_STRING, {
+    expiresIn: process.env.EXPIRE_DAYS,
+  });
+};
+
 // ********************************************************************
 
+// user-response
 const sendUserToken = async (user, statusCode, res, message) => {
   const token = generateToken(user._id);
   const options = {
@@ -38,6 +55,9 @@ const sendUserToken = async (user, statusCode, res, message) => {
 
   res.status(statusCode).json({ status: true, token, data: { user }, message });
 };
+
+
+// shop-response
 
 const sendShopToken = async (user, statusCode, res) => {
   const token = generateShopToken(user._id, true);
@@ -56,4 +76,17 @@ const sendShopToken = async (user, statusCode, res) => {
   res.status(statusCode).json({ status: "success", token, data: { user } });
 };
 
-module.exports = { sendUserToken, sendShopToken };
+
+
+
+
+
+// admin-response
+
+const adminToken = async (user, statusCode, res) => {
+  const token = generateAdminToken(user._id, true);
+
+  res.status(statusCode).json({ status: "success", token, data: { user } });
+};
+
+module.exports = { sendUserToken, sendShopToken,adminToken };

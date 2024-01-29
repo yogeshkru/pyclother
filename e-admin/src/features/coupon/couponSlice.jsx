@@ -19,7 +19,7 @@ export const couponPostData = createAsyncThunk(
 
 export const Categoryget = createAsyncThunk(
   "auth/get",
-  async (thunkApi) => {
+  async (_,thunkApi) => {
     try {
       const response = await Coupondetails.couponGet();
       return response;

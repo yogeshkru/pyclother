@@ -4,39 +4,39 @@ module.exports = (app) => {
   const asyncErrorhandler = require("../utils/asyncErrorhandler");
   const { colorCreate, colorGet, colorUpdate, colorDelete, colorFindOne } =
     new Color();
-  let { shopProtect, restrict } = require("../middleware/auth");
+  let { authenticateUser, restrict } = require("../middleware/auth");
   router
     .route("/colors")
     .post(
-      shopProtect,
+      authenticateUser,
       restrict("super admin", "shop admin"),
       asyncErrorhandler(colorCreate)
     );
   router
     .route("/colorget")
     .get(
-      shopProtect,
+      authenticateUser,
       restrict("super admin", "shop admin"),
       asyncErrorhandler(colorGet)
     );
   router
     .route("/colorUpdates/:id")
     .patch(
-      shopProtect,
+      authenticateUser,
       restrict("super admin", "shop admin"),
       asyncErrorhandler(colorUpdate)
     );
   router
     .route("/colorDelete/:id")
     .delete(
-      shopProtect,
+      authenticateUser,
       restrict("super admin", "shop admin"),
       asyncErrorhandler(colorDelete)
     );
   router
     .route("/colorFind/:id")
     .get(
-      shopProtect,
+      authenticateUser,
       restrict("super admin", "shop admin"),
       asyncErrorhandler(colorFindOne)
     );

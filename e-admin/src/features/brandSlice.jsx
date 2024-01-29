@@ -20,7 +20,7 @@ export const brandSignup = createAsyncThunk(
 //get
 
 export const brandGets = createAsyncThunk(
-  "auth/brand/get", async (thunkApi) => {
+  "auth/brand/get", async (_,thunkApi) => {
   try {
     const response = await brandeService.brandGet();
     return response;
@@ -63,7 +63,7 @@ export const brandDelete = createAsyncThunk(
 
 export const brandFinds = createAsyncThunk(
     "auth/brand/find",
-    async ( thunkApi) => {
+    async (_,thunkApi) => {
       try {
         const response = await brandeService.brandFind();
         return response;

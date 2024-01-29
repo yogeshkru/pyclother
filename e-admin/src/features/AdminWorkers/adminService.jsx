@@ -1,5 +1,5 @@
 import axios from "axios";
-import CONN from "../utils/Url";
+import CONN from "../../utilis/Url";
 
 const activationToken = async function (userToken) {
   const response = await axios.post(
@@ -61,15 +61,33 @@ const register = async (userData) => {
   }
 };
 
+const blockAdminUser = async (data) => {
+  const response = await axios.patch(
+    `${CONN.BASE_URL}admin/block-user/${data}`
+  );
+  if (response.data) {
+    return response.data;
+  }
+};
+
+const unBlockAdminUser = async (data) => {
+  const response = await axios.patch(`${CONN.BASE_URL}admin/unblock${data}`);
+  if (response.data) {
+    return response.data;
+  }
+};
+
 const adminService = {
   activationToken,
   adminLogout,
   adminLogin,
-  
+
   // Authorized login
   register,
   updateUser,
   deleteMe,
+  blockAdminUser,
+  unBlockAdminUser,
 };
 
 export default adminService;
