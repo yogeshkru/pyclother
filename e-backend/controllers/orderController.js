@@ -10,7 +10,7 @@ class Order {
     
     } = req.body;
     const { _id } = req.user;
-
+ 
     try {
       const order = await new orderModel({
         order_user: _id,

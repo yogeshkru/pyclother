@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import men from "../assets/image/men_details.jpeg";
-
+import { MdPayment } from "react-icons/md";
 import { BiSolidOffer } from "react-icons/bi";
+import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 import logo from "../assets/image/logo12.png";
 import logo1 from "../assets/image/928f1cc2-3799-403e-9ac5-3b9bb99765ba.jpeg";
 import { Outlet } from "react-router-dom";
@@ -74,40 +75,23 @@ const Mainlayout = () => {
               ),
               children: [
                 {
-                  key: "product",
-                  label: "Add Product",
-                  icon: <MdShoppingCart />,
-                },
-                {
                   key: "product-list",
                   label: "Product List",
                   icon: <MdShoppingCart />,
                 },
-                {
-                  key: "brand",
-                  label: "Brand",
-                  icon: <TbBrandBooking />,
-                },
+
                 {
                   key: "brand-list",
                   label: "Brand List",
                   icon: <TbBrandBooking />,
                 },
-                {
-                  key: "category",
-                  label: "Category",
-                  icon: <BiCategory />,
-                },
+
                 {
                   key: "category-list",
                   label: "Category List",
                   icon: <BiCategory />,
                 },
-                {
-                  key: "color",
-                  label: "Color",
-                  icon: <IoColorFillOutline />,
-                },
+
                 {
                   key: "color-list",
                   label: "Color List",
@@ -124,6 +108,15 @@ const Mainlayout = () => {
                 />
               ),
             },
+            {
+              key: "payment",
+              label: "Payment",
+              icon: (
+                <MdPayment style={{ fontSize: "25px", color: "#BEABC2" }} />
+              ),
+            },
+           
+         
             {
               key: "offers",
               label: "Offers",

@@ -1,7 +1,7 @@
 const categorySchema = require("../model/categoryModel");
 const customError = require("../utils/customError");
 
-class categoryController {
+class CategoryController {
   //Post
   async categoryDetail(req, res, next) {
    
@@ -66,4 +66,4 @@ class categoryController {
   }
 }
 
-module.exports = categoryController;
+module.exports = CategoryController;

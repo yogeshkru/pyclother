@@ -1,28 +1,45 @@
 module.exports = (app) => {
   const router = require("express").Router();
-  const {
-    colorCreate,
-    colorGet,
-    colorUpdate,
-    colorDelete,
-    colorfindone,
-  } = require("../controllers/colorController");
-  let { shopProtect, restrict } = require("../middleware/auth");
+  const Color = require("../controllers/colorController");
+  const asyncErrorhandler = require("../utils/asyncErrorhandler");
+  const { colorCreate, colorGet, colorUpdate, colorDelete, colorFindOne } =
+    new Color();
+  let { authenticateUser, restrict } = require("../middleware/auth");
   router
     .route("/colors")
-    .post(shopProtect, restrict("super admin", "shop admin"), colorCreate);
+    .post(
+      authenticateUser,
+      restrict("super admin", "shop admin"),
+      asyncErrorhandler(colorCreate)
+    );
   router
     .route("/colorget")
-    .get(shopProtect, restrict("super admin", "shop admin"), colorGet);
+    .get(
+      authenticateUser,
+      restrict("super admin", "shop admin"),
+      asyncErrorhandler(colorGet)
+    );
   router
     .route("/colorUpdates/:id")
-    .patch(shopProtect, restrict("super admin", "shop admin"), colorUpdate);
+    .patch(
+      authenticateUser,
+      restrict("super admin", "shop admin"),
+      asyncErrorhandler(colorUpdate)
+    );
   router
     .route("/colorDelete/:id")
-    .delete(shopProtect, restrict("super admin", "shop admin"), colorDelete);
+    .delete(
+      authenticateUser,
+      restrict("super admin", "shop admin"),
+      asyncErrorhandler(colorDelete)
+    );
   router
     .route("/colorFind/:id")
-    .get(shopProtect, restrict("super admin", "shop admin"), colorfindone);
+    .get(
+      authenticateUser,
+      restrict("super admin", "shop admin"),
+      asyncErrorhandler(colorFindOne)
+    );
 
   app.use("/api/color", router);
 };
