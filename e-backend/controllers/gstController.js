@@ -20,3 +20,18 @@ exports.createGst = asyncErrorHandler(async (req, res, next) => {
         next(new CustomError(error.message, 500));
     }
 });
+
+exports.getgst = asyncErrorHandler(async(req,res,next)=>{
+    try {
+        const gstall = await gstModel.find();
+        if(!gstall){
+            return res.status(404).json({
+                status: 404,
+                message: "gst not found",
+            });
+        } res.status(200).json({gstall})
+    } catch (error) {
+        next(new CustomError(error.message, 500)); 
+    }
+});
+

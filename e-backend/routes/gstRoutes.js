@@ -1,12 +1,18 @@
 module.exports = (app) => {
     const router = require("express").Router();
     const {
-        createGst
+        createGst,getgst
     } = require("../controllers/gstController");
 
-    const { shopProtect, restrict } = require("../middleware/auth");
+    const { authenticateUser, restrict } = require("../middleware/auth");
+    
     router
     .route("/create-gst")
-    .post(shopProtect, restrict("shop admin", "super admin"),   createGst);
+    .post(authenticateUser, restrict("shop admin", "super admin"),   createGst);
+
+    router
+    .route("/get-gst")
+    .post(authenticateUser, restrict("shop admin", "super admin"),   getgst);
+
     app.use("/api/gst", router);
 }

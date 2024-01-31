@@ -5,16 +5,16 @@ class Addressdetails {
   //post
   addressCreate = async (req, res, next) => {
     try {
-      const { user_id, address_area, address_city, address_state, address_country, address_pincode } = req.body;
-
-
-      const billingAddressCount = await addressModel.countDocuments({ user_id, address_type: 'billing' });
-
-
+      const { address_area, address_city, address_state, address_country, address_pincode } = req.body;
+      const { _id } = req.user; // Corrected from user_id to _id
+      console.log(_id, "user");
+  
+      const billingAddressCount = await addressModel.countDocuments({ user_id: _id, address_type: 'billing' }); // Corrected from user_id to _id
+  
       const address_type = billingAddressCount === 0 ? 'billing' : 'shipping';
-
+  
       const newAddress = await addressModel.create({
-        user_id,
+        user_id: _id,
         address_area,
         address_city,
         address_state,
@@ -22,12 +22,14 @@ class Addressdetails {
         address_pincode,
         address_type
       });
-
+  
+      console.log(_id, 'ssgsvvdv');
       res.status(201).json({ success: true, data: newAddress });
     } catch (err) {
       return next(new CustomError(err.message, 500));
     }
   };
+  
 
   //get
   addressGet = async (req, res, next) => {
@@ -42,13 +44,15 @@ class Addressdetails {
 
   //update
   addressUpdateBilling = async (req, res, next) => {
+   
     try {
-      const { user_id, address_area, address_city, address_state, adddress_country, address_pincode } = req.body;
-      const { _id } = req.params;
+      const {  address_area, address_city, address_state, adddress_country, address_pincode } = req.body;
+      const { address_id } = req.params;
+      const {_id} = req.user;
       // Check if the specified address belongs to the user and is a billing address
       const existingBillingAddress = await addressModel.findOne({
-        _id: _id,
-        user_id,
+        _id:address_id,
+        user_id : _id,
         address_type: 'billing'
       });
 
@@ -74,13 +78,15 @@ class Addressdetails {
   }
 
   addressUpdateShipping = async (req, res, next) => {
+    
     try {
-      const { user_id, address_area, address_city, address_state, adddress_country, address_pincode } = req.body;
-      const { _id } = req.params;
+      const { address_area, address_city, address_state, adddress_country, address_pincode } = req.body;
+      const {address_id } = req.params;
+      const {_id} = req.user;
       // Check if the specified address belongs to the user and is a billing address
       const existingShippingAddress = await addressModel.findOne({
-        _id: _id,
-        user_id,
+        _id: address_id,
+        user_id :_id,
         address_type: 'shipping'
       });
 
