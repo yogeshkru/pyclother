@@ -1,6 +1,8 @@
 import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import shopService from "./shopService";
+export const ResetAll=createAction("reset_All")
+
 export const handleAsyncRequest = async (serviceFunction, data, thunkApi) => {
   try {
     const response = await serviceFunction(data);
@@ -10,7 +12,6 @@ export const handleAsyncRequest = async (serviceFunction, data, thunkApi) => {
     return thunkApi.rejectWithValue(err);
   }
 };
-export const ResetAll=createAction("reset_All")
 
 export const shopSignData = createAsyncThunk(
   "auth/ShopSign",
@@ -22,6 +23,7 @@ export const shopSignData = createAsyncThunk(
 export const shopLoginData=createAsyncThunk(
     "auth/ShopLogin",
     async(data,thunApi)=>{
+        
         return handleAsyncRequest(shopService.loginShop,data,thunApi)
     }
 )

@@ -1,6 +1,6 @@
 const shopModel = require("../model/shopModel");
 const CustomError = require("../utils/customError");
-const { adminToken } = require("../utils/jwtToken");
+const { sendShopToken } = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendMail")
 const crypto = require("crypto");
 class Shop {
@@ -27,7 +27,7 @@ class Shop {
         shop_role: shopes.shop_role,
       };
 
-      return await adminToken(shopes, 201, res);
+      return await sendShopToken(shopes, 201, res);
     } catch (err) {
       return next(new CustomError(err.message, 409));
     }
@@ -56,7 +56,7 @@ class Shop {
       email: user.shop_email,
     };
 
-    return await adminToken(user, 201, res);
+    return await sendShopToken(user, 201, res);
   }
 
   fetchAllShop = async function (req, res) {
@@ -205,12 +205,8 @@ class Shop {
         const error = new CustomError("Inncorrect password ", 400);
         next(error);
       }
-      user = {
-        _id: user._id,
-        name: user.shop_name,
-        email: user.shop_password,
-      };
-      adminToken(user, 200, res);
+     
+      sendShopToken(user, 200, res);
     } catch (err) {
       return next(new CustomError(err.message, 500));
     }
@@ -285,7 +281,7 @@ class Shop {
       updateShop.shop_passwordChangedAt = Date.now();
       await updateShop.save();
 
-      adminToken(updateShop, 201, res);
+      sendShopToken(updateShop, 201, res);
     } catch (err) {
       return next(new CustomError(err.message, 500));
     }

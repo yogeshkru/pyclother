@@ -1,18 +1,26 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import UseInput from "../useCustom/useInput";
 import "../styles/Mainlayout.css";
-import "../styles/Loginadmin.css"
+import "../styles/Loginadmin.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { IoEyeOutline } from "react-icons/io5";
-import logo from "../assets/image/logo12.png"
+import logo from "../assets/image/logo12.png";
+import {shopSignData} from "../features/shop/shopSlice";
+import {useDispatch,useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom"
 function Shopsignup() {
+  const dispatch=useDispatch();
+  const navigate=useNavigate()
+  const {isSuccess}=useSelector(state=>state.shop)
+  console.log(isSuccess)
   const [eye, setEye] = useState(false);
 
   const handleEye = () => {
     setEye(!eye);
   };
+
   const { values, errors, handleBlur, handleChange, handleSubmit, touched } =
     useFormik({
       initialValues: {
@@ -24,56 +32,121 @@ function Shopsignup() {
         shop_zipcode: "",
         shop_avatar: "",
       },
+      onSubmit: (value) => {
+        dispatch(shopSignData(value))
+      },
+      validationSchema: Yup.object().shape({
+        shop_name: Yup.string()
+          .matches(
+            /^[A-Z][a-z]*$/,
+            "Name must start with a capital letter and be followed by lowercase letters"
+          )
+          .required("Name is required"),
+        shop_email: Yup.string()
+          .required("Email is required")
+          .matches(
+            /^[a-zA-Z][a-zA-Z0-9._-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+            "Invalid email address"
+          ),
+        shop_phone: Yup.string()
+          .matches(/^\d{10}$/, "Must be exactly 10 digits")
+          .required("Phone Number is required"),
+        shop_password: Yup.string()
+          .min(8, "Password must be 8 characters long")
+          .matches(/[0-9]/, "Password requires a number")
+          .matches(/[a-z]/, "Password requires a lowercase letter")
+          .matches(/[A-Z]/, "Password requires an uppercase letter")
+          .matches(/[^\w]/, "Password requires a symbol")
+          .required("Please Enter New Password"),
+        shop_address: Yup.string().required("Address is required"),
+        shop_zipcode: Yup.string()
+          .matches(/^\d{6}$/, "Must be exactly 6 digits")
+          .required("Pincode is required"),
+        shop_avatar: Yup.mixed()
+          .required("Image is required")
+         
+      }),
     });
+    useEffect(()=>{
+      if(isSuccess){
+            navigate("/shoplogin")
+      }
+    })
   return (
     <div className="otp_background">
       <div className="row justify-content-center shopSignup_row">
-        <div className="col-lg-4 shopSignup_Col">
-            <div className="m-auto shopSignup_image my-3">
-                <img src={logo} width="100%"/>
+        <div className="col-lg-4 col-11 shopSignup_Col">
+          <div className="m-auto shopSignup_image my-3">
+            <img src={logo} width="100%" />
+          </div>
+          <h4 className="text-center fw-bold">Register as a Seller</h4>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-2">
+              <UseInput
+                type="text"
+                name="shop_name"
+                placeholder="Name"
+                onChange={handleChange}
+                value={values.shop_name}
+                onBlur={handleBlur}
+                label="Name"
+              />
+              {errors.shop_name && touched.shop_name ? (
+                <div style={{ color: "red" }}>{errors.shop_name}</div>
+              ) : (
+                " "
+              )}
             </div>
-            <h4 className="text-center fw-bold">Register as a Seller</h4>
-          <form>
-            <UseInput
-              type="text"
-              name="shop_name"
-              placeholder="Name"
-              onChange={handleChange}
-              value={values.shop_name}
-              onBlur={handleBlur}
-              label="Name"
-            />
+            <div className="mb-2">
+              <UseInput
+                type="email"
+                name="shop_email"
+                placeholder="Email"
+                onChange={handleChange}
+                value={values.shop_email}
+                onBlur={handleBlur}
+                label="Email"
+              />
+              {errors.shop_email && touched.shop_email ? (
+                <div style={{ color: "red" }}>{errors.shop_email}</div>
+              ) : (
+                " "
+              )}
+            </div>
+            <div className="mb-2">
+              <UseInput
+                type="number"
+                name="shop_phone"
+                placeholder="Phone"
+                onChange={handleChange}
+                value={values.shop_phone}
+                onBlur={handleBlur}
+                label="Phone"
+              />
+              {errors.shop_phone && touched.shop_phone ? (
+                <div style={{ color: "red" }}>{errors.shop_phone}</div>
+              ) : (
+                " "
+              )}
+            </div>
 
-            <UseInput
-              type="email"
-              name="shop_email"
-              placeholder="Email"
-              onChange={handleChange}
-              value={values.shop_email}
-              onBlur={handleBlur}
-              label="Email"
-            />
-
-            <UseInput
-              type="number"
-              name="shop_phone"
-              placeholder="Phone"
-              onChange={handleChange}
-              value={values.shop_phone}
-              onBlur={handleBlur}
-              label="Phone"
-            />
-
-            <UseInput
-              type="text"
-              name="shop_address"
-              placeholder="Address"
-              onChange={handleChange}
-              value={values.shop_address}
-              onBlur={handleBlur}
-              label="Address"
-            />
-            <div className="shopSignup__icons">
+            <div className="mb-2">
+              <UseInput
+                type="text"
+                name="shop_address"
+                placeholder="Address"
+                onChange={handleChange}
+                value={values.shop_address}
+                onBlur={handleBlur}
+                label="Address"
+              />
+              {errors.shop_address && touched.shop_address ? (
+                <div style={{ color: "red" }}>{errors.shop_address}</div>
+              ) : (
+                " "
+              )}
+            </div>
+            <div className="shopSignup__icons mb-2">
               <UseInput
                 type={eye ? "text" : "password"}
                 name="shop_password"
@@ -90,17 +163,28 @@ function Shopsignup() {
                   <FaRegEyeSlash style={{ fontSize: "20px" }} />
                 )}
               </span>
+              {errors.shop_password && touched.shop_password ? (
+                <div style={{ color: "red" }}>{errors.shop_password}</div>
+              ) : (
+                " "
+              )}
             </div>
-
-            <UseInput
-              type="number"
-              name="shop_zipcode"
-              placeholder="PinCode"
-              onChange={handleChange}
-              value={values.shop_zipcode}
-              onBlur={handleBlur}
-              label="Pincode"
-            />
+            <div className="mb-2">
+              <UseInput
+                type="number"
+                name="shop_zipcode"
+                placeholder="PinCode"
+                onChange={handleChange}
+                value={values.shop_zipcode}
+                onBlur={handleBlur}
+                label="Pincode"
+              />
+              {errors.shop_zipcode && touched.shop_zipcode ? (
+                <div style={{ color: "red" }}>{errors.shop_zipcode}</div>
+              ) : (
+                " "
+              )}
+            </div>
 
             <div className="mb-4">
               <input
@@ -110,12 +194,22 @@ function Shopsignup() {
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
+              {errors.shop_avatar && touched.shop_avatar ? (
+                <div style={{ color: "red" }}>{errors.shop_avatar}</div>
+              ) : (
+                " "
+              )}
             </div>
 
-            <button type="submit" className="shopSignupButton">Submit</button>
+            <button type="submit" className="shopSignupButton">
+              Submit
+            </button>
           </form>
           <div className="mt-2">
-          <p style={{cursor:"pointer"}}>Already have an account? <span style={{color:"blue"}}>ShopLogin</span></p>
+            <p style={{ cursor: "pointer" }}>
+              Already have an account?{" "}
+              <span style={{ color: "blue" }}>ShopLogin</span>
+            </p>
           </div>
         </div>
       </div>

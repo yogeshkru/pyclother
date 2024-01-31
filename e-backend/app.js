@@ -50,15 +50,15 @@ app.use(
 
 app.use(express.static(path.join(__dirname, "public")));
 
-// *********************************************************************
-let limiter = rateLimit({
-  max: 100,
-  windowMs: 60 * 60 * 1000,
-  message:
-    "We have received too many request from this UP. Please try after one hour",
-});
+// // *********************************************************************
+// let limiter = rateLimit({
+//   max: 100,
+//   windowMs: 60 * 60 * 1000,
+//   message:
+//     "We have received too many request from this UP. Please try after one hour",
+// });
 
-app.use("/api", limiter);
+// app.use("/api", limiter);
 
 // ********************************************************************************************************
 function DataBaseConnect() {
