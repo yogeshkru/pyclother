@@ -2,27 +2,24 @@ const orderModel = require("../model/orderModel");
 const CustomError = require("../utils/customError");
 
 class Order {
-  createOrder = async (req, res) => {
+  createOrder = async (req, res,next) => {
     const {
-      shippingInfo,
-      orderItems,
-      totalPrice,
-      totalPriceAfterDiscount,
-      paymentInfo,
+      shippingInfo_id,
+      user_email,
+      user_phone,
+    
     } = req.body;
     const { _id } = req.user;
 
     try {
       const order = await new orderModel({
         order_user: _id,
-        order_orderItems: orderItems,
-        order_totalPrice: totalPrice,
-        order_totalPriceAfterDiscount: totalPriceAfterDiscount,
-        order_paymentInfo: paymentInfo,
-        order_shippingInfo: shippingInfo,
+        order_user_email:user_email,
+        order_user_phone:user_phone,
+        order_user_address: shippingInfo_id,
       }).save();
 
-      res.status(200).json({ order, message: "Orderplaced" });
+      res.status(200).json({ order });
     } catch (error) {
       next(new CustomError(error.message, 400));
     }
@@ -55,7 +52,7 @@ class Order {
 async updateOrders(req,res,next){
     const {id}=req.params
     try{
-
+       
         const orders= await orderModel.findById(id)
         orders.orderStatus=req.body.orderStatus;
         await orders.save()

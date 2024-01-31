@@ -44,16 +44,16 @@ const sendUserToken = async (user, statusCode, res) => {
 
 const sendShopToken = async(user,statusCode,res)=>{
   const token = generateToken(user._id)
-  const options={
-    maxAge:30*24*60*60*1000,
-    httpOnly:true
-  }
+  // const options={
+  //   maxAge:30*24*60*60*1000,
+  //   httpOnly:true
+  // }
 
-  if(process.env.NODE_ENV==="production"){
-    options.secure=true
-  }
+  // if(process.env.NODE_ENV==="production"){
+  //   options.secure=true
+  // }
 
-  res.cookie("shop",token,options)
+  // res.cookie("shop",token,options)
 
   res.status(statusCode).json({status:"success",token,data:{user}})
 }

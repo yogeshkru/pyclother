@@ -8,13 +8,18 @@ exports.cart = asyncErrorhandler(async (req, res, next) => {
   const { _id } = req.user;
 
   try {
+   
+
     const newCart = await cartModel.create({
       cart_user_user_Id: _id,
       cart_product_product_Id: productId,
       cart_color_color_Id: color,
       cart_price: price,
       cart_quantity: quantity,
+    
     });
+    
+    
     console.log(newCart,"jcfgbwiuegfvw3ug8v")
     res.status(200).json({ newCart });
   } catch (error) {

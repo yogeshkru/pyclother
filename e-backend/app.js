@@ -91,7 +91,9 @@ require("./routes/blogRoutes")(app);
 require("./routes/shopRoute")(app);
 require("./routes/orderRoutes")(app);
 require("./routes/uploadRouts")(app);
-require("./routes/productRoutes")(app)
+require("./routes/productRoutes")(app);
+require("./routes/gstRoutes")(app);
+require("./routes/orderItemRoutes")(app)
 // ***********************************************************************
 //Routes error handler
 app.all("*", (req, res, next) => {
