@@ -4,8 +4,31 @@ const colorSchema = new mongoose.Schema(
     {
         color_title: {
             type: String,
-            required: [true, "color is Required"]
-        }
+          
+          },
+          color_description: {
+            type: String,
+           
+          },
+        
+          meta_title: {
+            type: String,
+          
+          },
+        
+          meta_description: {
+            type: String,
+         
+          },
+          meta_keyWord:{
+            type: String,
+           
+          },
+          sort:{
+            type:Number,
+           
+            
+          }
     }
 );
 

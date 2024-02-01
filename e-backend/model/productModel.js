@@ -50,6 +50,14 @@ const productSchema = new mongoose.Schema(
 
     sku: String,
     tags: String,
+    
+    // gst_Id: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "Tbl_gst",
+    //   required:true
+    // },
+    Gst:String,
+    HSN_code:String,
   },
 
   { timestamps: true }

@@ -41,7 +41,7 @@ const shopSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["shop admin"],
+      enum: ["shop admin","super admin"],
       default: "shop admin",
     },
     withDrawalMethod: {

@@ -1,9 +1,9 @@
 import axios from "axios";
 import URL from "../../utilis/Url";
-
+import {config} from "../../utilis/axiosConfig"
 //colorcreate
 const colorCreate = async (userData) => {
-  const response = await axios.post(`${URL.BASE_URL}color/colors`, userData);
+  const response = await axios.post(`${URL.BASE_URL}color/colors`, userData,config);
   if (response.data) {
     return response.data;
   }
@@ -11,7 +11,7 @@ const colorCreate = async (userData) => {
 
 //GET
 const colorGet = async () => {
-  const response = await axios.get(`${URL.BASE_URL}color/colorget`);
+  const response = await axios.get(`${URL.BASE_URL}color/colorget`,config);
   if (response.data) {
     return response.data;
   }
@@ -20,8 +20,8 @@ const colorGet = async () => {
 //patch
 const colorPatch = async (userData) => {
   const response = await axios.patch(
-    `${URL.BASE_URL}color/colorUpdates/${userData}`,
-    userData
+    `${URL.BASE_URL}color/colorUpdates/${userData.id}`,
+    userData.colorValue,config
   );
   if (response.data) {
     return response.data;
@@ -33,7 +33,7 @@ const colorPatch = async (userData) => {
 const colordelete = async (userData) => {
   const response = await axios.delete(
     `${URL.BASE_URL}color/colorDelete/${userData}`,
-    userData
+    config
   );
   if (response.data) {
     return response.data;
