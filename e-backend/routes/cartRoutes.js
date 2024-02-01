@@ -15,7 +15,7 @@ module.exports = (app) => {
     .route("/showtocart")
     .get(authenticateUser, asyncErrorhandler(getUserCart));
   router
-    .route("/update-cartitem/id/:newQuantity")
+    .route("/update-cartitem/:id/:newQuantity")
     .patch(authenticateUser, asyncErrorhandler(updateProductQuantity));
 
   app.use("/api/cart", router);
