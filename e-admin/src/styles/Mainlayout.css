@@ -238,7 +238,12 @@ input[type=number]::-webkit-outer-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
-
+.product_input{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+:where(.css-dev-only-do-not-override-dkbvqv).ant-upload-wrapper .ant-upload-drag .ant-upload{
+    padding: 0px !important;
+}
 
 .product_floating>.product_control{
     height: calc(3.0rem + calc(var(--bs-border-width) * 2)) !important;
