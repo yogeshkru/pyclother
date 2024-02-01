@@ -5,21 +5,24 @@ function UseInput(props) {
 
   return (
     <>
-      <div class="form-floating mb-3">
-        <input
-         
-          className="form-control"
-          id={id}
-          type={type}
-          name={name}
-          placeholder={label}
-          value={value}
-          onChange={onChange}
-          onBlur={onBlur}
-          autoComplete="off"
-        />
-        <label for="floatingInput">{label}</label>
-      </div>
+     
+
+      
+        <div class="form-group">
+        
+          <input
+            type={type}
+            class="form-control "
+            id={id}
+            name={name}
+            placeholder={label}
+            value={value}
+            onChange={onChange}
+            onBlur={onBlur}
+            autoComplete="off"
+          />
+        </div>
+    
     </>
   );
 }
