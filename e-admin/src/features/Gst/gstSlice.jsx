@@ -69,6 +69,7 @@ export const PatchGst = createAsyncThunk(
     isSuccess: false,
     message: "",
     isLoader: false,
+    getGstData:[]
   };
 
   export const GstDetail = createSlice({
@@ -85,7 +86,7 @@ export const PatchGst = createAsyncThunk(
           state.isLoader = false;
           state.isSuccess = true;
           state.isError = false;
-          state.CreateGst = action.payload;
+        
         })
   
         .addCase(Postgst.rejected, (state, action) => {
@@ -103,7 +104,7 @@ export const PatchGst = createAsyncThunk(
           state.isLoader = false;
           state.isSuccess = true;
           state.isError = false;
-          state.getGst = action.payload;
+          state.getGstData = action.payload;
         })
         .addCase(Getgst .rejected, (state, action) => {
           state.isLoader = false;

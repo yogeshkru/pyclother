@@ -7,6 +7,7 @@ export const categoryPostData=createAsyncThunk("auth/categoryPost",
   async(userData,thunkApi)=>{
     try{
           const response=await categoryService.categoryPost(userData)
+          thunkApi.dispatch(categoryGet())
           return response
     }catch(err){
         toast.error(err?.response?.data?.message)

@@ -8,15 +8,17 @@ import { categoryGetData } from "../features/category/categorySlice";
 import { useDispatch, useSelector } from "react-redux";
 import UseInput from "../useCustom/useInput";
 import Dropzone from "react-dropzone";
-
+import "../styles/Mainlayout.css";
+import { Getgst } from "../features/Gst/gstSlice";
 
 function Addproduct() {
   const dispatch = useDispatch();
   const { Getbrand } = useSelector((state) => state.brand);
   const { categoryGet } = useSelector((state) => state.category);
   const { getAllColor } = useSelector((state) => state.color);
+  const { getGstData } = useSelector((state) => state.gst);
 
-  console.log(Getbrand, categoryGet, getAllColor);
+  console.log(getGstData);
 
   const get_brand = Getbrand.map((item) => (
     <option key={item._id} value={item.brand_title}>
@@ -24,23 +26,27 @@ function Addproduct() {
     </option>
   ));
 
-
-  
- const get_color=getAllColor.map((item)=>(
-  <option key={item._id}  value={item.color_title}>
-      <span style={{backgroundColor:item.color_title,width:"20px",height:"20px"}}> {item.color_title}</span>
+  const get_color = getAllColor.map((item) => (
+    <option
+      key={item._id}
+      value={item.color_title}
+      style={{ backgroundColor: item.color_title, color: "white" }}
+    >
+      {item.color_title}
     </option>
- ))
+  ));
 
- const get_category=categoryGet.map((item)=>(
-  <option key={item._id} value={item.category_title}>{item.category_title}</option>
- ))
-
+  const get_category = categoryGet.map((item) => (
+    <option key={item._id} value={item.category_title}>
+      {item.category_title}
+    </option>
+  ));
 
   useEffect(() => {
-    dispatch(brandGets())
-    dispatch(colorgets())
-    dispatch(categoryGetData())
+    dispatch(brandGets());
+    dispatch(colorgets());
+    dispatch(categoryGetData());
+    dispatch(Getgst());
   }, [dispatch]);
 
   return (
@@ -104,7 +110,7 @@ function Addproduct() {
                     </div>
                   </div>
                   <div className="col-lg-4">
-                    <div className="">
+                    <div className="product_custom-dropdown">
                       <label className="fw-bold fs-10">Color</label>
                       <select
                         class="form-select"

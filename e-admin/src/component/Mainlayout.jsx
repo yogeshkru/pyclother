@@ -101,7 +101,7 @@ const Mainlayout = () => {
                 },
                 {
                   key: "gst",
-                  label: "Gst",
+                  label: "Tax",
                   icon: <RiMoneyPoundCircleLine />
 
 
@@ -117,6 +117,8 @@ const Mainlayout = () => {
                 />
               ),
             },
+            
+           
             {
               key: "payment",
               label: "Payment",
@@ -124,6 +126,7 @@ const Mainlayout = () => {
                 <MdPayment style={{ fontSize: "25px", color: "#BEABC2" }} />
               ),
             },
+        
 
 
             {

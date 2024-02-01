@@ -1,13 +1,13 @@
 import axios from "axios";
 import URL from "../../utilis/Url";
-
+import {config} from "../../utilis/axiosConfig";
 
 //post 
 
 const CreateGst = async(data)=>{
     const response = await axios.post(
         `${URL.BASE_URL}gst/create-gst`,
-        data
+        data,config
     );
     if(response.data){
         return response.data
@@ -18,8 +18,8 @@ const CreateGst = async(data)=>{
 
 const getGst = async(data)=>{
     const response = await axios.get(
-        `${URL.BASE_URL}/gst/get-gst`,
-        data
+        `${URL.BASE_URL}gst/get-gst`,
+        data,config
     );
     if(response.data){
         return response.data
