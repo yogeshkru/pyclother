@@ -4,28 +4,8 @@ import "react-quill/dist/quill.snow.css";
 import { InboxOutlined } from "@ant-design/icons";
 import { message, Upload } from "antd";
 import UseInput from "../useCustom/useInput";
+import Dropzone from "react-dropzone";
 
-const { Dragger } = Upload;
-
-const props = {
-  name: "file",
-  multiple: true,
-  action: "https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188",
-  onChange(info) {
-    const { status } = info.file;
-    if (status !== "uploading") {
-      console.log(info.file, info.fileList);
-    }
-    if (status === "done") {
-      message.success(`${info.file.name} file uploaded successfully.`);
-    } else if (status === "error") {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-  onDrop(e) {
-    console.log("Dropped files", e.dataTransfer.files);
-  },
-};
 function Addproduct() {
   const [desc, setdesc] = useState();
   const handleChange = (e) => {
@@ -165,25 +145,45 @@ function Addproduct() {
                   <label className="fw-bold fs-10">Description</label>
                   <UseInput type="text" label="Description" />
                 </div>
-
-                <div className="mt-3 mb-2">
-                  <label className="fw-bold fs-10">Image</label>
-                  <select
-                    class="form-select"
-                    aria-label="Default select example"
-                  >
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>
-                </div>
               </div>
             </div>
           </div>
 
           <div className="col-lg-4">
-            <div class="card">
+            <div class="card p-4">
+              <div class="card-body">
+                <Dropzone
+                  onDrop={(acceptedFiles) =>
+                    dispatch(uploadImgtoServer(acceptedFiles))
+                  }
+                >
+                  {({ getRootProps, getInputProps }) => (
+                    <section>
+                      <div {...getRootProps()}>
+                        <input {...getInputProps()} />
+                        <p className="text-center">Upload Image</p>
+                      </div>
+                    </section>
+                  )}
+                </Dropzone>
+              </div>
+
+              <div className="">
+                <label className="fw-bold fs-10">Sort</label>
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>Open this select menu</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-lg-4">
+            <div class="card mt-2">
               <div class="card-body product_input">
                 <div className="">
                   <h4>Dimension</h4>
@@ -242,8 +242,11 @@ function Addproduct() {
               </div>
             </div>
 
-            <div class="card mt-1">
-              <div class="card-body  product_input">
+          </div>
+          <div className="col-lg-4 ">
+            
+          <div class="card mt-2">
+              <div class="card-body  product_input" style={{padding:" 23px 12px"}}>
                 <div className="">
                   <h4>SEO</h4>
                 </div>
