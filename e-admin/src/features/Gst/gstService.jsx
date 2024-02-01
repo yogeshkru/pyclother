@@ -30,7 +30,7 @@ const getGst = async(data)=>{
 
 const gstOneGst = async(data)=>{
     const response = await axios.get(
-        `${URL.BASE_URL}/gst/get-one-gst/${data}`,
+        `${URL.BASE_URL}gst/get-one-gst/${data}`,
         data
     );
     if(response.data){
@@ -42,7 +42,7 @@ const gstOneGst = async(data)=>{
 
 const deleteGst = async(data)=>{
     const response = await axios.get(
-        `${URL.BASE_URL}/gst/delete-gst/${data}`,
+        `${URL.BASE_URL}gst/delete-gst/${data}`,
         data
     );
     if(response.data){
@@ -54,7 +54,7 @@ const deleteGst = async(data)=>{
 
 const updateGst = async(data)=>{
     const response = await axios.get(
-        `${URL.BASE_URL}/gst/update-gst/${data}`,
+        `${URL.BASE_URL}gst/update-gst/${data}`,
         data
     );
     if(response.data){
