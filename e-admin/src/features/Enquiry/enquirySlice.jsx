@@ -41,7 +41,7 @@ export const Getone = createAsyncThunk("auth/enq/getone", async (data,thunkApi) 
 
 export const DeleteEnquiry = createAsyncThunk(
   "auth/enq/deleteenq",
-  async (_,thunkApi) => {
+  async (data,thunkApi) => {
     try {
       const response = await Enquiries.DeleteEnquiry(data);
       return response;
