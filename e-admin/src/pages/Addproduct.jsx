@@ -1,16 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { InboxOutlined } from "@ant-design/icons";
-import { message, Upload } from "antd";
+import { Select } from "antd";
+import { colorgets } from "../features/color/colorSlice";
+import { brandGets } from "../features/brandSlice";
+import { categoryGetData } from "../features/category/categorySlice";
+import { useDispatch, useSelector } from "react-redux";
 import UseInput from "../useCustom/useInput";
 import Dropzone from "react-dropzone";
 
+
 function Addproduct() {
-  const [desc, setdesc] = useState();
-  const handleChange = (e) => {
-    setdesc(e);
-  };
+  const dispatch = useDispatch();
+  const { Getbrand } = useSelector((state) => state.brand);
+  const { categoryGet } = useSelector((state) => state.category);
+  const { getAllColor } = useSelector((state) => state.color);
+
+  console.log(Getbrand, categoryGet, getAllColor);
+
+  const get_brand = Getbrand.map((item) => (
+    <option key={item._id} value={item.brand_title}>
+      {item.brand_title}
+    </option>
+  ));
+
+
+  
+ const get_color=getAllColor.map((item)=>(
+  <option key={item._id}  value={item.color_title}>
+      <span style={{backgroundColor:item.color_title,width:"20px",height:"20px"}}> {item.color_title}</span>
+    </option>
+ ))
+
+ const get_category=categoryGet.map((item)=>(
+  <option key={item._id} value={item.category_title}>{item.category_title}</option>
+ ))
+
+
+  useEffect(() => {
+    dispatch(brandGets())
+    dispatch(colorgets())
+    dispatch(categoryGetData())
+  }, [dispatch]);
 
   return (
     <div className="row">
@@ -68,9 +99,7 @@ function Addproduct() {
                         aria-label="Default select example"
                       >
                         <option selected>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        {get_brand}
                       </select>
                     </div>
                   </div>
@@ -82,9 +111,7 @@ function Addproduct() {
                         aria-label="Default select example"
                       >
                         <option selected>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        {get_color}
                       </select>
                     </div>
                   </div>
@@ -97,9 +124,7 @@ function Addproduct() {
                         aria-label="Default select example"
                       >
                         <option selected>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        {get_category}
                       </select>
                     </div>
                   </div>
@@ -151,7 +176,10 @@ function Addproduct() {
 
           <div className="col-lg-4">
             <div class="card p-4">
-              <div class="card-body">
+              <div
+                class="card-body "
+                style={{ border: "1px solid black", borderRadius: "20px" }}
+              >
                 <Dropzone
                   onDrop={(acceptedFiles) =>
                     dispatch(uploadImgtoServer(acceptedFiles))
@@ -241,12 +269,13 @@ function Addproduct() {
                 </div>
               </div>
             </div>
-
           </div>
           <div className="col-lg-4 ">
-            
-          <div class="card mt-2">
-              <div class="card-body  product_input" style={{padding:" 23px 12px"}}>
+            <div class="card mt-2">
+              <div
+                class="card-body  product_input"
+                style={{ padding: " 23px 12px" }}
+              >
                 <div className="">
                   <h4>SEO</h4>
                 </div>
