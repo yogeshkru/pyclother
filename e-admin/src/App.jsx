@@ -22,6 +22,7 @@ import Shopsignup from "./pages/Shopsignup";
 import Shoplogin from "./pages/Shoplogin";
 import Gst from "./pages/Gst"
 
+import Couponlist from "./pages/Couponlist";
 function App() {
   return <>
     <BrowserRouter>
@@ -38,11 +39,10 @@ function App() {
           <Route path="category-list" element={<Categorylist />} />
           <Route path="brand-list" element={<Brandlist />} />
           <Route path="product-list" element={<Productlist />} />
-          <Route path="gst" element={<Gst />} />
-
-
           <Route path="product" element={<Addproduct />} />
           <Route path="payment" element={<Payment />} />
+          <Route path="coupon-list" element={<Couponlist />} />
+          <Route path="gst" element={<Gst/>}/>
         </Route>
 
       </Routes>

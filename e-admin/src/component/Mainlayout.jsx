@@ -133,14 +133,10 @@ const Mainlayout = () => {
                 <BiSolidOffer style={{ fontSize: "25px", color: "#BEABC2" }} />
               ),
               children: [
-                {
-                  key: "add-coupon",
-                  label: "Add Coupon",
-                  icon: <RiCouponFill />,
-                },
+               
                 {
                   key: "coupon-list",
-                  label: "Coupon List",
+                  label: "Coupon",
                   icon: <RiCouponFill />,
                 },
               ],
