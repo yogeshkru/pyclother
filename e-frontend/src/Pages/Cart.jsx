@@ -139,6 +139,7 @@ function Cart() {
                     <div className="d-flex justify-content-between mb-0 mt-3">
                       <h4 className="mb-0">H&M</h4>
                     </div>
+                    
                     <div className="mt-4">
                       <h3 className="cart-h3 ">
                         Pure Cotton Regular Fit Round-Neck T-shirt
@@ -212,7 +213,7 @@ function Cart() {
                     </div>
 
                     <div className="d-flex justify-content-between cart-end-tag">
-                      <p className="fw-light">Delivery between 17Dec -19Dec</p>
+                      <p className="fw-light">Delivery between <b>17Dec -19Dec</b></p>
 
                       <div>
                         <button className="border-0 bg-transparent fw-light">
@@ -237,7 +238,7 @@ function Cart() {
                     </tr>
                     <tr>
                       <td>Discount</td>
-                      <td>-Rs. 1000</td>
+                      <td className="discount">-Rs. 1000</td>
                     </tr>
                     <tr>
                       <td>Shipping Fee</td>

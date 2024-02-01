@@ -1,3 +1,8 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+
+
+
 .header--search {
   position: relative;
 }
@@ -573,11 +578,38 @@ p {
 }
 .home_price {
   color: transparent;
+
   -webkit-text-stroke: 1px #fff;
   -webkit-text-stroke-color: #fff;
   -webkit-text-stroke-width: 2px;
   font-size: 60px !important;
 }
+.home_off {
+  white-space: nowrap;
+
+  width: 100%;
+}
+
+.home_off div {
+  display: inline-block;
+  margin-right: 0; /* Set a large margin to ensure elements move from left to right */
+  animation: marqueeAnimation 15s linear infinite; /* Adjust the animation duration as needed */
+}
+
+@keyframes marqueeAnimation {
+  0% {
+    transform: translateX(-100%);
+
+  }
+  100% {
+    transform: translateX(100%); 
+  }
+}
+
+
+
+
+
 .rfm-marquee-container {
   overflow: hidden;
 }
@@ -633,6 +665,8 @@ p {
   text-align: center;
   margin-top: 10px;
   color: white;
+  
+  font-family: 'Cinzel', serif;
 }
 .home_total_details {
   margin: 40px 0px !important;

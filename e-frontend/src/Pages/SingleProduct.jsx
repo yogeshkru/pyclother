@@ -9,6 +9,7 @@ import bruno from "../assets/image/bruno.jpeg";
 import { Link } from "react-router-dom";
 import twoshirt from "../assets/image/two_shirt.jpeg";
 import bluemoney from "../assets/image/money_blue.jpeg";
+import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { FaStar } from "react-icons/fa6";
 
 import ProductCard from "../Component/ProductCard";
@@ -35,7 +36,12 @@ function SingleProduct() {
   useEffect(() => {
     setSelectimage(details.find((item) => item.id === 1));
   }, []);
+  
+  const [selectedItemId, setSelectedItemId] = useState(null);
 
+  const handleClicks = (itemId) => {
+    setSelectedItemId(itemId);
+  };
   return (
     <>
       <section className="container pt-5 single-product-bread ">
@@ -81,15 +87,15 @@ function SingleProduct() {
           <div className="row">
             <div className="col-lg-6 col-md-12 d-flex justify-content-evenly">
               <div className="d-flex ">
-                <div className="d-flex flex-column gap-4">
+                <div className="d-flex flex-column gap-4 ">
                   {details.map((item) => (
                     <div key={item.id}>
-                      <img
+                      <img 
                         src={item.src}
                         alt="product"
                         width="80px"
-                        className="rounded-3"
-                        onClick={() => handleClick(item.id)}
+                        className={`rounded-3 ${selectedItemId === item.id ? 'selected' : ''}`}
+            onClick={() => handleClicks(item.id)}
                       />
                     </div>
                   ))}
@@ -118,6 +124,7 @@ function SingleProduct() {
                 <p className="singleProduct_content">
                   Pure Cotton Regular Fit Round-Neck T-Shirt
                 </p>
+            
                 <div className="mt-1">
                   <p>
                     4.8
@@ -136,7 +143,7 @@ function SingleProduct() {
                 </div>
                 <div className="d-flex gap-4 mt-3">
                   <div className=" single_product_border singleProduct_size">
-                    <p>XL</p>
+                    <p>XS</p>
                   </div>
                   <div className=" single_product_border singleProduct_size1">
                     <p>S</p>
@@ -146,6 +153,9 @@ function SingleProduct() {
                   </div>
                   <div className=" single_product_border singleProduct_size1">
                     <p>L</p>
+                  </div>
+                  <div className=" single_product_border singleProduct_size">
+                    <p>XL</p>
                   </div>
                 </div>
                 <div className="mt-4">
@@ -182,6 +192,19 @@ function SingleProduct() {
                   <p className=""> Graphic printed</p>
                   <p className="">Regular length</p>
                   <p>Rounded Neck</p>
+                  <div class="dropdown">
+                  
+  <a class="  otherinfo" type="button" aria-expanded="false">
+    Other information
+    <MdOutlineKeyboardArrowDown />
+  </a>
+  
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="#">Action</a></li>
+    <li><a class="dropdown-item" href="#">Another action</a></li>
+    <li><a class="dropdown-item" href="#">Something else here</a></li>
+  </ul>
+</div>
                 </div>
               </div>
             </div>

@@ -173,7 +173,40 @@ background: linear-gradient(90deg, rgba(123,216,208,1) 25%, rgba(95,214,199,1) 5
 .anticon{
     color: #B66DFF !important;
     
-}	  
+}
+.shopSignup__icons{
+    position: relative;
+}
+.shopSignup__eyeIcons{
+    position: absolute;
+    top: 15px;
+    right: 20px;
+}  
+.shopSignup_row{
+   margin-right: 0 !important;
+}
+.shopSignup_Col{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    background-color:white;
+    padding: 2px;
+    border-radius: 15px;
+    margin-top: 10px !important;
+   
+}
+.shopSignup_image{
+    width: 40%;
+    
+}
+.shopSignupButton{
+    width: 100%;
+    padding: 10px 5px;
+    background-color: #B66DFF;
+    color: white;
+    font-size: 17px;
+    font-weight: 500;
+    border: 1px solid #B66DFF;
+    border-radius: 15px;
+}
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;

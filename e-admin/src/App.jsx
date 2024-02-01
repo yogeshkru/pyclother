@@ -5,10 +5,11 @@ import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import Loginadmin from "./pages/Loginadmin";
 import Mainlayout from "./component/Mainlayout";
 import Dashboard from "./pages/Dashboard";
+
 import Enquiries from "./pages/Enquiries";
 
 import Orders from "./pages/Orders";
-import ShopLogin from "./pages/ShopLogin/Shoplogin";
+
 import Customers from "./pages/Customers";
 import Colorlist from "./pages/Colorlist";
 import Categorylist from "./pages/Categorylist";
@@ -18,15 +19,19 @@ import Addcolor from "./pages/Addcolor";
 import Addcategory from "./pages/Addcategory";
 import Addbrand from "./pages/Addbrand";
 import Addproduct from "./pages/Addproduct";
-import {ToastContainer} from "react-toastify"
+import {ToastContainer} from "react-toastify";
+import Payment from "./pages/Payment";
 
 import 'react-toastify/dist/ReactToastify.css';
+import Shopsignup from "./pages/Shopsignup";
+import Shopreset from "./pages/ShopReset";
 function App() {
   return <>
   <BrowserRouter>
       <Routes>
         <Route path="/" element={<Loginadmin/>}/>
-        <Route path="/Shoplogin" element={<ShopLogin/>}/>
+        <Route path="/shopsign" element={<Shopsignup/>}/>
+        <Route path="/shopreset" element={<Shopreset/>}/>
         <Route path="/admin" element={<Mainlayout/>}>
           <Route index element={<Dashboard/>}/>
           <Route path="enquiries" element={<Enquiries/>}/>
@@ -42,6 +47,7 @@ function App() {
           <Route path="category" element={<Addcategory/>}/>
           <Route path="/admin/brand-list/brand" element={<Addbrand/>}/>
           <Route path="product" element={<Addproduct/>}/>
+          <Route path="payment" element={<Payment/>}/>
         </Route>
        
       </Routes>

@@ -23,7 +23,7 @@ function Footer() {
           <div className="row">
             <div className="col-lg-4 col-12">
               <div className="footer__content1">
-                <div className="footer__image2">
+                <div className="footer__image2 mt-3">
                   <img src={footer1} width="100%" />
                 </div>
                 <div className="footer__details1">
@@ -42,7 +42,7 @@ function Footer() {
             <div className="col-lg-4 col-12">
               <div style={handleData}></div>
               <div className="footer_details2">
-                <p className="fw-bold fs-5">Customerize</p>
+                <p className="fw-bold fs-5">Customer Policies</p>
               </div>
               <div className="footer_users">
                 <div>

@@ -18,6 +18,7 @@ function Loginadmin() {
    
   },
   validationSchema : Yup.object({
+   
   
     email:Yup.string()
     .required('Email is required')
@@ -53,7 +54,7 @@ function Loginadmin() {
             </div>
             <div className="login_font_padding">
               <p className="fw-bold">
-                Admin
+                Super Admin
               </p>
               <form className="mt-3" onSubmit={handleSubmit}>
             
