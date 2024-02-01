@@ -20,15 +20,17 @@ export const brandSignup = createAsyncThunk(
 //get
 
 export const brandGets = createAsyncThunk(
-  "auth/brand/get", async (_,thunkApi) => {
-  try {
-    const response = await brandeService.brandGet();
-    return response;
-  } catch (err) {
-    toast.error(err?.response?.data?.message);
-    return thunkApi.rejectWithValue(err);
+  "auth/brand/get",
+  async (_, thunkApi) => {
+    try {
+      const response = await brandeService.brandGet();
+      return response;
+    } catch (err) {
+      toast.error(err?.response?.data?.message);
+      return thunkApi.rejectWithValue(err);
+    }
   }
-});
+);
 
 //patch
 
@@ -62,24 +64,24 @@ export const brandDelete = createAsyncThunk(
 //find
 
 export const brandFinds = createAsyncThunk(
-    "auth/brand/find",
-    async (_,thunkApi) => {
-      try {
-        const response = await brandeService.brandFind();
-        return response;
-      } catch (err) {
-        toast.error(err?.response?.data?.message);
-        return thunkApi.rejectWithValue(err);
-      }
+  "auth/brand/find",
+  async (_, thunkApi) => {
+    try {
+      const response = await brandeService.brandFind();
+      return response;
+    } catch (err) {
+      toast.error(err?.response?.data?.message);
+      return thunkApi.rejectWithValue(err);
     }
-  );
+  }
+);
 
 const initialState = {
   isError: false,
   isSuccess: false,
   isLoader: false,
   isMessage: "",
-  createBrand:{}
+  createBrand: {},
 };
 
 export const brandDetails = createSlice({
@@ -96,7 +98,7 @@ export const brandDetails = createSlice({
         state.isError = false;
         state.isLoader = false;
         state.isSuccess = action.payload?.status;
-        state.createBrand={};
+        state.createBrand = {};
 
         if (state.isSuccess) {
           toast.success(action.payload?.message?.message);
@@ -118,7 +120,7 @@ export const brandDetails = createSlice({
         state.isError = false;
         state.isLoader = false;
         state.isSuccess = action.payload?.status;
-        state.createBrand=action.payload
+        state.createBrand = action.payload;
 
         if (state.isSuccess) {
           toast.success(action.payload?.message?.message);
@@ -141,7 +143,7 @@ export const brandDetails = createSlice({
         state.isError = false;
         state.isLoader = false;
         state.isSuccess = action.payload?.status;
-        state.createBrand=action.payload;
+        state.createBrand = action.payload;
 
         if (state.isSuccess) {
           toast.success(action.payload?.message?.message);
@@ -154,7 +156,6 @@ export const brandDetails = createSlice({
         state.isSuccess = false;
         state.isMessage = action.error;
       })
-
 
       //delete
 
@@ -199,9 +200,8 @@ export const brandDetails = createSlice({
         state.isSuccess = false;
         state.isMessage = action.error;
       })
-      .addCase(resetAll,()=>initialState)
+      .addCase(resetAll, () => initialState);
   },
 });
 
-
-export default brandDetails.reducer
+export default brandDetails.reducer;
