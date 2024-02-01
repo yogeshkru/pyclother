@@ -6,7 +6,7 @@ module.exports = (app) => {
     BannerImages,
   } = require("../controllers/uploadControl");
   // const {protect,restrict}
-  const { uploadPhoto } = require("../middleware/uploadImages");
+  const { uploadPhoto,bannerImage } = require("../middleware/uploadImages");
   var { authenticateUser, restrict } = require("../middleware/auth");
 
   router

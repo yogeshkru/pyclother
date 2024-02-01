@@ -189,6 +189,9 @@ class Shop {
         );
         return next(error);
       }
+
+      console.log(shop_email,shop_password)
+
       let user = await shopModel
         .findOne({ shop_email })
         .select("+shop_password");

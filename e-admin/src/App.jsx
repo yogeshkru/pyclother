@@ -21,6 +21,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Shopsignup from "./pages/Shopsignup";
 import Shoplogin from "./pages/Shoplogin";
 import Couponlist from "./pages/Couponlist";
+import Banners from "./pages/Banners"
 function App() {
   return <>
   <BrowserRouter>
@@ -38,7 +39,7 @@ function App() {
           <Route path="brand-list" element={<Brandlist/>}/>
           <Route path="product-list" element={<Productlist/>}/>
         
-         
+          <Route path="banners" element={<Banners/>}/>
       
           <Route path="product" element={<Addproduct/>}/>
           <Route path="payment" element={<Payment/>}/>
