@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const GSTSchema = new mongoose.Schema({
 
     gst_hsn_code:{
-        type:Number,
+        type:String,
         require:[true, "hsn is required" ]
     },
     gst_percentage:{

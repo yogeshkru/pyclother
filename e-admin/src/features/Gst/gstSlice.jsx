@@ -69,6 +69,7 @@ export const PatchGst = createAsyncThunk(
     isSuccess: false,
     message: "",
     isLoader: false,
+    getGst:[]
   };
 
   export const GstDetail = createSlice({
