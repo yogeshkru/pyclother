@@ -63,7 +63,7 @@ function Brandlist() {
   const [edite, setEdite] = useState("");
   const dispatch = useDispatch();
   const brandGet = useSelector((state) => state.brand.Getbrand);
-  console.log(brandGet)
+ 
 
 
   const data = [];
@@ -82,7 +82,7 @@ function Brandlist() {
             <Link
               style={{ marginRight: "10px" }}
               className="mainlayout_icons"
-              onClick={() => handleEdite(categoryGet[id]._id)}
+              onClick={() => handleEdite(brandGet[id]._id)}
             >
               <FiEdit />
             </Link>
@@ -90,7 +90,7 @@ function Brandlist() {
               <MdDelete
                 fontSize={15}
                 className="mainlayout_icons"
-                onClick={() => handleDelete(categoryGet[id]._id)}
+                onClick={() => handleDelete(brandGet[id]._id)}
               />
             </Link>
           </div>
@@ -132,18 +132,18 @@ function Brandlist() {
     },
     onSubmit: (value) => {
       if (edite !== "") {
-        const data = { id: edite._id, categoryValue: value };
+        const data = { id: edite._id, brandValue: value };
         dispatch(brandPatchs(data));
       } else {
         dispatch(brandSignup(value));
-        setRender((per) => per + 1);
+        
       }
       resetForm();
       setEdite("");
       setRender((per) => per + 1);
     },
     validationSchema: Yup.object().shape({
-      brand_title: Yup.string().required("Category title is required "),
+      brand_title: Yup.string().required("Brand title is required "),
       // brand_description: Yup.string().required("Description is required "),
       // meta_title: Yup.string().required("Meta title is required "),
       // meta_description: Yup.string().required("Meta description is required "),
@@ -299,7 +299,7 @@ function Brandlist() {
                       className="brand_padding--border"
                       onClick={handleSubmit}
                     >
-                      {edite !== "" ? "Update Category" : "Add Category"}
+                      {edite !== "" ? "Update Brand" : "Add Brand"}
                     </button>
                   </div>
                 </form>

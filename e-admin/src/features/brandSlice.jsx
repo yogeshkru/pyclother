@@ -20,15 +20,17 @@ export const brandSignup = createAsyncThunk(
 //get
 
 export const brandGets = createAsyncThunk(
-  "auth/brand/get", async (_,thunkApi) => {
-  try {
-    const response = await brandeService.brandGet();
-    return response;
-  } catch (err) {
-    toast.error(err?.response?.data?.message);
-    return thunkApi.rejectWithValue(err);
+  "auth/brand/get",
+  async (_, thunkApi) => {
+    try {
+      const response = await brandeService.brandGet();
+      return response;
+    } catch (err) {
+      toast.error(err?.response?.data?.message);
+      return thunkApi.rejectWithValue(err);
+    }
   }
-});
+);
 
 //patch
 
@@ -62,17 +64,17 @@ export const brandDelete = createAsyncThunk(
 //find
 
 export const brandFinds = createAsyncThunk(
-    "auth/brand/find",
-    async (_,thunkApi) => {
-      try {
-        const response = await brandeService.brandFind();
-        return response;
-      } catch (err) {
-        toast.error(err?.response?.data?.message);
-        return thunkApi.rejectWithValue(err);
-      }
+  "auth/brand/find",
+  async (_, thunkApi) => {
+    try {
+      const response = await brandeService.brandFind();
+      return response;
+    } catch (err) {
+      toast.error(err?.response?.data?.message);
+      return thunkApi.rejectWithValue(err);
     }
-  );
+  }
+);
 
 const initialState = {
   isError: false,
@@ -153,7 +155,6 @@ export const brandDetails = createSlice({
         state.isMessage = action.error;
       })
 
-
       //delete
 
       .addCase(brandDelete.pending, (state, action) => {
@@ -197,9 +198,8 @@ export const brandDetails = createSlice({
         state.isSuccess = false;
         state.isMessage = action.error;
       })
-      .addCase(resetAll,()=>initialState)
+      .addCase(resetAll, () => initialState);
   },
 });
 
-
-export default brandDetails.reducer
+export default brandDetails.reducer;
