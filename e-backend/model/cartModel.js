@@ -24,6 +24,7 @@ const cartSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Tbl_color",
     },
+   
   },
   {
     timestamps: true,

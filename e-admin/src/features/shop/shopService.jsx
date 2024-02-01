@@ -6,18 +6,21 @@ const createShop = async (data) => {
   const response = await axios.post(`${URL.BASE_URL}shop/create-shop`, data);
 
   if (response.data) {
-    return response.data;
+   localStorage.setItem("admin_user",JSON.stringify(response.data))
   }
+  return response.data
 };
 
 //LOGIN ==> SHOP
 
 const loginShop = async (data) => {
+  console.log(data,"8888888888888")
   const response = await axios.post(`${URL.BASE_URL}shop/login-shop`, data);
 
   if (response.data) {
-    return response.data;
+    localStorage.setItem("admin_user",JSON.stringify(response.data))
   }
+  return response.data
 };
 
 // FORGOT-PASSWORD ==> SHOP

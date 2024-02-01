@@ -375,7 +375,7 @@ const CustomError = require("../utils/customError");
 const crypto = require("crypto");
 const util = require("util");
 const sendEmail = require("../utils/sendMail");
-const { sendShopToken } = require("../utils/jwtToken");
+const { adminToken } = require("../utils/jwtToken");
 
 class AdminUserController {
   createActivationToken(data) {
@@ -479,7 +479,7 @@ class AdminUserController {
         branchid: user.admin_branchid,
       };
 
-      return await sendShopToken(data, 201, res);
+      return await adminToken(data, 201, res);
     } catch (error) {
       return next(new CustomError(error.message, 500));
     }
@@ -531,7 +531,7 @@ class AdminUserController {
         email: user.admin_email,
       };
 
-      return await sendShopToken(data, 200, res);
+      return await adminToken(data, 200, res);
     } catch (error) {
       return next(new CustomError("User doesn't exists", 400));
     }
@@ -555,7 +555,7 @@ class AdminUserController {
     user.admin_password = req.body.admin_password;
     await user.save();
 
-    return await sendShopToken(user, 200, res);
+    return await adminToken(user, 200, res);
   };
   // *******************************************
 
@@ -661,7 +661,7 @@ class AdminUserController {
     update.admin_passwordChangedAt = Date.now();
     update.save();
 
-    return await sendShopToken(update, 200, res);
+    return await adminToken(update, 200, res);
   };
 
   getUserById = async (req, res, next) => {

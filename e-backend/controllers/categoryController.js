@@ -10,9 +10,9 @@ class CategoryController {
       if(categoryAlready){
         return next(new customError("This category Already exists"))
       }
-      let { category_title } = req.body;
+      
 
-      const categoryCreate = await categorySchema.create({ category_title });
+      const categoryCreate = await categorySchema.create(req.body);
       res.status(200).json({ categoryCreate });
     } catch (err) {
       next(new customError(err.message, 500));

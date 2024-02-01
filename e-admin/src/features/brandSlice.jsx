@@ -81,7 +81,7 @@ const initialState = {
   isSuccess: false,
   isLoader: false,
   isMessage: "",
-  createBrand: {},
+  Getbrand:[]
 };
 
 export const brandDetails = createSlice({
@@ -97,11 +97,11 @@ export const brandDetails = createSlice({
       .addCase(brandSignup.fulfilled, (state, action) => {
         state.isError = false;
         state.isLoader = false;
-        state.isSuccess = action.payload?.status;
-        state.createBrand = {};
+        state.isSuccess = true;
+        
 
         if (state.isSuccess) {
-          toast.success(action.payload?.message?.message);
+          toast.success("Brand Added");
         }
       })
 
@@ -120,11 +120,9 @@ export const brandDetails = createSlice({
         state.isError = false;
         state.isLoader = false;
         state.isSuccess = action.payload?.status;
-        state.createBrand = action.payload;
+        state.Getbrand=action.payload.getBrands
 
-        if (state.isSuccess) {
-          toast.success(action.payload?.message?.message);
-        }
+        
       })
 
       .addCase(brandGets.rejected, (state, action) => {
@@ -142,11 +140,11 @@ export const brandDetails = createSlice({
       .addCase(brandPatchs.fulfilled, (state, action) => {
         state.isError = false;
         state.isLoader = false;
-        state.isSuccess = action.payload?.status;
-        state.createBrand = action.payload;
+        state.isSuccess = true;
+        state.createBrand=action.payload;
 
         if (state.isSuccess) {
-          toast.success(action.payload?.message?.message);
+          toast.success("Update Brand");
         }
       })
 
@@ -165,10 +163,10 @@ export const brandDetails = createSlice({
       .addCase(brandDelete.fulfilled, (state, action) => {
         state.isError = false;
         state.isLoader = false;
-        state.isSuccess = action.payload?.status;
+        state.isSuccess = true;
 
         if (state.isSuccess) {
-          toast.success(action.payload?.message?.message);
+          toast.error("Delete Brand");
         }
       })
 

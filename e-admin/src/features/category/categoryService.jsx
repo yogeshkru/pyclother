@@ -10,21 +10,21 @@ const categoryPost=async(userData)=>{
 
 
 const categoryGet=async()=>{
-    const response=await axios.post(`${URL.BASE_URL}category/get-category`,config)
+    const response=await axios.get(`${URL.BASE_URL}category/get-category`,config)
     if(response.data){
         return response.data
     }
 }
 
 const categoryPatch=async(data)=>{
-    const response=await axios.patch(`${URL.BASE_URL}category/patch-category/${data}`,data,config)
+    const response=await axios.patch(`${URL.BASE_URL}category/patch-category/${data.id}`,data.categoryValue,config)
     if(response.data){
         return response.data
     }
 }
 
 const categoryDelete=async(data)=>{
-    const response=await axios.patch(`${URL.BASE_URL}category/delete-category/${data}`,data,config)
+    const response=await axios.delete(`${URL.BASE_URL}category/delete-category/${data}`,config)
     if(response.data){
         return response.data
     }
