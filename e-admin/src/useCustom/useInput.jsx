@@ -12,7 +12,7 @@ function UseInput(props) {
         
           <input
             type={type}
-            class="form-control "
+            class="form-control"
             id={id}
             name={name}
             placeholder={label}
