@@ -19,10 +19,13 @@ const productSchema = new mongoose.Schema(
     },
     sold: {
       type: Number,
-      required: true,
+    
     },
     images: [],
-    color: [{ type: mongoose.Schema.Types.ObjectId, ref: "Color" }],
+    color:{
+      type:String,
+      required:true
+    },
     ratings: [
       {
         star: Number,
@@ -42,6 +45,18 @@ const productSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    model:{
+      type:String,
+      required:true
+    },
+    category:{
+      type:String,
+      required:true
+    },
+    stack:{
+     type:Number
+
+    },
     Available: { type: Boolean, default: true },
     // companyId:{},
     // branchId:{}
@@ -49,7 +64,7 @@ const productSchema = new mongoose.Schema(
 
 
     sku: String,
-    tags: String,
+    tag: String,
     
     // gst_Id: {
     //   type: mongoose.Schema.Types.ObjectId,
@@ -57,7 +72,21 @@ const productSchema = new mongoose.Schema(
     //   required:true
     // },
     Gst:String,
-    HSN_code:String,
+    rewardpoint:String,
+    sort:String,
+    length:String,
+    width:String,
+    height:String,
+    diamension_class:String,
+    brether:String,
+    weight:String,
+    weight_class:String,
+    meta_title:String,
+    meta_description:String,
+    meta_keyboard:String
+
+
+  
   },
 
   { timestamps: true }

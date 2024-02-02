@@ -22,7 +22,9 @@ module.exports = (app) => {
   router
     .route("/addwishlist")
     .post(authenticateUser, asyncErrorHandler(addToWishList));
-  router.route("/ratings").post(authenticateUser, asyncErrorHandler(ratingfunc));
+  router
+    .route("/ratings")
+    .post(authenticateUser, asyncErrorHandler(ratingfunc));
 
   // The below url's manipulate by admin's
   router

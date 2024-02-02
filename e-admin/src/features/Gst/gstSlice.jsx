@@ -104,7 +104,7 @@ export const PatchGst = createAsyncThunk(
           state.isLoader = false;
           state.isSuccess = true;
           state.isError = false;
-          state.getGstData = action.payload;
+          state.getGstData = action.payload.gstall;
         })
         .addCase(Getgst .rejected, (state, action) => {
           state.isLoader = false;

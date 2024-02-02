@@ -9,6 +9,7 @@ export const couponPostData = createAsyncThunk(
   async (data, thunkApi) => {
     try {
       const response = await Coupondetails.couponPost(data);
+      thunkApi.dispatch(Couponget())
       return response;
     } catch (err) {
       toast.error(err?.response?.data?.message);
@@ -17,11 +18,12 @@ export const couponPostData = createAsyncThunk(
   }
 );
 
-export const Categoryget = createAsyncThunk(
+export const Couponget = createAsyncThunk(
   "auth/get",
   async (_,thunkApi) => {
     try {
       const response = await Coupondetails.couponGet();
+     
       return response;
     } catch (err) {
       toast.error(err?.response?.data?.message);
@@ -104,16 +106,16 @@ export const CouponSlice = createSlice({
       })
 
       //Get
-      .addCase(Categoryget.pending, (state, action) => {
+      .addCase(Couponget.pending, (state, action) => {
         state.Loaders = true;
       })
-      .addCase(Categoryget.fulfilled, (state, action) => {
+      .addCase(Couponget.fulfilled, (state, action) => {
         state.Success = true;
         state.Error = false;
         state.Loaders = false;
-        state.couponGet = action.payload;
+        state.couponGet = action.payload.coupongetdata;
       })
-      .addCase(Categoryget.rejected, (state, action) => {
+      .addCase(Couponget.rejected, (state, action) => {
         state.Error = true;
         state.Loaders = false;
         state.Success = false;

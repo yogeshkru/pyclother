@@ -16,10 +16,10 @@ const CreateGst = async(data)=>{
 
 //getAll
 
-const getGst = async(data)=>{
+const getGst = async()=>{
     const response = await axios.get(
         `${URL.BASE_URL}gst/get-gst`,
-        data,config
+        config
     );
     if(response.data){
         return response.data
