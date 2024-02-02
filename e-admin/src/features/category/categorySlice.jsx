@@ -17,7 +17,7 @@ export const categoryPostData=createAsyncThunk("auth/categoryPost",
 
 
 export const categoryGetData=createAsyncThunk("auth/categoryGet",
-  async(thunkApi)=>{
+  async(_,thunkApi)=>{
     try{
           const response=await categoryService.categoryGet()
           return response
@@ -92,6 +92,10 @@ const initialState = {
           state.Success = true;
           state.Error = false;
           state.Loaders = false;
+
+          if(state.Success){
+            toast.success("Added Category")
+          }
         })
         .addCase(categoryPostData.rejected, (state, action) => {
           state.Error = true;
@@ -108,7 +112,7 @@ const initialState = {
           state.Success = true;
           state.Error = false;
           state.Loaders = false;
-          state.categoryGet = action.payload;
+          state.categoryGet = action.payload.categorieget;
         })
         .addCase(categoryGetData.rejected, (state, action) => {
           state.Error = true;
@@ -127,6 +131,9 @@ const initialState = {
           state.Error = false;
           state.Success = true;
           state.categoryPatch = action.payload;
+          if(state.Success){
+            toast.success("Updated Category")
+          }
         })
         .addCase(categoryPatchData.rejected, (state, action) => {
           state.Error = true;
@@ -145,6 +152,9 @@ const initialState = {
           state.Error = false;
           state.Success = true;
           state.categoryDelete = action.payload;
+          if(state.Success){
+            toast.error("Deleted Category")
+          }
         })
         .addCase(categoryDeleteData.rejected, (state, action) => {
           state.Error = true;

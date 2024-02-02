@@ -21,6 +21,8 @@ import { FaCartArrowDown } from "react-icons/fa6";
 import { BiCategory } from "react-icons/bi";
 import { RiCouponFill } from "react-icons/ri";
 import { FaQuestion } from "react-icons/fa6";
+import { RiMoneyPoundCircleLine } from "react-icons/ri";
+
 import { Link } from "react-router-dom";
 const items = [
   {
@@ -76,27 +78,34 @@ const Mainlayout = () => {
               children: [
                 {
                   key: "product-list",
-                  label: "Product List",
+                  label: "Product",
                   icon: <MdShoppingCart />,
                 },
 
                 {
                   key: "brand-list",
-                  label: "Brand List",
+                  label: "Brand",
                   icon: <TbBrandBooking />,
                 },
 
                 {
                   key: "category-list",
-                  label: "Category List",
+                  label: "Category",
                   icon: <BiCategory />,
                 },
 
                 {
                   key: "color-list",
-                  label: "Color List",
+                  label: "Color",
                   icon: <IoColorFillOutline />,
                 },
+                {
+                  key: "gst",
+                  label: "Gst",
+                  icon: <RiMoneyPoundCircleLine />
+
+
+                }
               ],
             },
             {
@@ -115,8 +124,8 @@ const Mainlayout = () => {
                 <MdPayment style={{ fontSize: "25px", color: "#BEABC2" }} />
               ),
             },
-           
-         
+
+
             {
               key: "offers",
               label: "Offers",
@@ -124,14 +133,10 @@ const Mainlayout = () => {
                 <BiSolidOffer style={{ fontSize: "25px", color: "#BEABC2" }} />
               ),
               children: [
-                {
-                  key: "add-coupon",
-                  label: "Add Coupon",
-                  icon: <RiCouponFill />,
-                },
+               
                 {
                   key: "coupon-list",
-                  label: "Coupon List",
+                  label: "Coupon",
                   icon: <RiCouponFill />,
                 },
               ],

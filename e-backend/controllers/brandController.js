@@ -75,9 +75,9 @@ class BrandController {
       if (brandAlready) {
         return next(new customError("Brand is already exists", 409));
       }
-      const { brand_title } = req.body;
+      
 
-      let brand = await brandModel.create({ brand_title });
+      let brand = await brandModel.create(req.body);
       res.status(201).json({ brand });
     } catch (err) {
       return next(new customError(err.message, 500));

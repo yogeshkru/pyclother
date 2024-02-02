@@ -18,7 +18,7 @@ export const createColor = createAsyncThunk(
 );
 
 //GET
-export const colorget = createAsyncThunk("color/get", async (_, thunkApi) => {
+export const colorgets = createAsyncThunk("color/get", async (_, thunkApi) => {
   try {
     const response = await colordata.colorGet();
     return response;
@@ -78,6 +78,7 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   message: "",
+  getAllColor:[]
 };
 
 export const ColorSlice = createSlice({
@@ -94,6 +95,9 @@ export const ColorSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.createColor = action.payload;
+        if(state.isSuccess){
+          toast.success("Color Added")
+        }
       })
       .addCase(createColor.rejected, (state, action) => {
         state.isError = true;
@@ -101,16 +105,16 @@ export const ColorSlice = createSlice({
         state.isSuccess = false;
         state.message = action.error;
       })
-      .addCase(colorget.pending, (state) => {
+      .addCase(colorgets.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(colorget.fulfilled, (state, action) => {
+      .addCase(colorgets.fulfilled, (state, action) => {
         state.isSuccess = true;
         state.isLoading = false;
         state.isError = false;
-        state.getAllColor = action.payload;
+        state.getAllColor = action.payload.colorAllget;
       })
-      .addCase(colorget.rejected, (state, action) => {
+      .addCase(colorgets.rejected, (state, action) => {
         state.isError = true;
         state.isLoading = false;
         state.isSuccess = false;
@@ -123,7 +127,9 @@ export const ColorSlice = createSlice({
         state.isSuccess = true;
         state.isLoading = false;
         state.isError = false;
-        state.colorPatched = action.payload;
+        if(state.isSuccess){
+          toast.success("Update Color")
+        }
       })
       .addCase(colorpatch.rejected, (state, action) => {
         state.isError = true;
@@ -139,7 +145,10 @@ export const ColorSlice = createSlice({
         state.isSuccess = true;
         state.isLoading = false;
         state.isError = false;
-        state.colorDeleted = action.payload;
+        
+        if(state.isSuccess){
+          toast.error("Deleted Color")
+        }
       })
       .addCase(colorDelete.rejected, (state, action) => {
         state.isError = true;

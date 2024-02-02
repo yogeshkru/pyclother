@@ -6,6 +6,7 @@ import productSlice from "../features/product/productSlice";
 import superAdminSlice from "../features/SuperAdmin/superAdminSlice";
 import colorSlice from "../features/color/colorSlice";
 import shopSlice from "../features/shop/shopSlice";
+import gstSlice from "../features/Gst/gstSlice";
 export const store = configureStore({
   reducer: {
     brand: brandDetails,
@@ -14,6 +15,7 @@ export const store = configureStore({
     superadmin: superAdminSlice,
     color: colorSlice,
     category:categorySlice,
-    shop:shopSlice
+    shop:shopSlice,
+    gst:gstSlice,
   },
 });

@@ -24,7 +24,7 @@ const shopSchema = new mongoose.Schema(
     },
     shop_address: {
       type: String,
-      required: [true, "Address is required"],
+      // required: [true, "Address is required"],
     },
     shop_phone: {
       type: Number,
@@ -41,7 +41,7 @@ const shopSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["shop admin"],
+      enum: ["shop admin","super admin"],
       default: "shop admin",
     },
     withDrawalMethod: {

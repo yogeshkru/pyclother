@@ -8,7 +8,8 @@ module.exports = (app) => {
   const {
     addressCreate,
     addressGet,
-    addressUpdate,
+    addressUpdateBilling,
+    addressUpdateShipping,
     addressDelete,
     addressfind,
   } = new Address();
@@ -18,11 +19,14 @@ module.exports = (app) => {
     .route("/address-create")
     .post(authenticateUser, asyncErrorhandler(addressCreate));
   router
-    .route("/address-get")
-    .get(authenticateUser, asyncErrorhandler(addressGet));
-  router
-    .route("/address-patch/:id")
-    .patch(authenticateUser, asyncErrorhandler(addressUpdate));
+    .route("address_patch_billing/:id")
+    .patch(authenticateUser, asyncErrorhandler(addressUpdateBilling));
+    router
+    .route("address_patch_shipping/:id")
+    .patch(authenticateUser, asyncErrorhandler(addressUpdateShipping));
+  // router
+  //   .route("/address-patch/:id")
+  //   .patch(authenticateUser, asyncErrorhandler(addressUpdate));
   router
     .route("/address-delete/:id")
     .delete(authenticateUser, asyncErrorhandler(addressDelete));

@@ -16,6 +16,7 @@ const authenticateUser = asyncErrorhandler(async (req, res, next) => {
     const error = new CustomError("you are not logged in", 401);
     return next(error);
   }
+  
   const decodedToken = await util.promisify(jwt.verify)(
     token,
     process.env.SECERT_STRING
@@ -23,16 +24,19 @@ const authenticateUser = asyncErrorhandler(async (req, res, next) => {
 
   let user;
 
-  if (decodedToken.tokenCreateObject && decodedToken.tokenCreateObject?.shop) {
+  
+  if ((decodedToken.tokenCreateObject && decodedToken.tokenCreateObject.shop)) {
     user = await shopModel.findById(decodedToken.tokenCreateObject.id);
   } else if (
-    decodedToken.adminTokenObject &&
-    decodedToken.adminTokenObject?.shopAdmin
+    (decodedToken.adminTokenObject &&
+    decodedToken.adminTokenObject.shopAdmin)
+  
   ) {
     user = await adminUserModel.findById(decodedToken.adminTokenObject.id);
   } else {
     user = await userModel.findById(decodedToken.id);
   }
+
 
   if (!user) {
     const error = new CustomError(

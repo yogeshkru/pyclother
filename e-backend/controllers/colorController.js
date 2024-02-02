@@ -13,8 +13,8 @@ class ColorController {
           .status(409)
           .json({ message: "color is already exists", colorAlready });
       }
-      const { color_title } = req.body;
-      let createColor = await colorSchema.create({ color_title });
+   
+      let createColor = await colorSchema.create(req.body);
       res.status(200).json({ createColor });
     } catch (err) {
       return next(new customError(err.message, 500));
