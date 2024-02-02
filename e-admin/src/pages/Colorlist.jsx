@@ -88,7 +88,7 @@ function Colorlist() {
       }
       resetForm()
       setEdite("")
-      setRender((per)=>per+1)
+    
     },
     validationSchema: Yup.object().shape({
       color_title: Yup.string().required("Color title is required "),

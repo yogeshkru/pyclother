@@ -5,7 +5,11 @@ const Apifeatures = require("../utils/reuseable");
 
 class Product {
   createProduct = async (req, res) => {
-    const newProduct = await productModel.create(req.body);
+    const { _id } = req.user;
+
+    const combinedData = Object.assign({}, req.body, { user: _id });
+
+    const newProduct = await productModel.create(combinedData);
 
     res.status(201).json({ newProduct });
   };

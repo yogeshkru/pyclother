@@ -120,7 +120,7 @@ function Categorylist() {
       category_description: edite.category_description || "",
       meta_title: edite.meta_title || "",
       meta_description: edite.meta_description || "",
-      meta_keyWord: edite.category_meta_keyWord || "",
+      meta_keyWord: edite.meta_keyWord || "",
       sort: edite.sort || "",
     },
     onSubmit: (value) => {
@@ -129,7 +129,7 @@ function Categorylist() {
         dispatch(categoryPatchData(data));
       } else {
         dispatch(categoryPostData(value));
-        setRender((per) => per + 1);
+      
       }
       resetForm();
       setEdite("");
@@ -142,8 +142,8 @@ function Categorylist() {
       // meta_description: Yup.string().required("Meta description is required "),
       // meta_keyWord: Yup.string().required("Meta keyword is required "),
       sort: Yup.string()
-        .matches(/^\d$/, "Please enter a single digit.")
-        .required("Sort is required."),
+        // .matches(/^\d$/, "Please enter a single digit.")
+        // .required("Sort is required."),
     }),
   });
 

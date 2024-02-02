@@ -225,6 +225,7 @@ background: linear-gradient(90deg, rgba(123,216,208,1) 25%, rgba(95,214,199,1) 5
     border: 1px solid #B66DFF;
     border-radius: 15px;
 }
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -250,6 +251,12 @@ input[type=number] {
 }
 .product_floating>.product_select{
     padding-bottom: 0 !important;
+}
+.addproduct_color:hover{
+   background:none !important;
+}
+.addproduct_color:focus{
+    background:none !important;
 }
 @media only screen and (max-width:600px){
     .mainlayout_compared{
