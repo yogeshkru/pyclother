@@ -22,6 +22,12 @@ import { useDispatch, useSelector } from "react-redux";
 
 
 const Gst = () => {
+  
+  const [render,setRender]=useState(0)
+  const [edit, setEdit] = useState("");
+  const dispatch = useDispatch();
+  const {getallGst}=useSelector((state)=>state.gst)
+  console.log(getallGst)
 
 
   const col = [
@@ -47,15 +53,12 @@ const Gst = () => {
     },
   ]
 
-  const [render,setRender]=useState(0)
-  const [edit, setEdit] = useState("");
-  const dispatch = useDispatch();
-  const GSTget = useSelector((state) => state.gst);
-console.log(GSTget,"sdubwgvui")
+  
+
 
   
   const handleEdit = (i) => {
-    const edits =  GSTget.find((item) => item._id === i);
+    const edits = getallGst.find((item) => item._id === i);
     setEdit(edits)
   }
   const handleDelete=(i)=>{
@@ -65,19 +68,19 @@ console.log(GSTget,"sdubwgvui")
   }
 
   const data = [];
-  for (let id = 0; id < GSTget.length; id++) {
+  for (let id = 1; id <getallGst.length; id++) {
     data.push({
-      id: id + 1,
-      HSN_code :  GSTget [id]?.HSN_code,
-      Gst: GSTget [id]?.Gst,
-     
+      id: id,
+      hsn_code : getallGst[id]?.gst_hsn_code,
+      gst: getallGst[id]?.gst_percentage,
+
       action: (
         <>
           <div className="d-flex">
             <Link
               style={{ marginRight: "10px" }}
               className="mainlayout_icons"
-              onClick={() => handleEdit(GSTget[id]._id)}
+              onClick={() => handleEdit(getallGst[id]._id)}
             >
               <FiEdit />
             </Link>
@@ -85,7 +88,7 @@ console.log(GSTget,"sdubwgvui")
               <MdDelete
                 fontSize={15}
                 className="mainlayout_icons"
-                onClick={() => handleDelete(GSTget[id]._id)}
+                onClick={() => handleDelete(getallGst[id]._id)}
               />
             </Link>
           </div>
@@ -105,8 +108,8 @@ console.log(GSTget,"sdubwgvui")
   } = useFormik({
     enableReinitialize: true,
     initialValues: {
-      HSN_code: edit. HSN_code || "",
-      Gst: edit.Gst|| "",
+      HSN_code: edit.gst_hsn_code|| "",
+      Gst: edit.gst_percentage|| "",
      
     },
     onSubmit: (value) => {
@@ -127,8 +130,8 @@ console.log(GSTget,"sdubwgvui")
     }),
   });
   useEffect(() => {
-    dispatch( Getgst());
-  }, [render])
+    dispatch(Getgst());
+  }, [render,dispatch])
 
   return (
     <div>
