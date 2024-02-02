@@ -9,9 +9,22 @@ exports.createGst = asyncErrorHandler(async (req, res, next) => {
     }
 
     const { gst_hsn_code, gst_percentage } = req.body;
+    console.log('Received HSN Code:', req.body);
 
+    // const HSNAlready = await gstModel.findOne({ gst_hsn_code: req.body.Hsncode });
+
+    // console.log('Existing HSN Code:', HSNAlready);
+    
+    const { HSN_code, Gst } = req.body;
+     
     try {
-        const handleCreate = await gstModel.create({gst_hsn_code, gst_percentage });
+        const handleCreate = await gstModel.create({
+            gst_hsn_code: HSN_code,
+            gst_percentage: Gst,
+           
+        });
+       
+        console.log(handleCreate,"create")
         res.status(200).json({ handleCreate });
     } catch (error) {
         next(new CustomError(error.message, 500));
@@ -59,15 +72,20 @@ exports.getonegst = asyncErrorHandler(async(req,res,next)=>{
 
 
 exports.updategst = asyncErrorHandler(async(req,res,next)=>{
-    const { id } = req.params;
+  
     try {
-        const updategst = await gstModel.findByIdAndUpdate(id);
-        if(!updategst){
+        const gstpatch = await gstModel.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { runValidators: true, new: true }
+          );
+    
+        if(!gstpatch){
             return res.status(404).json({
                 status: 404,
                 message: "can't update gst",
             });
-        } res.status(200).json({updategst})
+        } res.status(200).json({gstpatch})
     } catch (error) {
         next(new CustomError(error.message, 500)); 
     }

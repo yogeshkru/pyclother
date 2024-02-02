@@ -19,7 +19,7 @@ module.exports = (app) => {
     .get(authenticateUser, restrict("shop admin", "super admin"),   getonegst);
 
     router
-    .route("/delete-gst")
+    .route("/delete-gst/:id")
     .delete(authenticateUser, restrict("shop admin", "super admin"),   deletegst);
 
     router

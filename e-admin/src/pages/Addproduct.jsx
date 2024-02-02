@@ -49,13 +49,13 @@ function Addproduct() {
     }
   })
 
-  const get_brand = Getbrand.map((item) => (
-    <option key={item._id} value={item.brand_title}>
+  const get_brand = Getbrand?.map((item) => (
+    <option key={item?._id} value={item.brand_title}>
       {item.brand_title}
     </option>
   ));
 
-  const get_color = getAllColor.map((item) => (
+  const get_color = getAllColor?.map((item) => (
     <option
       key={item._id}
       value={item.color_title}
@@ -66,7 +66,7 @@ function Addproduct() {
     </option>
   ));
 
-  const getGst = getGstData.map((item) => (
+  const getGst = getGstData?.map((item) => (
     <option value={item.gst_percentage} key={item._id}>
       {item.gst_percentage}
     </option>
