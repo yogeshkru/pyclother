@@ -69,6 +69,7 @@ const initialState = {
   isSuccess: false,
   message: "",
   isLoader: false,
+  Getenquirys:[]
 };
 export const EnquiryDetail = createSlice({
   name: "enq",
@@ -84,7 +85,7 @@ export const EnquiryDetail = createSlice({
         state.isLoader = false;
         state.isSuccess = true;
         state.isError = false;
-        state.Createenquiry = action.payload;
+  
       })
 
       .addCase(Postenquiry.rejected, (state, action) => {

@@ -155,7 +155,7 @@ function Brandlist() {
   });
   useEffect(() => {
     dispatch(brandGets());
-  }, [render]);
+  }, [render,dispatch]);
 
   return (
     <div>

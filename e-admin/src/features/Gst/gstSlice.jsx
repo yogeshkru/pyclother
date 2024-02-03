@@ -6,7 +6,7 @@ export const Reset_all = createAction("Reset_all");
 
 
 export const Postgst = createAsyncThunk(
-    "auth/gst/gstpost",
+    "auth/gst/create-gst",
     async (gst, thunkApi) => {
         try {
             const response = await Gst.CreateGst(gst);
@@ -18,7 +18,7 @@ export const Postgst = createAsyncThunk(
     }
 );
 export const Getgst = createAsyncThunk(
-    "auth/gst/gstget",
+    "auth/gst/get-gst",
     async (_, thunkApi) => {
         try {
             const response = await Gst.getGst();
@@ -69,7 +69,7 @@ export const PatchGst = createAsyncThunk(
     isSuccess: false,
     message: "",
     isLoader: false,
-    getGst:[]
+    getallGst:[]
   };
 
   export const GstDetail = createSlice({
@@ -86,7 +86,7 @@ export const PatchGst = createAsyncThunk(
           state.isLoader = false;
           state.isSuccess = true;
           state.isError = false;
-          state.CreateGst = action.payload;
+        
         })
   
         .addCase(Postgst.rejected, (state, action) => {
@@ -104,7 +104,7 @@ export const PatchGst = createAsyncThunk(
           state.isLoader = false;
           state.isSuccess = true;
           state.isError = false;
-          state.getGst = action.payload;
+          state.getallGst = action.payload.gstall;
         })
         .addCase(Getgst .rejected, (state, action) => {
           state.isLoader = false;
@@ -120,7 +120,8 @@ export const PatchGst = createAsyncThunk(
           state.isLoader = false;
           state.isSuccess = true;
           state.isError = false;
-          state.Getone = action.payload;
+          
+          
         })
         .addCase(Getone.rejected, (state, action) => {
           state.isLoader = false;
@@ -136,7 +137,6 @@ export const PatchGst = createAsyncThunk(
         .addCase( DeleteGst.fulfilled, (state, action) => {
           state.isLoader = false;
           state.isError = false;
-          state.message = action.error;
           state.isSuccess = true;
         })
         .addCase( DeleteGst.rejected, (state, action) => {
@@ -145,13 +145,16 @@ export const PatchGst = createAsyncThunk(
           state.message = action.error;
           state.isSuccess = false;
         })
+
+
+
         .addCase(PatchGst.pending, (state, action) => {
           state.isLoader = true;
         })
         .addCase(PatchGst.fulfilled, (state, action) => {
           state.isLoader = false;
           state.isError = false;
-          state.createCategories = action.payload;
+         
           state.isSuccess = true;
         })
         .addCase(PatchGst.rejected, (state, action) => {

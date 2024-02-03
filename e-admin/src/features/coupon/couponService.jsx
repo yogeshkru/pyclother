@@ -4,7 +4,7 @@ import { config } from "../../utilis/axiosConfig";
 //POST
 
 const couponPost=async(userData)=>{
-    const response=await axios.post(`${URL.BASE_URL}coupon/create-coupon`,userData,config)
+    const response=await axios.post(`${URL.BASE_URL}coupon/createcoupon`,userData,config)
     if(response.data){
         return response.data
     }
@@ -22,7 +22,7 @@ const couponGet=async()=>{
 //PATCH
 
 const couponPatch=async(data)=>{
-    const response=await axios.patch(`${URL.BASE_URL}coupon/patch-coupon/${data}`,data,config)
+    const response=await axios.patch(`${URL.BASE_URL}coupon/patch-coupon/${data.id}`,data.couponValue,config)
     if(response.data){
         return response.data
     }

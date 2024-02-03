@@ -19,11 +19,17 @@ const uploadProductImage = async(image)=>{
   return response.data
 }
 
+const deleteImage=async(image)=>{
+  console.log(image)
+   const response=await axios.delete(`${URL.BASE_URL}upload/delete-product-image/${image}`)
+   return response.data
+}
 
 
 const updloadImageService={
     uploadImages,
-    uploadProductImage
+    uploadProductImage,
+    deleteImage
 }
 
 export default updloadImageService;

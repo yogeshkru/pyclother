@@ -11,6 +11,7 @@ const { default: mongoose } = require("mongoose");
 
 class UserController {
   createUser = async (req, res, next) => {
+
     try {
       const userAlready = await userModel.findOne({
         user_email: req.body.user_email,

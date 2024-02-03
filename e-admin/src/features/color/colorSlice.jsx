@@ -9,6 +9,9 @@ export const createColor = createAsyncThunk(
   async (userData, thunkApi) => {
     try {
       const response = await colordata.colorCreate(userData);
+     
+      thunkApi.dispatch(colorgets()); 
+
       return response;
     } catch (err) {
       toast.error(err?.response?.data?.message);

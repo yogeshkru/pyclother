@@ -32,11 +32,23 @@ export const uploadProductImageOnServer = createAsyncThunk(
   }
 );
 
+export const deleletProductImageonserver=createAsyncThunk(
+  "upload/delete",async(data,thunApi)=>{
+    try{
+      const response=await updloadImageService.deleteImage(data);
+      return response
+    }catch(err){
+          return thunApi.rejectWithValue(err)
+    }
+  }
+)
+
 const initialState = {
   isError: false,
   isSuccess: false,
   isLoader: false,
   message: "",
+  productImage:[]
 };
 
 export const imageSlice = createSlice({
@@ -67,7 +79,7 @@ export const imageSlice = createSlice({
         state.isError = false;
         state.isLoader = false;
         state.isSuccess = true;
-        state.productImage = action.payload;
+        state.productImage.push(action.payload)
       })
       .addCase(uploadProductImageOnServer.rejected, (state, action) => {
         state.isError = true;
@@ -76,6 +88,24 @@ export const imageSlice = createSlice({
         state.message = action.error;
         console.log(state.message)
       })
+      .addCase(deleletProductImageonserver.pending, (state) => {
+        state.isLoader = true;
+      })
+      .addCase(deleletProductImageonserver.fulfilled, (state, action) => {
+        
+        state.isError = false;
+        state.isLoader = false;
+        state.isSuccess = true;
+      
+      })
+      .addCase(deleletProductImageonserver.rejected, (state, action) => {
+        state.isError = true;
+        state.isLoader = false;
+        state.isSuccess = false;
+        state.message = action.error;
+     
+      })
+
       .addCase(resetAll, () => initialState);
   },
 });
