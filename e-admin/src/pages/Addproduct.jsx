@@ -5,13 +5,19 @@ import { InboxOutlined } from "@ant-design/icons";
 import { message, Upload } from "antd";
 import UseInput from "../useCustom/useInput";
 import Dropzone from "react-dropzone";
+import { Select } from "antd";
+import URL from "../utilis/Url";
+import { uploadProductImageOnServer } from "../features/uploadImages/uploadImagesSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function Addproduct() {
+  const dispatch = useDispatch()
   const [desc, setdesc] = useState();
-  const handleChange = (e) => {
+  const handleColors = (e) => {
     setdesc(e);
   };
 
+  const{productImage} = useSelector((state)=>state.updload)
   return (
     <div className="row">
       <div className="col-lg-12">
@@ -77,15 +83,15 @@ function Addproduct() {
                   <div className="col-lg-4">
                     <div className="">
                       <label className="fw-bold fs-10">Color</label>
-                      <select
-                        class="form-select"
-                        aria-label="Default select example"
-                      >
-                        <option selected>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                      </select>
+                      <Select
+              mode="multiple"
+              allowClear
+              className="w-100"
+              placeholder="Select colors"
+              // defaultValue={color}
+              onChange={(i) => handleColors(i)}
+              // options={colorsWidget}
+            />
                     </div>
                   </div>
 
@@ -154,7 +160,7 @@ function Addproduct() {
               <div class="card-body">
                 <Dropzone
                   onDrop={(acceptedFiles) =>
-                    dispatch(uploadImgtoServer(acceptedFiles))
+                    dispatch(uploadProductImageOnServer(acceptedFiles))
                   }
                 >
                   {({ getRootProps, getInputProps }) => (
@@ -167,6 +173,25 @@ function Addproduct() {
                   )}
                 </Dropzone>
               </div>
+
+              <div className="showimages d-flex flex-wrap gap-3">
+              {Array.isArray(productImage) &&
+                productImage.length > 0 &&
+                productImage?.map((i, j) => {
+                  return (
+                    <div className="position-relative" key={j}>
+                      <button
+                        type="button"
+                        // onClick={() => dispatch(deleteImg(i?.public_id))}
+                        className="btn-close position-absolute"
+                        style={{ top: "10px", right: "10px" }}
+                      ></button>
+                      <img src={`${URL.IMAGE_URL}/${i}`} alt="images" width={200} height={200} />
+
+                    </div>
+                  );
+                })}
+            </div>
 
               <div className="">
                 <label className="fw-bold fs-10">Sort</label>
@@ -241,6 +266,11 @@ function Addproduct() {
                 </div>
               </div>
             </div>
+
+
+
+
+
 
           </div>
           <div className="col-lg-4 ">

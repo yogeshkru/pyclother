@@ -14,10 +14,16 @@ const uploadImages = async (image) => {
 };
 
 
+const uploadProductImage = async(image)=>{
+  const response = await axios.patch(`${URL.BASE_URL}upload/img-upload`,image)
+  return response.data
+}
+
 
 
 const updloadImageService={
-    uploadImages
+    uploadImages,
+    uploadProductImage
 }
 
 export default updloadImageService;

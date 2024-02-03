@@ -16,6 +16,22 @@ export const bannerImageUploadOnServer = createAsyncThunk(
   }
 );
 
+export const uploadProductImageOnServer = createAsyncThunk(
+  "upload/image",
+  async (data, thunkAPI) => {
+    try {
+      const formData = new FormData();
+      for (let i = 0; i < data.length; i++) {
+        formData.append("images", data[i]);
+      }
+      const response = await updloadImageService.uploadProductImage(formData);
+      return response.urls;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(value)
+    }
+  }
+);
+
 const initialState = {
   isError: false,
   isSuccess: false,
@@ -43,6 +59,22 @@ export const imageSlice = createSlice({
         state.isLoader = false;
         state.isSuccess = false;
         state.message = action.error;
+      })
+      .addCase(uploadProductImageOnServer.pending, (state) => {
+        state.isLoader = true;
+      })
+      .addCase(uploadProductImageOnServer.fulfilled, (state, action) => {
+        state.isError = false;
+        state.isLoader = false;
+        state.isSuccess = true;
+        state.productImage = action.payload;
+      })
+      .addCase(uploadProductImageOnServer.rejected, (state, action) => {
+        state.isError = true;
+        state.isLoader = false;
+        state.isSuccess = false;
+        state.message = action.error;
+        console.log(state.message)
       })
       .addCase(resetAll, () => initialState);
   },

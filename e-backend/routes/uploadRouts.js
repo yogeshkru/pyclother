@@ -11,10 +11,10 @@ module.exports = (app) => {
 
   router
     .route("/img-upload")
-    .post(
-      authenticateUser,
-      restrict("shop admin", "super admin"),
-      uploadPhoto.array("images", 1),
+    .patch(
+      // authenticateUser,
+      // restrict("shop admin", "super admin"),
+      uploadPhoto.array("images", 9),
       uploadImages
     );
 

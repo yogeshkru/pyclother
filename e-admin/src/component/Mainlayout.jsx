@@ -23,6 +23,7 @@ import { RiCouponFill } from "react-icons/ri";
 import { FaQuestion } from "react-icons/fa6";
 import { FaDisplay } from "react-icons/fa6";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+import { RiMoneyPoundCircleLine } from "react-icons/ri";
 
 import { Link } from "react-router-dom";
 const items = [
@@ -100,6 +101,13 @@ const Mainlayout = () => {
                   label: "Color",
                   icon: <IoColorFillOutline />,
                 },
+                {
+                  key: "gst",
+                  label: "Gst",
+                  icon: <RiMoneyPoundCircleLine />
+
+
+                }
               ],
             },
             
@@ -138,6 +146,8 @@ const Mainlayout = () => {
               ),
             },
           
+
+
             {
               key: "offers",
               label: "Offers",
