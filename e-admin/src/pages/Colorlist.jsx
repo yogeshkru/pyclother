@@ -22,13 +22,13 @@ const columns = [
     sortable: true,
   },
   {
-    name: "Brand",
-    selector: (row) => row.brand,
+    name: "Color",
+    selector: (row) => row.color,
     sortable: true,
   },
   {
-    name: "Description",
-    selector: (row) => row.description,
+    name: "Color Name",
+    selector: (row) => row.color_hex_name,
   },
   {
     name: "Meta title",
@@ -71,7 +71,7 @@ function Colorlist() {
     enableReinitialize: true,
     initialValues: {
       color_title: edite.color_title || "",
-      color_description:edite.color_description || "",
+      color_hex_name:edite.color_hex_name || "",
       meta_title:edite.meta_title || "",
       meta_description:edite.meta_description || "",
       meta_keyWord:edite.meta_keyWord || "",
@@ -92,7 +92,7 @@ function Colorlist() {
     },
     validationSchema: Yup.object().shape({
       color_title: Yup.string().required("Color title is required "),
-      // color_description: Yup.string().required("Description is required "),
+      color_hex_name: Yup.string().required("Description is required "),
       // meta_title: Yup.string().required("Meta title is required "),
       // meta_description: Yup.string().required("Meta description is required "),
       // meta_keyWord: Yup.string().required("Meta keyword is required "),
@@ -120,8 +120,8 @@ function Colorlist() {
   for (let id = 0; id < getAllColor.length; id++) {
     data.push({
       id: id + 1,
-      brand: getAllColor[id]?.color_title,
-      description: getAllColor[id]?.color_description,
+      color: getAllColor[id]?.color_title,
+      color_hex_name: getAllColor[id]?.color_hex_name,
       meta_title: getAllColor[id]?.meta_title,
       meta_description: getAllColor[id]?.meta_description,
       meta_keyword: getAllColor[id]?.meta_keyWord,
@@ -195,17 +195,17 @@ function Colorlist() {
                   <div className="mb-3">
                     <UseInput
                       type="text"
-                      name="color_description"
+                      name="color_hex_name"
                       onChange={handleChange}
                       onBlur={handleBlur}
                      
-                      value={values.color_description}
-                      label="Description"
+                      value={values.color_hex_name}
+                      label="Color Name"
                     />
-                    {errors.color_description &&
-                    touched.color_description ? (
+                    {errors.color_hex_name &&
+                    touched.color_hex_name ? (
                       <div style={{ color: "red" }}>
-                        {errors.color_description}
+                        {errors.color_hex_name}
                       </div>
                     ) : (
                       ""

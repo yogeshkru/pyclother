@@ -22,10 +22,9 @@ const productSchema = new mongoose.Schema(
     
     },
     images: [],
-    color:{
-      type:String,
-      required:true
-    },
+    color:[{type:mongoose.Schema.Types.ObjectId,ref:"Tbl_color"}],
+     
+    
     ratings: [
       {
         star: Number,
@@ -66,16 +65,12 @@ const productSchema = new mongoose.Schema(
     sku: String,
     tag: String,
     
-    // gst_Id: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "Tbl_gst",
-    //   required:true
-    // },
-    Gst:String,
+    
+    Gst:{type:mongoose.Schema.Types.ObjectId,ref:"Tbl_gst"},
     rewardpoint:String,
     sort:String,
     length:String,
-    width:String,
+   
     height:String,
     diamension_class:String,
     brether:String,
@@ -83,8 +78,9 @@ const productSchema = new mongoose.Schema(
     weight_class:String,
     meta_title:String,
     meta_description:String,
-    meta_keyboard:String
-
+    meta_keyboard:String,
+  
+      
 
   
   },

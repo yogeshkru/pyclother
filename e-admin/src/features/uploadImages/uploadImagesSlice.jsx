@@ -16,11 +16,29 @@ export const bannerImageUploadOnServer = createAsyncThunk(
   }
 );
 
+export const productUpload=createAsyncThunk("auth/productImage",async(data,thunkApi)=>{
+  try{
+    const formData=new FormData()
+    for(let i=0;i<data.length;i++){
+      formData.append("images",data[i])
+    }
+    const response=await updloadImageService.uploadProductImage(formData)
+   
+    return response;
+    
+
+  }
+  catch(err){
+    return thunkApi.rejectWithValue(err)
+  }
+})
+
 const initialState = {
   isError: false,
   isSuccess: false,
   isLoader: false,
   message: "",
+ 
 };
 
 export const imageSlice = createSlice({
@@ -39,6 +57,22 @@ export const imageSlice = createSlice({
         state.bannerImage = action.payload;
       })
       .addCase(bannerImageUploadOnServer.rejected, (state, action) => {
+        state.isError = true;
+        state.isLoader = false;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+
+      .addCase(productUpload.pending, (state) => {
+        state.isLoader = true;
+      })
+      .addCase(productUpload.fulfilled, (state, action) => {
+        state.isSuccess = true;
+        state.isError = false;
+        state.isLoader = false;
+       
+      })
+      .addCase(productUpload.rejected, (state, action) => {
         state.isError = true;
         state.isLoader = false;
         state.isSuccess = false;

@@ -16,8 +16,11 @@ const uploadImages = async (image) => {
 
 
 
+
+
 const updloadImageService={
-    uploadImages
+    uploadImages,
+  
 }
 
 export default updloadImageService;

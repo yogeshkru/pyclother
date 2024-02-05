@@ -30,7 +30,7 @@ require("dotenv").config({ path: "./config.env" });
 }
 
 // *****************Third part liberary****************
-app.use(helmet());
+// app.use(helmet());
 app.use(cors());
 
 app.use(bodyparser.json({ limit: "10kb" })); // Important

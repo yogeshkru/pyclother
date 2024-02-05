@@ -60,6 +60,9 @@ const Gst = () => {
   const handleEdit = (i) => {
     const edits = getallGst.find((item) => item._id === i);
     setEdit(edits)
+    console.log(edits)
+
+    
   }
   const handleDelete=(i)=>{
     dispatch(DeleteGst(i))
@@ -68,7 +71,7 @@ const Gst = () => {
   }
 
   const data = [];
-  for (let id = 1; id <getallGst.length; id++) {
+  for (let id = 0; id <getallGst.length; id++) {
     data.push({
       id: id,
       hsn_code : getallGst[id]?.gst_hsn_code,
@@ -131,7 +134,7 @@ const Gst = () => {
   });
   useEffect(() => {
     dispatch(Getgst());
-  }, [render,dispatch])
+  }, [render])
 
   return (
     <div>

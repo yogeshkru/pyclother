@@ -1,53 +1,63 @@
-import React,{useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import UseInput from "../useCustom/useInput";
 import DataTable from "react-data-table-component";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import {couponPostData,Couponget,couponPatchData,couponDeletes} from "../features/coupon/couponSlice";
-import {useDispatch,useSelector} from "react-redux";
-import {Link} from "react-router-dom";
+import {
+  couponPostData,
+  Couponget,
+  couponPatchData,
+  couponDeletes,
+} from "../features/coupon/couponSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { FiEdit } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
 
 function Couponlist() {
-  const [render,setRender]=useState(0)
-  const dispatch=useDispatch()
-  const[edite,setEdite]=useState("")
-  const {couponGet}=useSelector((state)=>state.coupon)
-  console.log(couponGet)
-  const { values, errors, handleChange, handleBlur, handleSubmit, touched,resetForm } =
-    useFormik({
-      enableReinitialize:true,
-      initialValues: {
-        coupon_name: edite.coupon_name || "",
-        coupon_expired:edite.coupon_expired && new Date(edite.coupon_expired).toISOString() || "",
+  const [render, setRender] = useState(0);
+  const dispatch = useDispatch();
+  const [edite, setEdite] = useState("");
+  const { couponGet } = useSelector((state) => state.coupon);
+  console.log(couponGet);
+  const {
+    values,
+    errors,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    touched,
+    resetForm,
+  } = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      coupon_name: edite.coupon_name || "",
+      coupon_expired: edite.coupon_expired || "",
 
-        coupon_discount: edite.coupon_discount || "",
-      },
-      validationSchema: Yup.object().shape({
-        coupon_name: Yup.string().required("Name is required"),
-        coupon_expired: Yup.date()
-          .required("Date of birth is required")
-          .nullable(),
-          coupon_discount:Yup.string().required("Discount is required")
-      }),
-      onSubmit:(value)=>{
-         if(edite !== ""){
-          const data={id:edite._id,couponValue:value}
-             dispatch(couponPatchData(data))
-         }else{
-          dispatch(couponPostData(value))
-        
-         }
-         resetForm()
-         setEdite("")
-         setRender((per)=>per+1)
+      coupon_discount: edite.coupon_discount || "",
+    },
+    validationSchema: Yup.object().shape({
+      coupon_name: Yup.string().required("Name is required"),
+      coupon_expired: Yup.date()
+        .required("Date of birth is required")
+        .nullable(),
+      coupon_discount: Yup.string().required("Discount is required"),
+    }),
+    onSubmit: (value) => {
+      if (edite !== "") {
+        const data = { id: edite._id, couponValue: value };
+        dispatch(couponPatchData(data));
+      } else {
+        dispatch(couponPostData(value));
       }
-    });
-    useEffect(()=>{
-     
-       dispatch(Couponget())
-    },[dispatch,render])
+      resetForm();
+      setEdite("");
+      setRender((per) => per + 1);
+    },
+  });
+  useEffect(() => {
+    dispatch(Couponget());
+  }, [dispatch, render]);
   const columns = [
     {
       name: "Id",
@@ -71,24 +81,24 @@ function Couponlist() {
     },
   ];
 
-const handleEdite=(i)=>{
-  const couponEdite=couponGet.find((item)=>item._id===i)
-  setEdite(couponEdite)
-}
+  const handleEdite = (i) => {
+    const couponEdite = couponGet.find((item) => item._id === i);
+    setEdite(couponEdite);
+  };
 
-const handleDelete=(i)=>{
-   dispatch(couponDeletes(i))
-   setRender((per)=>per-1)
-}
+  const handleDelete = (i) => {
+    dispatch(couponDeletes(i));
+    setRender((per) => per - 1);
+  };
 
   const data = [];
   for (let id = 0; id < couponGet.length; id++) {
     data.push({
       id: id + 1,
       coupon: couponGet[id]?.coupon_name,
-      expired: couponGet[id]?.coupon_expired,
+      expired: new Date(couponGet[id]?.coupon_expired).toLocaleDateString(),
       discount: couponGet[id]?.coupon_discount,
-     
+
       action: (
         <>
           <div className="d-flex">
@@ -130,8 +140,8 @@ const handleDelete=(i)=>{
                       onChange={handleChange}
                       onBlur={handleBlur}
                     />
-                        {errors.coupon_name && touched.coupon_name ? (
-                      <div style={{color:"red"}}>{errors.coupon_name}</div>
+                    {errors.coupon_name && touched.coupon_name ? (
+                      <div style={{ color: "red" }}>{errors.coupon_name}</div>
                     ) : (
                       ""
                     )}
@@ -147,7 +157,9 @@ const handleDelete=(i)=>{
                       onBlur={handleBlur}
                     />
                     {errors.coupon_expired && touched.coupon_expired ? (
-                      <div style={{color:"red"}}>{errors.coupon_expired}</div>
+                      <div style={{ color: "red" }}>
+                        {errors.coupon_expired}
+                      </div>
                     ) : (
                       ""
                     )}
@@ -164,14 +176,16 @@ const handleDelete=(i)=>{
                     />
 
                     {errors.coupon_discount && touched.coupon_discount ? (
-                      <div style={{color:"red"}}>{errors.coupon_discount}</div>
+                      <div style={{ color: "red" }}>
+                        {errors.coupon_discount}
+                      </div>
                     ) : (
                       ""
                     )}
                   </div>
                   <div className="brand_padding">
                     <button type="submit" className="brand_padding--border">
-                      {edite ? "Update Coupon":"Add Coupon"}
+                      {edite ? "Update Coupon" : "Add Coupon"}
                     </button>
                   </div>
                 </form>

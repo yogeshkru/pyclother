@@ -1,53 +1,77 @@
 import React, { useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { Select } from "antd";
+
 import { colorgets } from "../features/color/colorSlice";
 import { brandGets } from "../features/brandSlice";
 import { categoryGetData } from "../features/category/categorySlice";
 import { useDispatch, useSelector } from "react-redux";
 import UseInput from "../useCustom/useInput";
-import Dropzone from "react-dropzone";
+
 import "../styles/Mainlayout.css";
 import { Getgst } from "../features/Gst/gstSlice";
-import {useFormik} from "formik";
+import { useFormik } from "formik";
 import * as Yup from "yup";
+
+import URL from "../utilis/Url";
 
 function Addproduct() {
   const dispatch = useDispatch();
   const { Getbrand } = useSelector((state) => state.brand);
   const { categoryGet } = useSelector((state) => state.category);
   const { getAllColor } = useSelector((state) => state.color);
-  const { getGstData } = useSelector((state) => state.gst);
+  const { getallGst } = useSelector((state) => state.gst);
 
-  const {values,errors,handleChange,handleBlur,handleSubmit,touched}=useFormik({
-    initialValues:{
-      name:"",
-      description:"",
-      brand:"",
-      color:"",
-      price:"",
-      sku:"",
-      tags:"",
-      Available:"",
-      model:"",
-      stack:"",
-      Gst:"",
-      quantity:"",
-      category:"",
-      rewardpoint:"",
-      sort:"",
-      length:"",
-      width:"",
-      height:"",
-      brether:"",
-      weight:"",
-      weight_class:"",
-      meta_title:"",
-      meta_description:"",
-      meta_keyboard:""  
-    }
-  })
+ 
+
+
+  const { values, errors, handleChange, handleBlur, handleSubmit, touched } =
+    useFormik({
+      initialValues: {
+        name: "",
+        description: "",
+        brand: "",
+        color: "",
+        price: "",
+        sku: "",
+        tag: "",
+        Available: "",
+        model: "",
+        stack: "",
+        Gst: "",
+        quantity: "",
+        category: "",
+        diamension_class:"",
+        rewardpoint: "",
+        sort: "",
+        length: "",
+       
+        height: "",
+        brether: "",
+        weight: "",
+        weight_class: "",
+        meta_title: "",
+        meta_description: "",
+        meta_keyboard: "",
+      },
+      onSubmit: (value) => {
+        console.log(value);
+      },
+      validationSchema: Yup.object().shape({
+        name: Yup.string().required("Product Name is required"),
+        description: Yup.string().required("Product Description is required"),
+        brand: Yup.string().required("Brand is required"),
+        model: Yup.string().required("Model is required"),
+        sku: Yup.string().required("SKU is required"),
+        stack: Yup.number().required("Stack is required"),
+        price: Yup.number().required("Price is required"),
+        Gst: Yup.string().required("GST is required"),
+        color: Yup.string().required("Color is required"),
+        category: Yup.string().required("Category is required"),
+        sort: Yup.string().required("Sort is required"),
+        quantity: Yup.string().required("Quantity is required"),
+      }),
+    });
 
   const get_brand = Getbrand?.map((item) => (
     <option key={item?._id} value={item.brand_title}>
@@ -56,19 +80,14 @@ function Addproduct() {
   ));
 
   const get_color = getAllColor?.map((item) => (
-    <option
-      key={item._id}
-      value={item.color_title}
-      style={{ backgroundColor: item.color_title, color: "white" }}
-      className="addproduct_color"
-    >
-      {item.color_title}
+    <option key={item._id} value={item?._id}>
+      {item.color_hex_name}
     </option>
   ));
 
-  const getGst = getGstData?.map((item) => (
-    <option value={item.gst_percentage} key={item._id}>
-      {item.gst_percentage}
+  const getGst = getallGst?.map((item) => (
+    <option value={item._id} key={item._id}>
+      {item.gst_percentage}%
     </option>
   ));
 
@@ -83,11 +102,12 @@ function Addproduct() {
     dispatch(colorgets());
     dispatch(categoryGetData());
     dispatch(Getgst());
-  }, [dispatch]);
+   
+  }, []);
 
   return (
     <div className="row">
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="col-lg-12">
           <div className="row">
             <div className="col-lg-8">
@@ -96,26 +116,82 @@ function Addproduct() {
                   <div className="row mb-3">
                     <div className="col-lg-4">
                       <label className="fw-bold fs-10">Product Name</label>
-                      <UseInput type="text" label="Name" />
+                      <UseInput
+                        type="text"
+                        label="Name"
+                        name="name"
+                        value={values.name}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                      {errors.name && touched.name ? (
+                        <div>{errors.name}</div>
+                      ) : (
+                        ""
+                      )}
                     </div>
                     <div className="col-lg-4">
                       <label className="fw-bold fs-10">Product Model</label>
-                      <UseInput type="text" label="Model" />
+                      <UseInput
+                        type="text"
+                        label="Model"
+                        name="model"
+                        value={values.model}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                      {errors.model && touched.model ? (
+                        <div>{errors.model}</div>
+                      ) : (
+                        ""
+                      )}
                     </div>
 
                     <div className="col-lg-4">
                       <label className="fw-bold fs-10">SKU</label>
-                      <UseInput type="text" label="SKU" />
+                      <UseInput
+                        type="text"
+                        label="SKU"
+                        name="sku"
+                        value={values.sku}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                      {errors.sku && touched.sku ? <div>{errors.sku}</div> : ""}
                     </div>
                   </div>
                   <div className="row mb-2  ">
                     <div className="col-lg-4">
                       <label className="fw-bold fs-10">Stack</label>
-                      <UseInput type="text" label="Stack" />
+                      <UseInput
+                        type="number"
+                        label="Stack"
+                        name="stack"
+                        value={values.stack}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                      {errors.stack && touched.stack ? (
+                        <div>{errors.stack}</div>
+                      ) : (
+                        ""
+                      )}
                     </div>
                     <div className="col-lg-4">
                       <label className="fw-bold fs-10">Product Price</label>
-                      <UseInput type="text" label="Model" />
+                      <UseInput
+                        type="number"
+                        label="Model"
+                        name="price"
+                        value={values.price}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                      {errors.price && touched.price ? (
+                        <div>{errors.price}</div>
+                      ) : (
+                        ""
+                      )}
                     </div>
 
                     <div className="col-lg-4">
@@ -124,10 +200,18 @@ function Addproduct() {
                         <select
                           class="form-select"
                           aria-label="Default select example"
+                          name="Gst"
+                          value={values.Gst}
+                          onChange={handleChange}
                         >
                           <option selected>Open this select menu</option>
                           {getGst}
                         </select>
+                        {errors.Gst && touched.Gst ? (
+                          <div>{errors.Gst}</div>
+                        ) : (
+                          ""
+                        )}
                       </div>
                     </div>
                   </div>
@@ -138,29 +222,63 @@ function Addproduct() {
                         <select
                           class="form-select"
                           aria-label="Default select example"
+                          value={values.brand}
+                          name="brand"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
                         >
                           <option selected>Open this select menu</option>
                           {get_brand}
                         </select>
+                        {errors.brand && touched.brand ? (
+                          <div>{errors.brand}</div>
+                        ) : (
+                          ""
+                        )}
                       </div>
                     </div>
                     <div className="col-lg-4">
                       <div className="product_custom-dropdown">
                         <label className="fw-bold fs-10">Color</label>
-                        <UseInput type="text" label="Color" />
+                        <select
+                          class="form-select"
+                          aria-label="Default select example"
+                          name="color"
+                          value={values.color}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        >
+                          <option selected>Open this select menu</option>
+                          {get_color}
+                        </select>
+                        {errors.color && touched.color ? (
+                          <div>{errors.color}</div>
+                        ) : (
+                          ""
+                        )}
                       </div>
                     </div>
 
                     <div className="col-lg-4">
                       <div className="">
                         <label className="fw-bold fs-10">Category</label>
+
                         <select
                           class="form-select"
                           aria-label="Default select example"
+                          name="category"
+                          value={values.category}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
                         >
                           <option selected>Open this select menu</option>
                           {get_category}
                         </select>
+                        {errors.category && touched.category ? (
+                          <div>{errors.category}</div>
+                        ) : (
+                          ""
+                        )}
                       </div>
                     </div>
                   </div>
@@ -168,7 +286,14 @@ function Addproduct() {
                     <div className="col-lg-4">
                       <div className="">
                         <label className="fw-bold fs-10">Reward Point</label>
-                        <UseInput type="text" label="Reward Point" />
+                        <UseInput
+                          type="number"
+                          label="Reward Point"
+                          name="rewardpoint"
+                          value={values.rewardpoint}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
                       </div>
                     </div>
                     <div className="col-lg-4">
@@ -188,69 +313,79 @@ function Addproduct() {
                     <div className="col-lg-4">
                       <div className="">
                         <label className="fw-bold fs-10">Sort</label>
-                        <UseInput type="number" label="Sort" />
+                        <UseInput
+                          type="number"
+                          label="Sort"
+                          name="sort"
+                          value={values.sort}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
                       </div>
+                      {errors.sort && touched.sort ? (
+                        <div>{errors.sort}</div>
+                      ) : (
+                        ""
+                      )}
                     </div>
                   </div>
-                   
 
                   <div className="row">
                     <div className="col-lg-4">
                       <div className="">
                         <label className="fw-bold fs-10">Quantity</label>
-                        <UseInput type="text" label="Quantity" />
+                        <UseInput
+                          type="number"
+                          label="Quantity"
+                          name="quantity"
+                          value={values.quantity}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
                       </div>
+                      {errors.quantity && touched.quantity ? (
+                        <div>{errors.quantity}</div>
+                      ) : (
+                        ""
+                      )}
                     </div>
                     <div className="col-lg-4">
                       <div className="">
                         <label className="fw-bold fs-10">Tag</label>
-                        <UseInput type="text" label="Tag" />
+                        <UseInput
+                          type="text"
+                          label="Tag"
+                          name="tag"
+                          value={values.tag}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
                       </div>
+                      {errors.tag && touched.tag ? <div>{errors.tag}</div> : ""}
                     </div>
 
                     <div className="col-lg-4">
-                      <div className="">
-                       
-                      </div>
+                      <div className=""></div>
                     </div>
                   </div>
 
                   <div className="mt-3 mb-2">
                     <label className="fw-bold fs-10">Description</label>
-                    <UseInput type="text" label="Description" />
+                    <UseInput
+                      type="text"
+                      label="Description"
+                      name="description"
+                      value={values.description}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
                   </div>
+                  {errors.description && touched.description ? <div>{errors.description}</div>:""}
                 </div>
               </div>
             </div>
 
-            <div className="col-lg-4">
-              <div class="card p-4">
-                <div
-                  class="card-body "
-                  style={{ border: "1px solid black", borderRadius: "20px" }}
-                >
-                  <Dropzone
-                    onDrop={(acceptedFiles) =>
-                      dispatch(uploadImgtoServer(acceptedFiles))
-                    }
-                  >
-                    {({ getRootProps, getInputProps }) => (
-                      <section>
-                        <div {...getRootProps()}>
-                          <input {...getInputProps()} />
-                          <p className="text-center">Upload Image</p>
-                        </div>
-                      </section>
-                    )}
-                  </Dropzone>
-                </div>
-
-                <div className="">
-                  <label className="fw-bold fs-10">Sort</label>
-                  <UseInput type="text" label="Sort" />
-                </div>
-              </div>
-            </div>
+          
           </div>
 
           <div className="row">
@@ -264,29 +399,33 @@ function Addproduct() {
                   <div className="row mb-1">
                     <div className="col-lg-6">
                       <label className="fw-bold fs-10">Length</label>
-                      <UseInput type="text" label="Length" />
+                      <UseInput type="number" label="Length" name="length" onChange={handleChange} value={values.length} onBlur={handleBlur}/>
                     </div>
                     <div className="col-lg-6">
                       <label className="fw-bold fs-10">Brether</label>
-                      <UseInput type="text" label="Brether" />
+                      <UseInput type="number" label="Brether" name="brether" value={values.brether} onChange={handleChange} onBlur={handleBlur}/>
                     </div>
                   </div>
                   <div className="mt-3 mb-2">
                     <div className="row">
                       <div className="col-lg-6">
                         <label className="fw-bold fs-10">Height</label>
-                        <UseInput type="text" label="Length" />
+                        <UseInput type="number" label="height"  name="height" onChange={handleChange} onBlur={handleBlur} value={values.height}/>
                       </div>
                       <div className="col-lg-6">
                         <label className="fw-bold fs-10">Dimension class</label>
                         <select
                           class="form-select"
                           aria-label="Default select example"
+                          name="diamension_class"
+                          value={values.diamension_class}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
                         >
                           <option selected>Open this select menu</option>
-                          <option value="1">Centimeter</option>
-                          <option value="2">Millimeter</option>
-                          <option value="3">Inch</option>
+                          <option value="Centimeter">Centimeter</option>
+                          <option value="Millimeter">Millimeter</option>
+                          <option value="Inch">Inch</option>
                         </select>
                       </div>
                     </div>
@@ -295,18 +434,22 @@ function Addproduct() {
                     <div className="row">
                       <div className="col-lg-6">
                         <label className="fw-bold fs-10">Weight</label>
-                        <UseInput type="text" label="Length" />
+                        <UseInput type="number" label="Weight" name="weight" value={values.weight} onChange={handleChange} onBlur={handleBlur}/>
                       </div>
                       <div className="col-lg-6">
                         <label className="fw-bold fs-10">Weight class</label>
                         <select
                           class="form-select"
                           aria-label="Default select example"
+                          name="weight_class"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.weight_class}
                         >
                           <option selected>Open this select menu</option>
-                          <option value="1">Kilogram</option>
-                          <option value="2">Gram</option>
-                          <option value="3">Pound</option>
+                          <option value="Kilogram">Kilogram</option>
+                          <option value="Gram">Gram</option>
+                          <option value="Pound">Pound</option>
                         </select>
                       </div>
                     </div>
@@ -325,20 +468,23 @@ function Addproduct() {
                   </div>
                   <div className="mb-2">
                     <label className="fw-bold fs-10">Meta Title </label>
-                    <UseInput type="text" label="Meta Title" />
+                    <UseInput type="text" label="Meta Title" name="meta_title" value={values.meta_title} onChange={handleChange} onBlur={handleBlur}/>
                   </div>
                   <div className="mb-2">
                     <label className="fw-bold fs-10">Meta Description </label>
-                    <UseInput type="text" label="Meta Description" />
+                    <UseInput type="text" label="Meta Description"  name="meta_description" value={values.meta_description} onChange={handleChange} onBlur={handleBlur}/>
                   </div>
                   <div className="mb-2">
                     <label className="fw-bold fs-10">Meta Keyword </label>
-                    <UseInput type="text" label="Meta Keyword" />
+                    <UseInput type="text" label="Meta Keyword" name="meta_keyboard" value={values.meta_keyboard} onChange={handleChange} onBlur={handleBlur}/>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+        <div className="mt-2">
+          <button type="submit">Add Product</button>
         </div>
       </form>
     </div>
