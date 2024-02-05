@@ -10,8 +10,14 @@ import UseInput from "../useCustom/useInput";
 
 import "../styles/Mainlayout.css";
 import { Getgst } from "../features/Gst/gstSlice";
+<<<<<<< HEAD
 import { useFormik } from "formik";
+=======
+import { Formik, useFormik } from "formik";
+>>>>>>> 4a4e520a37268963453ff43be9a35c0916157d73
 import * as Yup from "yup";
+import URL from "../utilis/Url";
+import { uploadProductImageOnServer,deleletProductImageonserver } from "../features/uploadImages/uploadImagesSlice";
 
 import URL from "../utilis/Url";
 
@@ -21,7 +27,16 @@ function Addproduct() {
   const { categoryGet } = useSelector((state) => state.category);
   const { getAllColor } = useSelector((state) => state.color);
   const { getallGst } = useSelector((state) => state.gst);
+<<<<<<< HEAD
 
+=======
+  const {productImage} = useSelector((state)=>state.upload)
+ 
+
+
+
+
+>>>>>>> 4a4e520a37268963453ff43be9a35c0916157d73
  
 
 
@@ -53,6 +68,10 @@ function Addproduct() {
         meta_title: "",
         meta_description: "",
         meta_keyboard: "",
+<<<<<<< HEAD
+=======
+        images:""
+>>>>>>> 4a4e520a37268963453ff43be9a35c0916157d73
       },
       onSubmit: (value) => {
         console.log(value);
@@ -97,6 +116,14 @@ function Addproduct() {
     </option>
   ));
 
+  const img=[]
+
+  productImage.flat()?.forEach((element)=>{
+      img.push({
+         url:element
+      })
+  })
+
   useEffect(() => {
     dispatch(brandGets());
     dispatch(colorgets());
@@ -104,6 +131,13 @@ function Addproduct() {
     dispatch(Getgst());
    
   }, []);
+<<<<<<< HEAD
+=======
+  useEffect(()=>{
+    values.images=img;
+
+  },[])
+>>>>>>> 4a4e520a37268963453ff43be9a35c0916157d73
 
   return (
     <div className="row">
@@ -382,8 +416,65 @@ function Addproduct() {
                   </div>
                   {errors.description && touched.description ? <div>{errors.description}</div>:""}
                 </div>
+
+<<<<<<< HEAD
+          
+=======
+                <div className="col-lg-4">
+            <div class="card p-4">
+              <div class="card-body">
+                <Dropzone
+                  onDrop={(acceptedFiles) =>
+                    dispatch(uploadProductImageOnServer(acceptedFiles))
+                  }
+                >
+                  {({ getRootProps, getInputProps }) => (
+                    <section>
+                      <div {...getRootProps()}>
+                        <input {...getInputProps()} />
+                        <p className="text-center">Upload Image</p>
+                      </div>
+                    </section>
+                  )}
+                </Dropzone>
+              </div>
+
+              <div className="showimages d-flex flex-wrap gap-3">
+              {Array.isArray(productImage) &&
+                productImage.length > 0 &&
+                productImage.flat()?.map((i, j) => {
+                  return (
+                    <div className="position-relative" key={j}>
+                      <button
+                        type="button"
+                        onClick={() => dispatch(deleletProductImageonserver(i))}
+                        className="btn-close position-absolute"
+                        style={{ top: "10px", right: "10px" }}
+                      ></button>
+                      <img src={`${URL.IMAGE_URL}/${i}`} alt="images" width={200} height={200} />
+
+                    </div>
+                  );
+                })}
+            </div>
+
+              <div className="">
+                <label className="fw-bold fs-10">Sort</label>
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>Open this select menu</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
               </div>
             </div>
+>>>>>>> 4a4e520a37268963453ff43be9a35c0916157d73
+          </div>
+              </div>
+            </div>
+
+
+
 
           
           </div>

@@ -31,7 +31,17 @@ require("dotenv").config({ path: "./config.env" });
 
 // *****************Third part liberary****************
 // app.use(helmet());
+<<<<<<< HEAD
+=======
+
+
+
+
+
+>>>>>>> 4a4e520a37268963453ff43be9a35c0916157d73
 app.use(cors());
+
+// app.use("/public", cors()); // Assuming images are served from the "/public" route
 
 app.use(bodyparser.json({ limit: "10kb" })); // Important
 app.use(bodyparser.urlencoded({ extended: true }));

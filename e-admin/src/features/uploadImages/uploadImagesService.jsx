@@ -14,13 +14,28 @@ const uploadImages = async (image) => {
 };
 
 
+const uploadProductImage = async(image)=>{
+  const response = await axios.patch(`${URL.BASE_URL}upload/img-upload`,image)
+  return response.data
+}
+
+const deleteImage=async(image)=>{
+  console.log(image)
+   const response=await axios.delete(`${URL.BASE_URL}upload/delete-product-image/${image}`)
+   return response.data
+}
 
 
 
 
 const updloadImageService={
     uploadImages,
+<<<<<<< HEAD
   
+=======
+    uploadProductImage,
+    deleteImage
+>>>>>>> 4a4e520a37268963453ff43be9a35c0916157d73
 }
 
 export default updloadImageService;
