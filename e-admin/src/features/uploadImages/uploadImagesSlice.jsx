@@ -16,24 +16,6 @@ export const bannerImageUploadOnServer = createAsyncThunk(
   }
 );
 
-<<<<<<< HEAD
-export const productUpload=createAsyncThunk("auth/productImage",async(data,thunkApi)=>{
-  try{
-    const formData=new FormData()
-    for(let i=0;i<data.length;i++){
-      formData.append("images",data[i])
-    }
-    const response=await updloadImageService.uploadProductImage(formData)
-   
-    return response;
-    
-
-  }
-  catch(err){
-    return thunkApi.rejectWithValue(err)
-  }
-})
-=======
 export const uploadProductImageOnServer = createAsyncThunk(
   "upload/image",
   async (data, thunkAPI) => {
@@ -60,18 +42,13 @@ export const deleletProductImageonserver=createAsyncThunk(
     }
   }
 )
->>>>>>> 4a4e520a37268963453ff43be9a35c0916157d73
 
 const initialState = {
   isError: false,
   isSuccess: false,
   isLoader: false,
   message: "",
-<<<<<<< HEAD
- 
-=======
   productImage:[]
->>>>>>> 4a4e520a37268963453ff43be9a35c0916157d73
 };
 
 export const imageSlice = createSlice({
@@ -95,19 +72,6 @@ export const imageSlice = createSlice({
         state.isSuccess = false;
         state.message = action.error;
       })
-<<<<<<< HEAD
-
-      .addCase(productUpload.pending, (state) => {
-        state.isLoader = true;
-      })
-      .addCase(productUpload.fulfilled, (state, action) => {
-        state.isSuccess = true;
-        state.isError = false;
-        state.isLoader = false;
-       
-      })
-      .addCase(productUpload.rejected, (state, action) => {
-=======
       .addCase(uploadProductImageOnServer.pending, (state) => {
         state.isLoader = true;
       })
@@ -118,14 +82,10 @@ export const imageSlice = createSlice({
         state.productImage.push(action.payload)
       })
       .addCase(uploadProductImageOnServer.rejected, (state, action) => {
->>>>>>> 4a4e520a37268963453ff43be9a35c0916157d73
         state.isError = true;
         state.isLoader = false;
         state.isSuccess = false;
         state.message = action.error;
-<<<<<<< HEAD
-      })
-=======
         console.log(state.message)
       })
       .addCase(deleletProductImageonserver.pending, (state) => {
@@ -146,7 +106,6 @@ export const imageSlice = createSlice({
      
       })
 
->>>>>>> 4a4e520a37268963453ff43be9a35c0916157d73
       .addCase(resetAll, () => initialState);
   },
 });

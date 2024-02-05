@@ -10,16 +10,11 @@ import UseInput from "../useCustom/useInput";
 
 import "../styles/Mainlayout.css";
 import { Getgst } from "../features/Gst/gstSlice";
-<<<<<<< HEAD
-import { useFormik } from "formik";
-=======
-import { Formik, useFormik } from "formik";
->>>>>>> 4a4e520a37268963453ff43be9a35c0916157d73
+import {  useFormik } from "formik";
 import * as Yup from "yup";
 import URL from "../utilis/Url";
 import { uploadProductImageOnServer,deleletProductImageonserver } from "../features/uploadImages/uploadImagesSlice";
 
-import URL from "../utilis/Url";
 
 function Addproduct() {
   const dispatch = useDispatch();
@@ -27,16 +22,12 @@ function Addproduct() {
   const { categoryGet } = useSelector((state) => state.category);
   const { getAllColor } = useSelector((state) => state.color);
   const { getallGst } = useSelector((state) => state.gst);
-<<<<<<< HEAD
-
-=======
   const {productImage} = useSelector((state)=>state.upload)
  
 
 
 
 
->>>>>>> 4a4e520a37268963453ff43be9a35c0916157d73
  
 
 
@@ -68,10 +59,7 @@ function Addproduct() {
         meta_title: "",
         meta_description: "",
         meta_keyboard: "",
-<<<<<<< HEAD
-=======
         images:""
->>>>>>> 4a4e520a37268963453ff43be9a35c0916157d73
       },
       onSubmit: (value) => {
         console.log(value);
@@ -131,13 +119,10 @@ function Addproduct() {
     dispatch(Getgst());
    
   }, []);
-<<<<<<< HEAD
-=======
   useEffect(()=>{
     values.images=img;
 
   },[])
->>>>>>> 4a4e520a37268963453ff43be9a35c0916157d73
 
   return (
     <div className="row">
@@ -417,9 +402,6 @@ function Addproduct() {
                   {errors.description && touched.description ? <div>{errors.description}</div>:""}
                 </div>
 
-<<<<<<< HEAD
-          
-=======
                 <div className="col-lg-4">
             <div class="card p-4">
               <div class="card-body">
@@ -468,7 +450,6 @@ function Addproduct() {
                 </select>
               </div>
             </div>
->>>>>>> 4a4e520a37268963453ff43be9a35c0916157d73
           </div>
               </div>
             </div>

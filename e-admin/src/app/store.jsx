@@ -7,11 +7,7 @@ import superAdminSlice from "../features/SuperAdmin/superAdminSlice";
 import colorSlice from "../features/color/colorSlice";
 import shopSlice from "../features/shop/shopSlice";
 import Gst from "../features/Gst/gstSlice";
-<<<<<<< HEAD
-import uploadImagesSlice from "../features/uploadImages/uploadImagesSlice";;
-=======
 import uploadImagesSlice from "../features/uploadImages/uploadImagesSlice"
->>>>>>> 4a4e520a37268963453ff43be9a35c0916157d73
 export const store = configureStore({
   reducer: {
     brand: brandDetails,
@@ -22,11 +18,7 @@ export const store = configureStore({
     category:categorySlice,
     shop:shopSlice,
     gst:Gst,
-<<<<<<< HEAD
-    uploadimage:uploadImagesSlice
-=======
     upload:uploadImagesSlice
 
->>>>>>> 4a4e520a37268963453ff43be9a35c0916157d73
   },
 });

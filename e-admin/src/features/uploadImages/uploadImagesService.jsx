@@ -30,12 +30,8 @@ const deleteImage=async(image)=>{
 
 const updloadImageService={
     uploadImages,
-<<<<<<< HEAD
-  
-=======
     uploadProductImage,
     deleteImage
->>>>>>> 4a4e520a37268963453ff43be9a35c0916157d73
 }
 
 export default updloadImageService;
