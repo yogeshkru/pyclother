@@ -123,8 +123,8 @@ const Mainlayout = () => {
             
            
             {
-              key: "display",
-              label: "Display",
+              key: "events",
+              label: "Events",
               icon: (
                 <FaDisplay style={{ fontSize: "25px", color: "#BEABC2" }} />
               ),
