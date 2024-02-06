@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import {  useFormik } from "formik";
+import { useFormik } from "formik";
 import * as Yup from "yup";
 import "../styles/Mainlayout.css";
 
@@ -12,12 +12,18 @@ import {
   brandSignup,
   brandGets,
   brandPatchs,
-  brandDelete
+  brandDelete,
 } from "../features/brandSlice";
 import { useSelector, useDispatch } from "react-redux";
 
-
 function Brandlist() {
+  const [render, setRender] = useState(0);
+  const [edite, setEdite] = useState("");
+  const [searchTerm, setSearch] = useState("");
+  const dispatch = useDispatch();
+  const brandGet = useSelector((state) => state.brand.Getbrand);
+  const {isLoader}=useSelector((state)=>state.brand)
+  console.log(isLoader)
 
   const columns1 = [
     {
@@ -56,33 +62,30 @@ function Brandlist() {
       selector: (row) => row.action,
     },
   ];
-  
-
-
-  const [render,setRender]=useState(0)
-  const [edite, setEdite] = useState("");
-  const dispatch = useDispatch();
-  const brandGet = useSelector((state) => state.brand.Getbrand);
- 
-
+  const filteredData = brandGet.filter(row =>
+    Object.values(row).some(value =>
+      value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  );
+  console.log(filteredData)
 
   const data = [];
-  for (let id = 0; id < brandGet.length; id++) {
+  for (let id = 0; id < filteredData.length; id++) {
     data.push({
       id: id + 1,
-      brand: brandGet[id]?.brand_title,
-      description: brandGet[id]?.brand_description,
-      meta_title: brandGet[id]?.meta_title,
-      meta_description: brandGet[id]?.meta_description,
-      meta_keyword: brandGet[id]?.meta_keyWord,
-      sort: brandGet[id]?.sort,
+      brand: filteredData[id]?.brand_title,
+      description: filteredData[id]?.brand_description,
+      meta_title: filteredData[id]?.meta_title,
+      meta_description: filteredData[id]?.meta_description,
+      meta_keyword: filteredData[id]?.meta_keyWord,
+      sort: filteredData[id]?.sort,
       action: (
         <>
           <div className="d-flex">
             <Link
               style={{ marginRight: "10px" }}
               className="mainlayout_icons"
-              onClick={() => handleEdite(brandGet[id]._id)}
+              onClick={() => handleEdite(filteredData[id]._id)}
             >
               <FiEdit />
             </Link>
@@ -90,7 +93,7 @@ function Brandlist() {
               <MdDelete
                 fontSize={15}
                 className="mainlayout_icons"
-                onClick={() => handleDelete(brandGet[id]._id)}
+                onClick={() => handleDelete(filteredData[id]._id)}
               />
             </Link>
           </div>
@@ -101,16 +104,13 @@ function Brandlist() {
 
   const handleEdite = (i) => {
     const edites = brandGet.find((item) => item._id === i);
-   
-    setEdite(edites)
-    
-    
+
+    setEdite(edites);
   };
-  const handleDelete=(i)=>{
-    dispatch(brandDelete(i))
-    setRender(per=>per-1)
-    
-  }
+  const handleDelete = (i) => {
+    dispatch(brandDelete(i));
+    setRender((per) => per - 1);
+  };
 
   const {
     values,
@@ -136,7 +136,6 @@ function Brandlist() {
         dispatch(brandPatchs(data));
       } else {
         dispatch(brandSignup(value));
-        
       }
       resetForm();
       setEdite("");
@@ -153,13 +152,21 @@ function Brandlist() {
         .required("Sort is required."),
     }),
   });
+
+
+  let content
   useEffect(() => {
+    if(isLoader){
+      content=<p>loding ...</p>
+    }
     dispatch(brandGets());
-  }, [render,dispatch]);
+
+  }, [render, dispatch]);
 
   return (
     <div>
       <div className="mt-2">
+        
         <div className="row">
           <div className="col-lg-4 fs-4 fw-bold">Brand List</div>
           <div className="col-lg-4">
@@ -169,6 +176,8 @@ function Brandlist() {
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
+                value={searchTerm}
+                onChange={(e)=>setSearch(e.target.value)}
               />
               <button class="btn btn-outline-success" type="submit">
                 Search
@@ -188,14 +197,11 @@ function Brandlist() {
                       name="brand_title"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                    
                       value={values.brand_title}
                       label="Brand"
                     />
                     {errors.brand_title && touched.brand_title ? (
-                      <div style={{ color: "red" }}>
-                        {errors.brand_title}
-                      </div>
+                      <div style={{ color: "red" }}>{errors.brand_title}</div>
                     ) : (
                       ""
                     )}
@@ -207,12 +213,10 @@ function Brandlist() {
                       name="brand_description"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                     
                       value={values.brand_description}
                       label="Description"
                     />
-                    {errors.brand_description &&
-                    touched.brand_description ? (
+                    {errors.brand_description && touched.brand_description ? (
                       <div style={{ color: "red" }}>
                         {errors.brand_description}
                       </div>
@@ -265,7 +269,6 @@ function Brandlist() {
                       name="meta_keyWord"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                   
                       value={values.meta_keyWord}
                       label="Meta keyword"
                     />

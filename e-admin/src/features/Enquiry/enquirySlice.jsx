@@ -1,4 +1,4 @@
-import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+  import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Enquiries from "./enquiryService";
 import { toast } from "react-toastify";
 
@@ -69,7 +69,7 @@ const initialState = {
   isSuccess: false,
   message: "",
   isLoader: false,
-  Getenquirys:[]
+  GetAllenquirys:[]
 };
 export const EnquiryDetail = createSlice({
   name: "enq",
@@ -103,7 +103,8 @@ export const EnquiryDetail = createSlice({
         state.isLoader = false;
         state.isSuccess = true;
         state.isError = false;
-        state.Getenquirys = action.payload;
+        
+        state.GetAllenquirys = action.payload.enquiryAll;
       })
       .addCase(Getenquirys.rejected, (state, action) => {
         state.isLoader = false;

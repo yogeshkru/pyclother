@@ -1,0 +1,7 @@
+.banner-sidebar-home {
+    font-size: 10px;
+}
+
+.bannercontent-palceholder::placeholder{
+padding-left: 60px;
+}

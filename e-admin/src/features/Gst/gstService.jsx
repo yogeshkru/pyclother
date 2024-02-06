@@ -53,7 +53,7 @@ const deleteGst = async(data)=>{
 //update
 
 const updateGst = async(data)=>{
-    const response = await axios.update(
+    const response = await axios.patch(
         `${URL.BASE_URL}gst/update-gst/${data.id}`,
         data.gstValue,config
     );

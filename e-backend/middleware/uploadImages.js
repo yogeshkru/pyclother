@@ -1,8 +1,9 @@
 const multer = require("multer");
-const Jimp = require('jimp');
+const Jimp = require("jimp");
 
 const path = require("path");
 const fs = require("fs");
+const CustomError = require("../utils/customError");
 
 const multerStorage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -46,5 +47,6 @@ const uploadPhoto = multer({
 //   );
 //   console.log(product);
 // };
+
 
 module.exports = { uploadPhoto };

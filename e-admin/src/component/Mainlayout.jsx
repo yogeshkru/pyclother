@@ -21,9 +21,12 @@ import { FaCartArrowDown } from "react-icons/fa6";
 import { BiCategory } from "react-icons/bi";
 import { RiCouponFill } from "react-icons/ri";
 import { FaQuestion } from "react-icons/fa6";
+import { FaDisplay } from "react-icons/fa6";
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { RiMoneyPoundCircleLine } from "react-icons/ri";
 
 import { Link } from "react-router-dom";
+
 const items = [
   {
     key: "1",
@@ -39,6 +42,9 @@ const Mainlayout = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
+
+
+
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -51,7 +57,11 @@ const Mainlayout = () => {
           mode="inline"
           defaultSelectedKeys={[""]}
           onClick={({ key }) => {
-            if (key === "signup") {
+            if (key === "signout") {
+              localStorage.clear()
+              navigate("/")
+              window.location.reload()
+
             } else {
               navigate(key);
             }
@@ -108,6 +118,7 @@ const Mainlayout = () => {
                 }
               ],
             },
+            
             {
               key: "orders",
               label: "Orders",
@@ -119,6 +130,24 @@ const Mainlayout = () => {
             },
             
            
+            {
+              key: "events",
+              label: "Events",
+              icon: (
+                <FaDisplay style={{ fontSize: "25px", color: "#BEABC2" }} />
+              ),
+              children: [
+                {
+                  key: "banners",
+                  label: "Banners",
+                  icon: (
+                    <MdKeyboardDoubleArrowRight
+                      style={{ fontSize: "25px", color: "#BEABC2" }}
+                    />
+                  ),
+                },
+              ],
+            },
             {
               key: "payment",
               label: "Payment",
@@ -136,7 +165,6 @@ const Mainlayout = () => {
                 <BiSolidOffer style={{ fontSize: "25px", color: "#BEABC2" }} />
               ),
               children: [
-               
                 {
                   key: "coupon-list",
                   label: "Coupon",
@@ -144,6 +172,7 @@ const Mainlayout = () => {
                 },
               ],
             },
+
             {
               key: "enquiries",
               label: "Enquiries",
