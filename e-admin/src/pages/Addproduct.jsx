@@ -7,7 +7,7 @@ import { brandGets } from "../features/brandSlice";
 import { categoryGetData } from "../features/category/categorySlice";
 import { useDispatch, useSelector } from "react-redux";
 import UseInput from "../useCustom/useInput";
-
+import Dropzone from "react-dropzone"; 
 import "../styles/Mainlayout.css";
 import { Getgst } from "../features/Gst/gstSlice";
 import {  useFormik } from "formik";

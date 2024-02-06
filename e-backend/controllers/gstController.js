@@ -3,10 +3,10 @@ const asyncErrorHandler = require("../utils/asyncErrorHandler");
 const CustomError = require("../utils/customError");
 
 exports.createGst = asyncErrorHandler(async (req, res, next) => {
-    const HSNAlready = await gstModel.findOne({ gst_hsn_code: req.body.gst_hsn_code });
-    if (!HSNAlready) {
-        return next(new CustomError("HSN Code is already exists", 409));
-    }
+    // const HSNAlready = await gstModel.findOne({ gst_hsn_code: req.body.gst_hsn_code });
+    // if (!HSNAlready) {
+    //     return next(new CustomError("HSN Code is already exists", 409));
+    // }
 
    
     console.log('Received HSN Code:', req.body);

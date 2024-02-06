@@ -10,6 +10,8 @@ import * as Yup from "yup";
 import UseInput from "../useCustom/useInput";
 import { useDispatch, useSelector } from "react-redux";
 import DataTable from "react-data-table-component";
+import { IoIosSearch } from "react-icons/io";
+
 import {
   categoryPostData,
   categoryGetData,
@@ -20,6 +22,7 @@ import {
 function Categorylist() {
   const [render, setRender] = useState(0);
   const [edite, setEdite] = useState("");
+  const[searchTerm,setSearch]=useState("");
   const dispatch = useDispatch();
   const { categoryGet } = useSelector((state) => state.category);
   console.log(categoryGet);
@@ -71,24 +74,36 @@ function Categorylist() {
       name: "Action",
       selector: (row) => row.action,
     },
+
+ 
+
+  
   ];
+
+  const filterCategory = categoryGet.filter(row=>
+    Object.values(row).some(value=>
+      value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    ); console.log(searchTerm,"wefwee")
+
+
   const data = [];
-  for (let id = 0; id < categoryGet.length; id++) {
+  for (let id = 0; id < filterCategory.length; id++) {
     data.push({
       id: id + 1,
-      category: categoryGet[id]?.category_title,
-      description: categoryGet[id]?.category_description,
-      meta_title: categoryGet[id]?.meta_title,
-      meta_description: categoryGet[id]?.meta_description,
-      meta_keyword: categoryGet[id]?.meta_keyWord,
-      sort: categoryGet[id]?.sort,
+      category: filterCategory[id]?.category_title,
+      description: filterCategory[id]?.category_description,
+      meta_title: filterCategory[id]?.meta_title,
+      meta_description: filterCategory[id]?.meta_description,
+      meta_keyword:filterCategory[id]?.meta_keyWord,
+      sort: filterCategory[id]?.sort,
       action: (
         <>
           <div className="d-flex">
             <Link
               style={{ marginRight: "10px" }}
               className="mainlayout_icons"
-              onClick={() => handleEdite(categoryGet[id]._id)}
+              onClick={() => handleEdite(filterCategory[id]._id)}
             >
               <FiEdit />
             </Link>
@@ -96,7 +111,7 @@ function Categorylist() {
               <MdDelete
                 fontSize={15}
                 className="mainlayout_icons"
-                onClick={() => handleDelete(categoryGet[id]._id)}
+                onClick={() => handleDelete(filterCategory[id]._id)}
               />
             </Link>
           </div>
@@ -160,15 +175,18 @@ function Categorylist() {
           </div>
           <div className="col-lg-4">
             <form class="d-flex">
-              <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button class="btn btn-outline-success" type="submit">
-                Search
-              </button>
+            <div className="input-group w-75">
+                <span className="input-group-text"><IoIosSearch /></span>
+                <input
+                  className="form-control me-2"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                  value={searchTerm}
+                  onChange={(e) => { setSearch(e.target.value) }}
+                />
+              </div>
+           
             </form>
           </div>
         </div>

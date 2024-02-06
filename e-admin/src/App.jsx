@@ -42,7 +42,7 @@ function App() {
           <Route path="product" element={<Addproduct />} />
           <Route path="payment" element={<Payment />} />
           <Route path="banners" element={<Banners/>}/>
-
+          
           <Route path="coupon-list" element={<Couponlist />} />
           <Route path="gst" element={<Gst/>}/>
         </Route>

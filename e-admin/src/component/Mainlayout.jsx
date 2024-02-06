@@ -24,23 +24,45 @@ import { FaQuestion } from "react-icons/fa6";
 import { FaDisplay } from "react-icons/fa6";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { RiMoneyPoundCircleLine } from "react-icons/ri";
+import { useSelector } from "react-redux";
 
-import { Link } from "react-router-dom";
-const items = [
-  {
-    key: "1",
-    label: <Link>Signout</Link>,
-  },
-];
+// import { Link } from "react-router-dom";
+
+
 
 const { Header, Sider, Content } = Layout;
 const Mainlayout = () => {
+
+
+
   const navigate = useNavigate();
+  const { isSuccess } = useSelector((state) => state.shop)
+  console.log(isSuccess)
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
+  const handleClick = () => {
+
+
+    if (!isSuccess) {
+      navigate("/shoplogin", { replace: true })
+      localStorage.removeItem("admin_user");
+    }
+
+
+  };
+
+
+  
+
+  const items = [
+    {
+      key: "1",
+      label: <div onClick={handleClick}>Sign Out</div>
+    },
+  ];
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -110,7 +132,7 @@ const Mainlayout = () => {
                 }
               ],
             },
-            
+
             {
               key: "orders",
               label: "Orders",
@@ -120,8 +142,8 @@ const Mainlayout = () => {
                 />
               ),
             },
-            
-           
+
+
             {
               key: "display",
               label: "Display",
@@ -147,7 +169,7 @@ const Mainlayout = () => {
                 <MdPayment style={{ fontSize: "25px", color: "#BEABC2" }} />
               ),
             },
-        
+
 
 
             {
@@ -172,13 +194,13 @@ const Mainlayout = () => {
                 <FaQuestion style={{ fontSize: "25px", color: "#BEABC2" }} />
               ),
             },
-            {
-              key: "signout",
-              label: "Signout",
-              icon: (
-                <FaSignOutAlt style={{ fontSize: "25px", color: "#BEABC2" }} />
-              ),
-            },
+            // {
+            //   key: "signout",
+            //   label: "Signout",
+            //   icon: (
+            //     <FaSignOutAlt style={{ fontSize: "25px", color: "#BEABC2" }} />
+            //   ),
+            // },
           ]}
         />
       </Sider>

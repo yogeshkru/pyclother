@@ -8,6 +8,8 @@ import { FiEdit } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 import UseInput from "../useCustom/useInput";
+import { IoIosSearch } from "react-icons/io";
+
 import {
   brandSignup,
   brandGets,
@@ -164,17 +166,18 @@ function Brandlist() {
           <div className="col-lg-4 fs-4 fw-bold">Brand List</div>
           <div className="col-lg-4">
             <form class="d-flex">
-              <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-                value={searchTerm}
-                onChange={(e)=>setSearch(e.target.value)}
-              />
-              <button class="btn btn-outline-success" type="submit">
-                Search
-              </button>
+            <div className="input-group w-75">
+                <span className="input-group-text"><IoIosSearch /></span>
+                <input
+                  className="form-control me-2"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                  value={searchTerm}
+                  onChange={(e) => { setSearch(e.target.value) }}
+                />
+              </div>
+              
             </form>
           </div>
         </div>
