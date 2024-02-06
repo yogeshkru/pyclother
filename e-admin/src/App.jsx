@@ -23,6 +23,7 @@ import Gst from "./pages/Gst"
 
 import Couponlist from "./pages/Couponlist";
 import Banners from "./pages/Banners"
+import Viewproduct from "./pages/Viewproduct";
 function App() {
   return <>
     <BrowserRouter>
@@ -39,12 +40,15 @@ function App() {
           <Route path="category-list" element={<Categorylist />} />
           <Route path="brand-list" element={<Brandlist />} />
           <Route path="product-list" element={<Productlist />} />
+          {/* *********************************** */}
           <Route path="product" element={<Addproduct />} />
+          {/* ********************************** */}
           <Route path="payment" element={<Payment />} />
           <Route path="banners" element={<Banners/>}/>
 
           <Route path="coupon-list" element={<Couponlist />} />
           <Route path="gst" element={<Gst/>}/>
+          <Route path="view" element={<Viewproduct/>}/>
         </Route>
 
       </Routes>

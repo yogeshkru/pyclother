@@ -65,7 +65,7 @@ function Brandlist() {
       value.toString().toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
-  console.log(filteredData)
+ 
 
   const data = [];
   for (let id = 0; id < filteredData.length; id++) {
