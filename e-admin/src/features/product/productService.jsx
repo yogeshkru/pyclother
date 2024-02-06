@@ -1,5 +1,6 @@
 import axios from "axios";
 import URL from "../../utilis/Url";
+import { config } from "../../utilis/axiosConfig";
 
 // normal product
 //post
@@ -7,7 +8,7 @@ import URL from "../../utilis/Url";
 const productPost = async (productData) => {
   const response = await axios.post(
     `${URL.BASE_URL}product/create-product`,
-    productData
+    productData,config
   );
 
   if (response.data) {

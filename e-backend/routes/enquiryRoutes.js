@@ -1,3 +1,5 @@
+const { authenticateUser, restrict } = require("../middleware/auth");
+
 module.exports = (app) => {
   const router = require("express").Router();
   const Enquiry = require("../controllers/enquiryController");
@@ -6,10 +8,19 @@ module.exports = (app) => {
   const asyncErrorhandler = require("../utils/asyncErrorhandler");
 
   router.route("/createEnquiry").post(asyncErrorhandler(enquiry));
-  router.route("/getEnquiry").get(asyncErrorhandler(getAllEnquiry));
   router.route("/getOne/:id").get(asyncErrorhandler(getEnquiry));
-  router.route("/deleteEnquiry/:id").delete(asyncErrorhandler(deleteEnquiry));
-  router.route("/updateEnquiry/:id").patch(asyncErrorhandler(updateEnquiry));
+
+
+  // Auth Routes
+  router
+    .route("/getEnquiry")
+    .get(authenticateUser,restrict("super admin"), asyncErrorhandler(getAllEnquiry));
+  router
+    .route("/deleteEnquiry/:id")
+    .delete(authenticateUser,restrict("super admin"), asyncErrorhandler(deleteEnquiry));
+  router
+    .route("/updateEnquiry/:id")
+    .patch(authenticateUser,restrict("super admin"), asyncErrorhandler(updateEnquiry));
 
   app.use("/api/enquiry", router);
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../assets/image/logo12.png";
 import { IoMdSearch } from "react-icons/io";
 import { FaRegUser } from "react-icons/fa6";
@@ -6,7 +6,10 @@ import { FaRegHeart } from "react-icons/fa";
 import { PiHandbagBold } from "react-icons/pi";
 import HeadRoom from "react-headroom";
 import { useMediaQuery } from "react-responsive";
-import '../styles/Home.css';
+import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import "../styles/Home.css";
+import { getAllProduct } from "../features/product/productSlice";
 function Header() {
   const [sidenavWidth, setSidenavWidth] = useState(0);
   const isMobile = useMediaQuery({ maxWidth: 600 });
@@ -20,6 +23,33 @@ function Header() {
   const closeNav = () => {
     setSidenavWidth(0);
   };
+
+  const dispatch = useDispatch();
+
+  // ************************************************
+  const { wholeProduct } = useSelector((state) => state.product);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchData, setSeachData] = useState(null);
+
+  useEffect(() => {
+    dispatch(getAllProduct());
+  }, [dispatch]);
+
+  const handleSearchChange = (e) => {
+    const term = e.target.value;
+    setSearchTerm(term);
+
+    const filteredProducts =
+      wholeProduct &&
+      wholeProduct?.filter((product) => {
+        return product.name.toLowerCase().includes(term.toLowerCase());
+      });
+
+    setSeachData(filteredProducts);
+  };
+
+  // ****************************************************
+
   return (
     <div>
       {isMobile ? (
@@ -58,9 +88,7 @@ function Header() {
                 <ul
                   className="dropdown-menu header_mobile_menu "
                   aria-labelledby="dropdownMenuButton1"
-                >
-                 
-                </ul>
+                ></ul>
               </div>
 
               <a href="#">Services</a>
@@ -392,12 +420,35 @@ function Header() {
                       type="search"
                       autoComplete="off"
                       className="header__input--search"
+                      value={searchTerm}
+                      onChange={handleSearchChange}
                       placeholder="Search for Products, brands and more "
                     />
 
                     <div className="header__icon">
                       <IoMdSearch />
                     </div>
+
+                    {searchData && searchData.length !== 0 ? (
+                      <div className="position-absolute min-h-30vh bg-secondary shadow-sm-2 z-9 p-4">
+                        {searchData &&
+                          searchData.map((item, index) => {
+                            const productName = item?.name?.replace(
+                              /\s+/g,
+                              "-"
+                            );
+
+                            return (
+                            
+                            <Link to={`/product/${productName}`} key={index} className="text-decoration-none">
+                            
+                                    <div className="d-flex align-items-start py-3">
+                                     {/* <img src={} alt="" /> */}
+                                    </div>
+                            </Link>);
+                          })}
+                      </div>
+                    ) : null}
                   </div>
                 </div>
                 <div className="col-lg-2 mt-1 ">

@@ -14,7 +14,6 @@ function Shopsignup() {
   const dispatch=useDispatch();
   const navigate=useNavigate()
   const {isSuccess}=useSelector(state=>state.shop)
-  console.log(isSuccess)
   const [eye, setEye] = useState(false);
 
   const handleEye = () => {

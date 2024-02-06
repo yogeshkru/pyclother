@@ -17,6 +17,7 @@ class Shop {
       // shopes.shop_password=undefined
 
       //   res.status(200).json({shopes})
+    
       shopes = {
         _id: shopes._id,
         shop_name: shopes.shop_name,

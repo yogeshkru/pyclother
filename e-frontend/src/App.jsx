@@ -18,37 +18,59 @@ import Payment from "./Pages/Payment";
 import Whislist from "./Pages/Whislist";
 import Otp from "./Pages/Otp";
 import Signup from "./Pages/Signup";
-import {ToastContainer} from "react-toastify"
-import { ActivationPage } from "./Routes/AdminRoutes";
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { PrivateRoutes } from "./protect/PrivateRoutes";
+import { OpenRoutes } from "./protect/OpenRoutes";
+
 function App() {
   return (
     <>
-  <BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/forget" element={<Forget />} />
+          <Route path="/reset/:token" element={<Reset />} />
+          <Route path="/otp" element={<Otp />} />
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="singleProduct" element={<SingleProduct />} />
+            <Route path="delivery-address" element={<Delivery_address />} />
+            <Route path="Addtocart" element={<Cart />} />
+            <Route path="ourstore" element={<OurStore />} />
+            <Route path="deliveryDetails" element={<DeliveryDetails />} />
+            <Route path="orderpalced" element={<Orderplaced />} />
+            <Route path="Whislist" element={<Whislist />} />
+            <Route path="payment" element={<Payment />} />
+          </Route>
 
-      <Routes>
+          {/* **********Public Routes********** */}
 
-        <Route path="/admin-activation/:activation_token" element={<ActivationPage/>}/>
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/forget" element={<Forget />} />
-        <Route path="/reset/:token" element={<Reset />} />
-        <Route path="/otp" element={<Otp />} />
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="singleProduct" element={<SingleProduct />} />
-          <Route path="delivery-address" element={<Delivery_address />} />
-          <Route path="Addtocart" element={<Cart />} />
-          <Route path="ourstore" element={<OurStore />} />
-          <Route path="deliveryDetails" element={<DeliveryDetails />} />
-          <Route path="orderpalced" element={<Orderplaced />} />
-         <Route path="Whislist" element={<Whislist/>}/>
-          <Route path="payment" element={<Payment />} />
-        
-        </Route>
-      </Routes>
+          <Route
+            path="/login"
+            element={
+              <OpenRoutes>
+                <Login />
+              </OpenRoutes>
+            }
+          />
 
-   
+          <Route
+            path="/signup"
+            element={
+              <OpenRoutes>
+                <Signup />
+              </OpenRoutes>
+            }
+          />
+
+          {/* ***************Private Routes*************** */}
+
+          {/* <Route path=""/> */}
+
+
+
+        </Routes>
+
         <ToastContainer
           position="bottom-center"
           autoClose={5000}
@@ -61,7 +83,6 @@ function App() {
           pauseOnHover
           theme="dark"
         />
-       
       </BrowserRouter>
     </>
   );

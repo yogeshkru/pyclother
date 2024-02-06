@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-
+import Dropzone from "react-dropzone"
 import { colorgets } from "../features/color/colorSlice";
 import { brandGets } from "../features/brandSlice";
 import { categoryGetData } from "../features/category/categorySlice";
@@ -14,6 +14,7 @@ import {  useFormik } from "formik";
 import * as Yup from "yup";
 import URL from "../utilis/Url";
 import { uploadProductImageOnServer,deleletProductImageonserver } from "../features/uploadImages/uploadImagesSlice";
+import { postProductOnServer } from "../features/product/productSlice";
 
 
 function Addproduct() {
@@ -62,7 +63,7 @@ function Addproduct() {
         images:""
       },
       onSubmit: (value) => {
-        console.log(value);
+       dispatch(postProductOnServer(value))
       },
       validationSchema: Yup.object().shape({
         name: Yup.string().required("Product Name is required"),

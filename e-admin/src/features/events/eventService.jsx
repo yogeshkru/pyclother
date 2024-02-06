@@ -13,6 +13,7 @@ const eventCreate = async (data)=>{
 const getEvent =async()=>{
     const response = await axios.get(`${URL.BASE_URL}event/get-event`,config)
     if(response.data){
+        console.log(response.data)
         return response.data
     }
 }
@@ -25,11 +26,17 @@ const deleteEvent = async(id)=>{
     }
 }
 
+
+const bannerImage = async (image)=>{
+    const response = await axios.post(`${URL.BASE_URL}event/banner-image`,{bannerImage:image},config)
+  }
+
  const eventService ={
 
     eventCreate,
     getEvent,
-    deleteEvent
+    deleteEvent,
+    bannerImage
  }
 
 export default eventService
