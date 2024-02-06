@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Button, Table } from "antd";
+import React, { useEffect, useState } from "react";
+
 import "../styles/Mainlayout.css";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -12,15 +12,19 @@ import {
 import DataTable from "react-data-table-component";
 import { useDispatch, useSelector } from "react-redux";
 import { FaRegEye } from "react-icons/fa6";
-
+import "../styles/Mainlayout.css";
+import UseInput from "../useCustom/useInput";
 function Productlist() {
   const dispatch = useDispatch();
+
+  const [model, setModel] = useState(false);
   const { getAllShopProduct } = useSelector((state) => state.product);
 
   const navigate = useNavigate();
   const handleClick = () => {
     navigate("/admin/product");
   };
+
   const handleEye = (i) => {
     navigate("/admin/view", { state: i });
   };
@@ -69,9 +73,9 @@ function Productlist() {
     dispatch(deleteProductOnServer(id));
   };
 
-  const handleUpdate=(i)=>{
-    navigate("/admin/product",{state:i})
-  }
+  const handleUpdate = (i) => {
+    setModel(!model);
+  };
   const data = [];
   for (let i = 0; i < getAllShopProduct.length; i++) {
     data.push({
@@ -82,23 +86,11 @@ function Productlist() {
       category: getAllShopProduct[i]?.category,
       color: getAllShopProduct[i]?.color[0]?.color_hex_name,
       price: getAllShopProduct[i]?.price,
-      // image: (
-      //   <div>
-      //     {getAllShopProduct[i]?.images[0]?.url ? (
-      //       <img
-      //         src={`${URL.IMAGE_URL}${getAllShopProduct[i]?.images[0]?.url}`}
-      //         alt="photo"
-      //       />
-      //     ) : (
-      //       <span>No Image Available</span>
-      //     )}
-      //   </div>
-      // ),
 
       action: (
         <>
           <div className="d-flex justify-content-between">
-          <div className="ms-2">
+            <div className="ms-2">
               <FiEdit
                 fontSize={15}
                 className="mainlayout_icons"
@@ -128,19 +120,19 @@ function Productlist() {
     dispatch(shopData());
   }, [dispatch]);
   return (
-    <div>
+    <div className="product_model-2">
       <div className="mt-2">
         <div className="row">
           <div className="col-lg-4 fs-4 fw-bold">Product</div>
           <div className="col-lg-4">
-            <form class="d-flex">
+            <form className="d-flex">
               <input
-                class="form-control me-2"
+                className="form-control me-2"
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
               />
-              <button class="btn btn-outline-success" type="submit">
+              <button className="btn btn-outline-success" type="submit">
                 Search
               </button>
             </form>
@@ -155,8 +147,69 @@ function Productlist() {
             </button>
           </div>
         </div>
+        <div>
+          {model ? (
+            <div className="product_model--data">
+              <div>
+                <h5 className="text-center">Update Product</h5>
+                <div className="row">
+                  <div className="col-lg-6">
+                   <UseInput
+                   type="text"
+                   label="Name"
+                   />
+                  </div>
+                  <div className="col-lg-6">
+                  <UseInput
+                   type="text"
+                   label="Product"
+                   />
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
         <div className="mt-4">
           <DataTable columns={columns} data={data} pagination />
+        </div>
+        <div
+          className="modal fade"
+          id="exampleModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h1 className="modal-title fs-5" id="exampleModalLabel">
+                  Modal title
+                </h1>
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div className="modal-body">...</div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="button" className="btn btn-primary">
+                  Save changes
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

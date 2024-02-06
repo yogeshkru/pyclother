@@ -190,7 +190,6 @@ class Shop {
         return next(error);
       }
 
-      console.log(shop_email,shop_password)
 
       let user = await shopModel
         .findOne({ shop_email })
@@ -206,7 +205,7 @@ class Shop {
       );
       if (!isMatch) {
         const error = new CustomError("Inncorrect password ", 400);
-        next(error);
+       return next(error);
       }
      
       sendShopToken(user, 200, res);

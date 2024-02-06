@@ -4,7 +4,13 @@ import URL from "../utilis/Url";
 import { useNavigate } from "react-router-dom";
 function Viewproduct() {
   const { state } = useLocation();
-  console.log(state);
+ 
+
+  const image=state?.images.map((item,i)=>(
+    <div key={i} className="col-lg-2">
+          <img src={`${URL.IMAGE_URL}${item.url}`} width="100%"/>
+    </div>
+  ))
   const navigate = useNavigate();
   return (
     <div>
@@ -209,7 +215,7 @@ function Viewproduct() {
               className="col-lg-5"
               style={{ color: state.brether ? "" : "red" }}
             >
-              {state.brether ? "" : "Undefined"}
+              {state.brether ? state.brether : "Undefined"}
             </div>
           </div>
           <div className="row mt-2">
@@ -221,7 +227,7 @@ function Viewproduct() {
               className="col-lg-5"
               style={{ color: state.diamension_class ? "" : "red" }}
             >
-              {state.diamension_class ? "" : "Undefined"}
+              {state.diamension_class ? state.diamension_class : "Undefined"}
             </div>
           </div>
         </div>
@@ -290,17 +296,7 @@ function Viewproduct() {
 
         <div className="col-lg-8 shadow">
           <div className="row">
-            {state.length ? (
-              <div className="row">
-                {state.images.map((item) => (
-                  <div className="col-2">
-                    <img src={`${URL.IMAGE_URL}${item.url}`} width="100%" />
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p>Not data</p>
-            )}
+           {image}
           </div>
         </div>
       </div>

@@ -13,8 +13,8 @@ import { Getgst } from "../features/Gst/gstSlice";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-import {useLocation} from "react-router-dom";
-import { postProductOnServer } from "../features/product/productSlice";
+import { useParams } from "react-router-dom";
+import { getOneProduct, postProductOnServer } from "../features/product/productSlice";
 import URL from "../utilis/Url";
 import {
   uploadProductImageOnServer,
@@ -23,10 +23,9 @@ import {
 
 function Addproduct() {
   const dispatch = useDispatch();
-  const {state}=useLocation()
-  console.log()
-  const [Available,setAvailable]=useState(true)
-
+ 
+ 
+  const [Available, setAvailable] = useState(true);
 
   const { Getbrand } = useSelector((state) => state.brand);
   const { categoryGet } = useSelector((state) => state.category);
@@ -34,39 +33,42 @@ function Addproduct() {
   const { getallGst } = useSelector((state) => state.gst);
   const { productImage } = useSelector((state) => state.upload);
 
+
+  
+
   const { values, errors, handleChange, handleBlur, handleSubmit, touched } =
     useFormik({
-      enableReinitialize:true,
+
       initialValues: {
-        name:state?.name || "",
-        description:state?.description || "",
-        brand:state?.brand || "",
-        color:state?.color || "",
-        price:state?.price || "",
-        sku: state?.sku || "",
-        tag:state?.tag || "",
-       
-        model:state?.model || "",
-        stack:state?.stack || "",
-        Gst:state?.Gst?.gst_percentage || "",
-        quantity:state?.quantity || "",
-        category: state?.category || "",
-        diamension_class:state?.diamension_class || "",
-        rewardpoint:state?.rewardpoint || "",
-        sort:state?.sort || "",
-        length:state?.length || "",
-        size:state?.size ||"",
-        height:state?.height || "",
-        brether:state?.brether || "",
-        weight:state?.weight || "",
-        weight_class:state?.weight_class || "",
-        meta_title:state.meta_title || "",
-        meta_description:state.meta_description || "",
-        meta_keyboard:state.meta_keyboard || "",
-        images:state.images || ""
+        name: "",
+        description: "",
+        brand: "",
+        color: "",
+        price: "",
+        sku: "",
+        tag: "",
+
+        model: "",
+        stack: "",
+        Gst: "",
+        quantity: "",
+        category: "",
+        diamension_class: "",
+        rewardpoint: "",
+        sort: "",
+        length: "",
+        size: "",
+        height: "",
+        brether: "",
+        weight: "",
+        weight_class: "",
+        meta_title: "",
+        meta_description: "",
+        meta_keyboard: "",
+        images: "",
       },
       onSubmit: (value) => {
-        const data={...value,Available:Available}
+        const data = { ...value, Available: Available };
         dispatch(postProductOnServer(data));
       },
       validationSchema: Yup.object().shape({
@@ -82,20 +84,15 @@ function Addproduct() {
         category: Yup.string().required("Category is required"),
         sort: Yup.string().required("Sort is required"),
         quantity: Yup.string().required("Quantity is required"),
-        size:Yup.string().required("Size is Required")
+        size: Yup.string().required("Size is Required"),
       }),
     });
-
-
-   
 
   const get_brand = Getbrand?.map((item) => (
     <option key={item?._id} value={item.brand_title}>
       {item.brand_title}
     </option>
   ));
-
-
 
   const get_color = getAllColor?.map((item) => (
     <option key={item._id} value={item?._id}>
@@ -132,7 +129,7 @@ function Addproduct() {
     dispatch(colorgets());
     dispatch(categoryGetData());
     dispatch(Getgst());
-  }, [ dispatch]);
+  }, [dispatch]);
   useEffect(() => {
     values.images = img;
   }, [img]);
@@ -240,7 +237,7 @@ function Addproduct() {
                           value={values.Gst}
                           onChange={handleChange}
                         >
-                          {/* <option selected>Open this select menu</option> */}
+                          <option>Open this GST</option>
                           {getGst}
                         </select>
                         {errors.Gst && touched.Gst ? (
@@ -263,7 +260,7 @@ function Addproduct() {
                           onChange={handleChange}
                           onBlur={handleBlur}
                         >
-                          <option selected>Open this select menu</option>
+                          <option>Open this Brand menu</option>
                           {get_brand}
                         </select>
                         {errors.brand && touched.brand ? (
@@ -284,7 +281,7 @@ function Addproduct() {
                           onChange={handleChange}
                           onBlur={handleBlur}
                         >
-                          <option selected>Open this select menu</option>
+                          <option>Open this Color</option>
                           {get_color}
                         </select>
                         {errors.color && touched.color ? (
@@ -339,7 +336,7 @@ function Addproduct() {
                           className="form-select"
                           aria-label="Default select example"
                           value={Available}
-                          onChange={(e)=>setAvailable(e.target.value)}
+                          onChange={(e) => setAvailable(e.target.value)}
                           onBlur={handleBlur}
                         >
                           <option value={true}>Enable</option>
@@ -408,8 +405,8 @@ function Addproduct() {
 
                     <div className="col-lg-4">
                       <div className="">
-                      <label className="fw-bold fs-10">Size</label>
-                      <select
+                        <label className="fw-bold fs-10">Size</label>
+                        <select
                           class="form-select"
                           aria-label="Default select example"
                           name="size"
@@ -649,11 +646,16 @@ function Addproduct() {
           </div>
         </div>
         <div className="mt-2">
-          <button type="submit"   className="brand_padding--border"  >Add Product</button>
+          <button type="submit" className="brand_padding--border">
+            Add Product
+          </button>
         </div>
       </form>
     </div>
   );
 }
+
+
+
 
 export default Addproduct;

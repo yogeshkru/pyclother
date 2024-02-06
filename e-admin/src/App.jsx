@@ -24,13 +24,10 @@ import Gst from "./pages/Gst"
 
 import Couponlist from "./pages/Couponlist";
 import Banners from "./pages/Banners"
-<<<<<<< HEAD
 import Viewproduct from "./pages/Viewproduct";
-=======
 
 import { OpenRoutes } from "./protect/openRoutes";
 import { PrivateRoutes } from "./protect/PrivateRoutes";
->>>>>>> 9fbdb5f21c75c8b663ff69fc6bc8707b495b700a
 function App() {
   return <>
     <BrowserRouter>
