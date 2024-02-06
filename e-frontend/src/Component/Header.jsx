@@ -10,11 +10,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import "../styles/Home.css";
 import { getAllProduct } from "../features/product/productSlice";
+import URL from "../../../e-admin/src/utilis/Url";
 function Header() {
   const [sidenavWidth, setSidenavWidth] = useState(0);
   const isMobile = useMediaQuery({ maxWidth: 600 });
   const handleFont = {
     fontWeight: "bold",
+    color:"#343434",
   };
   const openNav = () => {
     setSidenavWidth(250);
@@ -26,7 +28,7 @@ function Header() {
 
   const dispatch = useDispatch();
 
-  // ************************************************
+  // *********************Search funtionality***********************
   const { wholeProduct } = useSelector((state) => state.product);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchData, setSeachData] = useState(null);
@@ -49,6 +51,8 @@ function Header() {
   };
 
   // ****************************************************
+
+  // *******************
 
   return (
     <div>
@@ -102,8 +106,10 @@ function Header() {
             </div>
 
             <div onClick={openNav} className="text-center">
-              <FaRegUser fontSize={20} />
-              <p className="text-center">Profile</p>
+              <Link to="/profile">
+                <FaRegUser fontSize={20} />
+                Profile
+              </Link>
             </div>
           </div>
           <div>
@@ -131,10 +137,10 @@ function Header() {
                     <img src={logo} width="100%" />
                   </div>
                 </div>
-                <div className="col-lg-3  ">
-                  <div className="d-flex justify-content-between">
-                    {/* Mens */}
-                    <div className="dropdown mb-0">
+                <div className="col-lg-3">
+                  {/* <div className="d-flex justify-content-between"> */}
+                  {/* Mens */}
+                  {/* <div className="dropdown mb-0">
                       <button
                         className="btn header__button1 mb-0"
                         type="button"
@@ -229,9 +235,9 @@ function Header() {
                           </div>
                         </div>
                       </ul>
-                    </div>
-                    {/* Womens */}
-                    <div class="dropdown">
+                    </div> */}
+                  {/* Womens */}
+                  {/* <div class="dropdown">
                       <button
                         class="btn header__button2"
                         type="button"
@@ -320,9 +326,9 @@ function Header() {
                           </div>
                         </div>
                       </ul>
-                    </div>
-                    {/* Kids */}
-                    <div class="dropdown">
+                    </div> */}
+                  {/* Kids */}
+                  {/* <div class="dropdown">
                       <button
                         class="btn header__button3"
                         type="button"
@@ -411,8 +417,8 @@ function Header() {
                           </div>
                         </div>
                       </ul>
-                    </div>
-                  </div>
+                    </div> */}
+                  {/* </div> */}
                 </div>
                 <div className="col-lg-4">
                   <div className="text-center header--search">
@@ -430,7 +436,7 @@ function Header() {
                     </div>
 
                     {searchData && searchData.length !== 0 ? (
-                      <div className="position-absolute min-h-30vh bg-secondary shadow-sm-2 z-9 p-4">
+                      <div className="position-absolute min-h-30vh bg-white shadow-sm-2 p-4 z-10 w-100 rounded-4">
                         {searchData &&
                           searchData.map((item, index) => {
                             const productName = item?.name?.replace(
@@ -439,13 +445,38 @@ function Header() {
                             );
 
                             return (
-                            
-                            <Link to={`/product/${productName}`} key={index} className="text-decoration-none">
-                            
-                                    <div className="d-flex align-items-start py-3">
-                                     {/* <img src={} alt="" /> */}
-                                    </div>
-                            </Link>);
+                              <Link
+                                to={`singleProduct/${productName}`}
+                                key={index}
+                                className="text-decoration-none"
+                              >
+                                <div className="d-flex py-3 justify-conten-between">
+                                  <div>
+                                    <img
+                                      src={`${URL.IMAGE_URL}${item?.images[0]?.url}`}
+                                      alt={item?.name}
+                                      style={{
+                                        height: "30px",
+                                        width: "40px",
+                                        color: "#777777",
+                                      }}
+                                    />
+                                  </div>
+
+                                  <div>
+                                    <h1
+                                      className="ms-3"
+                                      style={{
+                                        fontSize: "14px",
+                                        color: "#777777",
+                                      }}
+                                    >
+                                      {item?.name}
+                                    </h1>
+                                  </div>
+                                </div>
+                              </Link>
+                            );
                           })}
                       </div>
                     ) : null}
@@ -454,10 +485,15 @@ function Header() {
                 <div className="col-lg-2 mt-1 ">
                   <div className="d-flex justify-content-between">
                     <div className="d-flex flex-column text-center ">
+
                       <FaRegUser
-                        style={{ marginLeft: "10px", fontSize: "20px" }}
+                        style={{ marginLeft: "10px", fontSize: "20px", color:"#343434"}}
                       />
-                      <span style={handleFont}>Profile</span>
+                    <Link to="/profile">
+
+               
+                      <span style={handleFont} >Profile</span>
+                      </Link>
                     </div>
                     <div className="d-flex flex-column text-center ms-4">
                       <FaRegHeart

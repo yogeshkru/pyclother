@@ -19,12 +19,15 @@ const productSchema = new mongoose.Schema(
     },
     sold: {
       type: Number,
-    
+    },
+
+    shopId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Tbl_shop",
     },
     images: [],
-    color:[{type:mongoose.Schema.Types.ObjectId,ref:"Tbl_color"}],
-     
-    
+    color: [{ type: mongoose.Schema.Types.ObjectId, ref: "Tbl_color" }],
+
     ratings: [
       {
         star: Number,
@@ -44,45 +47,41 @@ const productSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    model:{
-      type:String,
-      required:true
+    model: {
+      type: String,
+      required: true,
     },
-    category:{
-      type:String,
-      required:true
+    category: {
+      type: String,
+      required: true,
     },
-    stack:{
-     type:Number
-
+    stack: {
+      type: Number,
     },
     Available: { type: Boolean, default: true },
     // companyId:{},
     // branchId:{}
-    size: String,
-
+    size: {
+      type:String,
+      required:true
+    },
 
     sku: String,
     tag: String,
-    
-    
-    Gst:{type:mongoose.Schema.Types.ObjectId,ref:"Tbl_gst"},
-    rewardpoint:String,
-    sort:String,
-    length:String,
-   
-    height:String,
-    diamension_class:String,
-    brether:String,
-    weight:String,
-    weight_class:String,
-    meta_title:String,
-    meta_description:String,
-    meta_keyboard:String,
-  
-      
 
-  
+    Gst: { type: mongoose.Schema.Types.ObjectId, ref: "Tbl_gst" },
+    rewardpoint: String,
+    sort: String,
+    length: String,
+
+    height: String,
+    diamension_class: String,
+    brether: String,
+    weight: String,
+    weight_class: String,
+    meta_title: String,
+    meta_description: String,
+    meta_keyboard: String,
   },
 
   { timestamps: true }

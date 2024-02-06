@@ -259,6 +259,19 @@ input[type=number] {
 .addproduct_color:focus{
     background:none !important;
 }
+.product_model-2{
+    position: relative;
+}
+.product_model--data{
+    position: absolute;
+    top: 0;
+    left: 15%;
+    z-index: 1111;
+    width: 65%;
+    padding: 20px;
+    background-color: #B66DFF;
+
+}
 @media only screen and (max-width:600px){
     .mainlayout_compared{
         padding-left: 30px;

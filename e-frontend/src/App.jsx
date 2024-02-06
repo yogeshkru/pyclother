@@ -18,6 +18,7 @@ import Payment from "./Pages/Payment";
 import Whislist from "./Pages/Whislist";
 import Otp from "./Pages/Otp";
 import Signup from "./Pages/Signup";
+import Profile from "./Pages/Profile"
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { PrivateRoutes } from "./protect/PrivateRoutes";
@@ -33,7 +34,7 @@ function App() {
           <Route path="/otp" element={<Otp />} />
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path="singleProduct" element={<SingleProduct />} />
+            <Route path="singleProduct/:name" element={<SingleProduct />} />
             <Route path="delivery-address" element={<Delivery_address />} />
             <Route path="Addtocart" element={<Cart />} />
             <Route path="ourstore" element={<OurStore />} />
@@ -41,6 +42,7 @@ function App() {
             <Route path="orderpalced" element={<Orderplaced />} />
             <Route path="Whislist" element={<Whislist />} />
             <Route path="payment" element={<Payment />} />
+            <Route path="profile" element={<Profile/>}/>
           </Route>
 
           {/* **********Public Routes********** */}

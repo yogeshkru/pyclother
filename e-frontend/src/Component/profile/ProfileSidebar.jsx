@@ -1,0 +1,161 @@
+import React from "react";
+import {
+  AiOutlineCreditCard,
+  AiOutlineLogin,
+  AiOutlineMessage,
+} from "react-icons/ai";
+import { HiOutlineReceiptRefund, HiOutlineShoppingBag } from "react-icons/hi";
+import { RxPerson } from "react-icons/rx";
+import { TbAddressBook } from "react-icons/tb";
+import { useDispatch, useSelector } from "react-redux";
+
+import { useNavigate } from "react-router-dom";
+import { MdOutlineTrackChanges } from "react-icons/md";
+
+const ProfilSidebar = ({ active, setActive }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  return (
+    <>
+      <>
+        <div className="w-50 bg-white shadow-sm rounded-3 p-4 pt-8 ">
+          <div
+            className="d-flex align-items-center w-100 mb-4 cursor-pointer"
+            onClick={() => setActive(1)}
+          >
+            <RxPerson size={20} className={active === 1 ? "text-danger" : ""} />
+            <span
+              className={`pl-3 ${
+                active === 1 ? "text-danger" : ""
+              } d-md-block d-none`}
+            >
+              Profile
+            </span>
+          </div>
+
+          {/* <div
+            className="d-flex align-items-center w-100 mb-4 cursor-pointer"
+            onClick={() => setActive(2)}
+          >
+            <HiOutlineShoppingBag
+              size={20}
+              className={active === 2 ? "text-danger" : ""}
+            />
+            <span
+              className={`pl-3 ${
+                active === 2 ? "text-danger" : ""
+              } d-md-block d-none`}
+            >
+              Orders
+            </span>
+          </div> */}
+
+          {/* <div
+            className="d-flex align-items-center w-100 mb-4 cursor-pointer"
+            onClick={() => setActive(3)}
+          >
+            <HiOutlineReceiptRefund
+              size={20}
+              className={active === 3 ? "text-danger" : ""}
+            />
+            <span
+              className={`pl-3 ${
+                active === 3 ? "text-danger" : ""
+              } d-md-block d-none`}
+            >
+              Refunds
+            </span>
+          </div> */}
+{/* 
+          <div
+            className="d-flex align-items-center w-100 mb-4 cursor-pointer"
+            onClick={() => setActive(4) || navigate("/inbox")}
+          >
+            <AiOutlineMessage
+              size={20}
+              className={active === 4 ? "text-danger" : ""}
+            />
+            <span
+              className={`pl-3 ${
+                active === 4 ? "text-danger" : ""
+              } d-md-block d-none`}
+            >
+              Inbox
+            </span>
+          </div> */}
+
+          <div
+            className="d-flex align-items-center w-100 mb-4 cursor-pointer mt-3"
+            onClick={() => setActive(2)}
+          >
+            <MdOutlineTrackChanges
+              size={20}
+              className={active === 2 ? "text-danger" : ""}
+            />
+            <span
+              className={`pl-3 ${
+                active === 2? "text-danger" : ""
+              } d-md-block d-none`}
+            >
+              Track Order
+            </span>
+          </div>
+
+          <div
+            className="d-flex align-items-center w-100 mb-4 cursor-pointer mt-3"
+            onClick={() => setActive(3)}
+          >
+            <AiOutlineCreditCard
+              size={20}
+              className={active === 3 ? "text-danger" : ""}
+            />
+            <span
+              className={`pl-3 ${
+                active === 3 ? "text-danger" : ""
+              } d-md-block d-none`}
+            >
+              Payment Methods
+            </span>
+          </div>
+
+          <div
+            className="d-flex align-items-center w-100 mb-4 cursor-pointer mt-3"
+            onClick={() => setActive(4)}
+          >
+            <TbAddressBook
+              size={20}
+              className={active === 4 ? "text-danger" : ""}
+            />
+            <span
+              className={`pl-3 ${
+                active === 4 ? "text-danger" : ""
+              } d-md-block d-none`}
+            >
+              Address
+            </span>
+          </div>
+
+          <div
+            className="d-flex align-items-center w-100 mb-4 cursor-pointer mt-3"
+            onClick={() => setActive(5) }
+          >
+            <AiOutlineLogin
+              size={20}
+              className={active === 5 ? "text-danger" : ""}
+            />
+            <span
+              className={`pl-3 ${
+                active === 5? "text-danger" : ""
+              } d-md-block d-none`}
+            >
+              Log out
+            </span>
+          </div>
+        </div>
+      </>
+    </>
+  );
+};
+
+export default ProfilSidebar;
