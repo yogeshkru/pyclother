@@ -7,7 +7,7 @@ const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
-const morgan = require("morgan")
+const morgan = require("morgan");
 const hpp = require("hpp");
 const path = require("path");
 
@@ -17,25 +17,25 @@ const globalError = require("./utils/globalErrorhandler");
 const customError = require("./utils/customError");
 
 // *************************************************
-if (process.env.NODE_ENV =="production") {
-require("dotenv").config({ path: "./config.env" });
+if (process.env.NODE_ENV == "production") {
+  require("dotenv").config({ path: "./config.env" });
 }
 
-if(process.env.NODE_ENV == 'development'){
-    app.use(morgan('dev'))
-require("dotenv").config({ path: "./config.env" });
-
-
-  
+if (process.env.NODE_ENV == "development") {
+  app.use(morgan("dev"));
+  require("dotenv").config({ path: "./config.env" });
 }
 
 // *****************Third part liberary****************
 // app.use(helmet());
 
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> 9fbdb5f21c75c8b663ff69fc6bc8707b495b700a
 app.use(cors());
 
 // app.use("/public", cors()); // Assuming images are served from the "/public" route
@@ -100,7 +100,8 @@ require("./routes/orderRoutes")(app);
 require("./routes/uploadRouts")(app);
 require("./routes/productRoutes")(app);
 require("./routes/gstRoutes")(app);
-require("./routes/orderItemRoutes")(app)
+require("./routes/orderItemRoutes")(app);
+require("./routes/eventRoutes")(app);
 // ***********************************************************************
 //Routes error handler
 app.all("*", (req, res, next) => {

@@ -27,7 +27,6 @@ const Gst = () => {
   const [edit, setEdit] = useState("");
   const dispatch = useDispatch();
   const {getallGst}=useSelector((state)=>state.gst)
-  console.log(getallGst)
 
 
   const col = [

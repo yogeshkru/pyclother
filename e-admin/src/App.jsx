@@ -14,6 +14,7 @@ import Brandlist from "./pages/Brandlist";
 import Productlist from "./pages/Productlist";
 import Addproduct from "./pages/Addproduct";
 import { ToastContainer } from "react-toastify";
+import ViewEnq from "./pages/ViewEnq"
 import Payment from "./pages/Payment";
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -23,17 +24,46 @@ import Gst from "./pages/Gst"
 
 import Couponlist from "./pages/Couponlist";
 import Banners from "./pages/Banners"
+<<<<<<< HEAD
 import Viewproduct from "./pages/Viewproduct";
+=======
+
+import { OpenRoutes } from "./protect/openRoutes";
+import { PrivateRoutes } from "./protect/PrivateRoutes";
+>>>>>>> 9fbdb5f21c75c8b663ff69fc6bc8707b495b700a
 function App() {
   return <>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Loginadmin />} />
+        {/* <Route path="" element={
+
+           <Loginadmin />
+
+        
+        } /> */}
         <Route path="/shopsign" element={<Shopsignup />} />
-        <Route path="/shoplogin" element={<Shoplogin />} />
-        <Route path="/admin" element={<Mainlayout />}>
+        <Route path="/" element={
+        
+        <OpenRoutes>
+        
+        <Shoplogin />
+        </OpenRoutes>
+
+        
+        } />
+        <Route path="/admin" element={
+        <PrivateRoutes>
+
+          <Mainlayout />
+
+        </PrivateRoutes>
+        
+        }>
           <Route index element={<Dashboard />} />
+          {/* /0--------------------------------- */}
           <Route path="enquiries" element={<Enquiries />} />
+          <Route path="enquiries/:id" element={<ViewEnq/>}/>
+          {/* ------------------------------ */}
           <Route path="customers" element={<Customers />} />
           <Route path="orders" element={<Orders />} />
           <Route path="color-list" element={<Colorlist />} />

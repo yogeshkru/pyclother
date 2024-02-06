@@ -19,6 +19,8 @@ const Createenquiry = async (data) => {
 const Getenquiry = async () => {
   const response = await axios.get(`${URL.BASE_URL}enquiry/getEnquiry`);
   if (response.data) {
+    
+
     return response.data;
   }
 };
@@ -47,8 +49,8 @@ const DeleteEnquiry = async (data) => {
 
 const Patchenquiry = async (data) => {
   const response = await axios.patch(
-    `${URL.BASE_URL}enquiry/updateEnquiry/${data}`,
-    data
+    `${URL.BASE_URL}enquiry/updateEnquiry/${data.id}`,
+    {enquiry_status:data.enqData}
   );
   if (response.data) {
     return response.data;

@@ -9,7 +9,7 @@ import { FaRegEyeSlash } from "react-icons/fa6";
 import { IoEyeOutline } from "react-icons/io5";
 import {shopLoginData} from "../features/shop/shopSlice";
 import { useDispatch,useSelector } from "react-redux";
-import {useNavigate} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 
 function Shoplogin() {
   const [eye, setEye] = useState(false);
@@ -97,6 +97,16 @@ function Shoplogin() {
             <button type="submit" className="shopSignupButton mt-4">
               Login
             </button>
+
+            <div className="d-flex justify-content-end mt-5">
+
+              <Link to="/shopsign " style={{textDecoration:"none"}}>
+                 Shop Create
+              </Link>
+
+            </div>
+
+
           </form>
         </div>
       </div>
