@@ -9,6 +9,7 @@ module.exports = (app) => {
     deleteProduct,
     addToWishList,
     ratingfunc,
+    getAllShopProduct
   } = new Product();
 
   const asyncErrorHandler = require("../utils/asyncErrorhandler");
@@ -17,7 +18,7 @@ module.exports = (app) => {
 
   router.route("/product-id/:id").get(asyncErrorHandler(getOneProduct));
   router.route("/getall-product").get(asyncErrorHandler(getAllProduct));
-
+  router.route("/getshop-product").get(authenticateUser,asyncErrorHandler(getAllShopProduct))
   // The below url's manipulate by user's
   router
     .route("/addwishlist")

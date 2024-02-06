@@ -7,12 +7,19 @@ class Product {
   createProduct = async (req, res) => {
     const { _id } = req.user;
 
-    const combinedData = Object.assign({}, req.body, { user: _id });
+    const combinedData = Object.assign({}, req.body, { shopId: _id });
 
     const newProduct = await productModel.create(combinedData);
 
     res.status(201).json({ newProduct });
   };
+
+  getAllShopProduct=async(req,res)=>{
+    const {_id} = req.user
+    const shopData=await productModel.find({shopId:_id}).populate("color").populate("Gst")
+
+    res.status(200).json({shopData})
+  }
 
   updateProduct = async function (req, res, next) {
     const updateProduct = await productModel.findOneAndUpdate(

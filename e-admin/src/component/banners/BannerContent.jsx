@@ -14,7 +14,12 @@ import {
   deleletProductImageonserver,
 } from "../../features/uploadImages/uploadImagesSlice";
 import URL from "../../utilis/Url";
-import { postEvent, getEvent, deleteEvent } from "../../features/events/eventSlice";
+import {
+  postEvent,
+  getEvent,
+  deleteEvent,
+  uploadBannerImage
+} from "../../features/events/eventSlice";
 
 // *********************************************************
 import DataTable from "react-data-table-component";
@@ -346,6 +351,12 @@ const BannerContent = ({ active }) => {
             <ProjectTracking />
           </>
         )}
+
+        {active === 3 && (
+          <>
+            <HomeSlideShow />
+          </>
+        )}
       </div>
     </>
   );
@@ -354,9 +365,9 @@ const BannerContent = ({ active }) => {
 function ProjectTracking() {
   const dispatch = useDispatch();
   const { eventArray } = useSelector((state) => state.event);
-  const handleDelete=(id)=>{
-    dispatch(deleteEvent(id))
-  }
+  const handleDelete = (id) => {
+    dispatch(deleteEvent(id));
+  };
 
   useEffect(() => {
     const timeOut = setTimeout(() => {
@@ -404,14 +415,14 @@ function ProjectTracking() {
   ];
 
   const data = [];
-  for (let id = 0; id <eventArray.length; id++) {
+  for (let id = 0; id < eventArray.length; id++) {
     data.push({
-      id: id+1,
-      name : eventArray[id]?.name,
+      id: id + 1,
+      name: eventArray[id]?.name,
       description: eventArray[id]?.description,
-      discountPrice:eventArray[id]?.discountPrice,
-      startdate:new Date(eventArray[id]?.start_date).toLocaleDateString(),
-      enddate:new Date(eventArray[id]?.finish_date).toLocaleDateString(),
+      discountPrice: eventArray[id]?.discountPrice,
+      startdate: new Date(eventArray[id]?.start_date).toLocaleDateString(),
+      enddate: new Date(eventArray[id]?.finish_date).toLocaleDateString(),
       action: (
         <>
           <div className="d-flex">
@@ -445,5 +456,95 @@ function ProjectTracking() {
     </>
   );
 }
+
+const HomeSlideShow = () => {
+  const { productImage } = useSelector((state) => state.upload);
+  const dispatch = useDispatch()
+  const [formData, setFormData] = useState({
+    images: "",
+  });
+
+  useEffect(() => {
+    const img = [];
+    productImage.flat()?.forEach((element) => {
+      img.push({
+        url: element,
+      });
+    });
+
+    setFormData((preFormData) => ({
+      ...preFormData,
+      images: img,
+    }));
+  }, [productImage]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(uploadBannerImage (formData))
+  };
+
+  return (
+    <>
+      <div>
+        <div className="container mt-3">
+          <div className="row justify-content-center">
+            <div className="col-12 col-md-8 bg-white shadow rounded p-3 overflow-y-scroll">
+              <h5 className="text-30px font-Poppins text-center">
+                Create Banner
+              </h5>
+
+              <form onSubmit={handleSubmit}>
+                <div className="mb-3 border ">
+                  <Dropzone
+                    onDrop={(acceptedFiles) =>
+                      dispatch(uploadProductImageOnServer(acceptedFiles))
+                    }
+                  >
+                    {({ getRootProps, getInputProps }) => (
+                      <section>
+                        <div {...getRootProps()}>
+                          <input {...getInputProps()} />
+                          <p className=" d-flex justify-content-center align-items-center">
+                            Upload Image
+                          </p>
+                        </div>
+                      </section>
+                    )}
+                  </Dropzone>
+                </div>
+
+                <div className="d-flex flex-wrap gap-3 mb-3">
+                  {Array.isArray(productImage) &&
+                    productImage.length > 0 &&
+                    productImage.flat().map((i, j) => {
+                      return (
+                        <div className="position-relative" key={j}>
+                          <button
+                            type="button"
+                            onClick={() => dispatch( deleletProductImageonserver(i))}
+                            className="btn-close position-absolute"
+                            style={{ top: "10px", right: "10px" }}
+                          ></button>
+
+                          <img
+                            src={`${URL.IMAGE_URL}${i}`}
+                            alt="images"
+                            width={500}
+                            height={200}
+                          />
+                        </div>
+                      );
+                    })}
+                </div>
+
+                <button className="btn btn-primary mt-2 d-flex justify-content-end" type="submit">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default BannerContent;
