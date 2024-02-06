@@ -26,6 +26,7 @@ import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { RiMoneyPoundCircleLine } from "react-icons/ri";
 
 import { Link } from "react-router-dom";
+
 const items = [
   {
     key: "1",
@@ -41,6 +42,9 @@ const Mainlayout = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
+
+
+
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -53,7 +57,11 @@ const Mainlayout = () => {
           mode="inline"
           defaultSelectedKeys={[""]}
           onClick={({ key }) => {
-            if (key === "signup") {
+            if (key === "signout") {
+              localStorage.clear()
+              navigate("/")
+              window.location.reload()
+
             } else {
               navigate(key);
             }

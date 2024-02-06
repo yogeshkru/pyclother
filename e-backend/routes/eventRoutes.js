@@ -22,7 +22,7 @@ module.exports = (app) => {
     );
 
   router
-    .route("/delete-event")
+    .route("/delete-event/:id")
     .delete(
       authenticateUser,
       restrict("super admin"),

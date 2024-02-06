@@ -13,8 +13,8 @@ module.exports = (app) => {
   router
     .route("/img-upload")
     .patch(
-      // authenticateUser,
-      // restrict("shop admin", "super admin"),
+      authenticateUser,
+      restrict("shop admin", "super admin"),
       uploadPhoto.array("images", 9),
       uploadImages
     );
@@ -32,8 +32,8 @@ module.exports = (app) => {
     router
     .route("/delete-product-image/:productimage")
     .delete(
-      // authenticateUser,
-      // restrict("super admin","shop admin"),
+      authenticateUser,
+      restrict("super admin","shop admin"),
       deleteImageProduct
 
     )

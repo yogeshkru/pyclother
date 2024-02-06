@@ -21,7 +21,7 @@ export const postEvent = createAsyncThunk(
 export const getEvent = createAsyncThunk("event/get", async (_, thunkApi) => {
   try {
     const response = await eventService.getEvent();
-    return response;
+    return response["events"]
   } catch (error) {
     return thunkApi.rejectWithValue(error);
   }
@@ -32,6 +32,7 @@ export const deleteEvent = createAsyncThunk(
   async (id, thunkApi) => {
     try {
       const response = await eventService.deleteEvent(id);
+      thunkApi.dispatch(getEvent())
       return response;
     } catch (error) {
       return thunkApi.rejectWithValue(error);
@@ -45,6 +46,7 @@ const initialState={
     isSuccess:false,
     message:"",
     isLoader:false,
+    eventArray:[]
 
 }
 
@@ -70,6 +72,8 @@ export const eventSlice= createSlice({
             state.isError=false;
             state.isLoader=false;
             state.isSuccess=true
+            state.eventArray=action.payload
+            console.log(action.payload)
         }).addCase(getEvent.rejected,(state,action)=>{
             state.isError=true;
             state.isLoader=false;

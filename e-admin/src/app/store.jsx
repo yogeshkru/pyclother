@@ -8,6 +8,8 @@ import colorSlice from "../features/color/colorSlice";
 import shopSlice from "../features/shop/shopSlice";
 import Gst from "../features/Gst/gstSlice";
 import uploadImagesSlice from "../features/uploadImages/uploadImagesSlice"
+import enquirySlice from "../features/Enquiry/enquirySlice";
+import eventSlice from "../features/events/eventSlice";
 export const store = configureStore({
   reducer: {
     brand: brandDetails,
@@ -18,7 +20,9 @@ export const store = configureStore({
     category:categorySlice,
     shop:shopSlice,
     gst:Gst,
-    upload:uploadImagesSlice
+    upload:uploadImagesSlice,
+    enquiry:enquirySlice,
+    event:eventSlice
 
   },
 });

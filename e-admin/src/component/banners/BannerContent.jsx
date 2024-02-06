@@ -1,40 +1,77 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Dropzone from "react-dropzone";
 import "../../styles/bannercontent.css";
 import * as yup from "yup";
-import { useFormik } from "formik";
+import { Formik, useFormik } from "formik";
 import UseInput from "../../useCustom/useInput";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { FiEdit } from "react-icons/fi";
+import { MdDelete } from "react-icons/md";
+// ****************************************
+import {
+  uploadProductImageOnServer,
+  deleletProductImageonserver,
+} from "../../features/uploadImages/uploadImagesSlice";
+import URL from "../../utilis/Url";
+import { postEvent, getEvent, deleteEvent } from "../../features/events/eventSlice";
+
+// *********************************************************
+import DataTable from "react-data-table-component";
 
 const BannerContent = ({ active }) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const { productImage } = useSelector((state) => state.upload);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     description: "",
     category: "",
     originalPrice: "",
     discountPrice: "",
-    start_Date: "",
-    Finish_date: "",
+    start_date: "",
+    finish_date: "",
     status: "",
+    images: "",
   });
-  const dispath = useDispatch();
-  const navigate = useNavigate();
+
+  // ********************************************
+
+  useEffect(() => {
+    const img = [];
+    productImage.flat()?.forEach((element) => {
+      img.push({
+        url: element,
+      });
+    });
+
+    setFormData((preFormData) => ({
+      ...preFormData,
+      images: img,
+    }));
+  }, [productImage]);
+
+  // ******************************************
 
   const today = new Date().toISOString().slice(0, 10);
 
   const handleStartDateChange = (e) => {
     const startDate = new Date(e.target.value);
+
+    if (isNaN(startDate.getTime())) {
+      return;
+    }
+
     const minEndDate = new Date(startDate.getTime() + 3 * 24 * 60 * 60 * 1000);
     setStartDate(startDate);
     setEndDate(null);
 
     setFormData({
       ...formData,
-      start_Date: startDate.toISOString().slice(0, 10),
-      Finish_date: null,
+      start_date: startDate.toISOString().slice(0, 10),
+      finish_date: null,
     });
 
     document.getElementById("end_date").min = minEndDate
@@ -44,10 +81,13 @@ const BannerContent = ({ active }) => {
 
   const handleEndDateChange = (e) => {
     const endDate = new Date(e.target.value);
+    if (isNaN(endDate.getTime())) {
+      return;
+    }
     setEndDate(endDate);
     setFormData({
       ...formData,
-      Finish_date: endDate.toISOString().slice(0, 10),
+      finish_date: endDate.toISOString().slice(0, 10),
     });
   };
 
@@ -78,6 +118,7 @@ const BannerContent = ({ active }) => {
       return;
     }
 
+    dispatch(postEvent(formData));
   };
 
   const validateForm = (data) => {
@@ -99,10 +140,10 @@ const BannerContent = ({ active }) => {
     if (!data.originalPrice) {
       errors.originalPrice = "Original Price";
     }
-    if (!data.start_Date) {
-      errors.start_Date = "Start is required";
+    if (!data.start_date) {
+      errors.start_date = "Start is required";
     }
-    return errors
+    return errors;
   };
   return (
     <>
@@ -221,10 +262,55 @@ const BannerContent = ({ active }) => {
                         id="start_date"
                         name="start_date"
                         onChange={handleStartDateChange}
-                        value={formData.start_Date}
+                        value={formData.start_date}
                         className="form-control"
                       />
-                      <div className="error">{errors.start_Date}</div>
+                      <div className="error">{errors.start_date}</div>
+                    </div>
+
+                    <div className="mb-3 border ">
+                      <Dropzone
+                        onDrop={(acceptedFiles) =>
+                          dispatch(uploadProductImageOnServer(acceptedFiles))
+                        }
+                      >
+                        {({ getRootProps, getInputProps }) => (
+                          <section>
+                            <div {...getRootProps()}>
+                              <input {...getInputProps()} />
+                              <p className=" d-flex justify-content-center align-items-center">
+                                Upload Image
+                              </p>
+                            </div>
+                          </section>
+                        )}
+                      </Dropzone>
+                    </div>
+
+                    <div className="d-flex flex-wrap gap-3 mb-3">
+                      {Array.isArray(productImage) &&
+                        productImage.length > 0 &&
+                        productImage.flat()?.map((i, j) => {
+                          return (
+                            <div className="position-relative" key={j}>
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  dispatch(deleletProductImageonserver(i))
+                                }
+                                className="btn-close position-absolute"
+                                style={{ top: "10px", right: "10px" }}
+                              ></button>
+
+                              <img
+                                src={`${URL.IMAGE_URL}/${i}`}
+                                alt="images"
+                                width={100}
+                                height={100}
+                              />
+                            </div>
+                          );
+                        })}
                     </div>
 
                     <div className="mb-3">
@@ -237,7 +323,7 @@ const BannerContent = ({ active }) => {
                         name="end_date"
                         onChange={handleEndDateChange}
                         min={minEndDate}
-                        value={formData.Finish_date || ""}
+                        value={formData.finish_date || ""}
                         className="form-control "
                       />
                     </div>
@@ -266,9 +352,96 @@ const BannerContent = ({ active }) => {
 };
 
 function ProjectTracking() {
+  const dispatch = useDispatch();
+  const { eventArray } = useSelector((state) => state.event);
+  const handleDelete=(id)=>{
+    dispatch(deleteEvent(id))
+  }
+
+  useEffect(() => {
+    const timeOut = setTimeout(() => {
+      dispatch(getEvent());
+    }, 500);
+
+    return () => {
+      clearTimeout(timeOut);
+    };
+  }, []);
+
+  const col = [
+    {
+      name: "Id",
+      selector: (row) => row.id,
+      sortable: true,
+    },
+    {
+      name: "Name",
+      selector: (row) => row.name,
+      sortable: true,
+    },
+    {
+      name: "Description",
+      selector: (row) => row.description,
+      sortable: true,
+    },
+    {
+      name: "DiscountPrice",
+      selector: (row) => row.discountPrice,
+    },
+    {
+      name: "S-Date",
+      selector: (row) => row.startdate,
+    },
+    {
+      name: "E-Date",
+      selector: (row) => row.enddate,
+    },
+
+    {
+      name: "Action",
+      selector: (row) => row.action,
+    },
+  ];
+
+  const data = [];
+  for (let id = 0; id <eventArray.length; id++) {
+    data.push({
+      id: id+1,
+      name : eventArray[id]?.name,
+      description: eventArray[id]?.description,
+      discountPrice:eventArray[id]?.discountPrice,
+      startdate:new Date(eventArray[id]?.start_date).toLocaleDateString(),
+      enddate:new Date(eventArray[id]?.finish_date).toLocaleDateString(),
+      action: (
+        <>
+          <div className="d-flex">
+            {/* <Link
+              style={{ marginRight: "10px" }}
+              className="mainlayout_icons"
+              onClick={() => handleEdit(eventArray[id]._id)}
+            >
+              <FiEdit />
+            </Link> */}
+            <Link>
+              <MdDelete
+                fontSize={15}
+                className="mainlayout_icons"
+                onClick={() => handleDelete(eventArray[id]._id)}
+              />
+            </Link>
+          </div>
+        </>
+      ),
+    });
+  }
+
   return (
     <>
-      <div className="d-flex justify-content-center">No Data</div>
+      <div className="d-flex justify-content-center">
+        <div>
+          <DataTable columns={col} data={data} pagination />
+        </div>
+      </div>
     </>
   );
 }

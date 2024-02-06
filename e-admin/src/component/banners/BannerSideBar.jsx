@@ -39,7 +39,7 @@ const BannerSideBar = function ({ active, setActive }) {
             className={`${
               active === 2 ? "#beabc2" : ""
             } d-none d-md-block banner-sidebar-home fw-bold ms-2 `}
-          >HR Tracking</span>
+          >Event Tracking</span>
         </div>
       </div>
     </>
