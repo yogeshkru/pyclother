@@ -16,10 +16,17 @@ const ProfilSidebar = ({ active, setActive }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+
+  const logoutHandler =()=>{
+    localStorage.clear()
+    navigate("/")
+    window.location.reload()
+  }
+
   return (
     <>
       <>
-        <div className="w-50 bg-white shadow-sm rounded-3 p-4 pt-8 ">
+        <div className="w-50 bg-white shadow-sm rounded-3 p-4 pt-8 mt-5 ms-3">
           <div
             className="d-flex align-items-center w-100 mb-4 cursor-pointer"
             onClick={() => setActive(1)}
@@ -28,7 +35,7 @@ const ProfilSidebar = ({ active, setActive }) => {
             <span
               className={`pl-3 ${
                 active === 1 ? "text-danger" : ""
-              } d-md-block d-none`}
+              } d-md-block d-none ms-2`}
             >
               Profile
             </span>
@@ -96,13 +103,13 @@ const ProfilSidebar = ({ active, setActive }) => {
             <span
               className={`pl-3 ${
                 active === 2? "text-danger" : ""
-              } d-md-block d-none`}
+              } d-md-block d-none ms-2`}
             >
               Track Order
             </span>
           </div>
 
-          <div
+          {/* <div
             className="d-flex align-items-center w-100 mb-4 cursor-pointer mt-3"
             onClick={() => setActive(3)}
           >
@@ -117,9 +124,9 @@ const ProfilSidebar = ({ active, setActive }) => {
             >
               Payment Methods
             </span>
-          </div>
+          </div> */}
 
-          <div
+          {/* <div
             className="d-flex align-items-center w-100 mb-4 cursor-pointer mt-3"
             onClick={() => setActive(4)}
           >
@@ -134,20 +141,36 @@ const ProfilSidebar = ({ active, setActive }) => {
             >
               Address
             </span>
-          </div>
+          </div> */}
 
-          <div
-            className="d-flex align-items-center w-100 mb-4 cursor-pointer mt-3"
-            onClick={() => setActive(5) }
+<div
+            className="d-flex align-items-center w-100 mb-4 cursor-pointer"
+            onClick={() => setActive(3) }
           >
-            <AiOutlineLogin
+            <AiOutlineMessage
               size={20}
-              className={active === 5 ? "text-danger" : ""}
+              className={active === 3 ? "text-danger" : ""}
             />
             <span
               className={`pl-3 ${
-                active === 5? "text-danger" : ""
-              } d-md-block d-none`}
+                active === 3 ? "text-danger" : ""
+              } d-md-block d-none ms-2`}
+            >
+              Query
+            </span>
+          </div> 
+          <div
+            className="d-flex align-items-center w-100 mb-4 cursor-pointer mt-3"
+            onClick={() => setActive(4) || logoutHandler() }
+          >
+            <AiOutlineLogin
+              size={20}
+              className={active === 4 ? "text-danger" : ""}
+            />
+            <span
+              className={`pl-3 ${
+                active === 4? "text-danger" : ""
+              } d-md-block d-none ms-2`}
             >
               Log out
             </span>

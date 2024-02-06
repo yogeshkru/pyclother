@@ -36,10 +36,10 @@
   }
   
   .addtobag{
-    color:#DF0067;
-  justify-content: center;
-  margin: auto;
-  display: flex !important;
+    background-color:#DF0067;
+  /* justify-content: center; */
+  /* margin: auto; */
+  /* display: flex !important; */
   }
   .payment img{
 

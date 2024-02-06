@@ -4,8 +4,10 @@ import ProductCard from "../Component/ProductCard";
 import "../styles/ourstore.css"
 import Slider from "../Component/Slider";
 import { IoMdClose } from "react-icons/io";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllProduct } from "../features/product/productSlice";
 
 const OurStore = function () {
 
@@ -23,6 +25,21 @@ const OurStore = function () {
   const bhandleShow = () => {
     bsetShow(false)
   }
+
+
+  const { wholeProduct } = useSelector((state) => state.product)
+
+  const dispatch = useDispatch()
+  useEffect(() => {
+    const timeOut = setTimeout(() => {
+     dispatch(getAllProduct())
+
+    }, 500)
+
+    return () => {
+      clearTimeout(timeOut)
+    }
+  }, [])
 
   return (
     <>
@@ -109,11 +126,11 @@ const OurStore = function () {
                         className="searchstore"
 
                         onClick={() => setShow(false)}
-                        
+
 
                       />
-                      <IoMdClose onClick ={()=>setShow(false)} />
-                   
+                      <IoMdClose onClick={() => setShow(false)} />
+
 
 
                     </div>
@@ -154,10 +171,10 @@ const OurStore = function () {
                         placeholder=""
                         onClick={() => setShow(false)}
 
-                        
+
                       />
-                      <IoMdClose onClick ={()=>setShow(true)} />
-                   
+                      <IoMdClose onClick={() => setShow(true)} />
+
                     </div>
                   )
                 }
@@ -236,7 +253,7 @@ const OurStore = function () {
 
           <div className="col-lg-9 col-6 ourStore-product-render  ">
             <div className="d-flex gap-10 flex-wrap ">
-              <ProductCard />
+              <ProductCard data={wholeProduct}  />
             </div>
 
 
