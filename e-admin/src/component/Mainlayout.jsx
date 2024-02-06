@@ -29,6 +29,14 @@ import { useSelector } from "react-redux";
 // import { Link } from "react-router-dom";
 
 
+import { Link } from "react-router-dom";
+
+const items = [
+  {
+    key: "1",
+    label: <Link>Signout</Link>,
+  },
+];
 
 const { Header, Sider, Content } = Layout;
 const Mainlayout = () => {
@@ -43,26 +51,9 @@ const Mainlayout = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  const handleClick = () => {
 
 
-    if (!isSuccess) {
-      navigate("/shoplogin", { replace: true })
-      localStorage.removeItem("admin_user");
-    }
 
-
-  };
-
-
-  
-
-  const items = [
-    {
-      key: "1",
-      label: <div onClick={handleClick}>Sign Out</div>
-    },
-  ];
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -75,7 +66,11 @@ const Mainlayout = () => {
           mode="inline"
           defaultSelectedKeys={[""]}
           onClick={({ key }) => {
-            if (key === "signup") {
+            if (key === "signout") {
+              localStorage.clear()
+              navigate("/")
+              window.location.reload()
+
             } else {
               navigate(key);
             }
@@ -145,8 +140,8 @@ const Mainlayout = () => {
 
 
             {
-              key: "display",
-              label: "Display",
+              key: "events",
+              label: "Events",
               icon: (
                 <FaDisplay style={{ fontSize: "25px", color: "#BEABC2" }} />
               ),
@@ -194,13 +189,13 @@ const Mainlayout = () => {
                 <FaQuestion style={{ fontSize: "25px", color: "#BEABC2" }} />
               ),
             },
-            // {
-            //   key: "signout",
-            //   label: "Signout",
-            //   icon: (
-            //     <FaSignOutAlt style={{ fontSize: "25px", color: "#BEABC2" }} />
-            //   ),
-            // },
+            {
+              key: "signout",
+              label: "Signout",
+              icon: (
+                <FaSignOutAlt style={{ fontSize: "25px", color: "#BEABC2" }} />
+              ),
+            },
           ]}
         />
       </Sider>

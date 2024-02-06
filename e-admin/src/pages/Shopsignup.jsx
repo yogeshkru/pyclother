@@ -9,7 +9,7 @@ import { IoEyeOutline } from "react-icons/io5";
 import logo from "../assets/image/logo12.png";
 import {shopSignData} from "../features/shop/shopSlice";
 import {useDispatch,useSelector} from "react-redux";
-import {useNavigate} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 function Shopsignup() {
   const dispatch=useDispatch();
   const navigate=useNavigate()
@@ -69,13 +69,13 @@ function Shopsignup() {
     });
     useEffect(()=>{
       if(isSuccess){
-            navigate("/shoplogin")
+            navigate("/admin")
       }
     })
   return (
-    <div className="otp_background">
+    <div className="otp_background ">
       <div className="row justify-content-center shopSignup_row">
-        <div className="col-lg-4 col-11 shopSignup_Col">
+        <div className="col-lg-4 col-11 shopSignup_Col mt-5">
           <div className="m-auto shopSignup_image my-3">
             <img src={logo} width="100%" />
           </div>
@@ -208,7 +208,13 @@ function Shopsignup() {
           <div className="mt-2">
             <p style={{ cursor: "pointer" }}>
               Already have an account?{" "}
-              <span style={{ color: "blue" }}>ShopLogin</span>
+              <span style={{ color: "blue" }}>
+                <Link to="/" style={{textDecoration:"none"}}>
+                ShopLogin
+
+                </Link>
+                </span>
+              
             </p>
           </div>
         </div>

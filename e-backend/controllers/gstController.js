@@ -1,5 +1,5 @@
 const gstModel = require("../model/gstModel");
-const asyncErrorHandler = require("../utils/asyncErrorHandler");
+const asyncErrorHandler = require("../utils/asyncErrorhandler")
 const CustomError = require("../utils/customError");
 
 exports.createGst = asyncErrorHandler(async (req, res, next) => {
@@ -9,11 +9,8 @@ exports.createGst = asyncErrorHandler(async (req, res, next) => {
     // }
 
    
-    console.log('Received HSN Code:', req.body);
 
-    // const HSNAlready = await gstModel.findOne({ gst_hsn_code: req.body.Hsncode });
 
-    // console.log('Existing HSN Code:', HSNAlready);
     
     const { HSN_code, Gst } = req.body;
      
@@ -24,7 +21,6 @@ exports.createGst = asyncErrorHandler(async (req, res, next) => {
            
         });
        
-        console.log(handleCreate,"create")
         res.status(200).json({ handleCreate });
     } catch (error) {
         next(new CustomError(error.message, 500));
