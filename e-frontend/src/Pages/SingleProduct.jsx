@@ -46,7 +46,7 @@ function SingleProduct() {
     <>
       <section className="container pt-5 single-product-bread ">
         <div className="row ms-0">
-          <div className="col-4 mb-0 d-flex align-items-center  ms-0 ">
+          <div className="col-5 mb-0 d-flex align-items-center  ms-0 ">
             <nav
               style={{ "--bs-breadcrumb-divider": ">" }}
               aria-label="breadcrumb"
@@ -75,6 +75,10 @@ function SingleProduct() {
                 &nbsp;/&nbsp;
                 <li className="singleProduct-breadcrumb singleproduct-bread">
                   T-Shirts
+                </li>
+                &nbsp;/&nbsp;
+                <li className="">
+               <b>H&M T-shirts</b>
                 </li>
               </ol>
             </nav>
@@ -195,11 +199,11 @@ function SingleProduct() {
                   <div class="dropdown">
                   
   <a class="  otherinfo" type="button" aria-expanded="false">
-    Other information
+    Other Information
     <MdOutlineKeyboardArrowDown />
   </a>
   
-  <ul class="dropdown-menu">
+  <ul class="dropdown-menu col-lg-4">
     <li><a class="dropdown-item" href="#">Action</a></li>
     <li><a class="dropdown-item" href="#">Another action</a></li>
     <li><a class="dropdown-item" href="#">Something else here</a></li>

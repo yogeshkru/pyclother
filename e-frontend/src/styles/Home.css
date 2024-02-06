@@ -222,9 +222,11 @@ li {
 }
 .payment_details {
   border: 2px dashed #9E9E9E;
-  padding: 20px;
+  padding: 10px 20px;
   border-radius: 20px;
   margin-top: 20px;
+
+
 }
 .payment_row_margin{
   margin: 0 !important;
@@ -1023,6 +1025,13 @@ input[type="number"] {
 }
 .delivery-details_button1{
   width: 100%;
+  background-color: #df0067;
+  padding: 10px 10px;
+  border-radius: 15px;
+  color: white;
+}
+.delivery-details_buttons{
+
   background-color: #df0067;
   padding: 10px 10px;
   border-radius: 15px;

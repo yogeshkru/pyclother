@@ -3,6 +3,7 @@ import Color from "../Component/Colors";
 import ProductCard from "../Component/ProductCard";
 import "../styles/ourstore.css"
 import Slider from "../Component/Slider";
+import { IoMdClose } from "react-icons/io";
 import { useState } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
@@ -98,22 +99,24 @@ const OurStore = function () {
                         <h4>Category</h4>
                       </div>
                       <div>
-                        <FaMagnifyingGlass/>
+                        <FaMagnifyingGlass />
                       </div>
                     </div>
                   ) : (
-                    <div style={{opacity: show ? 1 : 1,transition: 'opacity 0.3s ease-in-out'}}>
-<input
-  type="search"
-  className="searchstore"
-  placeholder="search here..."
-  onClick={() => setShow(false)}
+                    <div >
+                      <input
+                        type="text"
+                        className="searchstore"
 
-/>
-<FaMagnifyingGlass />
+                        onClick={() => setShow(false)}
+                        
+
+                      />
+                      <IoMdClose onClick ={()=>setShow(false)} />
+                   
 
 
-        </div>
+                    </div>
                   )
                 }
               </div>
@@ -123,16 +126,16 @@ const OurStore = function () {
 
               <div >
                 <ul className="ps-0">
-                  <li className="ourstore-category-filter" ><input type="checkbox" className="ourcheck"></input> Tshirts <span className="ourstore-filter ms-1 mb-0">(12345 items )</span></li>
-                  <li className="ourstore-category-filter"><input type="checkbox" className="ourcheck"></input>Shirts <span className="ourstore-filter ms-1 mb-0">(123456 items)</span></li>
-                  <li className="ourstore-category-filter"><input type="checkbox" className="ourcheck"></input>Sweat Shirts <span className="ourstore-filter ms-1 mb-0">(12345 items)</span></li>
-                  <li className="ourstore-category-filter"><input type="checkbox" className="ourcheck"></input>Kurtas <span className="ourstore-filter ms-1 mb-0">(12345 items)</span></li>
+                  <li className="ourstore-category-filter  d-flex" ><input type="checkbox" className="ourcheck "></input> Tshirts <span className="ourstore-filter ms-1 mb-0">(12345 items )</span></li>
+                  <li className="ourstore-category-filter d-flex"><input type="checkbox" className="ourcheck"></input>Shirts <span className="ourstore-filter ms-1 mb-0">(123456 items)</span></li>
+                  <li className="ourstore-category-filter d-flex"><input type="checkbox" className="ourcheck"></input>Sweat Shirts <span className="ourstore-filter ms-1 mb-0">(12345 items)</span></li>
+                  <li className="ourstore-category-filter d-flex"><input type="checkbox" className="ourcheck"></input>Kurtas <span className="ourstore-filter ms-1 mb-0">(12345 items)</span></li>
                 </ul>
               </div>
             </div>
 
             <div className="outStore-brand-card">
-            <div onClick={bhandleShow}>
+              <div onClick={bhandleShow}>
                 {
                   bshow ? (
                     <div className="d-flex justify-content-between">
@@ -140,29 +143,31 @@ const OurStore = function () {
                         <h4>BRAND</h4>
                       </div>
                       <div>
-                        <FaMagnifyingGlass/>
+                        <FaMagnifyingGlass />
                       </div>
                     </div>
                   ) : (
-                    <div style={{opacity: show ? 1 : 1,transition: 'opacity 0.3s ease-in-out'}}>
-<input
-  type="search"
-  className="searchstore"
-  placeholder="search here..."
-  onClick={() => setShow(false)}
+                    <div>
+                      <input
+                        type="text"
+                        className="searchstore"
+                        placeholder=""
+                        onClick={() => setShow(false)}
 
-/>
-<FaMagnifyingGlass />
-        </div>
+                        
+                      />
+                      <IoMdClose onClick ={()=>setShow(true)} />
+                   
+                    </div>
                   )
                 }
               </div>
               <div>
                 <ul className="ps-0">
-                  <li className="ourstore-brand-filter"><input type="checkbox" className="ourcheck"></input>Roadster <span className="ourstore-filter ms-1 mb-0 ">(12346 items)</span></li>
-                  <li className="ourstore-brand-filter"><input type="checkbox" className="ourcheck"></input>Gucci <span className="ourstore-filter ms-1 mb-0">(12345 items)</span></li>
-                  <li className="ourstore-brand-filter"><input type="checkbox" className="ourcheck"></input>H&M <span className="ourstore-filter ms-1 mb-0 ">(12345 items)</span></li>
-                  <li className="ourstore-brand-filter"><input type="checkbox" className="ourcheck"></input>Versace <span className="ourstore-filter ms-1 mb-0">(12345 items)</span></li>
+                  <li className="ourstore-brand-filter d-flex"><input type="checkbox" className="ourcheck"></input>Roadster <span className="ourstore-filter ms-1 mb-0 ">(12346 items)</span></li>
+                  <li className="ourstore-brand-filter d-flex"><input type="checkbox" className="ourcheck"></input>Gucci <span className="ourstore-filter ms-1 mb-0">(12345 items)</span></li>
+                  <li className="ourstore-brand-filter d-flex"><input type="checkbox" className="ourcheck"></input>H&M <span className="ourstore-filter ms-1 mb-0 ">(12345 items)</span></li>
+                  <li className="ourstore-brand-filter d-flex"><input type="checkbox" className="ourcheck"></input>Versace <span className="ourstore-filter ms-1 mb-0">(12345 items)</span></li>
                 </ul>
               </div>
             </div>
@@ -216,13 +221,13 @@ const OurStore = function () {
               <h3 className="ourStore-discount-title mt-3">DISCOUNT</h3>
               <div className="li-gap">
                 <ul className="ps-0">
-                  <li className="ourstore-discount-filter"><input type="checkbox" className="ourcheck"></input>10% and above</li>
-                  <li className="ourstore-discount-filter"><input type="checkbox" className="ourcheck"></input>20% and above</li>
-                  <li className="ourstore-discount-filter"><input type="checkbox" className="ourcheck"></input>40% and above</li>
-                  <li className="ourstore-discount-filter"><input type="checkbox" className="ourcheck"></input>50% and above</li>
-                  
+                  <li className="ourstore-discount-filter d-flex"><input type="checkbox" className="ourcheck"></input>10% and above</li>
+                  <li className="ourstore-discount-filter d-flex"><input type="checkbox" className="ourcheck"></input>20% and above</li>
+                  <li className="ourstore-discount-filter d-flex"><input type="checkbox" className="ourcheck"></input>40% and above</li>
+                  <li className="ourstore-discount-filter d-flex"><input type="checkbox" className="ourcheck"></input>50% and above</li>
+
                   <li className="ourstore-discount-filter"><input type="checkbox" className="ourcheck"></input>60% and above</li>
-                  
+
                   <li className="ourstore-discount-filter"><input type="checkbox" className="ourcheck"></input>70% and above</li>
                 </ul>
               </div>
@@ -243,7 +248,7 @@ const OurStore = function () {
               <div className="ourStore-page-number  col-lg-2 ">
                 <nav aria-label="Page navigation example">
                   <ul className="pagination">
-                
+
                     <li className="page-item">
                       <a className="page-link" >
                         1

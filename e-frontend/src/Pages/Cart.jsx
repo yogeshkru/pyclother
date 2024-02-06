@@ -6,6 +6,8 @@ import rounded from "../assets/image/rounded.jpeg";
 import "../styles/cart.css";
 import ProductCard from "../Component/ProductCard";
 import StepHeader from "../Component/StepHeader";
+import secured from '../assets/image/secured.png'
+import { FaPlus } from "react-icons/fa6";
 function Cart() {
   return (
     <>
@@ -115,7 +117,9 @@ function Cart() {
       </div> */}
       <div>
         <section className="container">
+        <button className="m-auto d-flex p-2 rounded-5"><i><FaPlus /></i> Add from wishlist </button>
           <div className="d-flex py-4 ms-4">
+        
             <h4 className="mb-0">My Bag </h4>
             <p className=" ms-2 fw-100  fs-5 mb-0 cart-total">(1 items)</p>
           </div>
@@ -232,7 +236,7 @@ function Cart() {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    <tr >
                       <td>Total MRP</td>
                       <td>Rs. 1599</td>
                     </tr>
@@ -244,12 +248,12 @@ function Cart() {
                       <td>Shipping Fee</td>
                       <td>Rs. 99</td>
                     </tr>
-                    <tr className="">
+                    <tr className="cart-foot-top">
                       <td>Total MRP</td>
                       <td>Rs. 698</td>
                     </tr>
                   </tbody>
-                  <tfoot className="cart-foot-top">
+                  <tfoot className="">
                     <tr>
                       <td colspan="2">
                         <input

@@ -13,6 +13,7 @@ function DeliveryDetails() {
   const handleRadioChange = () => {
     setIsChecked(!isChecked);
   };
+  
   return (
     <div>
       <section className="container">
@@ -38,7 +39,7 @@ function DeliveryDetails() {
                 <input
                   type="text"
                   className="deliverydetails_input_fild"
-                  placeholder="Name"
+                  placeholder="Name*"
                 />
               </div>
             </div>
@@ -47,7 +48,7 @@ function DeliveryDetails() {
                 <input
                   type="text"
                   className="deliverydetails_input_fild"
-                  placeholder="Mobile no"
+                  placeholder="Mobile no*"
                 />
               </div>
             </div>
@@ -58,7 +59,7 @@ function DeliveryDetails() {
                   <input
                     type="text"
                     className="deliverydetails_input_fild"
-                    placeholder="Pin code"
+                    placeholder="Pin code*"
                   />
                 </div>
               </div>
@@ -67,7 +68,7 @@ function DeliveryDetails() {
                   <input
                     type="text"
                     className="deliverydetails_input_fild"
-                    placeholder="Address "
+                    placeholder="Address(House No,Building, Street Area)* "
                   />
                 </div>
               </div>
@@ -76,51 +77,28 @@ function DeliveryDetails() {
                   <input
                     type="text"
                     className="deliverydetails_input_fild"
-                    placeholder="Locality/ Town"
+                    placeholder="Locality/ Town*"
                   />
                 </div>
+             
               </div>
 
               <div className="mt-4">
                 <h5 className="fs-6 fw-bold">SAVE ADDRESS AS</h5>
               </div>
               <div className="mt-4">
-                <div className="row">
-                  <div className="col-lg-2 col-4">
-                    <input
-                      type="radio"
-                      className="deliverydetails_radio-button21"
-                      id="lang-2"
-                    />
-                    <label
-                      className="Delviery_Details_label"
-                      style={{
-                        border: "2px solid rgb(133 133 133) ",
-                        color: "rgb(133 133 133)",
-                      }}
-                    >
-                      Home
-                    </label>
-                  </div>
-                  <div className="col-lg-2 col-4 ms-2">
-                    <input
-                      type="radio"
-                      className="deliverydetails_radio-button21"
-                      id="lang-1"
-                      checked={isChecked}
-                      onChange={handleRadioChange}
-                    />
-                    <label
-                      className="Delviery_Details_label"
-                      style={{
-                        border: "2px solid rgb(133 133 133)",
-                        color: "rgb(133 133 133)",
-                      }}
-                    >
-                      Work
-                    </label>
-                  </div>
-                </div>
+        <div className="row">
+  <div className="col-lg-3 col-4 d-flex align-items-center">
+    <input type="radio" name="location"></input>
+    <label className="p-2">Home</label>
+  </div>
+  
+  <div className="col-lg-3 col-4 d-flex align-items-center">
+    <input type="radio" name="location"></input>
+    <label className="p-2">Work</label>
+  </div>
+</div>
+
               </div>
               <div className="mt-4">
                 <input type="checkbox" /> Make this my default address
@@ -136,18 +114,18 @@ function DeliveryDetails() {
           </div>
         </div>
         <div className="col-lg-1"></div>
-        <div className="col-lg-3">
-          <div className="payment_details">
+        <div className="col-lg-3 ">
+          <div className="payment_details ">
             <h6 className="fw-bold">Order Details</h6>
-            <div className="d-flex justify-content-between p-2">
+            <div className="d-flex justify-content-between p">
               <span>Total MRP</span>
               <span>Rs. 1599</span>
             </div>
-            <div className="d-flex justify-content-between p-2 ">
+            <div className="d-flex justify-content-between p ">
               <span>Discount</span>
               <span style={{ color: "#18AC4A" }}>-Rs. 1000</span>
             </div>
-            <div className="d-flex justify-content-between p-2">
+            <div className="d-flex justify-content-between p">
               <span>Shipping Fee</span>
               <span>Rs. 99</span>
             </div>
@@ -157,14 +135,21 @@ function DeliveryDetails() {
                 padding: "5px",
               }}
             ></div>
-            <div className="d-flex justify-content-between p-2">
+               <div className="d-flex justify-content-between p-2">
+           
+         
+            </div>
+            <div className="d-flex justify-content-between p">
               <span>
                 <span className="fw-bold">Total</span> MRP
               </span>
               <span className="fw-bold">Rs. 698</span>
             </div>
+          
           </div>
+          
         </div>
+        
         <div className="col-lg-2"></div>
       </div>
 

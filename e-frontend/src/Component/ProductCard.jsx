@@ -10,6 +10,7 @@ import woodie from "../assets/image/man-woodie.jpeg";
 import tshirt from "../assets/image/man_tshirt.jpeg";
 import smoke from "../assets/image/man-Smoke-tshirt.jpeg";
 import hairy from "../assets/image/hait-man.jpeg"
+
 import yellow from "../assets/image/yellow.jpeg";
 import yellowr from "../assets/image/yellowr.png";
 import details from "../assets/image/men1.png";
@@ -20,6 +21,10 @@ import cap2 from "../assets/image/cap2_man.jpeg";
 import smileman from "../assets/image/smile_man.jpeg";
 import twoshirt from "../assets/image/two_shirt.jpeg";
 import bluemoney from "../assets/image/money_blue.jpeg"
+import rupay from "../assets/image/rupay.png"
+import vis from '../assets/image/vis.png'
+import payment from '../assets/image/payment.png'
+import phonepay from '../assets/image/phonepae.png'
 
 import { CiHeart } from "react-icons/ci";
 
@@ -49,7 +54,7 @@ const ProductCard = function () {
 
           </div>
           <div className="product-details">
-            <h6 className="productCard-brand mt-3 mb-0 ms-2">H&M</h6>
+            <h6 className="productCard-brand mt-3 mb-0 ms-2 fw-semibold">H&M</h6>
             <p className="productCard-title mt-2 mb-0 ms-2">
               Men's Cotton Pure cotton T-S
             </p>
@@ -194,7 +199,7 @@ const ProductCard = function () {
               Men's Cotton Pure cotton T-S
             </p>
 
-            <h6 className="productCard-price mt-2 ms-3">Rs-888</h6>     <h6 className="productCard-price mt-2 ms-2">Rs-888</h6>
+            <h6 className="productCard-price mt-2 ms-3 fw-semibold">Rs-888</h6>    
             <a className="text-center addtobag">Add to bag</a>        </div>
         </div>
       </div>
@@ -521,7 +526,16 @@ const ProductCard = function () {
             <a className="text-center addtobag">Add to bag</a>
           </div>
         </div>
+
+
       </div> 
+      <div className="d-flex m-auto payment p-5 ">
+  <img src={rupay}  className="p-2" />
+  <img src={phonepay}  className="p-2" />
+  <img src={vis} className="p-2" />
+  <img src={payment} className="" />
+
+</div>
     </>
   );
 };

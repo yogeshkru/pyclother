@@ -41,6 +41,26 @@
   margin: auto;
   display: flex !important;
   }
+  .payment img{
+
+  height: 50px;
+
+
+  }
+  /* stepper */
+  .stepperhead{
+  margin-left: 30px;
+  
+  }
+/* Wishlist */
+.card{
+border-radius:12px !important ;
+}
+
+/* stepperHeader */
+.stepperword{
+  color: red
+}
 
   /* **********Colors Components End*********** */
 

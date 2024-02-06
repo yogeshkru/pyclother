@@ -6,7 +6,7 @@ import StepButton from '@mui/material/StepButton';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-const steps = ['Bag', 'Delivery Details', 'Payment'];
+const steps = ['Bags', 'Delivery Details', 'Payment'];
 
 export default function HorizontalNonLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -31,8 +31,7 @@ export default function HorizontalNonLinearStepper() {
   const handleNext = () => {
     const newActiveStep =
       isLastStep() && !allStepsCompleted()
-        ? 
-          steps.findIndex((step, i) => !(i in completed))
+        ? steps.findIndex((step, i) => !(i in completed))
         : activeStep + 1;
     setActiveStep(newActiveStep);
   };
@@ -58,16 +57,25 @@ export default function HorizontalNonLinearStepper() {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Stepper nonLinear activeStep={activeStep}>
-        {steps.map((label, index) => (
-          <Step key={label} completed={completed[index]}>
-            <StepButton color="inherit" onClick={handleStep(index)}>
-              {label}
-            </StepButton>
-          </Step>
-        ))}
-      </Stepper>
+<Box sx={{ width: '120%' }}>
+
+<Stepper nonLinear activeStep={activeStep} className='stepperword'>
+  {steps.map((label, index) => (
+    <Step key={label} completed={completed[index]}>
+      <StepButton className='' onClick={handleStep(index)}>
+        {label}
+      </StepButton>
+    </Step>
+  ))}
+</Stepper>
+
+
+</Box>
+
+  );
+}
+
+     
       {/* <div>
         {allStepsCompleted() ? (
           <React.Fragment>
@@ -113,10 +121,7 @@ export default function HorizontalNonLinearStepper() {
           </React.Fragment>
         )}
       </div> */}
-    </Box>
-  );
-}
-
+ 
  {/* <div className="col-3 py-5  ms-4">
                <img
                 src={percentage}

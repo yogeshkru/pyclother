@@ -23,7 +23,7 @@ function Footer() {
           <div className="row">
             <div className="col-lg-4 col-12">
               <div className="footer__content1">
-                <div className="footer__image2 mt-3">
+                <div className="footer__image2 mt-3 mx-4">
                   <img src={footer1} width="100%" />
                 </div>
                 <div className="footer__details1">

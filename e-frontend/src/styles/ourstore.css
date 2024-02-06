@@ -26,6 +26,7 @@
   }
   .ourcheck{
     margin-right: 10px;
+
   }
   
   .ourStore-brand-title {
@@ -199,15 +200,25 @@
 /* ourstore category searchbar */
 /* categories search bar */
 .searchstore {
-  width: 20px;
-  transition: width 2s ease-in-out, margin-left 2s ease-in-out;
+
+border: 2px solid black;
 
 }
 
 .searchstore:focus {
-  width: 50%;
-
+  border: 2px solid black;
+border-style: none;
 }
+.searchstores {
+
+  border: 2px solid black;
+  
+  }
+  
+  .searchstores:focus {
+    border: 2px solid black;
+  border-style: none;
+  }
 .ourStore_input{
   transition: linear 0.3s;
 }
