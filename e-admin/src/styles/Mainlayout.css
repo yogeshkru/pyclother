@@ -269,8 +269,18 @@ input[type=number] {
     z-index: 1111;
     width: 65%;
     padding: 20px;
-    background-color: #B66DFF;
+    background-color: rebeccapurple;
+    border-radius: 20px;
 
+}
+
+.product_padding{
+    padding: 7px 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: #B66DFF;
+    color: white;
+    font-weight: 500;
 }
 @media only screen and (max-width:600px){
     .mainlayout_compared{

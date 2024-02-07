@@ -124,6 +124,10 @@ function Addproduct() {
     });
   });
 
+  const handleImage=(image)=>{
+    dispatch(uploadProductImageOnServer(image))
+  }
+
   useEffect(() => {
     dispatch(brandGets());
     dispatch(colorgets());
@@ -132,6 +136,7 @@ function Addproduct() {
   }, [dispatch]);
   useEffect(() => {
     values.images = img;
+    
   }, [img]);
 
   return (
@@ -453,7 +458,8 @@ function Addproduct() {
                     <div class="card-body">
                       <Dropzone
                         onDrop={(acceptedFiles) =>
-                          dispatch(uploadProductImageOnServer(acceptedFiles))
+                          // dispatch(uploadProductImageOnServer(acceptedFiles))
+                          handleImage(acceptedFiles)
                         }
                       >
                         {({ getRootProps, getInputProps }) => (

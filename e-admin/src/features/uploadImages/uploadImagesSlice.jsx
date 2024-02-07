@@ -82,6 +82,7 @@ export const imageSlice = createSlice({
         state.isLoader = false;
         state.isSuccess = true;
         state.productImage.push(action.payload);
+        
       })
       .addCase(uploadProductImageOnServer.rejected, (state, action) => {
         state.isError = true;
@@ -96,9 +97,8 @@ export const imageSlice = createSlice({
         state.isError = false;
         state.isLoader = false;
         state.isSuccess = true;
-        state.productImage = state.productImage.filter(
-          (img) => img !== action.payload
-        );
+       
+
       })
       .addCase(deleletProductImageonserver.rejected, (state, action) => {
         state.isError = true;
