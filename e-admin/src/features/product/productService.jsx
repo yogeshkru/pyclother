@@ -40,8 +40,8 @@ const productOne = async (data) => {
 //patch
 const productUpdate = async function (data) {
   const response = await axios.patch(
-    `${URL.BASE_URL}product/update-product/${data}`,
-    data
+    `${URL.BASE_URL}product/update-product/${data.id}`,
+    data?.productUpdate,config
   );
 
   if (response.data) {
