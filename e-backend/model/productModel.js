@@ -26,7 +26,7 @@ const productSchema = new mongoose.Schema(
       ref: "Tbl_shop",
     },
     images: [],
-    color: [{ type: mongoose.Schema.Types.ObjectId, ref: "Tbl_color" }],
+    color: String,
 
     ratings: [
       {
