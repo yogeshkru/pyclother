@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Color from "../Component/Colors";
+
 import ProductCard from "../Component/ProductCard";
 import "../styles/ourstore.css";
 import Slider from "../Component/Slider";
@@ -9,8 +9,11 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProduct } from "../features/product/productSlice";
 
+
 const OurStore = function () {
   const [show, setShow] = useState(true);
+
+
 
   const handleShow = () => {
     setShow(false);
@@ -26,17 +29,22 @@ const OurStore = function () {
 
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [color, setColor] = useState([]);
+  const [colors, setColors] = useState([]);
 
   //filter
 
   const [category, setCategory] = useState(null);
   const [brand, setBrand] = useState(null);
+  const [color, setColor] = useState(null);
+
   const [minPrice, setMinPrice] = useState(null);
   const [maxPrice, setMaxPrice] = useState(null);
   const [sort, setSort] = useState(null);
 
   const dispatch = useDispatch();
+  
+
+  
 
   useEffect(() => {
     let newBrand = [];
@@ -47,11 +55,11 @@ const OurStore = function () {
       const element = wholeProduct[i];
       newBrand?.push(element?.brand);
       category?.push(element?.category);
-      newColors?.push(new Set(element?.color));
+      newColors?.push(element?.color);
     }
     setBrands(newBrand);
     setCategories(category);
-    setColor(newColors);
+    setColors(newColors);
   }, [wholeProduct]);
 
   useEffect(() => {
@@ -69,7 +77,7 @@ const OurStore = function () {
     brands &&
     [...new Set(brands)].map((item, i) => (
       <div key={i} className="d-flex gap-1">
-        <input type="checkbox" value={item} />
+        <input type="checkbox" onClick={() => setBrand(item)} />
         <span style={{ textTransform: "capitalize", fontSize: "13px" }}>
           {item}
         </span>
@@ -80,12 +88,41 @@ const OurStore = function () {
     categories &&
     [...new Set(categories)].map((item, i) => (
       <div key={i} className="d-flex gap-1">
-        <input type="checkbox" value={item} />
+        <input type="checkbox" onClick={() => setCategory(item)} />
         <span style={{ textTransform: "capitalize", fontSize: "13px" }}>
           {item}
         </span>
       </div>
     ));
+
+  //colors
+
+  const colorDetails =
+    colors &&
+    [...new Set(colors)].map((item, i) => {
+      return (
+        <div key={i} className="d-flex gap-1">
+          <div className="row">
+            <div className="col-lg-1">
+              <input type="checkbox" onClick={() => setColor(item)} />
+            </div>
+            <div className="col-lg-1 pt-1">
+              <div
+                style={{
+                  width: "13px",
+                  height: "13px",
+                  border: `1px solid ${item}`,
+                  backgroundColor: item,
+                  borderRadius: "12px",
+                }}
+              ></div>
+            </div>
+            <div className="col-lg-1">{item}</div>
+            <div className="col-lg-9"></div>
+          </div>
+        </div>
+      );
+    });
 
   // *******************************************************************
   return (
@@ -147,13 +184,6 @@ const OurStore = function () {
         <div className="row ">
           <div className={"col-lg-3 ourStore-border-right col-12"}>
             <div className="ourStore-filter-card ">
-              {/* 
-<div className="d-flex">
-{show === true && (
-  <h3 className="ourStore-filter-title pt-3">CATEGORIES</h3>
-)}   
-<input type="search " className="searchstore" placeholder="search here..."onClick={()=>setShow(false)} ></input> <FaMagnifyingGlass />
-</div> */}
               <div onClick={handleShow}>
                 {show ? (
                   <div className="d-flex justify-content-between">
@@ -303,12 +333,10 @@ const OurStore = function () {
 
             <div className="ourStore-color">
               <h3 className="ourStore-color-title">COLOR</h3>
-              <div>
-                <Color />
-              </div>
+              <div className="mb-3">{colorDetails}</div>
             </div>
 
-            <div className="ourStore-discount">
+            <div className="ourStore-discount mt-3">
               <h3 className="ourStore-discount-title mt-3">DISCOUNT</h3>
               <div className="li-gap">
                 <ul className="ps-0">
