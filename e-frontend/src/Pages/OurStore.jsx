@@ -10,8 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllProduct } from "../features/product/productSlice";
 
 const OurStore = function () {
-  
-
   const [show, setShow] = useState(true);
 
   const handleShow = () => {
@@ -28,40 +26,35 @@ const OurStore = function () {
 
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [discount, setDiscount] = useState([]);
+  const [color, setColor] = useState([]);
 
   //filter
 
-  const [tag, setTag] = useState(null);
   const [category, setCategory] = useState(null);
   const [brand, setBrand] = useState(null);
   const [minPrice, setMinPrice] = useState(null);
   const [maxPrice, setMaxPrice] = useState(null);
   const [sort, setSort] = useState(null);
 
-console.log(wholeProduct)
   const dispatch = useDispatch();
 
-   useEffect(()=>{
-   let newBrand=[];
-   let category =[];
-   let newTags =[];
-   let newColors =[];
+  useEffect(() => {
+    let newBrand = [];
+    let category = [];
+    let newColors = [];
 
-       for(let i=0;i<wholeProduct?.length;i++){
-        const element =wholeProduct[i];
-        newBrand?.push(element?.brand)
-        category?.push(element?.category)
-        newTags?.push(element?.color)
-
-
-       }
-
-   },[wholeProduct])
-
+    for (let i = 0; i < wholeProduct?.length; i++) {
+      const element = wholeProduct[i];
+      newBrand?.push(element?.brand);
+      category?.push(element?.category);
+      newColors?.push(new Set(element?.color));
+    }
+    setBrands(newBrand);
+    setCategories(category);
+    setColor(newColors);
+  }, [wholeProduct]);
 
   useEffect(() => {
-    
     const timeOut = setTimeout(() => {
       dispatch(getAllProduct());
     }, 500);
@@ -70,6 +63,29 @@ console.log(wholeProduct)
       clearTimeout(timeOut);
     };
   }, [dispatch]);
+
+  //brand
+  const brandDetails =
+    brands &&
+    [...new Set(brands)].map((item, i) => (
+      <div key={i} className="d-flex gap-1">
+        <input type="checkbox" value={item} />
+        <span style={{ textTransform: "capitalize", fontSize: "13px" }}>
+          {item}
+        </span>
+      </div>
+    ));
+  //category
+  const categoryDetails =
+    categories &&
+    [...new Set(categories)].map((item, i) => (
+      <div key={i} className="d-flex gap-1">
+        <input type="checkbox" value={item} />
+        <span style={{ textTransform: "capitalize", fontSize: "13px" }}>
+          {item}
+        </span>
+      </div>
+    ));
 
   // *******************************************************************
   return (
@@ -162,7 +178,7 @@ console.log(wholeProduct)
 
               <div>
                 <ul className="ps-0">
-                  <li className="ourstore-category-filter  d-flex">
+                  {/* <li className="ourstore-category-filter  d-flex">
                     <input type="checkbox" className="ourcheck "></input>{" "}
                     Tshirts{" "}
                     <span className="ourstore-filter ms-1 mb-0">
@@ -187,7 +203,8 @@ console.log(wholeProduct)
                     <span className="ourstore-filter ms-1 mb-0">
                       (12345 items)
                     </span>
-                  </li>
+                  </li> */}
+                  {categoryDetails}
                 </ul>
               </div>
             </div>
@@ -217,7 +234,7 @@ console.log(wholeProduct)
               </div>
               <div>
                 <ul className="ps-0">
-                  <li className="ourstore-brand-filter d-flex">
+                  {/* <li className="ourstore-brand-filter d-flex">
                     <input type="checkbox" className="ourcheck"></input>Roadster{" "}
                     <span className="ourstore-filter ms-1 mb-0 ">
                       (12346 items)
@@ -240,7 +257,8 @@ console.log(wholeProduct)
                     <span className="ourstore-filter ms-1 mb-0">
                       (12345 items)
                     </span>
-                  </li>
+                  </li> */}
+                  {brandDetails}
                 </ul>
               </div>
             </div>
