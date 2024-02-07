@@ -2,6 +2,7 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import URL from "../utilis/Url";
 import { useNavigate } from "react-router-dom";
+
 function Viewproduct() {
   const { state } = useLocation();
  
@@ -102,9 +103,7 @@ function Viewproduct() {
             </div>
             <div className="col-lg-1">:</div>
             <div className="col-lg-5">
-              {state.color.map((item) => (
-                <p>{item.color_hex_name}</p>
-              ))}
+              {state.color}
             </div>
           </div>
           <div className="row ">
