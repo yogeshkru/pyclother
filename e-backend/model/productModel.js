@@ -25,7 +25,7 @@ const productSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Tbl_shop",
     },
-    images: [],
+    images: [{type:String}],
     color: String,
 
     ratings: [

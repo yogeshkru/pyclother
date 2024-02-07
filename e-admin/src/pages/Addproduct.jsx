@@ -21,7 +21,7 @@ import {
   getOneProduct,
   postProductOnServer,
 } from "../features/product/productSlice";
-import URL from "../utilis/Url";
+// import URL from "../utilis/Url";
 import {
   uploadProductImageOnServer,
   deleletProductImageonserver,
@@ -41,18 +41,25 @@ function Addproduct() {
   const { getallGst } = useSelector((state) => state.gst);
   const { productImage } = useSelector((state) => state.upload);
 
-  const addMoreImage = (e) => {
+
+  // *****************************************
+  const [images, setImages] = useState([])
+
+
+  const handleImageChange = (e) => {
     e.preventDefault();
-    setImageInputs([...imageInputs, { id: Date.now(), file: null }]);
-  };
-  const removeImage = (id) => {
-    setImageInputs((prevInputs) =>
-      prevInputs.filter((input) => input.id !== id)
-    );
-  };
+    let files = Array.from(e.target.files)
 
-  const [imageurl, setImageUrl] = useState("");
+    setImages((prevImages) => [...prevImages, ...files])
+  }
 
+  const handleImageDelete = (data) => {
+
+
+    setImages((prevImages) => prevImages.filter((img) => img !== data))
+
+  }
+  // *********************************************
   const { values, errors, handleChange, handleBlur, handleSubmit, touched } =
     useFormik({
       initialValues: {
@@ -546,15 +553,32 @@ function Addproduct() {
                         id="upload"
                         className="hidden"
                         multiple
-                        onChange=""
+                        onChange={handleImageChange}
+                        style={{ display: 'none' }}
                       />
 
-                      <div className="w-100 d-flex align-items-center flex-wrap">
+                      <div className="w-100 d-flex align-items-center flex-wrap ms-4 ">
 
                         <label htmlFor="upload">
-                        <AiOutlinePlusCircle size={30} className="mt-3" color="#555" />
+                          <AiOutlinePlusCircle size={30} className="mt-3" color="#555" />
 
                         </label>
+
+                        {images && images.map((i, j) => {
+
+                          return (
+                            <div className="position-relative" key={j}>
+                              <button type="button" onClick={() => handleImageDelete(i)} className="btn-close position-absolute" style={{ top: "10px", right: "10px" }}></button>
+                              <img
+                                src={URL.createObjectURL(i)}
+                                key={i}
+                                alt="image"
+                                className="image-preview ms-5"
+                              />
+                            </div>
+                          );
+                        })}
+
 
                       </div>
                     </div>
