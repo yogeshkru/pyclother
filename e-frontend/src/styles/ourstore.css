@@ -24,6 +24,10 @@
     border-bottom: 1px solid  rgba(119, 119, 119, 0.4) ;
     padding-bottom: 20px;
   }
+  .ourcheck{
+    margin-right: 10px;
+
+  }
   
   .ourStore-brand-title {
     font-size: 16px;
@@ -154,6 +158,8 @@
   
   .page-link {
     color: rgb(52, 52, 52) !important;
+    border-style: none !important;
+    
   }
   .Page {
     border-radius: 70px !important;
@@ -163,6 +169,14 @@
     font-size: 12px;
     font-weight: 0;
     color: var(--color-777777);
+  }
+  #nextpg{
+    border: 1px solid  rgb(3, 3, 3) !important;
+    border-radius: 15px;
+    width: 120%;
+    
+    text-align: center;
+
   }
   
   .ourstore-category-filter,
@@ -183,5 +197,50 @@
   }
 
 
+/* ourstore category searchbar */
+/* categories search bar */
+.searchstore {
+
+border: 2px solid black;
+
+}
+
+.searchstore:focus {
+  border: 2px solid black;
+border-style: none;
+}
+.searchstores {
+
+  border: 2px solid black;
+  
+  }
+  
+  .searchstores:focus {
+    border: 2px solid black;
+  border-style: none;
+  }
+.ourStore_input{
+  transition: linear 0.3s;
+}
+
+
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+
+.page-item {
+  margin-right: 5px; /* Add a gap between each button */
+}
+
+.page-link {
+  border-radius: 5px; /* Set a border radius for the page links */
+  padding: 5px 10px; /* Add padding for better appearance */
+}
+
+.page-item:last-child .page-link {
+  border-radius: 20px; /* Set a border radius of 20px for the last page link (Next button) */
+}
 
   /* *******       ourStore  component End's ********* */

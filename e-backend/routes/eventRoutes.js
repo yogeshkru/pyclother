@@ -2,7 +2,8 @@ module.exports = (app) => {
   const router = require("express").Router();
   const EventController = require("../controllers/eventController");
   const asyncErrorhandler = require("../utils/asyncErrorhandler");
-  const { eventCreate, getAllShopEvent, deleteEvent } = new EventController();
+  const { eventCreate, getAllShopEvent, deleteEvent, inSertBannerImage } =
+    new EventController();
   const { authenticateUser, restrict } = require("../middleware/auth");
 
   router
@@ -29,5 +30,13 @@ module.exports = (app) => {
       asyncErrorhandler(deleteEvent)
     );
 
-    app.use("/api/event",router)
+  router
+    .route("/banner-image")
+    .post(
+      authenticateUser,
+      restrict("super admin"),
+      asyncErrorhandler(inSertBannerImage)
+    );
+
+  app.use("/api/event", router);
 };

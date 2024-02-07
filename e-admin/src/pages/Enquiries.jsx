@@ -68,13 +68,13 @@ function Enquiries() {
   for (let i = 0; i < GetAllenquirys?.length; i++) {
     data1.push({
       key: i + 1,
-      name: GetAllenquirys[i]?.enquiry_name,
-      email: (
-        <a href={`mailto:${GetAllenquirys[i]?.enquiry_email}`}>
-          {GetAllenquirys[i]?.enquiry_email}
-        </a>
-      ),
-      mobile: GetAllenquirys[i]?.enquiry_mobile,
+      // name: GetAllenquirys[i]?.enquiry_name,
+      // email: (
+      //   <a href={`mailto:${GetAllenquirys[i]?.enquiry_email}`}>
+      //     {GetAllenquirys[i]?.enquiry_email}
+      //   </a>
+      // ),
+      // mobile: GetAllenquirys[i]?.enquiry_mobile,
       date: new Date(GetAllenquirys[i]?.createdAt).toLocaleDateString(),
       status: (
         <>

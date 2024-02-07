@@ -3,8 +3,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Loginadmin from "./pages/Loginadmin";
 import Mainlayout from "./component/Mainlayout";
 import Dashboard from "./pages/Dashboard";
+
 import Enquiries from "./pages/Enquiries";
+
 import Orders from "./pages/Orders";
+
 import Customers from "./pages/Customers";
 import Colorlist from "./pages/Colorlist";
 import Categorylist from "./pages/Categorylist";
@@ -17,6 +20,7 @@ import Payment from "./pages/Payment";
 
 import "react-toastify/dist/ReactToastify.css";
 import Shopsignup from "./pages/Shopsignup";
+import Shopreset from "./pages/ShopReset";
 import Shoplogin from "./pages/Shoplogin";
 import Gst from "./pages/Gst";
 

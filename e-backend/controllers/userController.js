@@ -243,8 +243,9 @@ class UserController {
     const filterObj = filterReqObj(
       req.body,
       "user_name",
-      "admin_email",
-      "admin_phone"
+      "user_email",
+      "user_phone",
+
     );
 
     const updateUser = await userModel.findByIdAndUpdate(

@@ -22,6 +22,8 @@ function Brandlist() {
   const [searchTerm, setSearch] = useState("");
   const dispatch = useDispatch();
   const brandGet = useSelector((state) => state.brand.Getbrand);
+  const {isLoader}=useSelector((state)=>state.brand)
+  console.log(isLoader)
 
   const columns1 = [
     {
@@ -152,14 +154,19 @@ function Brandlist() {
   });
 
 
- 
+  let content
   useEffect(() => {
+    if(isLoader){
+      content=<p>loding ...</p>
+    }
     dispatch(brandGets());
+
   }, [render, dispatch]);
 
   return (
     <div>
       <div className="mt-2">
+        
         <div className="row">
           <div className="col-lg-4 fs-4 fw-bold">Brand List</div>
           <div className="col-lg-4">

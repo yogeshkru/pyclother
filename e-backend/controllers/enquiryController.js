@@ -5,21 +5,18 @@ const CustomError = require("../utils/customError");
 
 class EnquiryController {
   // Create Enquiry
-   async enquiry(req, res, next) {
-    const {
-      enquiry_name,
-      enquiry_email,
-      enquiry_mobile,
-      enquiry_comment,
-      enquiry_status,
-    } = req.body;
+  async enquiry(req, res, next) {
+
+    let { _id } = req.user
+
+
+    const queryData = req.body;
+
+    queryData.user_id = _id
     try {
       const newEnquiry = await enquiryModel.create({
-        enquiry_name,
-        enquiry_email,
-        enquiry_mobile,
-        enquiry_comment,
-        enquiry_status,
+
+        queryData
       });
       res.status(201).json({ newEnquiry });
     } catch (error) {
@@ -28,7 +25,7 @@ class EnquiryController {
   }
 
   // Get Single Enquiry
-   async getEnquiry(req, res, next) {
+  async getEnquiry(req, res, next) {
     const { id } = req.params;
     try {
       const enquiryOne = await enquiryModel.findById(id);
@@ -39,7 +36,7 @@ class EnquiryController {
   }
 
   // Get All Enquiries
-   async getAllEnquiry(req, res, next) {
+  async getAllEnquiry(req, res, next) {
     try {
       const enquiryAll = await enquiryModel.find();
       res.status(200).json({ enquiryAll });
@@ -49,7 +46,7 @@ class EnquiryController {
   }
 
   // Update Enquiry
-   async updateEnquiry(req, res, next) {
+  async updateEnquiry(req, res, next) {
     const { id } = req.params;
     const updatedQuery = await enquiryModel.findByIdAndUpdate(id, req.body, {
       runValidators: true,
@@ -65,7 +62,7 @@ class EnquiryController {
   }
 
   // Delete Enquiry
-   async deleteEnquiry(req, res, next) {
+  async deleteEnquiry(req, res, next) {
     const { id } = req.params;
     try {
       await enquiryModel.findByIdAndDelete(id);

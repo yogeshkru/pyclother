@@ -14,7 +14,6 @@ import {Link, useNavigate} from "react-router-dom"
 function Shoplogin() {
   const [eye, setEye] = useState(false);
   const{isSuccess}=useSelector(state=>state.shop)
-  console.log(isSuccess)
   const navigator=useNavigate()
  const dispatch=useDispatch()
   const handleEye = () => {
