@@ -76,14 +76,14 @@ const Mainlayout = () => {
               label: "Dashboard",
               icon: <MdHome style={{ fontSize: "25px", color: "#BEABC2" }} />,
             },
-            {
-              key: "customers",
-              label: "Customers",
-              icon: <FaUser style={{ fontSize: "20px", color: "#BEABC2" }} />,
-            },
+            // {
+            //   key: "customers",
+            //   label: "Customers",
+            //   icon: <FaUser style={{ fontSize: "20px", color: "#BEABC2" }} />,
+            // },
             {
               key: "catalog",
-              label: "Catalog",
+              label: <span className="label-style"  style={{color:"#3e4b5b"}}>Catalog</span>,
               icon: (
                 <MdShoppingCart
                   style={{ fontSize: "25px", color: "#BEABC2" }}
@@ -136,7 +136,7 @@ const Mainlayout = () => {
            
             {
               key: "events",
-              label: "Events",
+              label: <span className="label-style"  style={{color:"#3e4b5b"}}>Events</span>,
               icon: (
                 <BsCalendarEventFill style={{ fontSize: "25px", color: "#BEABC2" }} />
               ),
@@ -164,7 +164,7 @@ const Mainlayout = () => {
 
             {
               key: "offers",
-              label: "Offers",
+              label: <span className="label-style"  style={{color:"#3e4b5b"}}>Offers</span>,
               icon: (
                 <BiSolidOffer style={{ fontSize: "25px", color: "#BEABC2" }} />
               ),

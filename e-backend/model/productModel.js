@@ -7,7 +7,7 @@ const productSchema = new mongoose.Schema(
     },
     description: {
       type: String,
-      required: true,
+      // required: true,
     },
     brand: {
       type: String,
@@ -63,7 +63,7 @@ const productSchema = new mongoose.Schema(
     // branchId:{}
     size: {
       type:String,
-      required:true
+      // required:true
     },
 
     sku: String,

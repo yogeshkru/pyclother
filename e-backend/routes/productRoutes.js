@@ -35,7 +35,7 @@ module.exports = (app) => {
     .post(
       authenticateUser,
       restrict("shop admin", "super admin"),
-      uploadPhoto.array("images", 9),
+      uploadPhoto.array("images", 5),
       asyncErrorHandler(createProduct)
     );
   router
