@@ -8,6 +8,12 @@ export const postProductOnServer = createAsyncThunk(
   "product/post",
   async (product, thunkAPI) => {
     try {
+
+      console.log(image)
+      // const formData = new FormData();
+      // for (let i = 0; i < data.length; i++) {
+      //   formData.append("images", data[i]);
+      // }
       const response = await productService.productPost(product);
       return response;
     } catch (error) {

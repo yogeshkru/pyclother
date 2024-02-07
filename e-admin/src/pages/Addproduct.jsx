@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useEffect, useState, useRef } from "react";
+import "dropify/dist/css/dropify.min.css";
+import "dropify/dist/js/dropify.min.js";
+import $ from "jquery";
 import "react-quill/dist/quill.snow.css";
-import Dropzone from "react-dropzone"
+import Dropzone from "react-dropzone";
 import { colorgets } from "../features/color/colorSlice";
 import { brandGets } from "../features/brandSlice";
 import { categoryGetData } from "../features/category/categorySlice";
@@ -12,18 +14,25 @@ import { Getgst } from "../features/Gst/gstSlice";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
+import "dropify/dist/css/dropify.min.css";
+
 import { useParams } from "react-router-dom";
-import { getOneProduct, postProductOnServer } from "../features/product/productSlice";
+import {
+  getOneProduct,
+  postProductOnServer,
+} from "../features/product/productSlice";
 import URL from "../utilis/Url";
 import {
   uploadProductImageOnServer,
   deleletProductImageonserver,
 } from "../features/uploadImages/uploadImagesSlice";
+import { AiOutlinePlusCircle } from "react-icons/ai";
 
 function Addproduct() {
   const dispatch = useDispatch();
- 
- 
+
+  const [imageInputs, setImageInputs] = useState([{ id: 1, file: null }]);
+
   const [Available, setAvailable] = useState(true);
 
   const { Getbrand } = useSelector((state) => state.brand);
@@ -32,12 +41,20 @@ function Addproduct() {
   const { getallGst } = useSelector((state) => state.gst);
   const { productImage } = useSelector((state) => state.upload);
 
+  const addMoreImage = (e) => {
+    e.preventDefault();
+    setImageInputs([...imageInputs, { id: Date.now(), file: null }]);
+  };
+  const removeImage = (id) => {
+    setImageInputs((prevInputs) =>
+      prevInputs.filter((input) => input.id !== id)
+    );
+  };
 
-  
+  const [imageurl, setImageUrl] = useState("");
 
   const { values, errors, handleChange, handleBlur, handleSubmit, touched } =
     useFormik({
-
       initialValues: {
         name: "",
         description: "",
@@ -67,7 +84,7 @@ function Addproduct() {
         images: "",
       },
       onSubmit: (value) => {
-        const data = { ...value, Available: Available };
+        const data = { ...value, Available: Available, imageurl };
         dispatch(postProductOnServer(data));
       },
       validationSchema: Yup.object().shape({
@@ -94,8 +111,8 @@ function Addproduct() {
   ));
 
   const get_color = getAllColor?.map((item) => (
-    <option key={item._id} value={item?._id}>
-      {item.color_hex_name}
+    <option key={item._id} value={item?.color_title}>
+      {item?.color_title}
     </option>
   ));
 
@@ -110,10 +127,6 @@ function Addproduct() {
       {item.category_title}
     </option>
   ));
-
-  const handleDelete = (i) => {
-    dispatch(deleletProductImageonserver(i));
-  };
 
   const img = [];
 
@@ -132,6 +145,10 @@ function Addproduct() {
   useEffect(() => {
     values.images = img;
   }, [img]);
+
+  useEffect(() => {
+    $(".dropify").dropify();
+  }, [imageInputs]);
 
   return (
     <div className="row">
@@ -447,12 +464,13 @@ function Addproduct() {
                   )}
                 </div>
 
-                <div className="col-lg-12">
+                <div className="col-lg-12 mt-2">
                   <div class="card p-4">
-                    <div class="card-body">
+                    {/* <div class="card-body">
                       <Dropzone
                         onDrop={(acceptedFiles) =>
-                          dispatch(uploadProductImageOnServer(acceptedFiles))
+                          // dispatch(uploadProductImageOnServer(acceptedFiles))
+                          handleImage(acceptedFiles)
                         }
                       >
                         {({ getRootProps, getInputProps }) => (
@@ -479,7 +497,7 @@ function Addproduct() {
                                 style={{ top: "10px", right: "10px" }}
                               ></button>
                               <img
-                                src={`${URL.IMAGE_URL}/${i}`}
+                                src={`${URL.IMAGE_URL}${i}`}
                                 alt="images"
                                 width={200}
                                 height={200}
@@ -487,11 +505,58 @@ function Addproduct() {
                             </div>
                           );
                         })}
-                    </div>
+                    </div> */}
+                    {/* <button
+                      onClick={addMoreImage}
+                      className="btn btn-sm btn-soft-primary"
+                    >
+                      <i className="fas fa-plus me-2"></i>Add More images
+                    </button>
+                    <div className="row">
+                      {imageInputs.map((input) => (
+                        <div className="col-4" key={input.id}>
+                          <div className="card-body" id="fileInputsContainer">
+                            <span>
+                             
+                              <button
+                                className="btn btn-danger remove_image"
+                                onClick={() => removeImage(input.id)}
+                              >
+                                Remove
+                              </button>
+                            </span>
+                            <input
+                              type="file"
+                              name="file"
+                             
+                              className="dropify"
+                              onChange={(e) => setImageUrl(e.target.files)}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div> */}
+                    <div className="pb-2 ">
+                      <label className="pb-2">
+                        Upload Image <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="file"
+                        name=""
+                        id="upload"
+                        className="hidden"
+                        multiple
+                        onChange=""
+                      />
 
-                    <div className="">
-                      <label className="fw-bold fs-10 ">Sort</label>
-                      <UseInput type="text" label="Sort" />
+                      <div className="w-100 d-flex align-items-center flex-wrap">
+
+                        <label htmlFor="upload">
+                        <AiOutlinePlusCircle size={30} className="mt-3" color="#555" />
+
+                        </label>
+
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -653,8 +718,5 @@ function Addproduct() {
     </div>
   );
 }
-
-
-
 
 export default Addproduct;

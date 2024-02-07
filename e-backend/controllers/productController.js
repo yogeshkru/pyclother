@@ -24,7 +24,7 @@ class Product {
   updateProduct = async function (req, res, next) {
     const updateProduct = await productModel.findOneAndUpdate(
       { _id: req.params.id },
-      req,
+      req.
       body,
       { new: true }
     );

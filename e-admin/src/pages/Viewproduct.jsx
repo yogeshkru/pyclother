@@ -2,6 +2,7 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import URL from "../utilis/Url";
 import { useNavigate } from "react-router-dom";
+
 function Viewproduct() {
   const { state } = useLocation();
  
@@ -102,9 +103,7 @@ function Viewproduct() {
             </div>
             <div className="col-lg-1">:</div>
             <div className="col-lg-5">
-              {state.color.map((item) => (
-                <p>{item.color_hex_name}</p>
-              ))}
+              {state.color}
             </div>
           </div>
           <div className="row ">
@@ -129,7 +128,7 @@ function Viewproduct() {
             <div className="col-lg-1">:</div>
             <div
               className={`col-lg-5`}
-              style={{ color: state && state.Available ? "green" : "red" }}
+              style={{ color: state && state.Available ? "green" : "black" }}
             >
               {state.Available ? "Active" : "InActive"}
             </div>
@@ -150,9 +149,9 @@ function Viewproduct() {
             <div className="col-lg-1">:</div>
             <div
               className="col-lg-5"
-              style={{ color: state && state.weight ? "" : "red" }}
+              style={{ color: state && state.weight ? "" : "black" }}
             >
-              {state.weight ? state.weight : "Undefined"}
+              {state.weight ? state.weight : "--:--"}
             </div>
           </div>
           <div className="row mt-2">
@@ -162,9 +161,9 @@ function Viewproduct() {
             <div className="col-lg-1">:</div>
             <div
               className="col-lg-5"
-              style={{ color: state && state.weight_class ? "" : "red" }}
+              style={{ color: state && state.weight_class ? "" : "black" }}
             >
-              {state.weight_class ? state.weight_class : "Undefined"}
+              {state.weight_class ? state.weight_class : "--:--"}
             </div>
           </div>
           <div className="row mt-2">
@@ -175,9 +174,9 @@ function Viewproduct() {
             <div className="col-lg-5">
               <div
                 className="col-lg-5"
-                style={{ color: state && state.height ? "" : "red" }}
+                style={{ color: state && state.height ? "" : "black" }}
               >
-                {state.height ? state.height : "Undefined"}
+                {state.height ? state.height : "--:--"}
               </div>
             </div>
           </div>
@@ -189,9 +188,9 @@ function Viewproduct() {
             <div className="col-lg-1">:</div>
             <div
               className="col-lg-5"
-              style={{ color: state && state.length ? "" : "red" }}
+              style={{ color: state && state.length ? "" : "black" }}
             >
-              {state.length ? state.length : "Undefined"}
+              {state.length ? state.length : "--:--"}
             </div>
           </div>
           <div className="row mt-2">
@@ -201,9 +200,9 @@ function Viewproduct() {
             <div className="col-lg-1">:</div>
             <div
               className={`col-lg-5`}
-              style={{ color: state && state.size ? "" : "red" }}
+              style={{ color: state && state.size ? "" : "black" }}
             >
-              {state.size ? state.size : "Undefined"}
+              {state.size ? state.size : "--:--"}
             </div>
           </div>
           <div className="row mt-2">
@@ -213,9 +212,9 @@ function Viewproduct() {
             <div className="col-lg-1">:</div>
             <div
               className="col-lg-5"
-              style={{ color: state.brether ? "" : "red" }}
+              style={{ color: state.brether ? "" : "black" }}
             >
-              {state.brether ? state.brether : "Undefined"}
+              {state.brether ? state.brether : "--:--"}
             </div>
           </div>
           <div className="row mt-2">
@@ -225,9 +224,9 @@ function Viewproduct() {
             <div className="col-lg-1">:</div>
             <div
               className="col-lg-5"
-              style={{ color: state.diamension_class ? "" : "red" }}
+              style={{ color: state.diamension_class ? "" : "black" }}
             >
-              {state.diamension_class ? state.diamension_class : "Undefined"}
+              {state.diamension_class ? state.diamension_class : "--:--"}
             </div>
           </div>
         </div>
@@ -241,9 +240,9 @@ function Viewproduct() {
             <div className="col-lg-1">:</div>
             <div
               className="col-lg-5"
-              style={{ color: state && state.meta_title ? "" : "red" }}
+              style={{ color: state && state.meta_title ? "" : "black" }}
             >
-              {state.weight ? state.meta_title : "Undefined"}
+              {state.meta_title ? state?.meta_title : "--:--"}
             </div>
           </div>
           <div className="row mt-2">
@@ -253,9 +252,9 @@ function Viewproduct() {
             <div className="col-lg-1">:</div>
             <div
               className="col-lg-5"
-              style={{ color: state && state.meta_keyboard ? "" : "red" }}
+              style={{ color: state && state.meta_keyboard ? "" : "black" }}
             >
-              {state.weight_class ? state.meta_keyboard : "Undefined"}
+              {state.meta_keyboard ? state.meta_keyboard : "--:--"}
             </div>
           </div>
           <div className="row mt-2">
@@ -266,9 +265,9 @@ function Viewproduct() {
             <div className="col-lg-5">
               <div
                 className="col-lg-5"
-                style={{ color: state && state.meta_description ? "" : "red" }}
+                style={{ color: state && state.meta_description ? "" : "black" }}
               >
-                {state.height ? state.meta_description : "Undefined"}
+                {state.meta_description ? state.meta_description : "--:--"}
               </div>
             </div>
           </div>

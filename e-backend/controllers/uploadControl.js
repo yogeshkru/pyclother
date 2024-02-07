@@ -21,7 +21,7 @@ exports.deleteImageProduct = asyncErrorHandler(async (req, res) => {
     // const filePath = path.join(__dirname, "../public", req.params.productimage);
     const filePath = `public/${req.params.productimage}`
 
-    await fs.unlink(filePath);
+ await fs.unlink(filePath);
     res.status(200).json({ message: "Image deleted successfully" });
   } catch (error) {
     res.status(404).json({ error: error.message,message:"no file exist"});

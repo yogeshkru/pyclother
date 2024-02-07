@@ -93,9 +93,9 @@
 .ant-menu-item-selected:active{
     color: #B66DFF !important;
 }
-.ant-spin-container{
+/* .ant-spin-container{
  
-}
+} */
 .ant-menu-item{
     color: #3E4B5B !important;
 }
@@ -238,7 +238,7 @@ input[type=number]::-webkit-outer-spin-button {
     background: none !important;
 }
 input[type=number] {
-  -moz-appearance: textfield;
+  --moz-appearance: textfield;
 }
 .product_input{
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -269,8 +269,18 @@ input[type=number] {
     z-index: 1111;
     width: 65%;
     padding: 20px;
-    background-color: #B66DFF;
+    background-color: rebeccapurple;
+    border-radius: 20px;
 
+}
+
+.product_padding{
+    padding: 7px 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: #B66DFF;
+    color: white;
+    font-weight: 500;
 }
 @media only screen and (max-width:600px){
     .mainlayout_compared{
