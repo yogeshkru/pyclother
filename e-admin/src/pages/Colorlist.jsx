@@ -92,7 +92,7 @@ function Colorlist() {
     },
     validationSchema: Yup.object().shape({
       color_title: Yup.string().required("Color title is required "),
-      color_hex_name: Yup.string().required("Description is required "),
+      // color_hex_name: Yup.string().required("Description is required "),
       // meta_title: Yup.string().required("Meta title is required "),
       // meta_description: Yup.string().required("Meta description is required "),
       // meta_keyWord: Yup.string().required("Meta keyword is required "),
@@ -121,7 +121,7 @@ function Colorlist() {
     data.push({
       id: id + 1,
       color: getAllColor[id]?.color_title,
-      color_hex_name: getAllColor[id]?.color_hex_name,
+      // color_hex_name: getAllColor[id]?.color_hex_name,
       meta_title: getAllColor[id]?.meta_title,
       meta_description: getAllColor[id]?.meta_description,
       meta_keyword: getAllColor[id]?.meta_keyWord,

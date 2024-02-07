@@ -4,6 +4,12 @@ import { toast } from "react-toastify";
 
 export const resetAll = createAction("Reset_all");
 
+let imageDelete = "";
+const getUrlImage = function (data) {
+  imageDelete = data;
+};
+
+
 export const bannerImageUploadOnServer = createAsyncThunk(
   "upload/banner/image",
   async (data, thunkAPI) => {
@@ -19,7 +25,6 @@ export const bannerImageUploadOnServer = createAsyncThunk(
 export const uploadProductImageOnServer = createAsyncThunk(
   "upload/image",
   async (data, thunkAPI) => {
-   
     try {
       const formData = new FormData();
       for (let i = 0; i < data.length; i++) {
@@ -36,6 +41,7 @@ export const uploadProductImageOnServer = createAsyncThunk(
 export const deleletProductImageonserver = createAsyncThunk(
   "upload/delete",
   async (data, thunApi) => {
+    getUrlImage(data);
     try {
       const response = await updloadImageService.deleteImage(data);
       return response;
@@ -81,8 +87,7 @@ export const imageSlice = createSlice({
         state.isError = false;
         state.isLoader = false;
         state.isSuccess = true;
-        state.productImage.push(action.payload);
-        
+        state.productImage = [...state.productImage, ...action.payload];
       })
       .addCase(uploadProductImageOnServer.rejected, (state, action) => {
         state.isError = true;
@@ -97,8 +102,9 @@ export const imageSlice = createSlice({
         state.isError = false;
         state.isLoader = false;
         state.isSuccess = true;
-       
-
+        state.productImage = state.productImage.filter(
+          (image) => image !== imageDelete
+        );
       })
       .addCase(deleletProductImageonserver.rejected, (state, action) => {
         state.isError = true;

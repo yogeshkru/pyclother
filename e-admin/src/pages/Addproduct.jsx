@@ -32,7 +32,6 @@ function Addproduct() {
   const { getallGst } = useSelector((state) => state.gst);
   const { productImage } = useSelector((state) => state.upload);
 
-
   
 
   const { values, errors, handleChange, handleBlur, handleSubmit, touched } =
@@ -94,8 +93,9 @@ function Addproduct() {
   ));
 
   const get_color = getAllColor?.map((item) => (
-    <option key={item._id} value={item?._id}>
-      {item.color_hex_name}
+    <option key={item._id} value={item?.color_title}>
+      {/* {item.color_hex_name} */}
+      {item?.color_title}
     </option>
   ));
 
@@ -135,7 +135,7 @@ function Addproduct() {
   }, [dispatch]);
   useEffect(() => {
     values.images = img;
-    
+
   }, [img]);
 
   return (
@@ -485,7 +485,7 @@ function Addproduct() {
                                 style={{ top: "10px", right: "10px" }}
                               ></button>
                               <img
-                                src={`${URL.IMAGE_URL}/${i}`}
+                                src={`${URL.IMAGE_URL}${i}`}
                                 alt="images"
                                 width={200}
                                 height={200}

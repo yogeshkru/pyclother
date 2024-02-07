@@ -6,8 +6,13 @@ export const resetState = createAction("Reset_all");
 
 export const postProductOnServer = createAsyncThunk(
   "product/post",
-  async (product, thunkAPI) => {
+  async (product,data, thunkAPI) => {
     try {
+
+      const formData = new FormData();
+      for (let i = 0; i < data.length; i++) {
+        formData.append("images", data[i]);
+      }
       const response = await productService.productPost(product);
       return response;
     } catch (error) {
