@@ -48,10 +48,10 @@ const ProductCard = function ({ data }) {
     <>
 
       {data?.map((item, index) => {
-          const productName = item?.name?.replace(
-            /\s+/g,
-            "-"
-          );
+        const productName = item?.name?.replace(
+          /\s+/g,
+          "-"
+        );
         return (
           <div key={index} className="col-xl-2 col-lg-4 col-md-6 mt-3  productcard-mobile-view ms-4">
             <div className="productCard position-relative">
@@ -65,7 +65,7 @@ const ProductCard = function ({ data }) {
 
               </div>
               <div className="box">
-                <img src={`${URL.IMAGE_URL}${item.images[0].url}`} className="ms image-fluid productCard-image d-flex mx-auto" alt={item?.brand} onClick={()=>navigate(`/singleProduct/${productName}`)} />
+                <img src={`${URL.IMAGE_URL}${item.images[0].url}`} className="ms image-fluid productCard-image d-flex mx-auto" alt={item?.brand} onClick={() => navigate(`/singleProduct/${productName}`)} />
 
               </div>
               <div className="product-details ">
