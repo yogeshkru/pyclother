@@ -9,6 +9,7 @@ export const brandSignup = createAsyncThunk(
   async (userData, thunkApi) => {
     try {
       const response = await brandeService.brandCreate(userData);
+      thunkApi(dispatch(brandGets()))
       return response;
     } catch (err) {
       toast.error(err?.response?.data?.message);
