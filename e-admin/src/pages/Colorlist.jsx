@@ -96,7 +96,7 @@ function Colorlist() {
     },
     validationSchema: Yup.object().shape({
       color_title: Yup.string().required("Color title is required "),
-      color_hex_name: Yup.string().required("Description is required "),
+      // color_hex_name: Yup.string().required("Description is required "),
       // meta_title: Yup.string().required("Meta title is required "),
       // meta_description: Yup.string().required("Meta description is required "),
       // meta_keyWord: Yup.string().required("Meta keyword is required "),

@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice, createAction } from "@reduxjs/toolkit";
 import usersService from "./usersService";
 import { toast } from "react-toastify";
-import userDetails from "./usersService";
 export const resetAll = createAction("Reset_all");
 
 //signup
@@ -66,7 +65,7 @@ export const userUpdates = createAsyncThunk(
   "auth/update",
   async (token, thunkApi) => {
     try {
-      const response = await userDetails.userUpdate(token);
+      const response = await usersService.userUpdate(token);
       return response;
     } catch (err) {
       toast.error(err?.response?.data?.message);
@@ -80,7 +79,7 @@ export const userdeleteme = createAsyncThunk(
   "auth/deleteme",
   async (token, thunkApi) => {
     try {
-      const response = await userDetails.userdeleteme(token);
+      const response = await usersService.userdeleteme(token);
       return response;
     } catch (err) {
       toast.error(err?.response?.data?.message);

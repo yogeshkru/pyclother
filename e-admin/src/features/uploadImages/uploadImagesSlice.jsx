@@ -4,6 +4,12 @@ import { toast } from "react-toastify";
 
 export const resetAll = createAction("Reset_all");
 
+let imageDelete = "";
+const getUrlImage = function (data) {
+  imageDelete = data;
+};
+
+
 export const bannerImageUploadOnServer = createAsyncThunk(
   "upload/banner/image",
   async (data, thunkAPI) => {
@@ -27,28 +33,30 @@ export const uploadProductImageOnServer = createAsyncThunk(
       const response = await updloadImageService.uploadProductImage(formData);
       return response.urls;
     } catch (error) {
-      return thunkAPI.rejectWithValue(value)
+      return thunkAPI.rejectWithValue(value);
     }
   }
 );
 
-export const deleletProductImageonserver=createAsyncThunk(
-  "upload/delete",async(data,thunApi)=>{
-    try{
-      const response=await updloadImageService.deleteImage(data);
-      return response
-    }catch(err){
-          return thunApi.rejectWithValue(err)
+export const deleletProductImageonserver = createAsyncThunk(
+  "upload/delete",
+  async (data, thunApi) => {
+    getUrlImage(data);
+    try {
+      const response = await updloadImageService.deleteImage(data);
+      return response;
+    } catch (err) {
+      return thunApi.rejectWithValue(err);
     }
   }
-)
+);
 
 const initialState = {
   isError: false,
   isSuccess: false,
   isLoader: false,
   message: "",
-  productImage:[]
+  productImage: [],
 };
 
 export const imageSlice = createSlice({
@@ -79,31 +87,30 @@ export const imageSlice = createSlice({
         state.isError = false;
         state.isLoader = false;
         state.isSuccess = true;
-        state.productImage.push(action.payload)
+        state.productImage = [...state.productImage, ...action.payload];
       })
       .addCase(uploadProductImageOnServer.rejected, (state, action) => {
         state.isError = true;
         state.isLoader = false;
         state.isSuccess = false;
         state.message = action.error;
-        console.log(state.message)
       })
       .addCase(deleletProductImageonserver.pending, (state) => {
         state.isLoader = true;
       })
       .addCase(deleletProductImageonserver.fulfilled, (state, action) => {
-        
         state.isError = false;
         state.isLoader = false;
         state.isSuccess = true;
-      
+        state.productImage = state.productImage.filter(
+          (image) => image !== imageDelete
+        );
       })
       .addCase(deleletProductImageonserver.rejected, (state, action) => {
         state.isError = true;
         state.isLoader = false;
         state.isSuccess = false;
         state.message = action.error;
-     
       })
 
       .addCase(resetAll, () => initialState);

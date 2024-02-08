@@ -6,11 +6,15 @@ import rounded from "../assets/image/rounded.jpeg";
 import "../styles/cart.css";
 import ProductCard from "../Component/ProductCard";
 import StepHeader from "../Component/StepHeader";
+import secured from '../assets/image/secured.png'
+import { FaPlus } from "react-icons/fa6";
 function Cart() {
   return (
     <>
 
+<div className="col-lg-12">
 <StepHeader/>
+</div>
       {/* <Cartheader /> */}
       {/* <div className='container'>
         <div className='mt-3 jd-flex col-lg-8 justify-content-between'>
@@ -115,7 +119,9 @@ function Cart() {
       </div> */}
       <div>
         <section className="container">
+        <button className="m-auto d-flex p-2 rounded-5"><i><FaPlus /></i> Add from wishlist </button>
           <div className="d-flex py-4 ms-4">
+        
             <h4 className="mb-0">My Bag </h4>
             <p className=" ms-2 fw-100  fs-5 mb-0 cart-total">(1 items)</p>
           </div>
@@ -139,6 +145,7 @@ function Cart() {
                     <div className="d-flex justify-content-between mb-0 mt-3">
                       <h4 className="mb-0">H&M</h4>
                     </div>
+                    
                     <div className="mt-4">
                       <h3 className="cart-h3 ">
                         Pure Cotton Regular Fit Round-Neck T-shirt
@@ -212,7 +219,7 @@ function Cart() {
                     </div>
 
                     <div className="d-flex justify-content-between cart-end-tag">
-                      <p className="fw-light">Delivery between 17Dec -19Dec</p>
+                      <p className="fw-light">Delivery between <b>17Dec -19Dec</b></p>
 
                       <div>
                         <button className="border-0 bg-transparent fw-light">
@@ -231,24 +238,24 @@ function Cart() {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    <tr >
                       <td>Total MRP</td>
                       <td>Rs. 1599</td>
                     </tr>
                     <tr>
                       <td>Discount</td>
-                      <td>-Rs. 1000</td>
+                      <td className="discount">-Rs. 1000</td>
                     </tr>
                     <tr>
                       <td>Shipping Fee</td>
                       <td>Rs. 99</td>
                     </tr>
-                    <tr className="">
+                    <tr className="cart-foot-top">
                       <td>Total MRP</td>
                       <td>Rs. 698</td>
                     </tr>
                   </tbody>
-                  <tfoot className="cart-foot-top">
+                  <tfoot className="">
                     <tr>
                       <td colspan="2">
                         <input

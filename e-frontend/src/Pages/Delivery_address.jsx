@@ -190,6 +190,7 @@ import rupay from "../assets/image/pngwing.png";
 import visa from "../assets/image/pngwing-2.png";
 import pay from "../assets/image/Group 249.png";
 import women from "../assets/image/women.png";
+import StepHeader from "../Component/StepHeader";
 function Delivery_address() {
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
@@ -211,22 +212,20 @@ function Delivery_address() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
   };
 
   return (
-    <div className="mt-5">
+    <div className="">
+            <section className="container">
+        <StepHeader />
+      </section>
       <div className="row delivery_address_1">
         <div className="col-lg-2"></div>
         <div className="col-lg-4 pt-4">
+          
           <div className="d-flex justify-content-between">
             <div className="mt-2 delviery_address_content">
               <h5>Selcet Delivery Address</h5>

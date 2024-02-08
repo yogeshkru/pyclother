@@ -20,6 +20,7 @@ const uploadProductImage = async(image)=>{
 }
 
 const deleteImage=async(image)=>{
+ 
    const response=await axios.delete(`${URL.BASE_URL}upload/delete-product-image/${image}`,config)
    return response.data
 }

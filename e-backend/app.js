@@ -29,6 +29,10 @@ if (process.env.NODE_ENV == "development") {
 // *****************Third part liberary****************
 // app.use(helmet());
 
+
+
+
+
 app.use(cors());
 
 // app.use("/public", cors()); // Assuming images are served from the "/public" route

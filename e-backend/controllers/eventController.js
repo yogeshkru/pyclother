@@ -46,6 +46,18 @@ class EventController {
       return next(new CustomError(error.message, 500));
     }
   };
+
+  inSertBannerImage = async function (req, res, next) {
+    try {
+      const insertedImage = await new Event({
+        bannerImage: req.body.bannerImage.images.map((item) => item),
+      }).save({ validateBeforeSave: false });
+
+      res.status(200).json({ insertedImage });
+    } catch (error) {
+      return next(new CustomError(error.message, 500));
+    }
+  };
 }
 
 module.exports = EventController;
