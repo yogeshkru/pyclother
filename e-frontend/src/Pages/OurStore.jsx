@@ -26,7 +26,8 @@ const OurStore = function () {
     bsetShow(false);
   };
   // ************************Product filter*******************************
-  const { wholeProduct } = useSelector((state) => state.product);
+  const { wholeProduct } = useSelector((state) => state?.product);
+  
 
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);

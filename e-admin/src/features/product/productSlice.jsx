@@ -8,13 +8,45 @@ export const postProductOnServer = createAsyncThunk(
   "product/post",
   async (product, thunkAPI) => {
     try {
+      const formData = new FormData();
+      for (let i = 0; i < product?.images.length; i++) {
+        formData.append("images", product?.images[i])
+      }
 
-      console.log(image)
-      // const formData = new FormData();
-      // for (let i = 0; i < data.length; i++) {
-      //   formData.append("images", data[i]);
-      // }
-      const response = await productService.productPost(product);
+      formData.append("name", product?.name)
+      formData.append("description", product?.description)
+      formData.append("brand", product?.brand)
+      formData.append("color", product?.color)
+
+      formData.append("price", product?.price)
+      formData.append("sku", product?.sku)
+      formData.append("tag", product?.tag)
+      formData.append("model", product?.model)
+      formData.append("stack", product?.stack)
+      formData.append("Gst", product?.Gst)
+      formData.append("quantity", product?.quantity)
+      formData.append("category", product?.category)
+      formData.append("diamension_class", product?.diamension_class)
+      formData.append("rewardpoint", product?.rewardpoint)
+      formData.append("sort", product?.sort)
+      formData.append("length", product?.length)
+      formData.append("size", product?.size)
+      formData.append("height", product?.height)
+      formData.append("brether", product?.brether)
+      formData.append("weight", product?.weight)
+
+      formData.append("weight_class", product?.weight_class)
+
+      formData.append("meta_title", product?.meta_title)
+
+      formData.append("meta_description", product?.meta_description)
+      formData.append("meta_keyboard", product?.meta_keyboard)
+
+
+
+
+
+      const response = await productService.productPost(formData);
       return response;
     } catch (error) {
       toast.error(error?.response?.data?.message);
@@ -41,6 +73,7 @@ export const getOneProduct = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const response = await productService.productOne(data);
+      thunkAPI.dispatch(getAllProduct())
       return response;
     } catch (error) {
       toast.error(error?.response?.data?.message);
@@ -67,6 +100,8 @@ export const productUpdateOnServer = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const response = await productService.productUpdate(data);
+      thunkAPI.dispatch(shopData())
+
       return response;
     } catch (error) {
       toast.error(error?.response?.data?.message);
@@ -80,6 +115,8 @@ export const deleteProductOnServer = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const response = await productService.productDelete(data);
+      thunkAPI.dispatch(shopData())
+
       return response;
     } catch (error) {
       toast.error(error?.response?.data?.message);

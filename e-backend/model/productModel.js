@@ -7,7 +7,7 @@ const productSchema = new mongoose.Schema(
     },
     description: {
       type: String,
-      required: true,
+      // required: true,
     },
     brand: {
       type: String,
@@ -25,7 +25,7 @@ const productSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Tbl_shop",
     },
-    images: [],
+    images: [{type:String}],
     color: String,
 
     ratings: [
@@ -63,7 +63,7 @@ const productSchema = new mongoose.Schema(
     // branchId:{}
     size: {
       type:String,
-      required:true
+      // required:true
     },
 
     sku: String,

@@ -177,24 +177,24 @@ function Productlist() {
       action: (
         <>
           <div className="d-flex justify-content-between">
-            <div className="ms-2">
+            <div className="">
               <FiEdit
                 fontSize={15}
-                className="mainlayout_icons"
+                className="mainlayout_icons mr-4 fs-5"
                 onClick={() => handleUpdate(getAllShopProduct[i]._id)}
               />
             </div>
-            <Link>
+            <Link className="ms-3">
               <MdDelete
                 fontSize={15}
-                className="mainlayout_icons"
+                className="mainlayout_icons fs-5"
                 onClick={() => handleDelete(getAllShopProduct[i]._id)}
               />
             </Link>
-            <div className="ms-2">
+            <div className="ms-3">
               <FaRegEye
                 fontSize={15}
-                className="mainlayout_icons"
+                className="mainlayout_icons fs-5"
                 onClick={() => handleEye(getAllShopProduct[i])}
               />
             </div>
@@ -607,7 +607,7 @@ function Productlist() {
                             
 
                               <img
-                                src={`${URL.IMAGE_URL}${i?.url}`}
+                                src={`${URL.IMAGE_URL}${i}`}
                                 alt="product-image"
                                 width={100}
                                 height={100}
