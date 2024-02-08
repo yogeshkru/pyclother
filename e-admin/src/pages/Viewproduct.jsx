@@ -9,7 +9,7 @@ function Viewproduct() {
 
   const image=state?.images.map((item,i)=>(
     <div key={i} className="col-lg-2">
-          <img src={`${URL.IMAGE_URL}${item.url}`} width="100%"/>
+          <img src={`${URL.IMAGE_URL}${item}`} width="100%"/>
     </div>
   ))
   const navigate = useNavigate();
