@@ -8,6 +8,7 @@ import { FiEdit } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 import UseInput from "../useCustom/useInput";
+import { IoIosSearch } from "react-icons/io";
 import {
   Postgst,
   Getgst,
@@ -22,11 +23,13 @@ import { useDispatch, useSelector } from "react-redux";
 
 
 const Gst = () => {
-  
-  const [render,setRender]=useState(0)
+
+  const [render, setRender] = useState(0)
   const [edit, setEdit] = useState("");
   const dispatch = useDispatch();
-  const {getallGst}=useSelector((state)=>state.gst)
+  const [search, setSearch] = useState("");
+  const { getallGst } = useSelector((state) => state.gst)
+  console.log(getallGst)
 
 
   const col = [
@@ -52,29 +55,33 @@ const Gst = () => {
     },
   ]
 
-  
 
 
-  
+
+
   const handleEdit = (i) => {
     const edits = getallGst.find((item) => item._id === i);
     setEdit(edits)
     console.log(edits)
 
-    
+
   }
-  const handleDelete=(i)=>{
+  const handleDelete = (i) => {
     dispatch(DeleteGst(i))
-    setRender(per=>per-1)
-    
+    setRender(per => per - 1)
+
   }
+  const searchGst = getallGst.filter(row =>
+    Object.values(row).some(value =>
+      value.toString().toLowerCase().includes(search.toLowerCase()))
+  );
 
   const data = [];
-  for (let id = 0; id <getallGst.length; id++) {
+  for (let id = 0; id < searchGst.length; id++) {
     data.push({
-      id: id,
-      hsn_code : getallGst[id]?.gst_hsn_code,
-      gst: getallGst[id]?.gst_percentage,
+      id: id + 1,
+      hsn_code: searchGst[id]?.gst_hsn_code,
+      gst: searchGst[id]?.gst_percentage,
 
       action: (
         <>
@@ -82,7 +89,7 @@ const Gst = () => {
             <Link
               style={{ marginRight: "10px" }}
               className="mainlayout_icons"
-              onClick={() => handleEdit(getallGst[id]._id)}
+              onClick={() => handleEdit(searchGst[id]._id)}
             >
               <FiEdit />
             </Link>
@@ -90,7 +97,7 @@ const Gst = () => {
               <MdDelete
                 fontSize={15}
                 className="mainlayout_icons"
-                onClick={() => handleDelete(getallGst[id]._id)}
+                onClick={() => handleDelete(searchGst[id]._id)}
               />
             </Link>
           </div>
@@ -110,9 +117,9 @@ const Gst = () => {
   } = useFormik({
     enableReinitialize: true,
     initialValues: {
-      HSN_code: edit.gst_hsn_code|| "",
-      Gst: edit.gst_percentage|| "",
-     
+      HSN_code: edit.gst_hsn_code || "",
+      Gst: edit.gst_percentage || "",
+
     },
     onSubmit: (value) => {
       if (edit !== "") {
@@ -120,7 +127,7 @@ const Gst = () => {
         dispatch(PatchGst(data));
       } else {
         dispatch(Postgst(value));
-        
+
       }
       resetForm();
       setEdit("");
@@ -142,15 +149,19 @@ const Gst = () => {
           <div className="col-lg-4 fs-4 fw-bold">GST</div>
           <div className="col-lg-4">
             <form class="d-flex">
-              <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button class="btn btn-outline-success" type="submit">
-                Search
-              </button>
+              <div className="input-group w-75">
+              <span className="input-group-text"><IoIosSearch /></span>
+                <input
+                  className="form-control me-2"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                  value={search}
+                  onChange={(e) => { setSearch(e.target.value) }}
+                />
+               
+              </div>
+           
             </form>
           </div>
         </div>
