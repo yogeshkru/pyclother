@@ -57,8 +57,8 @@ function Payment() {
                   </div>
                 </div>
               </div>
-              <div className="mt-5 mb-5 d-flex justify-content-center">
-                <button className="orderpalced_btn payment_modify ">
+              <div className="mt-5 mb-5 d-flex justify-content-end">
+                <button className="orderpalced_btn payment_modify w-50">
                   Pay Now
                 </button>
               </div>

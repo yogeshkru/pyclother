@@ -8,10 +8,16 @@ import Marquee from "react-fast-marquee";
 import home_end from "../assets/image/end_of_season1.jpeg";
 import home from "../assets/image/home_carousel1.jpeg";
 import home1 from "../assets/image/home_carousel2.jpeg";
-import home2 from "../assets/image/home_carousel3.jpeg";
-import home3 from "../assets/image/home_carousel4.jpeg";
-import home4 from "../assets/image/home_carousel5.jpeg";
-import home5 from "../assets/image/home_carousel6.jpeg";
+import home_carousel1r from '../assets/image/home_carousel1r.png'
+import home_carousel2r from '../assets/image/home_carousel2r.png'
+import home_carouselbagr from '../assets/image/home_carouselbagr.png'
+import home_carousel3r from '../assets/image/home_carousel3r.png'
+import home_carousel4r from '../assets/image/home_carousel4r.png'
+import home_carousel5f from '../assets/image/home_carousel5f.png'
+
+
+import home_carousel6r from '../assets/image/home_carousel6r.png'
+
 import vector from "../assets/image/Vector.png";
 import home6 from "../assets/image/homeslide.jpeg";
 import home7 from "../assets/image/homeslide1.jpeg";
@@ -56,12 +62,12 @@ function Home() {
 
   //carousel
   const slides = [
-    { id: 1, scr: home, alt: "home_carousel1" },
-    { id: 2, scr: home1, alt: "home_carousel1" },
-    { id: 3, scr: home2, alt: "home_carousel1" },
-    { id: 4, scr: home3, alt: "home_carousel1" },
-    { id: 5, scr: home4, alt: "home_carousel1" },
-    { id: 6, scr: home5, alt: "home_carousel1" },
+    { id: 1, scr: home_carousel1r, alt: "home_carousel1" },
+    { id: 2, scr: home_carousel2r, alt: "home_carousel1" },
+    { id: 3, scr: home_carousel3r, alt: "home_carousel1" },
+    { id: 4, scr: home_carouselbagr, alt: "home_carouselbagr" },
+    { id: 5, scr: home_carousel5f, alt: "home_crousel5f" },
+    { id: 6, scr: home_carousel6r, alt: "home_carousel1" },
   ];
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -75,7 +81,7 @@ function Home() {
     <>
     <div className=" container-fluid overflow-hidden">
     
-      <div className="home_carousel">
+      <div className="home_carousel mt-auto">
         {slides.map((item, i) => (
           <img
             key={i}
@@ -106,13 +112,13 @@ function Home() {
         </div>
       </div>
       <div className="home_geniune_product">
-        <div className="row ">
+        <div className="row p-4 ">
           <div className="col-lg-4 home_geniune_border">
             <div className="d-flex justify-content-center gap-4">
-              <div className="home_geniune_product_img">
+              <div className="home_geniune_product_img pt-2">
                 <img src={vector} width="100%" />
               </div>
-              <div className="home_geniune_border_content">
+              <div className="home_geniune_border_content pt-3">
                 <p>100% GENIUNE</p>
                 <p>PRODUCTS</p>
               </div>
@@ -121,10 +127,10 @@ function Home() {
 
           <div className="col-lg-4 home_geniune_border">
             <div className="d-flex justify-content-center gap-4">
-              <div className="home_geniune_product_img1">
+              <div className="home_geniune_product_img1 pt-2">
                 <img src={exchange} width="100%" />
               </div>
-              <div className="home_geniune_border_content">
+              <div className="home_geniune_border_content pt-3">
                 <p>SUPERFAST DELIVERY</p>
                 <p>PRODUCTS</p>
               </div>
@@ -132,10 +138,10 @@ function Home() {
           </div>
           <div className="col-lg-4">
             <div className="d-flex justify-content-center gap-4">
-              <div className="home_geniune_product_img3">
+              <div className="home_geniune_product_img3 pt-2">
                 <img src={delivery} width="100%" />
               </div>
-              <div className="home_geniune_border_content">
+              <div className="home_geniune_border_content pt-3">
                 <p>EASY EXCHANGE& RETURNS</p>
                 <p>PRODUCTS</p>
               </div>
@@ -251,7 +257,7 @@ function Home() {
                 <img src={marriage} width="100%" />
               </div>
               <div className="home_rating_content2 text-center">
-                <h2 className="fw-bold">PARTY WESR</h2>
+                <h2 className="fw-bold">PARTY WEAR</h2>
                 <h4>min 20% OFF</h4>
               </div>
             </div>

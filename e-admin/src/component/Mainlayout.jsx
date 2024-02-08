@@ -24,15 +24,17 @@ import { FaQuestion } from "react-icons/fa6";
 import { FaDisplay } from "react-icons/fa6";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { RiMoneyPoundCircleLine } from "react-icons/ri";
+import { BsCalendarEventFill } from "react-icons/bs";
+
 
 import { Link } from "react-router-dom";
 
-const items = [
-  {
-    key: "1",
-    label: <Link>Signout</Link>,
-  },
-];
+// const items = [
+//   {
+//     key: "1",
+//     label: <Link>Signout</Link>,
+//   },
+// ];
 
 const { Header, Sider, Content } = Layout;
 const Mainlayout = () => {
@@ -43,9 +45,11 @@ const Mainlayout = () => {
   } = theme.useToken();
 
 
+  
 
 
   return (
+      
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="demo-logo-vertical">
@@ -72,14 +76,14 @@ const Mainlayout = () => {
               label: "Dashboard",
               icon: <MdHome style={{ fontSize: "25px", color: "#BEABC2" }} />,
             },
-            {
-              key: "customers",
-              label: "Customers",
-              icon: <FaUser style={{ fontSize: "20px", color: "#BEABC2" }} />,
-            },
+            // {
+            //   key: "customers",
+            //   label: "Customers",
+            //   icon: <FaUser style={{ fontSize: "20px", color: "#BEABC2" }} />,
+            // },
             {
               key: "catalog",
-              label: "Catalog",
+              label: <span className="label-style"  style={{color:"#3e4b5b"}}>Catalog</span>,
               icon: (
                 <MdShoppingCart
                   style={{ fontSize: "25px", color: "#BEABC2" }}
@@ -132,9 +136,9 @@ const Mainlayout = () => {
            
             {
               key: "events",
-              label: "Events",
+              label: <span className="label-style"  style={{color:"#3e4b5b"}}>Events</span>,
               icon: (
-                <FaDisplay style={{ fontSize: "25px", color: "#BEABC2" }} />
+                <BsCalendarEventFill style={{ fontSize: "25px", color: "#BEABC2" }} />
               ),
               children: [
                 {
@@ -160,7 +164,7 @@ const Mainlayout = () => {
 
             {
               key: "offers",
-              label: "Offers",
+              label: <span className="label-style"  style={{color:"#3e4b5b"}}>Offers</span>,
               icon: (
                 <BiSolidOffer style={{ fontSize: "25px", color: "#BEABC2" }} />
               ),
@@ -219,18 +223,18 @@ const Mainlayout = () => {
                   <img src={men} width="100%" className="mainlayout_image" />
                 </div>
                 <div className="mt-2">
-                  <Dropdown
+                  {/* <Dropdown
                     menu={{
                       items,
                     }}
-                  >
+                  > */}
                     <a onClick={(e) => e.preventDefault()}>
                       <Space>
                         VcodeWonders
-                        <DownOutlined />
+                        {/* <DownOutlined /> */}
                       </Space>
                     </a>
-                  </Dropdown>
+                  {/* </Dropdown> */}
                 </div>
               </div>
             </div>

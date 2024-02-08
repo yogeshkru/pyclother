@@ -1,12 +1,16 @@
-const getTokenFromLoacalStorage = localStorage.getItem("admin_user")
+
+  const getTokenFromLocalStorage = localStorage.getItem("admin_user")
   ? JSON.parse(localStorage.getItem("admin_user"))
   : null;
 
 export const config = {
   headers: {
-    Authorization: getTokenFromLoacalStorage
-      ? `Bearer ${getTokenFromLoacalStorage.token}`
+    "Content-Type": "multipart/form-data",
+    Authorization: getTokenFromLocalStorage
+      ? `Bearer ${getTokenFromLocalStorage.token}`
       : null,
     Accept: "application/json",
   },
 };
+
+

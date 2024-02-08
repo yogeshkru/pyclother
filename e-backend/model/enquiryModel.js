@@ -2,18 +2,9 @@ const mongoose = require("mongoose");
 
 const enquirySchema = new mongoose.Schema(
   {
-    enquiry_name: {
-      type: String,
-      required: [true, "name is required"],
-      trim: true,
-    },
-    enquiry_email: {
-      type: String,
-      required: [true, "Email is required"],
-    },
-    enquiry_mobile: {
-      type: Number,
-      required: [true, "Phone is required"],
+    user_id:{
+      type:mongoose.Schema.Types.ObjectId,
+      ref:"Tbl_user"
     },
     enquiry_comment: {
       type: String,

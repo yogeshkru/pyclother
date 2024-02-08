@@ -80,7 +80,7 @@ export const brandFinds = createAsyncThunk(
 const initialState = {
   isError: false,
   isSuccess: false,
-  isLoader: false,
+  isLoader: true,
   isMessage: "",
   Getbrand:[]
 };

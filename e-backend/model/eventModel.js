@@ -34,6 +34,7 @@ const eventSchema = new mongoose.Schema(
       required: [true, "Please enter your event price"],
     },
     images: Array,
+    bannerImage:Array,
     shopId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Tbl_shop",

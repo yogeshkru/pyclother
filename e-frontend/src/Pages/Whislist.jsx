@@ -7,11 +7,13 @@ import whislist2 from "../assets/image/whislist3.jpeg";
 
 function Whislist() {
   return (
-    <div className="mt-3 ">
-      <div className="container">
-        <div className="row">
-          <div className="col-lg-2">
-            <div class="card">
+    <div className="mt-3 pb-5 mb-5 ">
+ 
+      <div className="container mb-5 pb-5">
+      <h5 className="mt-5">My Wish list</h5>   
+        <div className="row mt-4">
+          <div className="col-lg-2 ">
+            <div class="card  ">
               <div className="whislist_content_1">
                 <img src={whislist} class="card-img-top" alt="..." />
                 <div className="whislist_content_icon">
@@ -90,7 +92,7 @@ function Whislist() {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 

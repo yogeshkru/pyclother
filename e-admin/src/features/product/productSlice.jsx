@@ -8,7 +8,45 @@ export const postProductOnServer = createAsyncThunk(
   "product/post",
   async (product, thunkAPI) => {
     try {
-      const response = await productService.productPost(product);
+      const formData = new FormData();
+      for (let i = 0; i < product?.images.length; i++) {
+        formData.append("images", product?.images[i])
+      }
+
+      formData.append("name", product?.name)
+      formData.append("description", product?.description)
+      formData.append("brand", product?.brand)
+      formData.append("color", product?.color)
+
+      formData.append("price", product?.price)
+      formData.append("sku", product?.sku)
+      formData.append("tag", product?.tag)
+      formData.append("model", product?.model)
+      formData.append("stack", product?.stack)
+      formData.append("Gst", product?.Gst)
+      formData.append("quantity", product?.quantity)
+      formData.append("category", product?.category)
+      formData.append("diamension_class", product?.diamension_class)
+      formData.append("rewardpoint", product?.rewardpoint)
+      formData.append("sort", product?.sort)
+      formData.append("length", product?.length)
+      formData.append("size", product?.size)
+      formData.append("height", product?.height)
+      formData.append("brether", product?.brether)
+      formData.append("weight", product?.weight)
+
+      formData.append("weight_class", product?.weight_class)
+
+      formData.append("meta_title", product?.meta_title)
+
+      formData.append("meta_description", product?.meta_description)
+      formData.append("meta_keyboard", product?.meta_keyboard)
+
+
+
+
+
+      const response = await productService.productPost(formData);
       return response;
     } catch (error) {
       toast.error(error?.response?.data?.message);
@@ -19,7 +57,7 @@ export const postProductOnServer = createAsyncThunk(
 
 export const getAllProduct = createAsyncThunk(
   "product/get",
-  async (_,thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
       const response = await productService.productGetAll();
       return response;
@@ -35,10 +73,24 @@ export const getOneProduct = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const response = await productService.productOne(data);
+      thunkAPI.dispatch(getAllProduct())
       return response;
     } catch (error) {
       toast.error(error?.response?.data?.message);
       return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const shopData = createAsyncThunk(
+  "shop/product",
+  async (_, thunkApi) => {
+    try {
+      const response = await productService.getAllShop();
+      return response;
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+      return thunkApi.rejectWithValue(error);
     }
   }
 );
@@ -48,6 +100,8 @@ export const productUpdateOnServer = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const response = await productService.productUpdate(data);
+      thunkAPI.dispatch(shopData())
+
       return response;
     } catch (error) {
       toast.error(error?.response?.data?.message);
@@ -61,6 +115,8 @@ export const deleteProductOnServer = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const response = await productService.productDelete(data);
+      thunkAPI.dispatch(shopData())
+
       return response;
     } catch (error) {
       toast.error(error?.response?.data?.message);
@@ -74,6 +130,8 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   message: "",
+  getAllproduct: [],
+  getAllShopProduct: [],
 };
 
 export const productSlice = createSlice({
@@ -89,7 +147,6 @@ export const productSlice = createSlice({
         state.isError = false;
         state.isLoading = false;
         state.isSuccess = true;
-        state.createdProduct = action.payload;
       })
       .addCase(postProductOnServer.rejected, (state, action) => {
         state.isError = true;
@@ -104,7 +161,7 @@ export const productSlice = createSlice({
         state.isError = false;
         state.isLoading = false;
         state.isSuccess = true;
-        state.getAll = action.payload;
+        state.getAllproduct = action.payload;
       })
       .addCase(getAllProduct.rejected, (state, action) => {
         state.isError = true;
@@ -156,9 +213,25 @@ export const productSlice = createSlice({
         state.isSuccess = false;
         state.isLoading = false;
         state.message = action.error;
-      }).addCase(resetState,()=>initialState)
+      })
+      .addCase(shopData.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(shopData.fulfilled, (state, action) => {
+        state.isError = false;
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.getAllShopProduct = action.payload.shopData;
+      })
+      .addCase(shopData.rejected, (state, action) => {
+        state.isError = true;
+        state.isSuccess = false;
+        state.isLoading = false;
+        state.message = action.error;
+      })
+
+      .addCase(resetState, () => initialState);
   },
 });
-
 
 export default productSlice.reducer;

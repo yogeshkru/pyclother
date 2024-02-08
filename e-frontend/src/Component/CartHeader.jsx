@@ -1,8 +1,10 @@
 
 import "../app.css"
 import secure from '../assets/image/secure.jpeg'
+import secured from '../assets/image/secured.png'
 export const Cartheader = () => {
 
+  
 
   return (
     <div className='d-flex justify-content-around overflow-hidden mt-5'>
