@@ -24,6 +24,9 @@ import { FaQuestion } from "react-icons/fa6";
 import { FaDisplay } from "react-icons/fa6";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { RiMoneyPoundCircleLine } from "react-icons/ri";
+import { useSelector } from "react-redux";
+
+
 import { BsCalendarEventFill } from "react-icons/bs";
 
 
@@ -38,7 +41,12 @@ import { Link } from "react-router-dom";
 
 const { Header, Sider, Content } = Layout;
 const Mainlayout = () => {
+
+
+
   const navigate = useNavigate();
+  const { isSuccess } = useSelector((state) => state.shop)
+  console.log(isSuccess)
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -122,7 +130,7 @@ const Mainlayout = () => {
                 }
               ],
             },
-            
+
             {
               key: "orders",
               label: "Orders",
@@ -132,8 +140,8 @@ const Mainlayout = () => {
                 />
               ),
             },
-            
-           
+
+
             {
               key: "events",
               label: <span className="label-style"  style={{color:"#3e4b5b"}}>Events</span>,
@@ -159,7 +167,7 @@ const Mainlayout = () => {
                 <MdPayment style={{ fontSize: "25px", color: "#BEABC2" }} />
               ),
             },
-        
+
 
 
             {
