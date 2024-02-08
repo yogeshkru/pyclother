@@ -57,7 +57,7 @@ function Productlist() {
       Gst: edite?.Gst._id || "",
       brand: edite?.brand || "",
       category: edite?.category || "",
-      color: edite?.color[0] || "",
+      color: edite?.color|| "",
       rewardpoint: edite?.rewardpoint || "",
       Available: edite?.Available || "",
       sort: edite?.sort || "",

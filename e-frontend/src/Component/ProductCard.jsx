@@ -52,7 +52,7 @@ const ProductCard = function ({ data }) {
               </div>
               <div className="box">
                 <img
-                  // src={`${URL.IMAGE_URL}${item?.images[0]?.url}`}
+                  src={`${URL.IMAGE_URL}${item?.images[0]}`}
                   className="ms image-fluid productCard-image d-flex mx-auto"
                   alt={item?.brand}
                   onClick={() => navigate(`/singleProduct/${productName}`)}
@@ -81,12 +81,6 @@ const ProductCard = function ({ data }) {
 
      
 
-      <div className="d-flex m-auto payment p-5 ">
-        <img src={rupay} className="p-2" />
-        <img src={phonepay} className="p-2" />
-        <img src={vis} className="p-2" />
-        <img src={payment} className="" />
-      </div>
     </>
   );
 };

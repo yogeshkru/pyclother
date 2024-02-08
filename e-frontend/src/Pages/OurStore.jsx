@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProduct } from "../features/product/productSlice";
+import { GetColorName } from 'hex-color-to-color-name';
 
 
 const OurStore = function () {
@@ -101,6 +102,7 @@ const OurStore = function () {
   const colorDetails =
     colors &&
     [...new Set(colors)].map((item, i) => {
+       const colorNAme= GetColorName(item);
       return (
         <div key={i} className="d-flex gap-1">
           <div className="row">
@@ -118,8 +120,8 @@ const OurStore = function () {
                 }}
               ></div>
             </div>
-            <div className="col-lg-1">{item}</div>
-            <div className="col-lg-9"></div>
+            <div className="col-lg-8">{colorNAme}</div>
+            <div className="col-lg-2"></div>
           </div>
         </div>
       );

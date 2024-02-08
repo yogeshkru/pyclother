@@ -25,7 +25,6 @@ function Brandlist() {
   const dispatch = useDispatch();
   const brandGet = useSelector((state) => state.brand.Getbrand);
   const {isLoader}=useSelector((state)=>state.brand)
-  console.log(isLoader)
 
   const columns1 = [
     {

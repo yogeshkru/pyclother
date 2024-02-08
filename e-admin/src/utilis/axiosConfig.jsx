@@ -5,7 +5,7 @@
 
 export const config = {
   headers: {
-    "Content-Type": "multipart/form-data",
+    // "Content-Type": "multipart/form-data",
     Authorization: getTokenFromLocalStorage
       ? `Bearer ${getTokenFromLocalStorage.token}`
       : null,
