@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../styles/Home.css";
-import { useParams } from "react-router-dom";
+import { useNavigate,useParams } from "react-router-dom";
 import logo from "../assets/image/logo12.png";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -12,7 +12,7 @@ import { IoEyeOutline } from "react-icons/io5";
 
 function Reset() {
   const { token } = useParams();
-
+  const navigate= useNavigate();
   const dispatch=useDispatch()
   const { values, errors, handleChange, handleBlur, handleSubmit, touched } =
     useFormik({
@@ -36,7 +36,7 @@ function Reset() {
       onSubmit:(value)=>{
         const data={password:value.password,token:token}
         dispatch(userResetAPI(data))
-       
+         navigate("/")
       }
     });
   const [show, setShow] = useState(true);
