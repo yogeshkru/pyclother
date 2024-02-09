@@ -281,7 +281,7 @@ function Colorlist() {
 
                   <div className="mb-2">
                     <UseInput
-                      type="text"
+                      type="number"
                       name="sort"
                       onChange={handleChange}
                       onBlur={handleBlur}

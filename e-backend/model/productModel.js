@@ -62,7 +62,7 @@ const productSchema = new mongoose.Schema(
     // companyId:{},
     // branchId:{}
     size: {
-      type:String,
+      type:[],
       // required:true
     },
 
@@ -82,6 +82,8 @@ const productSchema = new mongoose.Schema(
     meta_title: String,
     meta_description: String,
     meta_keyboard: String,
+    tax:String,
+    discount:String
   },
 
   { timestamps: true }

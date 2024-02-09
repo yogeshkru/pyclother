@@ -30,6 +30,7 @@ import Viewproduct from "./pages/Viewproduct";
 
 import { OpenRoutes } from "./protect/openRoutes";
 import { PrivateRoutes } from "./protect/PrivateRoutes";
+import Privacypolicy from "./pages/Privacypolicy";
 function App() {
   let content;
 
@@ -80,11 +81,14 @@ function App() {
             <Route path="product-list" element={<Productlist />} />
             {/* *********************************** */}
             <Route path="product" element={<Addproduct />} />
+            <Route path="product/:id" element={<Addproduct />} />
+
             {/* ********************************** */}
             <Route path="payment" element={<Payment />} />
             <Route path="banners" element={<Banners />} />
 
             <Route path="coupon-list" element={<Couponlist />} />
+            <Route path="policy" element={<Privacypolicy />} />
             <Route path="gst" element={<Gst />} />
             <Route path="view" element={<Viewproduct />} />
           </Route>

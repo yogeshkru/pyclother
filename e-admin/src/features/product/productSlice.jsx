@@ -7,6 +7,7 @@ export const resetState = createAction("Reset_all");
 export const postProductOnServer = createAsyncThunk(
   "product/post",
   async (product, thunkAPI) => {
+    console.log(product)
     try {
       const formData = new FormData();
       for (let i = 0; i < product?.images.length; i++) {
@@ -125,6 +126,8 @@ export const deleteProductOnServer = createAsyncThunk(
   }
 );
 
+
+
 const initialState = {
   isError: false,
   isSuccess: false,
@@ -132,6 +135,7 @@ const initialState = {
   message: "",
   getAllproduct: [],
   getAllShopProduct: [],
+  navigate_product:""
 };
 
 export const productSlice = createSlice({
@@ -147,6 +151,7 @@ export const productSlice = createSlice({
         state.isError = false;
         state.isLoading = false;
         state.isSuccess = true;
+        state.navigate="product-navigate"
       })
       .addCase(postProductOnServer.rejected, (state, action) => {
         state.isError = true;

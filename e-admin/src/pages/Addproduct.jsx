@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import "dropify/dist/css/dropify.min.css";
 import "dropify/dist/js/dropify.min.js";
-import $ from "jquery";
+
 import "react-quill/dist/quill.snow.css";
-import Dropzone from "react-dropzone";
+
 import { colorgets } from "../features/color/colorSlice";
 import { brandGets } from "../features/brandSlice";
 import { categoryGetData } from "../features/category/categorySlice";
@@ -13,15 +13,17 @@ import "../styles/Mainlayout.css";
 import { Getgst } from "../features/Gst/gstSlice";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
+import SERVERURL from "../utilis/Url";
 import "dropify/dist/css/dropify.min.css";
+import { IoIosAddCircleOutline } from "react-icons/io";
 
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 import {
-  getOneProduct,
+  productUpdateOnServer,
   postProductOnServer,
+  getAllProduct,
 } from "../features/product/productSlice";
-// import URL from "../utilis/Url";
+// import SERVERURL from "../utilis/SERVERURL";
 import {
   uploadProductImageOnServer,
   deleletProductImageonserver,
@@ -30,7 +32,10 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 
 function Addproduct() {
   const dispatch = useDispatch();
-
+  const navigate=useNavigate()
+  const { id } = useParams();
+  const sizeData = ["XS", "S", "M", "L", "XL", "XXL"];
+  const [selectedSizes, setSelectedSizes] = useState([]);
 
   const [Available, setAvailable] = useState(true);
 
@@ -38,9 +43,9 @@ function Addproduct() {
   const { categoryGet } = useSelector((state) => state.category);
   const { getAllColor } = useSelector((state) => state.color);
   const { getallGst } = useSelector((state) => state.gst);
-  const { productImage } = useSelector((state) => state.upload);
+  const { getAllShopProduct } = useSelector((state) => state.product);
 
-
+  const data = getAllShopProduct.find((item) => item._id === id);
   // ***************** Images************************
   const [images, setImages] = useState([]);
   const [showSortNotification, setShowSortNotification] = useState(true);
@@ -74,44 +79,74 @@ function Addproduct() {
   const handleMouseOut = () => {
     setHoveredIndex(null);
   };
+  useEffect(() => {
+    dispatch(getAllProduct());
+    // if(navigate_product !== ""){
+    //      navigate("/admin/product-list")
+    // }
+  }, [dispatch]);
 
-
+  const handleCheckboxChange = (item) => {
+    setSelectedSizes((prevSelectedSizes) => {
+      if (prevSelectedSizes.includes(item)) {
+        return prevSelectedSizes.filter((size) => size !== item);
+      } else {
+        return [...prevSelectedSizes, item];
+      }
+    });
+  };
 
   // *********************************************
   const { values, errors, handleChange, handleBlur, handleSubmit, touched } =
     useFormik({
+      enableReinitialize: true,
       initialValues: {
-        name: "",
-        description: "",
-        brand: "",
-        color: "",
-        price: "",
-        sku: "",
-        tag: "",
+        name: data?.name || "",
+        description: data?.description || "",
+        brand: data?.brand || "",
+        color: data?.color || "",
+        price: data?.price || "",
+        sku: data?.sku || "",
+        tag: data?.tag || "",
 
-        model: "",
-        stack: "",
-        Gst: "",
-        quantity: "",
-        category: "",
-        diamension_class: "",
-        rewardpoint: "",
-        sort: "",
-        length: "",
-        size: "",
-        height: "",
-        brether: "",
-        weight: "",
-        weight_class: "",
-        meta_title: "",
-        meta_description: "",
-        meta_keyboard: "",
-        // images: "",
+        model: data?.model || "",
+        stack: data?.stack || "",
+        Gst: data?.Gst || "",
+        quantity: data?.quantity || "",
+        category: data?.category || "",
+        diamension_class: data?.diamension_class || "",
+        rewardpoint: data?.rewardpoint || "",
+        sort: data?.sort || "",
+        length: data?.length || "",
+     
+        height: data?.height || "",
+        brether: data?.brether || "",
+        weight: data?.weight || "",
+        weight_class: data?.weight_class || "",
+        meta_title: data?.meta_title || "",
+        meta_description: data?.meta_description || "",
+        meta_keyboard: data?.meta_keyboard || "",
+        tax: "",
+        discount:""
+      
       },
       onSubmit: (value) => {
-        // console.log(value)
-        const data = { ...value, Available: Available, images: images };
-        dispatch(postProductOnServer(data));
+        console.log(value)
+        // if (data !== null) {
+        //   const productUpdateDetails = {
+        //     id: data._id,
+        //     productUpdate: value,
+        //     size: selectedSizes,
+        //   };
+        //   dispatch(productUpdateOnServer(productUpdateDetails));
+        // } else {
+        //   const productDetails = { ...value, Available: Available, images: images };
+        //   dispatch(postProductOnServer(productDetails));
+        // }
+     
+        const productDetails = { ...value, Available: Available, images: images, size: selectedSizes, };
+          dispatch(postProductOnServer(productDetails));
+
       },
       validationSchema: Yup.object().shape({
         name: Yup.string().required("Product Name is required"),
@@ -126,9 +161,12 @@ function Addproduct() {
         category: Yup.string().required("Category is required"),
         sort: Yup.string().required("Sort is required"),
         quantity: Yup.string().required("Quantity is required"),
-        size: Yup.string().required("Size is Required"),
+
+       
       }),
     });
+
+  
 
   const get_brand = Getbrand?.map((item) => (
     <option key={item?._id} value={item.brand_title}>
@@ -164,8 +202,6 @@ function Addproduct() {
   //   newForm.append("images",image)
   //  })
 
-
-
   // useEffect(() => {
   //   values.images = img;
   // }, [img]);
@@ -178,10 +214,6 @@ function Addproduct() {
     dispatch(categoryGetData());
     dispatch(Getgst());
   }, [dispatch]);
-
-
-
-
 
   return (
     <div className="row">
@@ -278,13 +310,14 @@ function Addproduct() {
 
                     <div className="col-lg-4">
                       <div className="">
-                        <label className="fw-bold fs-10">Tax</label>
+                        <label className="fw-bold fs-10">GST</label>
                         <select
                           class="form-select"
                           aria-label="Default select example"
                           name="Gst"
                           value={values.Gst}
                           onChange={handleChange}
+                          onBlur={handleBlur}
                         >
                           <option>Open this GST</option>
                           {getGst}
@@ -451,32 +484,67 @@ function Addproduct() {
                         ""
                       )}
                     </div>
-
                     <div className="col-lg-4">
-                      <div className="">
-                        <label className="fw-bold fs-10">Size</label>
+                      <div className="product_custom-dropdown">
+                        <label className="fw-bold fs-10">Color</label>
                         <select
                           class="form-select"
                           aria-label="Default select example"
-                          name="size"
-                          value={values.size}
+                          name="tax"
+                          value={values.tax}
                           onChange={handleChange}
                           onBlur={handleBlur}
                         >
-                          <option selected>Open this select menu</option>
-                          <option value="XS">XS</option>
-                          <option value="S">S</option>
-                          <option value="M">M</option>
-                          <option value="L">L</option>
-                          <option value="XL">XL</option>
+                          <option>Open this tax</option>
+                          <option value="Inclusive_tax">Inclusive Tax</option>
+                          <option value="Exclusive_tax">Exclusive Tax</option>
                         </select>
+                        {errors.color && touched.color ? (
+                          <div style={{ color: "red" }}>{errors.tax}</div>
+                        ) : (
+                          ""
+                        )}
                       </div>
-                      {errors.size && touched.size ? (
-                        <div style={{ color: "red" }}>{errors.size}</div>
-                      ) : (
-                        ""
-                      )}
                     </div>
+                  </div>
+
+                  <div className="row">
+                    <div className="col-lg-4">
+                      <label className="fw-bold fs-10">Size</label>
+                      <div className="row">
+                        {sizeData.map((item) => (
+                          <div key={item} className="col-lg-1">
+                            <label>
+                              <input
+                                type="checkbox"
+                                value={item}
+                                checked={selectedSizes.includes(item)}
+                                onChange={() => handleCheckboxChange(item)}
+                              />
+                              {item}
+                            </label>
+                          </div>
+                        ))}
+                        {selectedSizes.length < 4 && (
+                          <div style={{ color: "red" }}>
+                            Please select at least 4 sizes
+                          </div>
+                        )}
+                       
+                      </div>
+                    </div>
+                    <div className="col-lg-4">
+                      <label className="fw-bold fs-10">Discount</label>
+                      <UseInput
+                        type="text"
+                        label="Discount"
+                        name="discount"
+                        value={values.discount}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                    </div>
+                  
                   </div>
 
                   <div className="mt-3 mb-2">
@@ -499,16 +567,22 @@ function Addproduct() {
 
                 <div className="col-lg-12 mt-2">
                   <div class="card p-4">
-
                     <div className="pb-2">
                       {showSortNotification && (
-                        <div className="notification d-flex justify-content-end" style={{ fontFamily: 'Roboto, sans-serif' }}>
+                        <div
+                          className="notification d-flex justify-content-end"
+                          style={{ fontFamily: "Roboto, sans-serif" }}
+                        >
                           You can sort the images by drag-and-drop!
                         </div>
                       )}
 
-                      <label className="pb-2" style={{ fontFamily: 'Roboto, sans-serif' }}>
-                        Minimum five image <span className="text-red-500">*</span>
+                      <label
+                        className="pb-2"
+                        style={{ fontFamily: "Roboto, sans-serif" }}
+                      >
+                        Minimum five image{" "}
+                        <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="file"
@@ -517,12 +591,16 @@ function Addproduct() {
                         className="hidden"
                         multiple
                         onChange={handleImageChange}
-                        style={{ display: 'none' }}
+                        style={{ display: "none" }}
                       />
 
                       <div className="w-100 d-flex align-items-center flex-wrap ms-4">
                         <label htmlFor="upload">
-                          <AiOutlinePlusCircle size={30} className="mt-3" color="#555" />
+                          <AiOutlinePlusCircle
+                            size={30}
+                            className="mt-3"
+                            color="#555"
+                          />
                         </label>
 
                         {images.map((image, index) => (
@@ -531,12 +609,15 @@ function Addproduct() {
                             className="position-relative"
                             draggable
                             onDragStart={(e) => {
-                              e.dataTransfer.setData('text/plain', index);
+                              e.dataTransfer.setData("text/plain", index);
                             }}
                             onDragOver={(e) => e.preventDefault()}
                             onDrop={(e) => {
                               e.preventDefault();
-                              const dragIndex = parseInt(e.dataTransfer.getData('text/plain'), 10);
+                              const dragIndex = parseInt(
+                                e.dataTransfer.getData("text/plain"),
+                                10
+                              );
                               handleImageOrderChange(dragIndex, index);
                             }}
                             onMouseOver={() => handleMouseOver(index)}
@@ -546,16 +627,49 @@ function Addproduct() {
                               type="button"
                               onClick={() => handleImageDelete(image)}
                               className="btn-close position-absolute"
-                              style={{ top: '10px', right: '10px' }}
+                              style={{ top: "10px", right: "10px" }}
                             ></button>
                             <img
                               src={URL.createObjectURL(image)}
                               alt="image"
                               className="image-preview ms-2 bg-white"
-                              title={hoveredIndex === index ? `Image ${index + 1}` : null}
+                              title={
+                                hoveredIndex === index
+                                  ? `Image ${index + 1}`
+                                  : null
+                              }
                             />
                           </div>
                         ))}
+
+                         <div className="row mt-1">
+                          {data?.images.map((item) =>
+                          (
+                            <div
+                              className="col-lg-3 "
+                              style={{ position: "relative" }}
+                            >
+                              <img
+                                src={`${SERVERURL.IMAGE_URL}${item}`}
+                                width="100%"
+                              />
+                              <div
+                                style={{
+                                  position: "absolute",
+                                  top: "0",
+                                  right: "15px",
+                                }}
+                              >
+                                <IoIosAddCircleOutline
+                                  style={{ color: "white" }}
+                                  fontSize={20}
+                                />
+                              </div>
+                            </div>
+                          )
+                          
+                          )}
+                        </div> 
                       </div>
                     </div>
                   </div>
@@ -583,7 +697,7 @@ function Addproduct() {
                         />
                       </div>
                       <div className="col-lg-6">
-                        <label className="fw-bold fs-10">Brether</label>
+                        <label className="fw-bold fs-10">Breadth</label>
                         <UseInput
                           type="number"
                           label="Brether"

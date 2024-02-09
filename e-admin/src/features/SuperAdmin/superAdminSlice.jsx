@@ -293,6 +293,7 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   message: "",
+  getAllUser:[]
 };
 
 export const superAdminSlice = createSlice({
@@ -413,7 +414,7 @@ export const superAdminSlice = createSlice({
         state.isSuccess = true;
         state.isLoading = false;
         state.isError = false;
-        state.getAllUser = action.payload;
+        state.getAllUser = action.payload?.allUser;
       })
       .addCase(getUserFromServer.rejected, (state, action) => {
         state.isError = true;

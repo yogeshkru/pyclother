@@ -17,6 +17,7 @@ import { MdShoppingCart } from "react-icons/md";
 import { IoColorFillOutline } from "react-icons/io5";
 import { Layout, Menu, Button, theme, Dropdown, Space } from "antd";
 import { DownOutlined } from "@ant-design/icons";
+import { MdOutlinePrivacyTip } from "react-icons/md";
 import { FaCartArrowDown } from "react-icons/fa6";
 import { BiCategory } from "react-icons/bi";
 import { RiCouponFill } from "react-icons/ri";
@@ -84,11 +85,11 @@ const Mainlayout = () => {
               label: "Dashboard",
               icon: <MdHome style={{ fontSize: "25px", color: "#BEABC2" }} />,
             },
-            // {
-            //   key: "customers",
-            //   label: "Customers",
-            //   icon: <FaUser style={{ fontSize: "20px", color: "#BEABC2" }} />,
-            // },
+            {
+              key: "customers",
+              label: "Customers",
+              icon: <FaUser style={{ fontSize: "20px", color: "#BEABC2" }} />,
+            },
             {
               key: "catalog",
               label: <span className="label-style"  style={{color:"#3e4b5b"}}>Catalog</span>,
@@ -190,6 +191,13 @@ const Mainlayout = () => {
               label: "Enquiries",
               icon: (
                 <FaQuestion style={{ fontSize: "25px", color: "#BEABC2" }} />
+              ),
+            },
+            {
+              key: "policy",
+              label: "Private-Policy",
+              icon: (
+                <MdOutlinePrivacyTip style={{ fontSize: "25px", color: "#BEABC2" }} />
               ),
             },
             {

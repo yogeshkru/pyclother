@@ -99,6 +99,8 @@ require("./routes/productRoutes")(app);
 require("./routes/gstRoutes")(app);
 require("./routes/orderItemRoutes")(app);
 require("./routes/eventRoutes")(app);
+
+require("./routes/privarypolicyRoutes")(app);
 // ***********************************************************************
 //Routes error handler
 app.all("*", (req, res, next) => {

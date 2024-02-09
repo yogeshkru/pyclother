@@ -10,6 +10,7 @@ import Gst from "../features/Gst/gstSlice";
 import uploadImagesSlice from "../features/uploadImages/uploadImagesSlice"
 import enquirySlice from "../features/Enquiry/enquirySlice";
 import eventSlice from "../features/events/eventSlice";
+import privacyPolicySlice  from "../features/Privacypolicy/Privarypolicyslice";
 export const store = configureStore({
   reducer: {
     brand: brandDetails,
@@ -22,7 +23,8 @@ export const store = configureStore({
     gst:Gst,
     upload:uploadImagesSlice,
     enquiry:enquirySlice,
-    event:eventSlice
+    event:eventSlice,
+    privacy:privacyPolicySlice
 
   },
 });

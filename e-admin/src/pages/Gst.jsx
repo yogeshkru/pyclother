@@ -29,7 +29,7 @@ const Gst = () => {
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
   const { getallGst } = useSelector((state) => state.gst)
-  console.log(getallGst)
+
 
 
   const col = [
@@ -135,7 +135,9 @@ const Gst = () => {
     },
     validationSchema: Yup.object().shape({
       HSN_code: Yup.string().required("HSN_code is required "),
-      Gst: Yup.string().required("GST is required "),
+      Gst: Yup.string()
+      .required('GST is required')
+      .matches(/^\d{3}$/, 'GST must contain exactly three numbers'),
     }),
   });
   useEffect(() => {
@@ -192,7 +194,7 @@ const Gst = () => {
 
                   <div className="mb-3">
                     <UseInput
-                      type="text"
+                      type="number"
                       name="Gst"
                       onChange={handleChange}
                       onBlur={handleBlur}
