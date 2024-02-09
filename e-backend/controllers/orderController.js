@@ -7,7 +7,7 @@ class Order {
       
       user_name,
       user_phone,
-      order_user_address
+      
     
     } = req.body;
     const { _id } = req.user;
@@ -17,7 +17,7 @@ class Order {
         order_user: _id,
         order_user_name:user_name,
         order_user_phone:user_phone,
-        order_user_address
+        
       
       }).save();
 
@@ -26,6 +26,16 @@ class Order {
       next(new CustomError(error.message, 400));
     }
   };
+
+  async updateaddress(req,res,next){
+    const {id} = req.params;
+    try {
+      const address = await orderModel.findByIdAndUpdate(id)
+      await address.save();
+    } catch (error) {
+      next(new CustomError(error.message, 500));
+    }
+  }
 
 
   async getoneorder(req,res,next){

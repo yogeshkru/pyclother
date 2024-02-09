@@ -9,8 +9,7 @@ const orderSchema = new mongoose.Schema(
     },
     order_user_address: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Tbl_address",
-      required: true,
+      ref: "Tbl_address",    
     },
     
     order_user_name:{

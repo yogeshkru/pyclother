@@ -5,6 +5,14 @@ const addressModel = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Tbl_user"
     },
+    user_name:{
+        type: String,
+        required: [true, "name is required"]
+    },
+    user_phone:{
+        type: String,
+        required: [true, "phone number is required"]
+    },
     address_type: {
         type: String,
         enum: ['billing', 'shipping'],

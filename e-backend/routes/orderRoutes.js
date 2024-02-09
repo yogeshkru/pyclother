@@ -2,7 +2,7 @@ module.exports = (app) => {
   const router = require("express").Router();
   const Order = require("../controllers/orderController");
   const asyncErrorHandler = require("../utils/asyncErrorhandler");
-  const { createOrder, getAllOrders, getoneorder, updateOrders} = new Order();
+  const { createOrder, getAllOrders, getoneorder, updateOrders, updateaddress} = new Order();
   let { authenticateUser, restrict } = require("../middleware/auth");
 
   router
@@ -14,6 +14,9 @@ module.exports = (app) => {
   router
     .route("/update-order")
     .patch(authenticateUser, asyncErrorHandler(updateOrders));
+    router
+    .route("/update-address")
+    .patch(authenticateUser, asyncErrorHandler(updateaddress));
     
   router
     .route("/get-all")
