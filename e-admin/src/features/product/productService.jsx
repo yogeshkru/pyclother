@@ -1,6 +1,6 @@
 import axios from "axios";
 import URL from "../../utilis/Url";
-// import { config } from "../../utilis/axiosConfig"
+import { config } from "../../utilis/axiosConfig"
 // normal product
 //post
 
@@ -8,7 +8,7 @@ const getTokenFromLocalStorage = localStorage.getItem("admin_user")
 ? JSON.parse(localStorage.getItem("admin_user"))
 : null;
 
-export const config = {
+export const auth = {
 headers: {
   "Content-Type": "multipart/form-data",
   Authorization: getTokenFromLocalStorage
@@ -22,10 +22,9 @@ headers: {
 
 const productPost = async (productData) => {
 
-  const site = { headers: { "Content-Type": "multipart/form-data" } }
   const response = await axios.post(
     `${URL.BASE_URL}product/create-product`,
-    productData, config
+    productData, auth
   );
 
   if (response.data) {
