@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Table } from "antd";
+
 import "../styles/Mainlayout.css";
 import DataTable from "react-data-table-component";
 import { FiEdit } from "react-icons/fi";

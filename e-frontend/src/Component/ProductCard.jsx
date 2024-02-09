@@ -34,6 +34,7 @@ import { getAllProduct } from "../features/product/productSlice";
 import URL from "../utils/Url";
 
 const ProductCard = function ({ data }) {
+  console.log(data?.images)
   const navigate = useNavigate();
   return (
     <>
@@ -52,7 +53,7 @@ const ProductCard = function ({ data }) {
               </div>
               <div className="box">
                 <img
-                  src={`${URL.IMAGE_URL}${item?.images[0]}`}
+                  src={`${URL.IMAGE_URL}${item?.images}`}
                   className="ms image-fluid productCard-image d-flex mx-auto"
                   alt={item?.brand}
                   onClick={() => navigate(`/singleProduct/${productName}`)}

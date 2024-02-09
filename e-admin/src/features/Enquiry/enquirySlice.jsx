@@ -32,6 +32,7 @@ export const Getenquirys = createAsyncThunk(
 export const Getone = createAsyncThunk("auth/enq/getone", async (data,thunkApi) => {
   try {
     const response = await Enquiries.GetoneEnquiry(data);
+    thunkApi.dispatch(Getenquirys())
     return response;
   } catch (err) {
     toast.error(err?.response?.data?.message);
@@ -44,6 +45,8 @@ export const DeleteEnquiry = createAsyncThunk(
   async (data,thunkApi) => {
     try {
       const response = await Enquiries.DeleteEnquiry(data);
+    thunkApi.dispatch(Getenquirys())
+
       return response;
     } catch {
       toast.error(err?.response?.data?.message);
@@ -57,6 +60,8 @@ export const Patchenquiry = createAsyncThunk(
   async (enq, thunkApi) => {
     try {
       const response = await Enquiries.Patchenquiry(enq);
+    thunkApi.dispatch(Getenquirys())
+
       return response;
     } catch (err) {
       toast.error(err?.response?.data?.message);

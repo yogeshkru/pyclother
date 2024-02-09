@@ -10,48 +10,67 @@ const orderSchema = new mongoose.Schema(
     order_user_address: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Tbl_address",
-      required: true,
+      // required: true,
     },
     
-    order_user_name:{
-      type:String,
-      require:true
-    },
-    order_user_phone:{
-      type:Number,
-      require:true
-    },
-    // order_paymentInfo: {
-    //   paymentMethod: {
-    //     type: String,
-    //     enum: ["Razorpay", "COD"],
-    //     default: "Razorpay",
-    //   },
-    //   razorpayOrderId: {
-    //     type: String,
-    //     required: function () {
-    //       return this.order_paymentInfo.paymentMethod !== "COD";
-    //     },
-    //   },
-    //   razorpayPaymentId: {
-    //     type: String,
-    //     required: function () {
-    //       return this.order_paymentInfo.paymentMethod !== "COD";
-    //     },
-    //   },
-    // },
   
-    // order_paidAt: {
-    //   type: Date,
-    //   default: function () {
-    //     return this.order_paymentInfo.paymentMethod !== "COD"
-    //       ? Date.now()
-    //       : null;
-    //   },
-    // },
+    order_paymentInfo: {
+      // paymentMethod: {
+      //   type: String,
+      //   enum: ["Razorpay", "COD"],
+      //   default: "Razorpay",
+      // },
+      // razorpayOrderId: {
+      //   type: String,
+      //   required: function () {
+      //     return this.order_paymentInfo.paymentMethod !== "COD";
+      //   },
+      // },
+      // razorpayPaymentId: {
+      //   type: String,
+      //   required: function () {
+      //     return this.order_paymentInfo.paymentMethod !== "COD";
+      //   },
+      // },
+    },
+    
+    orderItems: [
+      {
+        product: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Tbl_product",
+          // required: true,
+        },
+        color: {
+          type:String
+          // ref: "Color",
+          // required: true,
+        },
+        quantity: {
+          type: Number,
+          required: true,
+        },
+        price: { type: Number, required: true },
+      },
+    ],
+  
+
+    order_paidAt: {
+      type: Date,
+      default: function () {
+        return this.order_paymentInfo.paymentMethod !== "COD"
+          ? Date.now()
+          : null;
+      },
+    },
     order_month: {
       type: String,
-      default: new Date().getMonth().toString(),
+
+
+      default:()=>{
+        const monthName =['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        return monthName[new Date().getMonth()]
+      }
     },
     order_totalPrice: {
       type: Number,
@@ -68,18 +87,18 @@ const orderSchema = new mongoose.Schema(
     order_total_igst:{
       type:Number,
     },
-    order_total_amount:{
+    order_total_amjount:{
       type:Number
     },
 
-    // orderStatus: {
-    //   type: String,
-    //   default: function () {
-    //     return this.order_paymentInfo.paymentMethod === "COD"
-    //       ? "Pending"
-    //       : "Ordered";
-    //   },
-    // },
+    orderStatus: {
+      type: String,
+      default: function () {
+        return this.order_paymentInfo.paymentMethod === "COD"
+          ? "Pending"
+          : "Ordered";
+      },
+    },
   },
   {
     timestamps: true,
