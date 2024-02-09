@@ -45,7 +45,6 @@ function Enquiries() {
   const dispatch = useDispatch();
   const { GetAllenquirys } = useSelector((state) => state?.enquiry);
 
-
   const deteQuery =(i)=>{
     dispatch(DeleteEnquiry(i))
   } 
@@ -68,13 +67,13 @@ function Enquiries() {
   for (let i = 0; i < GetAllenquirys?.length; i++) {
     data1.push({
       key: i + 1,
-      // name: GetAllenquirys[i]?.enquiry_name,
-      // email: (
-      //   <a href={`mailto:${GetAllenquirys[i]?.enquiry_email}`}>
-      //     {GetAllenquirys[i]?.enquiry_email}
-      //   </a>
-      // ),
-      // mobile: GetAllenquirys[i]?.enquiry_mobile,
+      name: GetAllenquirys[i]?.user_id?.user_name,
+      email: (
+        <a href={`mailto:${GetAllenquirys[i]?.user_id?.user_email}`}>
+          {GetAllenquirys[i]?.user_id?.user_email}
+        </a>
+      ),
+      mobile: GetAllenquirys[i]?.user_id?.user_phone,
       date: new Date(GetAllenquirys[i]?.createdAt).toLocaleDateString(),
       status: (
         <>

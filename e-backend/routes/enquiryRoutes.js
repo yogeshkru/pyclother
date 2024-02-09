@@ -7,7 +7,7 @@ module.exports = (app) => {
     new Enquiry();
   const asyncErrorhandler = require("../utils/asyncErrorhandler");
 
-  router.route("/createEnquiry").post(asyncErrorhandler(enquiry));
+  router.route("/createEnquiry").post(authenticateUser,asyncErrorhandler(enquiry));
   router.route("/getOne/:id").get(asyncErrorhandler(getEnquiry));
 
 
