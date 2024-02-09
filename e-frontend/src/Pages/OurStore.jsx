@@ -31,13 +31,14 @@ const OurStore = function () {
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
   const [colors, setColors] = useState([]);
-  const [price,setPrice] = useState([])
+  const [prices,setPrices] = useState([])
 
   //filter
 
   const [category, setCategory] = useState(null);
   const [brand, setBrand] = useState(null);
   const [color, setColor] = useState(null);
+  const [price,setPrice]= useState(null)
 
   const [minPrice, setMinPrice] = useState(null);
   const [maxPrice, setMaxPrice] = useState(null);
@@ -45,6 +46,7 @@ const OurStore = function () {
 
   const dispatch = useDispatch();
   
+  console.log(wholeProduct)
 
   
 
@@ -53,6 +55,7 @@ const OurStore = function () {
     let category = [];
     let newColors = [];
     let price =[];
+    let discountPrice =[];
 
     for (let i = 0; i < wholeProduct?.length; i++) {
       const element = wholeProduct[i];
@@ -60,11 +63,12 @@ const OurStore = function () {
       category?.push(element?.category);
       newColors?.push(element?.color);
      price?.push(element?.price)
+    //  discountPrice.push(element?)
     }
     setBrands(newBrand);
     setCategories(category);
     setColors(newColors);
-    setPrice(price)
+    setPrices(price)
   }, [wholeProduct]);
 
   useEffect(() => {
@@ -132,7 +136,21 @@ const OurStore = function () {
 
     // price
 
-    const   priceDetails = price && price
+    const priceDetails = prices && prices.map((item, i) => {
+      // Construct the price range string
+      // const priceRange = `${item} and above`;
+    
+      return (
+        <div key={i} className="d-flex gap-1 mb-2">
+          <input type="checkbox" onClick={() => setPrice(item)} />
+          <span style={{ textTransform: "capitalize", fontSize: "13px" }}>
+            {item}
+          </span>
+        </div>
+      );
+    });
+    
+    
 
   // *******************************************************************
   return (
@@ -303,9 +321,9 @@ const OurStore = function () {
               </div>
             </div>
 
-            <div className="ourStore-price-gap">
+            <div className="ourStore-price-gap ">
               <h5 className="ourStore-price-title">PRICE</h5>
-
+{/* 
               <div className="ourStore-price">
                 <div className="ourStore-range">
                   <input
@@ -338,7 +356,9 @@ const OurStore = function () {
                     <label htmlFor="floatingInput-1">To</label>
                   </div>
                 </div>
-              </div>
+              </div> */}
+
+              {priceDetails}
             </div>
 
             <div className="ourStore-color">
