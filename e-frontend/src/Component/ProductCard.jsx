@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import "../styles/productcard.css";
 
@@ -33,11 +33,30 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllProduct } from "../features/product/productSlice";
 import URL from "../utils/Url";
 
-const ProductCard = function ({ data }) {
-  const navigate = useNavigate();
+const ProductCard = function ({data}) {
+
+  const { wholeProduct } = useSelector((state) => state?.product);
+
+const dispatch = useDispatch()
+   
+  useEffect(() => {
+
+    const timeOut = setTimeout(() => {
+
+      dispatch(getAllProduct());
+    }, 500);
+
+    return () => {
+      clearTimeout(timeOut);
+    };
+  }, [dispatch]);
+
+const navigate = useNavigate();
+
+
   return (
     <>
-      {data?.map((item, index) => {
+      {wholeProduct?.map((item, index) => {
         const productName = item?.name?.replace(/\s+/g, "-")
         return (
           <div

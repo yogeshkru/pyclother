@@ -8,13 +8,10 @@ import { useEffect, useState } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProduct } from "../features/product/productSlice";
-import { GetColorName } from 'hex-color-to-color-name';
-
+import { GetColorName } from "hex-color-to-color-name";
 
 const OurStore = function () {
   const [show, setShow] = useState(true);
-
-
 
   const handleShow = () => {
     setShow(false);
@@ -31,55 +28,50 @@ const OurStore = function () {
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
   const [colors, setColors] = useState([]);
-  const [prices,setPrices] = useState([])
+  const [prices, setPrices] = useState([]);
 
   //filter
 
   const [category, setCategory] = useState(null);
   const [brand, setBrand] = useState(null);
   const [color, setColor] = useState(null);
-  const [price,setPrice]= useState(null)
-
+  const [price, setPrice] = useState(null);
   const [minPrice, setMinPrice] = useState(null);
   const [maxPrice, setMaxPrice] = useState(null);
   const [sort, setSort] = useState(null);
 
   const dispatch = useDispatch();
-  
-  console.log(wholeProduct)
-
-  
 
   useEffect(() => {
     let newBrand = [];
     let category = [];
     let newColors = [];
-    let price =[];
-    let discountPrice =[];
+    let price = [];
+    // let discountPrice =[];
 
     for (let i = 0; i < wholeProduct?.length; i++) {
       const element = wholeProduct[i];
       newBrand?.push(element?.brand);
       category?.push(element?.category);
       newColors?.push(element?.color);
-     price?.push(element?.price)
-    //  discountPrice.push(element?)
+      price?.push(element?.price);
+      //  discountPrice.push(element?)
     }
     setBrands(newBrand);
     setCategories(category);
     setColors(newColors);
-    setPrices(price)
+    setPrices(price);
   }, [wholeProduct]);
 
   useEffect(() => {
     const timeOut = setTimeout(() => {
-      dispatch(getAllProduct());
+      dispatch(getAllProduct({ category, brand, color, price }));
     }, 500);
 
     return () => {
       clearTimeout(timeOut);
     };
-  }, [dispatch]);
+  }, [category,price,color,brand]);
 
   //brand
   const brandDetails =
@@ -109,7 +101,7 @@ const OurStore = function () {
   const colorDetails =
     colors &&
     [...new Set(colors)].map((item, i) => {
-       const colorNAme= GetColorName(item);
+      const colorNAme = GetColorName(item);
       return (
         <div key={i} className="d-flex gap-1">
           <div className="row">
@@ -134,12 +126,14 @@ const OurStore = function () {
       );
     });
 
-    // price
+  // price
 
-    const priceDetails = prices && prices.map((item, i) => {
+  const priceDetails =
+    prices &&
+    [...new Set(prices)].map((item, i) => {
       // Construct the price range string
       // const priceRange = `${item} and above`;
-    
+
       return (
         <div key={i} className="d-flex gap-1 mb-2">
           <input type="checkbox" onClick={() => setPrice(item)} />
@@ -149,8 +143,6 @@ const OurStore = function () {
         </div>
       );
     });
-    
-    
 
   // *******************************************************************
   return (
@@ -323,7 +315,7 @@ const OurStore = function () {
 
             <div className="ourStore-price-gap ">
               <h5 className="ourStore-price-title">PRICE</h5>
-{/* 
+              {/* 
               <div className="ourStore-price">
                 <div className="ourStore-range">
                   <input
@@ -403,7 +395,7 @@ const OurStore = function () {
 
           <div className="col-lg-9 col-6 ourStore-product-render  ">
             <div className="d-flex gap-10 flex-wrap ">
-              <ProductCard data={wholeProduct} />
+              <ProductCard />
             </div>
 
             <div className="ourStore-pagination d-lg-flex mt-5  justify-content-center  m-auto row ">

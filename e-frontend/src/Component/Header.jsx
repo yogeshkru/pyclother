@@ -453,7 +453,7 @@ function Header() {
                                 <div className="d-flex py-3 justify-conten-between">
                                   <div>
                                     <img
-                                      src={`${URL.IMAGE_URL}${item?.images[0]?.url}`}
+                                      src={`${URL.IMAGE_URL}${item?.images}`}
                                       alt={item?.name}
                                       style={{
                                         height: "30px",

@@ -6,9 +6,9 @@ export const resetAll = createAction("Reset_all");
 
 export const getAllProduct = createAsyncThunk(
   "product/all",
-  async (_, thunkAPI) => {
+  async (data, thunkAPI) => {
     try {
-      const response = await productService.getProduct();
+      const response = await productService.getProduct(data);
       return response.getAllProducts;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
