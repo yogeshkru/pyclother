@@ -40,6 +40,7 @@ function Forget() {
     });
   const [show, setShow] = useState(true);
   const handleShow = () => {
+  
     setShow(!show);
   };
   return (

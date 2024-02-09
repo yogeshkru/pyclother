@@ -13,7 +13,7 @@ const orderSchema = new mongoose.Schema(
       required: true,
     },
     
-    order_user_email:{
+    order_user_name:{
       type:String,
       require:true
     },

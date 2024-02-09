@@ -14,6 +14,13 @@ const addressModel = new mongoose.Schema({
         type: String,
         required: [true, "Area is required"]
     },
+    address_deliver:{
+        type:String,
+        enum:["home","work"],
+        required: [true, "location is required"],
+        default:"home"
+        
+    },
     address_city: {
         type: String,
         required: [true, "City is required"]
