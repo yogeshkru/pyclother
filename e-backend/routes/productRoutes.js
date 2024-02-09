@@ -1,5 +1,7 @@
 module.exports = (app) => {
   const Product = require("../controllers/productController");
+  
+  const { uploadPhoto,bannerImage } = require("../middleware/uploadImages");
   const router = require("express").Router();
   const {
     createProduct,
@@ -33,6 +35,7 @@ module.exports = (app) => {
     .post(
       authenticateUser,
       restrict("shop admin", "super admin"),
+      uploadPhoto.array("images", 5),
       asyncErrorHandler(createProduct)
     );
   router

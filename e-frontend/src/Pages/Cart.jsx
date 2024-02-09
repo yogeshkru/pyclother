@@ -12,7 +12,9 @@ function Cart() {
   return (
     <>
 
+<div className="col-lg-12">
 <StepHeader/>
+</div>
       {/* <Cartheader /> */}
       {/* <div className='container'>
         <div className='mt-3 jd-flex col-lg-8 justify-content-between'>

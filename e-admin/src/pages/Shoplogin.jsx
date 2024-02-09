@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import UseInput from "../useCustom/useInput";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -12,6 +12,8 @@ import { useDispatch,useSelector } from "react-redux";
 import {Link, useNavigate} from "react-router-dom"
 
 function Shoplogin() {
+
+  const isAuthenticated = !!localStorage.getItem("admin_user")
   const [eye, setEye] = useState(false);
   const{isSuccess}=useSelector(state=>state.shop)
   const navigator=useNavigate()
@@ -41,16 +43,20 @@ function Shoplogin() {
           .matches(/[^\w]/, "Password requires a symbol")
           .required("Please Enter New Password"),
       }),
-      onSubmit:(value)=>{
-         dispatch(shopLoginData(value))
+      onSubmit: (value) => {
+        dispatch(shopLoginData(value))
       }
     });
 
-    useEffect(()=>{
-        if(isSuccess){
-            navigator("/admin")
-        }
-    })
+  useEffect(() => {
+    if (isSuccess) {
+      navigator("/admin")
+    }
+   
+  })
+
+
+
   return (
     <div className="otp_background">
       <div className="row justify-content-center shopSignup_row">
@@ -71,7 +77,7 @@ function Shoplogin() {
                 label="Email"
               />
             </div>
-            {errors.shop_email && touched.shop_email ? <div style={{color:"red"}}>{errors.shop_email}</div>:""}
+            {errors.shop_email && touched.shop_email ? <div style={{ color: "red" }}>{errors.shop_email}</div> : ""}
 
             <div className="shopSignup__icons mt-4">
               <UseInput
@@ -91,7 +97,7 @@ function Shoplogin() {
                 )}
               </span>
             </div>
-            {errors.shop_password && touched.shop_email ? <div style={{color:"red"}}>{errors.shop_password}</div>:""}
+            {errors.shop_password && touched.shop_email ? <div style={{ color: "red" }}>{errors.shop_password}</div> : ""}
 
             <button type="submit" className="shopSignupButton mt-4">
               Login

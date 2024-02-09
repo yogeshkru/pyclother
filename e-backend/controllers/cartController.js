@@ -122,29 +122,11 @@ class Carts {
 
   getUserCart = asyncErrorhandler(async (req, res, next) => {
     const { _id } = req.user;
-    const cart = await cartModel.aggregate([
-      {
-        $match: {
-          cart_user_user_Id: new mongoose.Types.ObjectId(_id),
-        },
-      },
-      {
-        $lookup: {
-          from: "tbl_products",
-          localField: "cart_product_product_Id",
-          foreignField: "_id",
-          as: "product",
-        },
-      },
-      {
-        $lookup: {
-          from: "tbl_colors",
-          localField: "cart_color_color_Id",
-          foreignField: "_id",
-          as: "color",
-        },
-      },
-    ]);
+    const cart = await cartModel
+        .find({ cart_user_user_Id: _id })
+        .populate("cart_product_product_Id")
+        .populate("cart_color_color_Id")
+    
     res.status(200).json({ cart });
     console.log(cart, "rygvfiugvweriuggiu");
   });

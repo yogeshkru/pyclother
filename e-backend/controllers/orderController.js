@@ -4,9 +4,10 @@ const CustomError = require("../utils/customError");
 class Order {
   createOrder = async (req, res,next) => {
     const {
-      shippingInfo_id,
-      user_email,
+      
+      user_name,
       user_phone,
+      order_user_address
     
     } = req.body;
     const { _id } = req.user;
@@ -14,9 +15,10 @@ class Order {
     try {
       const order = await new orderModel({
         order_user: _id,
-        order_user_email:user_email,
+        order_user_name:user_name,
         order_user_phone:user_phone,
-        order_user_address: shippingInfo_id,
+        order_user_address
+      
       }).save();
 
       res.status(200).json({ order });
@@ -25,21 +27,21 @@ class Order {
     }
   };
 
-  async getMyOrder(req,res,next) {
-    const { _id } = req.user;
+
+  async getoneorder(req,res,next){
+    const { id } = req.params;
     try {
-      const orders = await orderModel
-        .find({ order_user: _id })
-        .populate("order_orderItems.product")
-        .populate("order_orderItems.color")
-        .populate("order_user");
-
-      res.status(200).json({ orders });
+        const orderone = await orderModel.findById(id);
+        if(! orderone ){
+            return res.status(404).json({
+                status: 404,
+                message: "order not found",
+            });
+        } res.status(200).json({ orderone })
     } catch (error) {
-      next(new CustomError(error.message, 404));
+        next(new CustomError(error.message, 500)); 
     }
-  }
-
+};
   async getAllOrders(req,res,next) {
     try {
       const orders = await orderModel.find().populate("user");

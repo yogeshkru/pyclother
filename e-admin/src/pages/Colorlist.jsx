@@ -8,12 +8,15 @@ import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import UseInput from "../useCustom/useInput";
+import { IoIosSearch } from "react-icons/io";
+
 import {
   createColor,
   colorgets,
   colorpatch,
   colorDelete
 } from "../features/color/colorSlice";
+
 import { useDispatch, useSelector } from "react-redux";
 const columns = [
   {
@@ -55,8 +58,9 @@ const columns = [
 
 
 function Colorlist() {
-  const [render,setRender]=useState(0)
+  const [render, setRender] = useState(0)
   const dispatch = useDispatch();
+  const [search, setSearch] = useState("");
   const { getAllColor } = useSelector((state) => state.color);
   const [edite, setEdite] = useState("");
   const {
@@ -71,12 +75,12 @@ function Colorlist() {
     enableReinitialize: true,
     initialValues: {
       color_title: edite.color_title || "",
-      color_hex_name:edite.color_hex_name || "",
-      meta_title:edite.meta_title || "",
-      meta_description:edite.meta_description || "",
-      meta_keyWord:edite.meta_keyWord || "",
-      sort:edite.sort || ""
-      
+      color_hex_name: edite.color_hex_name || "",
+      meta_title: edite.meta_title || "",
+      meta_description: edite.meta_description || "",
+      meta_keyWord: edite.meta_keyWord || "",
+      sort: edite.sort || ""
+
 
     },
     onSubmit: (value) => {
@@ -88,7 +92,7 @@ function Colorlist() {
       }
       resetForm()
       setEdite("")
-    
+
     },
     validationSchema: Yup.object().shape({
       color_title: Yup.string().required("Color title is required "),
@@ -102,14 +106,19 @@ function Colorlist() {
     }),
   });
 
+  const searchColor = getAllColor.filter(row =>
+    Object.values(row).some(value =>
+      value.toString().toLowerCase().includes(search.toLowerCase()))
+  );
+  console.log(searchColor, "iuwhuiwgv")
   const handleEdite = (i) => {
     const findColor = getAllColor.find((item) => item._id === i);
     setEdite(findColor);
-   
+
   };
-  const handleDelete=(i)=>{
+  const handleDelete = (i) => {
     dispatch(colorDelete(i))
-    setRender((per)=>per-1)
+    setRender((per) => per - 1)
   }
 
   useEffect(() => {
@@ -117,22 +126,22 @@ function Colorlist() {
   }, [render]);
 
   const data = [];
-  for (let id = 0; id < getAllColor.length; id++) {
+  for (let id = 0; id < searchColor.length; id++) {
     data.push({
       id: id + 1,
-      color: getAllColor[id]?.color_title,
-      // color_hex_name: getAllColor[id]?.color_hex_name,
-      meta_title: getAllColor[id]?.meta_title,
-      meta_description: getAllColor[id]?.meta_description,
-      meta_keyword: getAllColor[id]?.meta_keyWord,
-      sort: getAllColor[id]?.sort,
+      color: searchColor[id]?.color_title,
+      color_hex_name: searchColor[id]?.color_hex_name,
+      meta_title: searchColor[id]?.meta_title,
+      meta_description: searchColor[id]?.meta_description,
+      meta_keyword: searchColor[id]?.meta_keyWord,
+      sort: searchColor[id]?.sort,
       action: (
         <>
           <div className="d-flex">
             <Link
               style={{ marginRight: "10px" }}
               className="mainlayout_icons"
-              onClick={() => handleEdite(getAllColor[id]._id)}
+              onClick={() => handleEdite(searchColor[id]._id)}
             >
               <FiEdit />
             </Link>
@@ -140,7 +149,7 @@ function Colorlist() {
               <MdDelete
                 fontSize={15}
                 className="mainlayout_icons"
-                onClick={() => handleDelete(getAllColor[id]._id)}
+                onClick={() => handleDelete(searchColor[id]._id)}
               />
             </Link>
           </div>
@@ -153,23 +162,26 @@ function Colorlist() {
     <div>
       <div className="mt-2">
         <div className="row">
-          <div className="col-lg-4 fs-4 fw-bold">{edite? "Update Color":"Color"}</div>
+          <div className="col-lg-4 fs-4 fw-bold">{edite ? "Update Color" : "Color"}</div>
           <div className="col-lg-4">
             <form class="d-flex">
-              <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button class="btn btn-outline-success" type="submit">
-                Search
-              </button>
+              <div className="input-group w-75">
+                <span className="input-group-text"><IoIosSearch /></span>
+                <input
+                  className="form-control me-2"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                  value={search}
+                  onChange={(e) => { setSearch(e.target.value) }}
+                />
+              </div>
+             
             </form>
           </div>
         </div>
         <div className="row mt-4">
-        <div className="col-lg-4">
+          <div className="col-lg-4">
             <div class="card">
               <div class="card-body shadow ">
                 <form>
@@ -179,7 +191,7 @@ function Colorlist() {
                       name="color_title"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                    
+
                       value={values.color_title}
                       label="Color"
                     />
@@ -198,12 +210,12 @@ function Colorlist() {
                       name="color_hex_name"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                     
+
                       value={values.color_hex_name}
                       label="Color Name"
                     />
                     {errors.color_hex_name &&
-                    touched.color_hex_name ? (
+                      touched.color_hex_name ? (
                       <div style={{ color: "red" }}>
                         {errors.color_hex_name}
                       </div>
@@ -256,7 +268,7 @@ function Colorlist() {
                       name="meta_keyWord"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                   
+
                       value={values.meta_keyWord}
                       label="Meta keyword"
                     />

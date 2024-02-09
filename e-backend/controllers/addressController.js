@@ -5,7 +5,7 @@ class Addressdetails {
   //post
   addressCreate = async (req, res, next) => {
     try {
-      const { address_area, address_city, address_state, address_country, address_pincode } = req.body;
+      const { address_area, address_city, address_state, address_country, address_pincode,address_deliver } = req.body;
       const { _id } = req.user; // Corrected from user_id to _id
       console.log(_id, "user");
   
@@ -20,11 +20,12 @@ class Addressdetails {
         address_state,
         address_country,
         address_pincode,
-        address_type
+        address_type,
+        address_deliver
       });
   
       console.log(_id, 'ssgsvvdv');
-      res.status(201).json({ success: true, data: newAddress });
+      res.status(201).json({ success: true, data: newAddress ,message:"address added successfully"});
     } catch (err) {
       return next(new CustomError(err.message, 500));
     }
@@ -34,7 +35,8 @@ class Addressdetails {
   //get
   addressGet = async (req, res, next) => {
     try {
-      const addressallget = await addressModel.find()
+      const {id}=req.params
+      const addressallget = await addressModel.findById(id);
       res.status(200).json({ addressallget })
     } catch (err) { 
       next(new CustomError(err.message, 500))
@@ -98,7 +100,7 @@ class Addressdetails {
       existingShippingAddress.address_area = address_area;
       existingShippingAddress.address_city = address_city;
       existingShippingAddress.address_state = address_state;
-      existingShippingAddress.adddress_country = adddress_country;
+      existingShippingAddress.address_country = adddress_country;
       existingShippingAddress.address_pincode = address_pincode;
 
       // Save the changes

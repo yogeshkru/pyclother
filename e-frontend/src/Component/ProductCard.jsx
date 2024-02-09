@@ -35,11 +35,10 @@ import URL from "../utils/Url";
 
 const ProductCard = function ({ data }) {
   const navigate = useNavigate();
-
   return (
     <>
       {data?.map((item, index) => {
-        const productName = item?.name?.replace(/\s+/g, "-");
+        const productName = item?.name?.replace(/\s+/g, "-")
         return (
           <div
             key={index}
@@ -53,7 +52,7 @@ const ProductCard = function ({ data }) {
               </div>
               <div className="box">
                 <img
-                  src={`${URL.IMAGE_URL}${item.images[0]?.url}`}
+                  src={`${URL.IMAGE_URL}${item?.images[0]}`}
                   className="ms image-fluid productCard-image d-flex mx-auto"
                   alt={item?.brand}
                   onClick={() => navigate(`/singleProduct/${productName}`)}
@@ -80,41 +79,8 @@ const ProductCard = function ({ data }) {
         );
       })}
 
-      {/* <div className="col-xl-2 col-lg-4 col-md-6 mt-3  productcard-mobile-view  ">
-        <div className="productCard position-relative  ">
-          <div className="productCard-wishlist-icon position-absolute">
-            <Link>
-             
-              <CiHeart className="productCard-wistlist-img fs-4" />
+     
 
-            </Link>
-          </div>
-          <div className="box ">
-
-            
-            <img src={smoke} alt="t-shirt" className="ms-2 image-fluid productCard-image d-flex mx-auto" />
-
-          </div>
-          <div className="product-details">
-            <h6 className="productCard-brand mt-3 mb-0 ms-2 fw-semibold">H&M</h6>
-            <p className="productCard-title mt-2 mb-0 ms-2">
-              Men's Cotton Pure cotton T-S
-            </p>
-         
-
-  
-            <h6 className="productCard-price mt-2 ms-2 fw-semibold">Rs-888</h6>
-            <a className="text-center addtobag">Add to bag</a>
-          </div>
-        </div>
-      </div> */}
-
-      <div className="d-flex m-auto payment p-5 ">
-        <img src={rupay} className="p-2" />
-        <img src={phonepay} className="p-2" />
-        <img src={vis} className="p-2" />
-        <img src={payment} className="" />
-      </div>
     </>
   );
 };

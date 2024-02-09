@@ -21,7 +21,7 @@ import {
   getOneProduct,
   postProductOnServer,
 } from "../features/product/productSlice";
-import URL from "../utilis/Url";
+// import URL from "../utilis/Url";
 import {
   uploadProductImageOnServer,
   deleletProductImageonserver,
@@ -31,7 +31,6 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 function Addproduct() {
   const dispatch = useDispatch();
 
-  const [imageInputs, setImageInputs] = useState([{ id: 1, file: null }]);
 
   const [Available, setAvailable] = useState(true);
 
@@ -41,18 +40,44 @@ function Addproduct() {
   const { getallGst } = useSelector((state) => state.gst);
   const { productImage } = useSelector((state) => state.upload);
 
-  const addMoreImage = (e) => {
+
+  // ***************** Images************************
+  const [images, setImages] = useState([]);
+  const [showSortNotification, setShowSortNotification] = useState(true);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+
+  const handleImageChange = (e) => {
     e.preventDefault();
-    setImageInputs([...imageInputs, { id: Date.now(), file: null }]);
-  };
-  const removeImage = (id) => {
-    setImageInputs((prevInputs) =>
-      prevInputs.filter((input) => input.id !== id)
-    );
+    const files = Array.from(e.target.files);
+    setImages((prevImages) => [...prevImages, ...files]);
   };
 
-  const [imageurl, setImageUrl] = useState("");
+  const handleImageDelete = (data) => {
+    setImages((prevImages) => prevImages.filter((img) => img !== data));
+  };
 
+  const handleImageOrderChange = (dragIndex, hoverIndex) => {
+    const newImages = [...images];
+    const draggedImage = newImages[dragIndex];
+
+    newImages.splice(dragIndex, 1);
+    newImages.splice(hoverIndex, 0, draggedImage);
+
+    setImages(newImages);
+    setShowSortNotification(false);
+  };
+
+  const handleMouseOver = (index) => {
+    setHoveredIndex(index);
+  };
+
+  const handleMouseOut = () => {
+    setHoveredIndex(null);
+  };
+
+
+
+  // *********************************************
   const { values, errors, handleChange, handleBlur, handleSubmit, touched } =
     useFormik({
       initialValues: {
@@ -81,10 +106,11 @@ function Addproduct() {
         meta_title: "",
         meta_description: "",
         meta_keyboard: "",
-        images: "",
+        // images: "",
       },
       onSubmit: (value) => {
-        const data = { ...value, Available: Available, imageurl };
+        // console.log(value)
+        const data = { ...value, Available: Available, images: images };
         dispatch(postProductOnServer(data));
       },
       validationSchema: Yup.object().shape({
@@ -128,13 +154,23 @@ function Addproduct() {
     </option>
   ));
 
-  const img = [];
+  // ********************************
+  // const img = [];
+  // console.log(img)
 
-  productImage.flat()?.forEach((element) => {
-    img.push({
-      url: element,
-    });
-  });
+  //  const newForm = new FormData()
+
+  //  images.forEach((image)=>{
+  //   newForm.append("images",image)
+  //  })
+
+
+
+  // useEffect(() => {
+  //   values.images = img;
+  // }, [img]);
+
+  // *********************************
 
   useEffect(() => {
     dispatch(brandGets());
@@ -142,13 +178,10 @@ function Addproduct() {
     dispatch(categoryGetData());
     dispatch(Getgst());
   }, [dispatch]);
-  useEffect(() => {
-    values.images = img;
-  }, [img]);
 
-  useEffect(() => {
-    $(".dropify").dropify();
-  }, [imageInputs]);
+
+
+
 
   return (
     <div className="row">
@@ -466,79 +499,16 @@ function Addproduct() {
 
                 <div className="col-lg-12 mt-2">
                   <div class="card p-4">
-                    {/* <div class="card-body">
-                      <Dropzone
-                        onDrop={(acceptedFiles) =>
-                          // dispatch(uploadProductImageOnServer(acceptedFiles))
-                          handleImage(acceptedFiles)
-                        }
-                      >
-                        {({ getRootProps, getInputProps }) => (
-                          <section>
-                            <div {...getRootProps()}>
-                              <input {...getInputProps()} />
-                              <p className="text-center">Upload Image</p>
-                            </div>
-                          </section>
-                        )}
-                      </Dropzone>
-                    </div>
 
-                    <div className="showimages d-flex flex-wrap gap-3">
-                      {Array.isArray(productImage) &&
-                        productImage.length > 0 &&
-                        productImage.flat()?.map((i, j) => {
-                          return (
-                            <div className="position-relative" key={j}>
-                              <button
-                                type="button"
-                                onClick={() => handleDelete(i)}
-                                className="btn-close position-absolute"
-                                style={{ top: "10px", right: "10px" }}
-                              ></button>
-                              <img
-                                src={`${URL.IMAGE_URL}${i}`}
-                                alt="images"
-                                width={200}
-                                height={200}
-                              />
-                            </div>
-                          );
-                        })}
-                    </div> */}
-                    {/* <button
-                      onClick={addMoreImage}
-                      className="btn btn-sm btn-soft-primary"
-                    >
-                      <i className="fas fa-plus me-2"></i>Add More images
-                    </button>
-                    <div className="row">
-                      {imageInputs.map((input) => (
-                        <div className="col-4" key={input.id}>
-                          <div className="card-body" id="fileInputsContainer">
-                            <span>
-                             
-                              <button
-                                className="btn btn-danger remove_image"
-                                onClick={() => removeImage(input.id)}
-                              >
-                                Remove
-                              </button>
-                            </span>
-                            <input
-                              type="file"
-                              name="file"
-                             
-                              className="dropify"
-                              onChange={(e) => setImageUrl(e.target.files)}
-                            />
-                          </div>
+                    <div className="pb-2">
+                      {showSortNotification && (
+                        <div className="notification d-flex justify-content-end" style={{ fontFamily: 'Roboto, sans-serif' }}>
+                          You can sort the images by drag-and-drop!
                         </div>
-                      ))}
-                    </div> */}
-                    <div className="pb-2 ">
-                      <label className="pb-2">
-                        Upload Image <span className="text-red-500">*</span>
+                      )}
+
+                      <label className="pb-2" style={{ fontFamily: 'Roboto, sans-serif' }}>
+                        Minimum five image <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="file"
@@ -546,16 +516,46 @@ function Addproduct() {
                         id="upload"
                         className="hidden"
                         multiple
-                        onChange=""
+                        onChange={handleImageChange}
+                        style={{ display: 'none' }}
                       />
 
-                      <div className="w-100 d-flex align-items-center flex-wrap">
-
+                      <div className="w-100 d-flex align-items-center flex-wrap ms-4">
                         <label htmlFor="upload">
-                        <AiOutlinePlusCircle size={30} className="mt-3" color="#555" />
-
+                          <AiOutlinePlusCircle size={30} className="mt-3" color="#555" />
                         </label>
 
+                        {images.map((image, index) => (
+                          <div
+                            key={index}
+                            className="position-relative"
+                            draggable
+                            onDragStart={(e) => {
+                              e.dataTransfer.setData('text/plain', index);
+                            }}
+                            onDragOver={(e) => e.preventDefault()}
+                            onDrop={(e) => {
+                              e.preventDefault();
+                              const dragIndex = parseInt(e.dataTransfer.getData('text/plain'), 10);
+                              handleImageOrderChange(dragIndex, index);
+                            }}
+                            onMouseOver={() => handleMouseOver(index)}
+                            onMouseOut={handleMouseOut}
+                          >
+                            <button
+                              type="button"
+                              onClick={() => handleImageDelete(image)}
+                              className="btn-close position-absolute"
+                              style={{ top: '10px', right: '10px' }}
+                            ></button>
+                            <img
+                              src={URL.createObjectURL(image)}
+                              alt="image"
+                              className="image-preview ms-2 bg-white"
+                              title={hoveredIndex === index ? `Image ${index + 1}` : null}
+                            />
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>

@@ -24,6 +24,9 @@ import { FaQuestion } from "react-icons/fa6";
 import { FaDisplay } from "react-icons/fa6";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { RiMoneyPoundCircleLine } from "react-icons/ri";
+import { useSelector } from "react-redux";
+
+
 import { BsCalendarEventFill } from "react-icons/bs";
 
 
@@ -38,7 +41,12 @@ import { Link } from "react-router-dom";
 
 const { Header, Sider, Content } = Layout;
 const Mainlayout = () => {
+
+
+
   const navigate = useNavigate();
+  const { isSuccess } = useSelector((state) => state.shop)
+  console.log(isSuccess)
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -76,14 +84,14 @@ const Mainlayout = () => {
               label: "Dashboard",
               icon: <MdHome style={{ fontSize: "25px", color: "#BEABC2" }} />,
             },
-            {
-              key: "customers",
-              label: "Customers",
-              icon: <FaUser style={{ fontSize: "20px", color: "#BEABC2" }} />,
-            },
+            // {
+            //   key: "customers",
+            //   label: "Customers",
+            //   icon: <FaUser style={{ fontSize: "20px", color: "#BEABC2" }} />,
+            // },
             {
               key: "catalog",
-              label: "Catalog",
+              label: <span className="label-style"  style={{color:"#3e4b5b"}}>Catalog</span>,
               icon: (
                 <MdShoppingCart
                   style={{ fontSize: "25px", color: "#BEABC2" }}
@@ -122,7 +130,7 @@ const Mainlayout = () => {
                 }
               ],
             },
-            
+
             {
               key: "orders",
               label: "Orders",
@@ -132,11 +140,11 @@ const Mainlayout = () => {
                 />
               ),
             },
-            
-           
+
+
             {
               key: "events",
-              label: "Events",
+              label: <span className="label-style"  style={{color:"#3e4b5b"}}>Events</span>,
               icon: (
                 <BsCalendarEventFill style={{ fontSize: "25px", color: "#BEABC2" }} />
               ),
@@ -159,12 +167,12 @@ const Mainlayout = () => {
                 <MdPayment style={{ fontSize: "25px", color: "#BEABC2" }} />
               ),
             },
-        
+
 
 
             {
               key: "offers",
-              label: "Offers",
+              label: <span className="label-style"  style={{color:"#3e4b5b"}}>Offers</span>,
               icon: (
                 <BiSolidOffer style={{ fontSize: "25px", color: "#BEABC2" }} />
               ),

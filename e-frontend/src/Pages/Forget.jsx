@@ -10,6 +10,7 @@ import { MdOutlineMailOutline } from "react-icons/md";
 
 function Forget() {
   const dispatch = useDispatch();
+  
   const { values, errors, handleChange, handleBlur, handleSubmit, touched } =
     useFormik({
       initialValues: {
@@ -28,7 +29,7 @@ function Forget() {
         console.log(value);
       },
     });
-
+  
   return (
     <div className="otp_background">
       <div className="row otp_page_scroll justify-content-center">
