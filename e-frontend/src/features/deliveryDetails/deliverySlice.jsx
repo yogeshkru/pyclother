@@ -3,18 +3,6 @@ import addressDetails from "./deliveryService";
 import { toast } from "react-toastify";
 
 
-export const Postorder = createAsyncThunk(
-    "auth/order/postorder",
-    async (data, thunkApi) => {
-        try {
-            const response = await addressDetails.createOrder(data);
-            return response;
-        } catch (err) {
-            toast.error(err?.response?.data?.message);
-            return thunkApi.rejectWithValue(err);
-        }
-    }
-);
 
 
 export const PostAddress = createAsyncThunk(
@@ -50,7 +38,7 @@ const inintialState = {
     Success: false,
     message: "",
     loaders: false,
-    createOrder:{},
+    
     createAddress:{}
   };
 
@@ -61,19 +49,7 @@ export const addressSlice = createSlice({
     reducers: {},
     extraReducers:(builder)=>{
         builder
-        .addCase(Postorder.pending,(state,action)=>{
-            state.loaders = true
-        }).addCase(Postorder.fulfilled,(state,action)=>{
-            state.loaders=false,
-            state.Error=false,
-            state.Success=true,
-            state.createOrder=action.payload
-        }).addCase(Postorder.rejected,(state,action)=>{
-            state.Error = true;
-            state.Success = false;
-            state.loaders = false;
-            state.message = action.error;
-        })
+        
         .addCase(PostAddress.pending,(state,action)=>{
             state.loaders = true
         }).addCase(PostAddress.fulfilled,(state,action)=>{

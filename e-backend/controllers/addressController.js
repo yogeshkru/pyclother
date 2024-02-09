@@ -35,10 +35,21 @@ class Addressdetails {
   
 
   //get
-  addressGet = async (req, res, next) => {
+  addressGetBilling = async (req, res, next) => {
     try {
-      const {id}=req.params
-      const addressallget = await addressModel.findById(id);
+      
+      const addressallget = await addressModel.find({address_type:'billing'});
+      res.status(200).json({ addressallget })
+    } catch (err) { 
+      next(new CustomError(err.message, 500))
+    }
+
+  }
+
+  addressGetshipping = async (req, res, next) => {
+    try {
+      
+      const addressallget = await addressModel.find({address_type:'shipping'});
       res.status(200).json({ addressallget })
     } catch (err) { 
       next(new CustomError(err.message, 500))
@@ -131,7 +142,7 @@ class Addressdetails {
   //findone
   addressfind = async (req, res, next) => {
     try {
-      const addressFind = await addressModel.findById(req.params.id)
+      const addressFind = await addressModel.find()
       if (!addressFind) {
         return next(new CustomError("The give id is not found", 404))
       }

@@ -7,7 +7,8 @@ module.exports = (app) => {
   const asyncErrorhandler = require("../utils/asyncErrorhandler");
   const {
     addressCreate,
-    addressGet,
+    addressGetBilling,
+    addressGetshipping,
     addressUpdateBilling,
     addressUpdateShipping,
     addressDelete,
@@ -24,14 +25,17 @@ module.exports = (app) => {
     router
     .route("address_patch_shipping/:id")
     .patch(authenticateUser, asyncErrorhandler(addressUpdateShipping));
-  // router
-  //   .route("/address-patch/:id")
-  //   .patch(authenticateUser, asyncErrorhandler(addressUpdate));
+  router
+    .route("/address-get-shipping/:id")
+    .get(authenticateUser, asyncErrorhandler( addressGetshipping));
+    router
+    .route("/address-get-billing/:id")
+    .get(authenticateUser, asyncErrorhandler(addressGetBilling));
   router
     .route("/address-delete/:id")
     .delete(authenticateUser, asyncErrorhandler(addressDelete));
   router
-    .route("/address-findid/:id")
+    .route("/address-find")
     .get(authenticateUser, asyncErrorhandler(addressfind));
 
   app.use("/api/address", router);

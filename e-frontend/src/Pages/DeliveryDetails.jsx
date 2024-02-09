@@ -8,7 +8,7 @@ import rupay from "../assets/image/pngwing.png";
 import pay from "../assets/image/Group 249.png";
 import StepHeader from "../Component/StepHeader";
 import {
-  Postorder,
+  
   PostAddress,
   getCartOne
 } from "../features/deliveryDetails/deliverySlice"
@@ -52,7 +52,7 @@ function DeliveryDetails() {
     }),
     onSubmit:async(value)=>{
       dispatch( PostAddress(value))
-      dispatch(Postorder(value))
+      resetForm();
       navigate("/delivery-address")
     }
   })

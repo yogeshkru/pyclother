@@ -5,13 +5,7 @@ import {config} from "../../utils/axiosConfig"
 
 
 
-//name,phone
-const createOrder = async(data)=>{
-    const response = await axios.post(`${CONN.BASE_URL}order/create-order`,data,config);
-    if(response.data){
-        return response.data
-    }
-};
+
 
 //addressCreate
 
@@ -32,7 +26,7 @@ const getCart = async()=>{
 }
 
 const addressDetails = {
-    createOrder,
+
     createAddress,
     getCart
 }
