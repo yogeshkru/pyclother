@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
-import "dropify/dist/css/dropify.min.css";
-import "dropify/dist/js/dropify.min.js";
 
-import "react-quill/dist/quill.snow.css";
+
+
 
 import { colorgets } from "../features/color/colorSlice";
 import { brandGets } from "../features/brandSlice";
@@ -213,6 +212,7 @@ function Addproduct() {
     dispatch(colorgets());
     dispatch(categoryGetData());
     dispatch(Getgst());
+   
   }, [dispatch]);
 
   return (

@@ -472,7 +472,11 @@ p {
   transform: skewX(15deg) rotate(-1deg);
 }
 .delivery_address_1{
-  margin: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+  border: 1px solid black;
   border-top: 2px solid #DEDEDE;
   border-bottom: 2px solid #DEDEDE;
 
@@ -819,11 +823,15 @@ input[type="number"] {
   padding: 10px;
   width: 100%;
   border-radius: 15px;
+  z-index: 1111 !important;
 }
 .delviery_details_row {
   margin: 0 !important;
   border-top: 2px solid #DEDEDE;
   border-bottom: 2px solid #DEDEDE;
+}
+.delivery-address_fluid{
+  z-index: 11111 !important;
 }
 
 .orderplaced_height {
@@ -852,7 +860,7 @@ input[type="number"] {
 }
 
 .deliverydetails_input_fild::placeholder {
-  padding-left: 20px;
+  padding-left: 10px;
 }
 @media screen and (max-height: 450px) {
   .header__sidenavsidenav {
@@ -993,19 +1001,19 @@ input[type="number"] {
 
 
 .delivery-address-overlay{
-  position: fixed;
+ position: absolute;
   top:0;
   left:0;
  
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1111 !important;
   display: flex;
   justify-content: center;
   align-items: start;
 }
 .delivery-address-overlay1{
-  margin-top: 100px;
+  margin-top: 20px;
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
@@ -1018,7 +1026,7 @@ input[type="number"] {
 }
 .delivery_address-modal-btn{
   background:none;
-  margin-top: 10px;
+  margin-top: 5px;
   padding: 5px 15px;
   border: 1px solid black;
   border-radius: 14px;

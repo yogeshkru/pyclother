@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "../styles/Home.css";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import logo from "../assets/image/logo12.png";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -8,11 +8,13 @@ import { FaRegUserCircle, FaRegEyeSlash } from "react-icons/fa";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { IoEyeOutline } from "react-icons/io5";
-import { useDispatch } from "react-redux";
+import { useDispatch ,useSelector} from "react-redux";
 import { userLogin } from "../features/usersSlice";
 
 function Forget() {
+  const {loginUser}=useSelector((state)=>state.users)
   const dispatch = useDispatch();
+  const navigate=useNavigate()
   const { values, errors, handleChange, handleBlur, handleSubmit, touched } =
     useFormik({
       initialValues: {
@@ -43,6 +45,12 @@ function Forget() {
   
     setShow(!show);
   };
+
+  useEffect(()=>{
+    if(loginUser !== ""){
+      navigate("/")
+    }
+  })
   return (
     <div className="otp_background">
       <div className="row otp_page_scroll justify-content-center">

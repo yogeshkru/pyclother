@@ -28,7 +28,7 @@ import phonepay from "../assets/image/phonepae.png";
 
 import { CiHeart } from "react-icons/ci";
 
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProduct } from "../features/product/productSlice";
 import URL from "../utils/Url";

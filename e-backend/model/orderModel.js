@@ -9,36 +9,28 @@ const orderSchema = new mongoose.Schema(
     },
     order_user_address: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Tbl_address",
-      required: true,
+      ref: "Tbl_address",    
     },
     
-    order_user_name:{
-      type:String,
-      require:true
-    },
-    order_user_phone:{
-      type:Number,
-      require:true
-    },
+  
     order_paymentInfo: {
       // paymentMethod: {
       //   type: String,
       //   enum: ["Razorpay", "COD"],
       //   default: "Razorpay",
       // },
-      razorpayOrderId: {
-        type: String,
-        required: function () {
-          return this.order_paymentInfo.paymentMethod !== "COD";
-        },
-      },
-      razorpayPaymentId: {
-        type: String,
-        required: function () {
-          return this.order_paymentInfo.paymentMethod !== "COD";
-        },
-      },
+      // razorpayOrderId: {
+      //   type: String,
+      //   required: function () {
+      //     return this.order_paymentInfo.paymentMethod !== "COD";
+      //   },
+      // },
+      // razorpayPaymentId: {
+      //   type: String,
+      //   required: function () {
+      //     return this.order_paymentInfo.paymentMethod !== "COD";
+      //   },
+      // },
     },
     
     orderItems: [
@@ -46,7 +38,7 @@ const orderSchema = new mongoose.Schema(
         product: {
           type: mongoose.Schema.Types.ObjectId,
           ref: "Tbl_product",
-          required: true,
+          // required: true,
         },
         color: {
           type:String

@@ -1,14 +1,15 @@
 const mongoose = require("mongoose");
 
 const orderItemSchema = new mongoose.Schema({
-    orderItem_order_user_Id: {
+    orderItem_user_Id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Tbl_user",
         required: true,
       },
-    orderItem_order_Id:{
+    orderItem_address_Id:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Tbl_order",
+        ref: "Tbl_address",
+        required:true,
     },
     orderItem_product_Id:{
         type: mongoose.Schema.Types.ObjectId,

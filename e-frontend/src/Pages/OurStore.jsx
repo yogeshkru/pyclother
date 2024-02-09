@@ -28,14 +28,15 @@ const OurStore = function () {
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
   const [colors, setColors] = useState([]);
-  const [prices, setPrices] = useState([]);
+  const [prices,setPrices] = useState([])
 
   //filter
 
   const [category, setCategory] = useState(null);
   const [brand, setBrand] = useState(null);
   const [color, setColor] = useState(null);
-  const [price, setPrice] = useState(null);
+  const [price,setPrice]= useState(null)
+
   const [minPrice, setMinPrice] = useState(null);
   const [maxPrice, setMaxPrice] = useState(null);
   const [sort, setSort] = useState(null);
@@ -54,13 +55,13 @@ const OurStore = function () {
       newBrand?.push(element?.brand);
       category?.push(element?.category);
       newColors?.push(element?.color);
-      price?.push(element?.price);
-      //  discountPrice.push(element?)
+     price?.push(element?.price)
+    //  discountPrice.push(element?)
     }
     setBrands(newBrand);
     setCategories(category);
     setColors(newColors);
-    setPrices(price);
+    setPrices(price)
   }, [wholeProduct]);
 
   useEffect(() => {
@@ -128,12 +129,10 @@ const OurStore = function () {
 
   // price
 
-  const priceDetails =
-    prices &&
-    [...new Set(prices)].map((item, i) => {
+    const priceDetails = prices && prices.map((item, i) => {
       // Construct the price range string
       // const priceRange = `${item} and above`;
-
+    
       return (
         <div key={i} className="d-flex gap-1 mb-2">
           <input type="checkbox" onClick={() => setPrice(item)} />
@@ -143,6 +142,8 @@ const OurStore = function () {
         </div>
       );
     });
+    
+    
 
   // *******************************************************************
   return (
@@ -208,7 +209,7 @@ const OurStore = function () {
                 {show ? (
                   <div className="d-flex justify-content-between">
                     <div>
-                      <h4>Category</h4>
+                    <h5 className="ourStore-price-title">CATEGORY</h5>
                     </div>
                     <div>
                       <FaMagnifyingGlass />
@@ -264,7 +265,7 @@ const OurStore = function () {
                 {bshow ? (
                   <div className="d-flex justify-content-between">
                     <div>
-                      <h4>BRAND</h4>
+                    <h5 className="ourStore-price-title">BRAND</h5>
                     </div>
                     <div>
                       <FaMagnifyingGlass />
@@ -284,30 +285,7 @@ const OurStore = function () {
               </div>
               <div>
                 <ul className="ps-0">
-                  {/* <li className="ourstore-brand-filter d-flex">
-                    <input type="checkbox" className="ourcheck"></input>Roadster{" "}
-                    <span className="ourstore-filter ms-1 mb-0 ">
-                      (12346 items)
-                    </span>
-                  </li>
-                  <li className="ourstore-brand-filter d-flex">
-                    <input type="checkbox" className="ourcheck"></input>Gucci{" "}
-                    <span className="ourstore-filter ms-1 mb-0">
-                      (12345 items)
-                    </span>
-                  </li>
-                  <li className="ourstore-brand-filter d-flex">
-                    <input type="checkbox" className="ourcheck"></input>H&M{" "}
-                    <span className="ourstore-filter ms-1 mb-0 ">
-                      (12345 items)
-                    </span>
-                  </li>
-                  <li className="ourstore-brand-filter d-flex">
-                    <input type="checkbox" className="ourcheck"></input>Versace{" "}
-                    <span className="ourstore-filter ms-1 mb-0">
-                      (12345 items)
-                    </span>
-                  </li> */}
+            
                   {brandDetails}
                 </ul>
               </div>
@@ -315,7 +293,7 @@ const OurStore = function () {
 
             <div className="ourStore-price-gap ">
               <h5 className="ourStore-price-title">PRICE</h5>
-              {/* 
+{/* 
               <div className="ourStore-price">
                 <div className="ourStore-range">
                   <input
@@ -358,9 +336,9 @@ const OurStore = function () {
               <div className="mb-3">{colorDetails}</div>
             </div>
 
-            <div className="ourStore-discount mt-3">
+            <div className="ourStore-color">
               <h3 className="ourStore-discount-title mt-3">DISCOUNT</h3>
-              <div className="li-gap">
+              {/* <div className="li-gap">
                 <ul className="ps-0">
                   <li className="ourstore-discount-filter d-flex">
                     <input type="checkbox" className="ourcheck"></input>10% and
@@ -389,7 +367,8 @@ const OurStore = function () {
                     above
                   </li>
                 </ul>
-              </div>
+              </div> */}
+            
             </div>
           </div>
 

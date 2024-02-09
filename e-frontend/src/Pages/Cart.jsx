@@ -13,7 +13,7 @@ function Cart() {
     <>
 
 <div className="col-lg-12">
-<StepHeader/>
+
 </div>
       {/* <Cartheader /> */}
       {/* <div className='container'>

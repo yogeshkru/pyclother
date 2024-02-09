@@ -13,21 +13,14 @@ import { useNavigate } from "react-router-dom";
 function Signup() {
   // *************************************************************
   const dispatch = useDispatch();
-  const { loaders, Success, Error } = useSelector((state) => state.users);
-  const [showLoad, setShowLoad] = useState(false);
+  const { createUser } = useSelector((state) => state.users);
+
   const navigate = useNavigate();
   useEffect(() => {
-    if (loaders) {
-      setShowLoad(true);
-    } else {
-      setShowLoad(false);
-    }
-
-    if (Success) {
-      setShowLoad(false);
+    if (createUser !== "") {
       navigate("/");
     }
-  }, [Success, loaders, showLoad]);
+  }, []);
 
   const { values, errors, handleChange, handleBlur, handleSubmit, touched } =
     useFormik({
@@ -77,8 +70,6 @@ function Signup() {
           <div className="col-lg-4  col-sm-12 col-md-7 pt-1">
             <div className="otp_box">
               <div className="otp_font_welcome">
-              
-
                 <h3>Welcome</h3>
                 <h3>to</h3>
                 <div className="otp_welcome_img">

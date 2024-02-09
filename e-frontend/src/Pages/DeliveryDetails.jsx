@@ -6,19 +6,21 @@ import visa from "../assets/image/pngwing-2.png";
 import rupay from "../assets/image/pngwing.png";
 
 import pay from "../assets/image/Group 249.png";
-import StepHeader from "../Component/StepHeader";
+
 import {
-  Postorder,
+  
   PostAddress,
   getCartOne
 } from "../features/deliveryDetails/deliverySlice"
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 
 
 function DeliveryDetails() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [selectedLocation, setSelectedLocation] = useState(null);
   const locations = [
@@ -28,7 +30,7 @@ function DeliveryDetails() {
   const handleLocationChange = (event) => {
     setSelectedLocation(event.target.value);
   };
-  // console.log(event.target.value, "diuwgivugvduig")
+ 
   const { values, errors, handleBlur, handleChange, handleSubmit, touched, resetForm } = useFormik({
     initialValues: {
       user_name: "",
@@ -49,26 +51,17 @@ function DeliveryDetails() {
       address_country:Yup.string().required("country is required")
     }),
     onSubmit:async(value)=>{
-     try {
-      const addressresponse= await dispatch(PostAddress(value))
-      const addressId = addressresponse.payload.data._id;
-     
-      const orderValues = {...value,order_user_address:addressId};
-      console.log(orderValues,"address id")
-      const order=await dispatch(Postorder(orderValues))
-      console.log(order,"address id")
+      dispatch( PostAddress(value))
       resetForm();
-     } catch (error) {
-      console.error('Error submitting form:', error);
-     }
+      navigate("/delivery-address")
     }
   })
 
   return (
     <div>
-      <section className="container">
-        <StepHeader />
-      </section>
+    
+     
+     
 
       <div className="row  p-3 delviery_details_row">
         <div className="col-lg-2"></div>
