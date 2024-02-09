@@ -212,6 +212,7 @@ function Addproduct() {
     dispatch(colorgets());
     dispatch(categoryGetData());
     dispatch(Getgst());
+   
   }, [dispatch]);
 
   return (

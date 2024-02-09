@@ -91,9 +91,11 @@ export const userdeleteme = createAsyncThunk(
 const inintialState = {
   Error: false,
   Success: false,
+  signupData:"",
   message: "",
   loaders: false,
-  createUser:{}
+  createUser:"",
+  loginUser:""
 };
 
 
@@ -129,7 +131,8 @@ export const usersSlice = createSlice({
         state.Error = false;
         state.Success = action.payload.message.message;
         state.loaders = false;
-        state.createLogin = action.payload;
+        
+        state.loginUser=action.payload
 
         if (state.Success) {
           toast.success(action.payload?.message?.message);

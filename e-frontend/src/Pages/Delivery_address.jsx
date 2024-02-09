@@ -184,7 +184,8 @@
 // export default Delivery_address;
 
 import React, { useState, useRef, useEffect } from "react";
-
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import phone from "../assets/image/pngwing-4.png";
 import rupay from "../assets/image/pngwing.png";
 import visa from "../assets/image/pngwing-2.png";
@@ -193,10 +194,50 @@ import women from "../assets/image/women.png";
 import StepHeader from "../Component/StepHeader";
 function Delivery_address() {
   const [show, setShow] = useState(false);
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
+  const [address, setAddress] = useState("");
+  console.log(address);
+
+  // address_deliver
+  const {
+    values,
+    errors,
+    handleChange,
+    handleBlur,
+    touched,
+    handleSubmit,
+    resetForm,
+  } = useFormik({
+    initialValues: {
+      address_pincode: "",
+      address_area: "",
+      address_city: "",
+      
+      address_state: "",
+      address_country: "",
+    },
+    onSubmit: (value) => {
+      console.log(value,"lll");
+    },
+    // validationSchema: Yup.object().shape({
+    //   address_pincode: Yup.string()
+    //     .required("Pin Code is required")
+    //     .matches(/^\d{6}$/, "Age must be a 6-digit number"),
+    //   address_area: Yup.string()
+    //     .required("Area is required")
+    //     .matches(/^[a-zA-Z]+$/, "Age must contain only letters"),
+    //   address_city: Yup.string()
+    //     .required("City is required")
+    //     .matches(/^[a-zA-Z]+$/, "Age must contain only letters"),
+    //   address_state: Yup.string()
+    //     .required("State is required")
+    //     .matches(/^[a-zA-Z]+$/, "Age must contain only letters"),
+    //   address_country: Yup.string()
+    //     .required("State is required")
+    //     .matches(/^[a-zA-Z]+$/, "Age must contain only letters"),
+    // }),
+   
   });
+
   const modalRef = useRef();
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -212,20 +253,14 @@ function Delivery_address() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
- 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
 
   return (
     <div className="">
-            <section className="container">
-        <StepHeader />
-      </section>
+      <StepHeader />
+
       <div className="row delivery_address_1">
         <div className="col-lg-2"></div>
         <div className="col-lg-4 pt-4">
-          
           <div className="d-flex justify-content-between">
             <div className="mt-2 delviery_address_content">
               <h5>Selcet Delivery Address</h5>
@@ -242,23 +277,27 @@ function Delivery_address() {
                 <div className="delivery-address-overlay">
                   <div className="delivery-address-overlay1" ref={modalRef}>
                     <div className="d-flex justify-content-between">
-                      <h6 className="fs-5 mt-3">Add New Address</h6>
-                      <button
-                        className="close-modal-btn "
-                        onClick={handleClose}
-                      >
+                      <h6 className="fs-5 mt-1">Add New Address</h6>
+                      <button className="close-modal-btn" onClick={handleClose}>
                         &times;
                       </button>
                     </div>
                     <hr />
                     <h5 className="fs-6 ">ADDRESS</h5>
-                    <form onSubmit={handleSubmit}>
+                    <form
+                        onSubmit={handleSubmit} 
+                      className="delivery-address_fluid"
+                    >
                       <div className="mt-4">
                         <div>
                           <input
-                            type="text"
+                            type="number"
                             className="deliverydetails_input_fild"
                             placeholder="Pin code"
+                            name="address_pincode"
+                            value={values.address_pincode}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
                           />
                         </div>
                       </div>
@@ -268,6 +307,10 @@ function Delivery_address() {
                             type="text"
                             className="deliverydetails_input_fild"
                             placeholder="Address"
+                            name="address_area"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.address_area}
                           />
                         </div>
                       </div>
@@ -277,51 +320,84 @@ function Delivery_address() {
                             type="text"
                             className="deliverydetails_input_fild"
                             placeholder="Locality/Town"
+                            name="address_city"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.address_city}
                           />
                         </div>
                       </div>
                       <div className="mt-4">
+                        <div>
+                          <input
+                            type="text"
+                            className="deliverydetails_input_fild"
+                            placeholder="State"
+                            name="address_state"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.address_state}
+                          />
+                        </div>
+                      </div>
+                      <div className="mt-4">
+                        <div>
+                          <input
+                            type="text"
+                            className="deliverydetails_input_fild"
+                            placeholder="Country"
+                            name="address_country"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.address_country}
+                          />
+                        </div>
+                      </div>
+                      <div className="mt-3">
                         <h5 className="fs-6 fw-bold">SAVE ADDRESS AS</h5>
                       </div>
                       <div className="mt-4">
                         <div className="row">
                           <div className="col-lg-2 col-4">
-                            <input
-                              type="radio"
-                              className="deliverydetails_radio-button21"
-                              id="lang-2"
-                            />
-                            <label
-                              className="Delviery_Details_label"
-                              style={{
-                                border: "2px solid rgb(133 133 133) ",
-                                color: "rgb(133 133 133)",
-                              }}
-                            >
-                              Home
-                            </label>
+                            <div className="d-flex ">
+                              <input
+                                type="radio"
+                                name="Home"
+                                value="home"
+                                onChange={(e) => setAddress(e.target.value)}
+                              />
+                              <span className="ms-1">Home</span>
+                            </div>
                           </div>
                           <div className="col-lg-2 col-4 ms-2">
-                            <input
-                              type="radio"
-                              className="deliverydetails_radio-button21"
-                              id="lang-1"
-                            />
-                            <label
-                              className="Delviery_Details_label"
-                              style={{
-                                border: "2px solid rgb(133 133 133)",
-                                color: "rgb(133 133 133)",
-                              }}
-                            >
-                              Work
-                            </label>
+                            <div className="d-flex ">
+                              <input
+                                type="radio"
+                                name="Home"
+                                value="work"
+                                onChange={(e) => setAddress(e.target.value)}
+                              />
+                              <span className="ms-1">Work</span>
+                            </div>
                           </div>
                         </div>
                       </div>
                       <div className="mt-4">
+                        <select
+                          class="form-select"
+                          aria-label="Default select example"
+                          
+                        >
+                          <option value="billing" selected>
+                            billing
+                          </option>
+                          <option value="shipping">shipping</option>
+                        </select>
+                      </div>
+                      <div className="mt-4">
                         <input type="checkbox" /> Make this my default address
                       </div>
+
                       <div className="mt-4">
                         <div>
                           <button
