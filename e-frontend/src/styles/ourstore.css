@@ -73,7 +73,10 @@
     border-bottom: 1px solid  rgba(119, 119, 119, 0.4) ;
   }
   .ourStore-price-gap {
-    margin-bottom: 15px !important;
+    /* margin-bottom: 15px   !important; */
+    
+    border-bottom: 1px solid  rgba(119, 119, 119, 0.4) ;
+    
     /* padding-bottom: 20px; */
   }
   
