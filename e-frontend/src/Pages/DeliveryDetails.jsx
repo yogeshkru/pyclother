@@ -54,7 +54,7 @@ function DeliveryDetails() {
       const addressId = addressresponse.payload.data._id;
      
       const orderValues = {...value,order_user_address:addressId};
-      console.log(orderValues,"address id")
+    
       const order=await dispatch(Postorder(orderValues))
       console.log(order,"address id")
       resetForm();
@@ -66,9 +66,9 @@ function DeliveryDetails() {
 
   return (
     <div>
-      <section className="container">
+    
         <StepHeader />
-      </section>
+     
 
       <div className="row  p-3 delviery_details_row">
         <div className="col-lg-2"></div>
