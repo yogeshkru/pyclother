@@ -27,7 +27,7 @@ const ViewEnq = () => {
     navigate(-1);
   };
   const findData = GetAllenquirys?.find((data) => data._id === getEnq);
-
+ console.log(findData)
   return (
     <>
       <div>
@@ -46,17 +46,17 @@ const ViewEnq = () => {
           <div className="mt-5 bg-white p-4 rounded-3">
             <div className="mb-3">
               <h5 className="mb-0" style={{color:"#beabc2"}}>Name :</h5>
-              {/* <p className="mb-0">{findData?.enquiry_name}</p> */}
+              <p className="mb-0">{findData?.user_id?.user_name}</p>
             </div>
 
             <div className="mb-3">
               <h5 className="mb-0" style={{color:"#beabc2"}}>Mobile :</h5>
-              {/* <p className="mb-0">{findData?.enquiry_mobile}</p> */}
+              <p className="mb-0">{findData?.user_id?.user_phone}</p>
             </div>
 
             <div className="mb-3">
               <h5 className="mb-0" style={{color:"#beabc2"}}>Email :</h5>
-              {/* <a href={`mailto:${findData?.enquiry_email}`} className="mb-0">{findData?.enquiry_email}</a> */}
+              <a href={`mailto:${findData?.user_id?.user_email}`} className="mb-0">{findData?.user_id?.user_email}</a>
 
             </div>
 
