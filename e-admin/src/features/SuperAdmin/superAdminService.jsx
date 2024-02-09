@@ -1,5 +1,6 @@
 import axios from "axios";
 import URL from "../../utilis/Url";
+import {config} from "../../utilis/axiosConfig"
 
 // create-user ===> POST
 
@@ -100,7 +101,7 @@ async function deleteUser(id) {
 //get-user's ==>GET
 
 async function getUsers() {
-  const response = await axios.get(`${URL.BASE_URL}user/fetchUser`);
+  const response = await axios.get(`${URL.BASE_URL}user/fetchUser`,config);
   if (response.data) {
     return response.data;
   }

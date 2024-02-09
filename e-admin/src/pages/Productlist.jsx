@@ -157,12 +157,13 @@ function Productlist() {
   };
 
   const handleUpdate = (i) => {
-    const data = getAllShopProduct.find((item) => item._id === i);
-    setEdite(data);
-    setModel(true);
+    // const data = getAllShopProduct.find((item) => item._id === i);
+    // setEdite(data);
+    // setModel(true);
+    navigate(`/admin/product/${i}`)
   };
 
-  console.log(getAllShopProduct)
+  
   const data = [];
   for (let i = 0; i < getAllShopProduct.length; i++) {
     data.push({
@@ -281,7 +282,7 @@ function Productlist() {
           </div>
         </div>
         <div>
-          {model ? (
+          {/* {model ? (
             <div>
               <form onSubmit={handleSubmit}>
                 <div className="product_model--data" ref={modelRef}>
@@ -626,7 +627,7 @@ function Productlist() {
             </div>
           ) : (
             ""
-          )}
+          )} */}
         </div>
         <div className="mt-4">
           <DataTable columns={columns} data={data} pagination />
