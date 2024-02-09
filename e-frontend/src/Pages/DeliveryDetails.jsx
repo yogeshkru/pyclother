@@ -15,10 +15,12 @@ import {
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 
 
 function DeliveryDetails() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [selectedLocation, setSelectedLocation] = useState(null);
   const locations = [
@@ -49,18 +51,9 @@ function DeliveryDetails() {
       address_country:Yup.string().required("country is required")
     }),
     onSubmit:async(value)=>{
-     try {
-      const addressresponse= await dispatch(PostAddress(value))
-      const addressId = addressresponse.payload.data._id;
-     
-      const orderValues = {...value,order_user_address:addressId};
-      console.log(orderValues,"address id")
-      const order=await dispatch(Postorder(orderValues))
-      console.log(order,"address id")
-      resetForm();
-     } catch (error) {
-      console.error('Error submitting form:', error);
-     }
+      dispatch( PostAddress(value))
+      dispatch(Postorder(value))
+      navigate("/delivery-address")
     }
   })
 
