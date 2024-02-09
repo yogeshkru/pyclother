@@ -1,39 +1,47 @@
 import React from "react";
-import { Button, Table } from "antd";
-const columns = [
-  {
-    title: "SNo",
-    dataIndex: "key",
-  },
-  {
-    title: "Name",
-    dataIndex: "name",
-  },
-  {
-    title: "Product",
-    dataIndex: "product",
-  },
-  {
-    title: "Status",
-    dataIndex: "status",
-  },
-];
-const data1 = [];
-for (let i = 0; i < 46; i++) {
-  data1.push({
-    key: i,
-    name: `${i}`,
-    product: 32,
-    status: `London, Park Lane no. ${i}`,
-  });
-}
+import DataTable from "react-data-table-component";
+
 function Orders() {
+
+
+  const columns = [
+    {
+      title: "SNo",
+      dataIndex: "id",
+    },
+    {
+      title: "Name",
+      dataIndex: "name",
+    },
+    {
+      title: "Product",
+      dataIndex: "product",
+    },
+    {
+      title: "Amount",
+      dataIndex: "amount",
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+      render: () => (
+        <select>
+          <option>select order</option>
+        </select>
+      ),
+    },
+  ];
+  
+ const data=[]
+ for(let i=0;i<data.length;i++){
+  
+ }
   return (
     <div>
       <div className="mt-2">
         <h3>Orders</h3>
         <div className="mt-4">
-          <Table columns={columns} dataSource={data1} />
+        <DataTable columns={columns} data={data} pagination />
         </div>
       </div>
     </div>

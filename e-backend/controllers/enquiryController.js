@@ -7,17 +7,18 @@ class EnquiryController {
   // Create Enquiry
   async enquiry(req, res, next) {
 
-    let { _id } = req.user
+    
+    try {
+      let { _id } = req.user
 
 
     const queryData = req.body;
 
     queryData.user_id = _id
-    try {
-      const newEnquiry = await enquiryModel.create({
+      const newEnquiry = await enquiryModel.create(
 
         queryData
-      });
+      );
       res.status(201).json({ newEnquiry });
     } catch (error) {
       next(new CustomError(error.message, 500));
@@ -38,7 +39,7 @@ class EnquiryController {
   // Get All Enquiries
   async getAllEnquiry(req, res, next) {
     try {
-      const enquiryAll = await enquiryModel.find();
+      const enquiryAll = await enquiryModel.find().populate("user_id")
       res.status(200).json({ enquiryAll });
     } catch (error) {
       next(new CustomError(error.message, 500));

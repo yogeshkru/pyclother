@@ -7,7 +7,7 @@ export const resetState = createAction("Reset_all");
 export const postProductOnServer = createAsyncThunk(
   "product/post",
   async (product, thunkAPI) => {
-    console.log(product)
+ 
     try {
       const formData = new FormData();
       for (let i = 0; i < product?.images.length; i++) {
@@ -42,6 +42,7 @@ export const postProductOnServer = createAsyncThunk(
 
       formData.append("meta_description", product?.meta_description)
       formData.append("meta_keyboard", product?.meta_keyboard)
+      formData.append("discount",product?.discount)
 
 
 
