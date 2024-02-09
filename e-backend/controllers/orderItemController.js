@@ -1,8 +1,8 @@
 const CustomError = require("../utils/customError");
 const orderItem = require("../model/orderItemModel");
-const order = require('../model/orderModel');
+// const order = require('../model/orderModel');
 const addressModel = require("../model/addressModel");
-const orderModel = require("../model/orderModel");
+// const orderModel = require("../model/orderModel");
 const cartModel = require("../model/cartModel");
 const productModel = require("../model/productModel")
 const { default: mongoose } = require("mongoose");
@@ -11,7 +11,7 @@ const { default: mongoose } = require("mongoose");
 class orderitem {
     createOrderItem = async (req, res, next) => {
         const { _id } = req.user;
-        const { orderItem_order_Id, orderItem_product_quantity, orderItem_product_Id } = req.body;
+        const { orderItem_address_Id, orderItem_product_quantity, orderItem_product_Id } = req.body;
         try {
 
             const findCart = await cartModel.findOne({ cart_user_user_Id: new mongoose.Types.ObjectId(_id) })
@@ -38,16 +38,9 @@ class orderitem {
 
             console.log(gstValue, orderItem_product_name, orderItem_product_amount, "newproduct")
 
-            const order = await orderModel.findOne({  order_user: new mongoose.Types.ObjectId(_id) });
-            const shipping_address_id = order.order_user_address;
-            if (!order) {
-                return res.status(404).json({
-                    status: 404,
-                    message: "Order not found",
-                });
-            } console.log(shipping_address_id, "shipping_id")
+   
 
-            const state = await addressModel.findOne({ _id:shipping_address_id, address_type: "shipping" })
+            const state = await addressModel.findOne({ _id:orderItem_address_Id, address_type: "shipping || billing" })
             
             const shipping_address_state=state.address_state
             if (!state) {
@@ -71,8 +64,8 @@ class orderitem {
             const sgst_percentage = gstValue / 2
 
             const newOrderItem = await orderItem.create({
-                orderItem_order_user_Id: _id,
-                orderItem_order_Id,
+                orderItem_user_Id: _id,
+                orderItem_address_Id,
                 orderItem_product_Id,
                 orderItem_product_name,
                 orderItem_product_amount,

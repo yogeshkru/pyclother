@@ -28,14 +28,15 @@ import phonepay from "../assets/image/phonepae.png";
 
 import { CiHeart } from "react-icons/ci";
 
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProduct } from "../features/product/productSlice";
 import URL from "../utils/Url";
 
 const ProductCard = function ({ data }) {
-  console.log(data?.images)
   const navigate = useNavigate();
+  console.log(data?.images)
+  
   return (
     <>
       {data?.map((item, index) => {

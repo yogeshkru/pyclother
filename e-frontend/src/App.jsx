@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "./App.css";
@@ -23,8 +23,11 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { PrivateRoutes } from "./protect/PrivateRoutes";
 import { OpenRoutes } from "./protect/OpenRoutes";
+import StepHeader from "./Component/StepHeader";
+
 
 function App() {
+ 
   return (
     <>
       <BrowserRouter>
@@ -35,10 +38,13 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="singleProduct/:name" element={<SingleProduct />} />
-            <Route path="delivery-address" element={<Delivery_address />} />
-            <Route path="Addtocart" element={<Cart />} />
+            {/* <Route path="delivery-address" element={<Delivery_address />} /> */}
+            {/* <Route path="Addtocart" element={<Cart />} /> */}
+         
+            <Route path="stepper" element={<StepHeader />} />
+        
             <Route path="ourstore" element={<OurStore />} />
-            <Route path="deliveryDetails" element={<DeliveryDetails />} />
+            {/* <Route path="deliveryDetails" element={<DeliveryDetails />} /> */}
             <Route path="orderpalced" element={<Orderplaced />} />
             <Route path="Whislist" element={<Whislist />} />
             <Route path="payment" element={<Payment />} />

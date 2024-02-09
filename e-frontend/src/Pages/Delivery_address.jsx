@@ -256,7 +256,7 @@ function Delivery_address() {
 
   return (
     <div className="">
-      <StepHeader />
+    
 
       <div className="row delivery_address_1">
         <div className="col-lg-2"></div>

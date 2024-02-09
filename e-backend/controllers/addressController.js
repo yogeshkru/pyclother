@@ -5,7 +5,7 @@ class Addressdetails {
   //post
   addressCreate = async (req, res, next) => {
     try {
-      const { address_area, address_city, address_state, address_country, address_pincode,address_deliver } = req.body;
+      const { address_area, address_city, address_state, address_country, address_pincode,address_deliver,user_name,user_phone } = req.body;
       const { _id } = req.user; // Corrected from user_id to _id
       console.log(_id, "user");
   
@@ -21,7 +21,9 @@ class Addressdetails {
         address_country,
         address_pincode,
         address_type,
-        address_deliver
+        address_deliver,
+        user_name,
+        user_phone
       });
   
       console.log(_id, 'ssgsvvdv');
@@ -33,10 +35,21 @@ class Addressdetails {
   
 
   //get
-  addressGet = async (req, res, next) => {
+  addressGetBilling = async (req, res, next) => {
     try {
-      const {id}=req.params
-      const addressallget = await addressModel.findById(id);
+      
+      const addressallget = await addressModel.find({address_type:'billing'});
+      res.status(200).json({ addressallget })
+    } catch (err) { 
+      next(new CustomError(err.message, 500))
+    }
+
+  }
+
+  addressGetshipping = async (req, res, next) => {
+    try {
+      
+      const addressallget = await addressModel.find({address_type:'shipping'});
       res.status(200).json({ addressallget })
     } catch (err) { 
       next(new CustomError(err.message, 500))
@@ -48,7 +61,7 @@ class Addressdetails {
   addressUpdateBilling = async (req, res, next) => {
    
     try {
-      const {  address_area, address_city, address_state, adddress_country, address_pincode } = req.body;
+      const {  address_area, address_city, address_state, adddress_country, address_pincode,user_name,user_phone } = req.body;
       const { address_id } = req.params;
       const {_id} = req.user;
       // Check if the specified address belongs to the user and is a billing address
@@ -66,9 +79,10 @@ class Addressdetails {
       existingBillingAddress.address_area = address_area;
       existingBillingAddress.address_city = address_city;
       existingBillingAddress.address_state = address_state;
-      existingBillingAddress.adddress_country = adddress_country;
+      existingBillingAddress.address_country = adddress_country;
       existingBillingAddress.address_pincode = address_pincode;
-
+      existingBillingAddress.user_name = user_name;
+      existingBillingAddress.user_phone=user_phone
       // Save the changes
       await existingBillingAddress.save();
 
@@ -82,7 +96,7 @@ class Addressdetails {
   addressUpdateShipping = async (req, res, next) => {
     
     try {
-      const { address_area, address_city, address_state, adddress_country, address_pincode } = req.body;
+      const { address_area, address_city, address_state, adddress_country, address_pincode,user_name,user_phone } = req.body;
       const {address_id } = req.params;
       const {_id} = req.user;
       // Check if the specified address belongs to the user and is a billing address
@@ -102,7 +116,8 @@ class Addressdetails {
       existingShippingAddress.address_state = address_state;
       existingShippingAddress.address_country = adddress_country;
       existingShippingAddress.address_pincode = address_pincode;
-
+      existingShippingAddress.user_name = user_name;
+      existingShippingAddress.user_phone = user_phone
       // Save the changes
       await existingShippingAddress.save();
 
@@ -127,7 +142,7 @@ class Addressdetails {
   //findone
   addressfind = async (req, res, next) => {
     try {
-      const addressFind = await addressModel.findById(req.params.id)
+      const addressFind = await addressModel.find()
       if (!addressFind) {
         return next(new CustomError("The give id is not found", 404))
       }
