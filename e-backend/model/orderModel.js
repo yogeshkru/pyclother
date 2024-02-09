@@ -94,7 +94,7 @@ const orderSchema = new mongoose.Schema(
     order_total_igst:{
       type:Number,
     },
-    order_total_amount:{
+    order_total_amjount:{
       type:Number
     },
 

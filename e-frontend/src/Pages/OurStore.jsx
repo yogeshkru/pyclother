@@ -31,6 +31,7 @@ const OurStore = function () {
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
   const [colors, setColors] = useState([]);
+  const [price,setPrice] = useState([])
 
   //filter
 
@@ -51,16 +52,19 @@ const OurStore = function () {
     let newBrand = [];
     let category = [];
     let newColors = [];
+    let price =[];
 
     for (let i = 0; i < wholeProduct?.length; i++) {
       const element = wholeProduct[i];
       newBrand?.push(element?.brand);
       category?.push(element?.category);
       newColors?.push(element?.color);
+     price?.push(element?.price)
     }
     setBrands(newBrand);
     setCategories(category);
     setColors(newColors);
+    setPrice(price)
   }, [wholeProduct]);
 
   useEffect(() => {
@@ -125,6 +129,10 @@ const OurStore = function () {
         </div>
       );
     });
+
+    // price
+
+    const   priceDetails = price && price
 
   // *******************************************************************
   return (
