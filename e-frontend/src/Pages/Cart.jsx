@@ -118,7 +118,7 @@ function Cart() {
         </div>
       </div> */}
       <div>
-        <section className="container">
+        <section className="container mt-5">
         <button className="m-auto d-flex p-2 rounded-5"><i><FaPlus /></i> Add from wishlist </button>
           <div className="d-flex py-4 ms-4">
         

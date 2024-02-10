@@ -102,7 +102,7 @@ const OurStore = function () {
   const colorDetails =
     colors &&
     [...new Set(colors)].map((item, i) => {
-      const colorNAme = GetColorName(item);
+      const colorNAme = GetColorName(item) 
       return (
         <div key={i} className="d-flex gap-1">
           <div className="row">
@@ -129,7 +129,7 @@ const OurStore = function () {
 
   // price
 
-    const priceDetails = prices && prices.map((item, i) => {
+    const priceDetails = prices && [...new Set(prices)].map((item, i) => {
       // Construct the price range string
       // const priceRange = `${item} and above`;
     

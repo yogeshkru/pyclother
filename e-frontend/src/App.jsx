@@ -38,17 +38,31 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="singleProduct/:name" element={<SingleProduct />} />
-            {/* <Route path="delivery-address" element={<Delivery_address />} /> */}
-            {/* <Route path="Addtocart" element={<Cart />} /> */}
+
+
+
+
+            <Route path="Addtocart" element={<Cart />} />
+            <Route path="delivery-address" element={<Delivery_address />} />
+
+
+            
+            <Route path="ourstore" element={<OurStore />} />
+
          
             <Route path="stepper" element={<StepHeader />} />
+            {/* <Route path="cart" element={<Cart />} /> */}
         
-            <Route path="ourstore" element={<OurStore />} />
-            {/* <Route path="deliveryDetails" element={<DeliveryDetails />} /> */}
             <Route path="orderpalced" element={<Orderplaced />} />
             <Route path="Whislist" element={<Whislist />} />
+
             <Route path="payment" element={<Payment />} />
+            
             <Route path="profile" element={<Profile/>}/>
+
+
+
+            <Route path="deliveryDetails" element={<DeliveryDetails />} />
           </Route>
 
           {/* **********Public Routes********** */}
