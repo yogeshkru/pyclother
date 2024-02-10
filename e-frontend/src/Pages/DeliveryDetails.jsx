@@ -18,6 +18,7 @@ import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 
 
+import {Step} from "../features/stepper/StepperSlice"
 
 function DeliveryDetails() {
   const navigate = useNavigate();
@@ -42,16 +43,16 @@ function DeliveryDetails() {
       address_country:""
     },
     validationSchema: Yup.object().shape({
-      user_name: Yup.string().required("name is required"),
-      user_phone: Yup.string().required("phone number is required"),
-      address_pincode: Yup.string().required("pincode is required"),
-      address_area: Yup.string().required("area is required"),
-      address_city: Yup.string().required("city is required"),
-      address_state: Yup.string().required("state is required"),
-      address_country:Yup.string().required("country is required")
+      // user_name: Yup.string().required("name is required"),
+      // user_phone: Yup.string().required("phone number is required"),
+      // address_pincode: Yup.string().required("pincode is required"),
+      // address_area: Yup.string().required("area is required"),
+      // address_city: Yup.string().required("city is required"),
+      // address_state: Yup.string().required("state is required"),
+      // address_country:Yup.string().required("country is required")
     }),
     onSubmit:async(value)=>{
-      dispatch( PostAddress(value))
+      // dispatch( PostAddress(value))
       resetForm();
       navigate("/delivery-address")
     }
@@ -232,7 +233,7 @@ function DeliveryDetails() {
                
                 <div className="mt-4">
                   <div>
-                    <button type="submit" className="delivery-details_button">
+                    <button type="submit" className="delivery-details_button" onClick={()=>dispatch(Step())}>
                       Add Address
                     </button>
                   </div>

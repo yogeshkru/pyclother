@@ -10,9 +10,14 @@ import secure from "../assets/image/secure.jpeg";
 import Cart from "../Pages/Cart";
 import DeliveryDetails from "../Pages/DeliveryDetails";
 import Delivery_address from "../Pages/Delivery_address";
+import { useSelector } from "react-redux";
 
 
-const StepHeader = ({currentStep, setStep, userData, setUserData, finalData, setFinalData }) => {
+const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+const StepHeader = () => {
+  const {currentStep}=useSelector((state)=>state.step)
+  console.log(currentStep)
+
   
   function stepData(step){
      switch (step){
@@ -26,43 +31,25 @@ const StepHeader = ({currentStep, setStep, userData, setUserData, finalData, set
   }
   return (
     <>
-      {/* <section className="container mx-5 px-3 ">
-        <div className="col-12 mx-5 ">
-          <div className="row justify-content-between col-12 mx-5 ">
-            <div className=" w-50 py-5  mx-5 px-5">
-              <HorizontalNonLinearStepper />
-            </div>
-            <div className="sider d-flex col-4  mt-5 ">
-              <img
-                className="secure mx-1 "
-                src={secure}
-                alt="secure"
-                width="30px"
-                height="30px"
-              />
-              <p className="m">100% secure payment</p>
-            </div>
-          </div>
-        </div>
-      </section> */}
+     
 
       <div className="container">
-        <div className="row m-3">
-          <div className="col-lg-6">
-            <Stepper activeStep={currentStep -1} orientation="horizontal">
+        <div className="row ">
+          <div className="col-lg-6 col-12">
+            <Stepper activeStep={currentStep - 1} orientation="horizontal">
               <Step>
-                <StepLabel></StepLabel>
+                <StepLabel><span style={{fontWeight:"bolder"}}>CART</span></StepLabel>
               </Step>
               <Step>
-                <StepLabel></StepLabel>
+                <StepLabel><span style={{fontWeight:"bolder"}}>DELIVERY DETAILS</span></StepLabel>
               </Step>
               <Step>
-                <StepLabel></StepLabel>
+                <StepLabel><span style={{fontWeight:"bolder"}}>DELIVERY ADDRESS</span></StepLabel>
               </Step>
             </Stepper>
          
           </div>
-          <div className="col-lg-6">
+          <div className="col-lg-6 col-12">
             <div className="d-flex justify-content-end">
               <img
                 className="secure "

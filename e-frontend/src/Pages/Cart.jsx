@@ -6,15 +6,15 @@ import rounded from "../assets/image/rounded.jpeg";
 import "../styles/cart.css";
 import ProductCard from "../Component/ProductCard";
 import StepHeader from "../Component/StepHeader";
-import secured from '../assets/image/secured.png'
+import secured from "../assets/image/secured.png";
 import { FaPlus } from "react-icons/fa6";
+import { useDispatch } from "react-redux";
+import { Step } from "../features/stepper/StepperSlice";
 function Cart() {
+  const dispatch = useDispatch();
   return (
     <>
-
-<div className="col-lg-12">
-
-</div>
+      <div className="col-lg-12"></div>
       {/* <Cartheader /> */}
       {/* <div className='container'>
         <div className='mt-3 jd-flex col-lg-8 justify-content-between'>
@@ -119,9 +119,8 @@ function Cart() {
       </div> */}
       <div>
         <section className="container">
-        <button className="m-auto d-flex p-2 rounded-5"><i><FaPlus /></i> Add from wishlist </button>
+         
           <div className="d-flex py-4 ms-4">
-        
             <h4 className="mb-0">My Bag </h4>
             <p className=" ms-2 fw-100  fs-5 mb-0 cart-total">(1 items)</p>
           </div>
@@ -130,22 +129,25 @@ function Cart() {
             <div className="row d-flex justify-content-center w-100 ">
               <div className="col-lg-7  col-7 border rounded-4   d-flex">
                 <div className=" cart-image p-1 d-flex w-100">
-                  <div className="my-auto px-auto" style={{width:'35%',height:'95%'}}>
-                  <img
-                    src={rounded}
-                    alt="image"
-                    className="img-fluid p-1 rounded-4 "
-                    // height="800]]=px"
-                    width="100%"
-                    height="100%"
-                  />
+                  <div
+                    className="my-auto px-auto"
+                    style={{ width: "35%", height: "95%" }}
+                  >
+                    <img
+                      src={rounded}
+                      alt="image"
+                      className="img-fluid p-1 rounded-4 "
+                      // height="800]]=px"
+                      width="100%"
+                      height="100%"
+                    />
                   </div>
 
                   <div className="ms-4 w-100">
                     <div className="d-flex justify-content-between mb-0 mt-3">
                       <h4 className="mb-0">H&M</h4>
                     </div>
-                    
+
                     <div className="mt-4">
                       <h3 className="cart-h3 ">
                         Pure Cotton Regular Fit Round-Neck T-shirt
@@ -219,7 +221,9 @@ function Cart() {
                     </div>
 
                     <div className="d-flex justify-content-between cart-end-tag">
-                      <p className="fw-light">Delivery between <b>17Dec -19Dec</b></p>
+                      <p className="fw-light">
+                        Delivery between <b>17Dec -19Dec</b>
+                      </p>
 
                       <div>
                         <button className="border-0 bg-transparent fw-light">
@@ -238,7 +242,7 @@ function Cart() {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr >
+                    <tr>
                       <td>Total MRP</td>
                       <td>Rs. 1599</td>
                     </tr>
@@ -259,6 +263,7 @@ function Cart() {
                     <tr>
                       <td colspan="2">
                         <input
+                          onClick={() => dispatch(Step())}
                           type="submit"
                           className="w-100 rounded-3"
                           value="Place Order"
@@ -271,10 +276,6 @@ function Cart() {
             </div>
           </div>
         </section>
-
-
-        
-     
       </div>
 
       {/* <div className="section-2 "> */}
@@ -290,7 +291,6 @@ function Cart() {
         </div>
       </section>
       {/* </div> */}
-
     </>
   );
 }
