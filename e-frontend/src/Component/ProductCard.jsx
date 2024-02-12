@@ -35,7 +35,7 @@ import URL from "../utils/Url";
 
 const ProductCard = function ({ data }) {
   const navigate = useNavigate();
-  console.log(data?.images)
+  // console.log(data?.images)
   
   return (
     <>

@@ -8,7 +8,7 @@ function UseInput(props) {
      
 
       
-        <div class="form-group">
+        <div class="form-group p-2">
         
           <input
             type={type}

@@ -45,12 +45,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          {/* <Route path="" element={
-
-           <Loginadmin />
-
-        
-        } /> */}
+         
           <Route path="/shopsign" element={<Shopsignup />} />
           <Route
             path="/"

@@ -17,7 +17,7 @@ export const usersSignup = createAsyncThunk(
   }
 );
 
-//login 
+//login
 export const userLogin = createAsyncThunk(
   "auth/login",
   async (userData, thunkApi) => {
@@ -88,16 +88,31 @@ export const userdeleteme = createAsyncThunk(
   }
 );
 
+// getUserProfile
+
+export const getUserProfileOnServer = createAsyncThunk(
+  "auth/get-user-profile",
+  async (_, thunkApi) => {
+    try {
+      const response = await usersService.getUserProfile();
+      return response;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+);
+
 const inintialState = {
   Error: false,
   Success: false,
-  signupData:"",
+  signupData: "",
   message: "",
   loaders: false,
-  createUser:"",
-  loginUser:""
+  createUser: "",
+  loginUser: "",
+  userUpdatedetails: {},
+  userProfile:{}
 };
-
 
 export const usersSlice = createSlice({
   name: "user",
@@ -131,8 +146,8 @@ export const usersSlice = createSlice({
         state.Error = false;
         state.Success = action.payload.message.message;
         state.loaders = false;
-        
-        state.loginUser=action.payload
+
+        state.loginUser = action.payload;
 
         if (state.Success) {
           toast.success(action.payload?.message?.message);
@@ -189,11 +204,20 @@ export const usersSlice = createSlice({
         state.loaders = false;
         state.Error = false;
         state.Success = action.payload?.status;
-        state.userForget = action.payload;
+        state.userUpdatedetails = action.payload;
 
         if (state.Success) {
           toast.success(action.payload?.message);
         }
+
+        let currentUserData = JSON.parse(localStorage.getItem("user"));
+        let newUserData = {
+          _id: currentUserData?._id,
+          token: currentUserData?.token,
+          name: action?.payload?.user?.name,
+          email: action?.payload?.user?.email,
+          mobile: action?.payload?.user?.mobile,
+        };
       })
       .addCase(userUpdates.rejected, (state, action) => {
         state.Error = true;
@@ -209,7 +233,6 @@ export const usersSlice = createSlice({
         state.loaders = false;
         state.Error = false;
         state.Success = action.payload?.status;
-        state.userForget = action.payload;
 
         if (state.Success) {
           toast.success(action.payload?.message);
@@ -222,7 +245,22 @@ export const usersSlice = createSlice({
         state.loaders = false;
         state.message = action.error;
       })
-      
+      .addCase(getUserProfileOnServer.pending, (state) => {
+        state.loaders = true;
+      })
+      .addCase(getUserProfileOnServer.fulfilled, (state, action) => {
+        state.Error = false;
+        state.Success = true;
+        state.loaders = false;
+        state.userProfile = action.payload.data.user;
+      })
+      .addCase(getUserProfileOnServer.rejected, (state, action) => {
+        state.Error = true;
+        state.Success = false;
+        state.loaders = false;
+        state.message = action.error;
+      })
+
       .addCase(resetAll, () => inintialState);
   },
 });

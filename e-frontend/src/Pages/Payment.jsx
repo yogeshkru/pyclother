@@ -11,7 +11,7 @@ function Payment() {
   return (
     <>
       <section className="container">
-        <StepHeader />
+   
       </section>
       <div>
         <div className="">

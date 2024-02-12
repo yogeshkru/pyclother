@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import men from "../assets/image/men_details.jpeg";
 import { MdPayment } from "react-icons/md";
@@ -27,27 +27,19 @@ import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { RiMoneyPoundCircleLine } from "react-icons/ri";
 import { useSelector } from "react-redux";
 
-
 import { BsCalendarEventFill } from "react-icons/bs";
-
-
-import { Link } from "react-router-dom";
-
-// const items = [
-//   {
-//     key: "1",
-//     label: <Link>Signout</Link>,
-//   },
-// ];
 
 const { Header, Sider, Content } = Layout;
 const Mainlayout = () => {
-
-
+  const [userRole, setUserRole] = useState("");
+  useEffect(() => {
+    const userRoleData = JSON.parse(localStorage.getItem("admin_user"));
+    const role = userRoleData?.data?.user?.role;
+    setUserRole(role);
+  }, []);
 
   const navigate = useNavigate();
-  const { isSuccess } = useSelector((state) => state.shop)
-  console.log(isSuccess)
+
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -55,10 +47,7 @@ const Mainlayout = () => {
 
 
   
-
-
   return (
-      
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="demo-logo-vertical">
@@ -71,19 +60,21 @@ const Mainlayout = () => {
           defaultSelectedKeys={[""]}
           onClick={({ key }) => {
             if (key === "signout") {
-              localStorage.clear()
-              navigate("/")
-              window.location.reload()
-
+              localStorage.clear();
+              navigate("/");
             } else {
               navigate(key);
             }
           }}
           items={[
+            
             {
               key: "",
               label: "Dashboard",
               icon: <MdHome style={{ fontSize: "25px", color: "#BEABC2" }} />,
+             
+       
+              
             },
             {
               key: "customers",
@@ -92,7 +83,11 @@ const Mainlayout = () => {
             },
             {
               key: "catalog",
-              label: <span className="label-style"  style={{color:"#3e4b5b"}}>Catalog</span>,
+              label: (
+                <span className="label-style" style={{ color: "#3e4b5b" }}>
+                  Catalog
+                </span>
+              ),
               icon: (
                 <MdShoppingCart
                   style={{ fontSize: "25px", color: "#BEABC2" }}
@@ -125,10 +120,8 @@ const Mainlayout = () => {
                 {
                   key: "gst",
                   label: "Tax",
-                  icon: <RiMoneyPoundCircleLine />
-
-
-                }
+                  icon: <RiMoneyPoundCircleLine />,
+                },
               ],
             },
 
@@ -142,12 +135,17 @@ const Mainlayout = () => {
               ),
             },
 
-
             {
               key: "events",
-              label: <span className="label-style"  style={{color:"#3e4b5b"}}>Events</span>,
+              label: (
+                <span className="label-style" style={{ color: "#3e4b5b" }}>
+                  Events
+                </span>
+              ),
               icon: (
-                <BsCalendarEventFill style={{ fontSize: "25px", color: "#BEABC2" }} />
+                <BsCalendarEventFill
+                  style={{ fontSize: "25px", color: "#BEABC2" }}
+                />
               ),
               children: [
                 {
@@ -169,11 +167,13 @@ const Mainlayout = () => {
               ),
             },
 
-
-
             {
               key: "offers",
-              label: <span className="label-style"  style={{color:"#3e4b5b"}}>Offers</span>,
+              label: (
+                <span className="label-style" style={{ color: "#3e4b5b" }}>
+                  Offers
+                </span>
+              ),
               icon: (
                 <BiSolidOffer style={{ fontSize: "25px", color: "#BEABC2" }} />
               ),
@@ -197,7 +197,9 @@ const Mainlayout = () => {
               key: "policy",
               label: "Private-Policy",
               icon: (
-                <MdOutlinePrivacyTip style={{ fontSize: "25px", color: "#BEABC2" }} />
+                <MdOutlinePrivacyTip
+                  style={{ fontSize: "25px", color: "#BEABC2" }}
+                />
               ),
             },
             {
@@ -244,13 +246,13 @@ const Mainlayout = () => {
                       items,
                     }}
                   > */}
-                    <a onClick={(e) => e.preventDefault()}>
-                      <Space>
-                        VcodeWonders
-                        {/* <DownOutlined /> */}
-                      </Space>
-                    </a>
-                  {/* </Dropdown> */}
+                  <a onClick={(e) => e.preventDefault()}>
+                    <Space>
+                      VcodeWonders
+                   
+                    </Space>
+                  </a>
+              
                 </div>
               </div>
             </div>

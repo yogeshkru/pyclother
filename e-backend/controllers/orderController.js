@@ -8,7 +8,7 @@ class Order {
       order_user_address,
 
       order_totalPrice,
-
+      
       order_paymentInfo,
       order_total_Discount,
     } = req.body;

@@ -185,20 +185,7 @@ function Shopsignup() {
               )}
             </div>
 
-            <div className="mb-4">
-              <input
-                type="file"
-                name="shop_avatar"
-                value={values.shop_avatar}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-              {errors.shop_avatar && touched.shop_avatar ? (
-                <div style={{ color: "red" }}>{errors.shop_avatar}</div>
-              ) : (
-                " "
-              )}
-            </div>
+           
 
             <button type="submit" className="shopSignupButton">
               Submit

@@ -1,5 +1,6 @@
 import axios from "axios";
 import CONN from "../utils/Url";
+import { config } from "../utils/axiosConfig";
 
 //signup
 const userRegister = async (userData) => {
@@ -49,7 +50,7 @@ const userReset = async function (data) {
 // **********************Authenticated User***********************//
 // updateuser-auth
 const userUpdate = async function (userdata) {
-  const response = await axios.patch(`${CONN.BASE_URL}user/update-user`);
+  const response = await axios.patch(`${CONN.BASE_URL}user/update-user`,userdata,config);
   if (response.data) {
     return response.data;
   }
@@ -61,6 +62,14 @@ const userdeleteme = async function (userdata) {
     return response.data;
   }
 };
+
+const getUserProfile= async function(){
+  const response = await axios.get(`${CONN.BASE_URL}user/get-profile`,config)
+
+  if(response.data){
+    return response.data
+  }
+}
 
 //getwishlist
 const getwishlist=async function(userData){
@@ -78,6 +87,7 @@ const userDetails = {
  
   userdeleteme,
    userUpdate,
+   getUserProfile
 
 };
 
