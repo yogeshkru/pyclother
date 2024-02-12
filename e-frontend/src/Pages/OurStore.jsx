@@ -9,8 +9,14 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProduct } from "../features/product/productSlice";
 import { GetColorName } from "hex-color-to-color-name";
+import Meta from "../Component/Meta";
 
 const OurStore = function () {
+  <Meta title={`${"Our Store"}`}/>
+
+
+ 
+
   const [show, setShow] = useState(true);
 
   const handleShow = () => {
@@ -374,7 +380,7 @@ const OurStore = function () {
 
           <div className="col-lg-9 col-6 ourStore-product-render  ">
             <div className="d-flex gap-10 flex-wrap ">
-              <ProductCard />
+              <ProductCard data={wholeProduct} />
             </div>
 
             <div className="ourStore-pagination d-lg-flex mt-5  justify-content-center  m-auto row ">

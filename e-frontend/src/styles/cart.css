@@ -75,7 +75,53 @@ table {
     margin-top: 30px;
 }
 
+.cart-border{
+  border:1px #dee2e6 solid
+}
 .cart-foot-top{
     border-top: 1px solid rgb(189 189 189);
     width: 100%;
+}
+
+.cart-text-color{
+  color: #df0067 !important;
+}
+
+.cart-data{
+  border-bottom: 1px solid #eaeaea;
+}
+
+.cart-col-1{
+  width: 40%;
+}
+
+.cart-col-2{
+  width: 18%;
+}
+
+.cart-col-3{
+  width:15%
+}
+
+.cart-col-4{
+width: 15%;
+}
+
+.cart-button{
+  background-color: #c1cdcd;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 13px 33px;
+  border-radius:25px ;
+}
+
+
+.cart-details-button{
+  padding: 10px 30px;
+  width: 100%;
+  background-color: #df0067;
+  border-radius: 20px;
+  color: white;
+  font-size: 18px;
 }

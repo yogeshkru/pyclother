@@ -47,7 +47,6 @@ const Mainlayout = () => {
 
   const navigate = useNavigate();
   const { isSuccess } = useSelector((state) => state.shop)
-  console.log(isSuccess)
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },

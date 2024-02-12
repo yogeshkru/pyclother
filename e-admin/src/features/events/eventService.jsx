@@ -13,7 +13,6 @@ const eventCreate = async (data)=>{
 const getEvent =async()=>{
     const response = await axios.get(`${URL.BASE_URL}event/get-event`,config)
     if(response.data){
-        console.log(response.data)
         return response.data
     }
 }

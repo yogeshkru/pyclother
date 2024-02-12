@@ -31,7 +31,7 @@ import { CiHeart } from "react-icons/ci";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProduct } from "../features/product/productSlice";
-import URL from "../utils/Url";
+import CONN from "../utils/Url";
 
 const ProductCard = function ({data}) {
 
@@ -56,8 +56,8 @@ const navigate = useNavigate();
 
   return (
     <>
-      {wholeProduct?.map((item, index) => {
-        const productName = item?.name?.replace(/\s+/g, "-")
+      {data?.map((item, index) => {
+        const productName = item?.category?.replace(/\s+/g, "-")
         return (
           <div
             key={index}
@@ -71,10 +71,16 @@ const navigate = useNavigate();
               </div>
               <div className="box">
                 <img
-                  src={`${URL.IMAGE_URL}${item?.images}`}
+                  src={`${CONN.IMAGE_URL}${
+                    item &&
+                    item?.images &&
+                    item?.images[0]
+                      ? item?.images[0]
+                      : ""
+                  }`}
                   className="ms image-fluid productCard-image d-flex mx-auto"
                   alt={item?.brand}
-                  onClick={() => navigate(`/singleProduct/${productName}`)}
+                  onClick={() => navigate(`/singleProduct/${productName}/${item?._id}`)}
                 />
               </div>
               <div className="product-details ">
@@ -82,16 +88,16 @@ const navigate = useNavigate();
                   {item?.brand}
                 </h6>
                 <p className="productCard-title mt-1 mb-0 ms-2">
-                  {item?.description.slice(0, 22) + "..."}
+                  {item?.description?.slice(0, 22) + "..."}
                 </p>
 
                 <h6 className="productCard-price mt-1 ms-2 fw-semibold">
                   {item?.price}
                 </h6>
-
-                <button className="text-center d-flex addtobag rounded-2 text-white mx-auto p-2">
-                  Add to bag
-                </button>
+{/* 
+                <button className="text-center d-flex addtobag rounded-2 text-white mx-auto p-2" style={{background:"#df0067"}}>
+                  Add to Wishlist
+                </button> */}
               </div>
             </div>
           </div>

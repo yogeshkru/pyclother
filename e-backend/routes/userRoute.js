@@ -16,7 +16,7 @@ module.exports = (app) => {
     getUserById,
     deleteUser,
     getWishList,
-    
+    getAllUser,
 
     updatePasswordByUserLogin,
   } = new UserController();
@@ -27,6 +27,7 @@ module.exports = (app) => {
   router.route("/login").post(asyncErrorhandler(login));
   router.route("/forgot").post(asyncErrorhandler(forgetPassword));
   router.route("/reset/:token").patch(asyncErrorhandler(resetPassword));
+  router.route("/getall-user").get(asyncErrorhandler(getAllUser))
 
   // the below url update by authorized user;
 

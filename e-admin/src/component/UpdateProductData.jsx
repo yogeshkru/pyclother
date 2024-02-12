@@ -7,7 +7,6 @@ function UpdateProductData({ setOpen, data }) {
   const [count, setCount] = useState(1);
   const [click, setClick] = useState(false);
 
-  console.log(data)
   const handleMessageSubmit = function () {};
   function decrementCount() {
     if (count > 1) {

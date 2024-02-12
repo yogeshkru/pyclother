@@ -47,7 +47,10 @@ function Header() {
         return product.name.toLowerCase().includes(term.toLowerCase());
       });
 
-    setSeachData(filteredProducts);
+      const firstTenFilteredProducts = filteredProducts.slice(0, 10);
+
+
+    setSeachData(firstTenFilteredProducts);
   };
 
   // ****************************************************
@@ -439,14 +442,14 @@ function Header() {
                       <div className="position-absolute min-h-30vh bg-white shadow-sm-2 p-4 z-10 w-100 rounded-4">
                         {searchData &&
                           searchData.map((item, index) => {
-                            const productName = item?.name?.replace(
+                            const productName = item?.category?.replace(
                               /\s+/g,
                               "-"
                             );
 
                             return (
                               <Link
-                                to={`singleProduct/${productName}`}
+                                to={`singleProduct/${productName}/${item?._id}`}
                                 key={index}
                                 className="text-decoration-none"
                               >

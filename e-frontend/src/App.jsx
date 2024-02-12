@@ -37,7 +37,7 @@ function App() {
           <Route path="/otp" element={<Otp />} />
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path="singleProduct/:name" element={<SingleProduct />} />
+            <Route path="singleProduct/:name/:id" element={<SingleProduct />} />
 
 
 

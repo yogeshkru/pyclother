@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import percentage from "../assets/image/secure.jpeg";
 
@@ -10,68 +10,81 @@ import secure from "../assets/image/secure.jpeg";
 import Cart from "../Pages/Cart";
 import DeliveryDetails from "../Pages/DeliveryDetails";
 import Delivery_address from "../Pages/Delivery_address";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getUserCartProductFromServer } from "../features/usersSlice";
+import { FaCashRegister } from "react-icons/fa6";
+
+const steps = [
+  "Select campaign settings",
+  "Create an ad group",
+  "Create an ad",
+];
+const StepHeader = () => {
+  const { currentStep } = useSelector((state) => state.step);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [totalAmount,setTotalAmount]=useState(0)
+  const { userCartProduct } = useSelector((state) => state?.users);
+
+  useEffect(() => {
+    let timeOut = setTimeout(() => {
+      dispatch(getUserCartProductFromServer());
+    }, 300);
+
+    return () => {
+      clearTimeout(timeOut);
+    };
+  }, [dispatch,totalAmount]);
+
+  useEffect(()=>{
+let sum =0;
+for(let index=0;index<userCartProduct?.length;index++){
+  sum = sum+Number(userCartProduct[index]?.cart_quantity) * userCartProduct[index]?.cart_price;
+  setTotalAmount(sum)
+}
+  },[userCartProduct])
 
 
-const StepHeader = ({currentStep, setStep, userData, setUserData, finalData, setFinalData }) => {
-  
-  function stepData(step){
-     switch (step){
+  function stepData(step) {
+    switch (step) {
       case 1:
-        return <Cart/>
+        return <Cart />;
       case 2:
-        return <DeliveryDetails/>
+        return <DeliveryDetails />;
       case 3:
-        return <Delivery_address/>
-     }
+        return <Delivery_address />;
+    }
   }
   return (
     <>
-      {/* <section className="container mx-5 px-3 ">
-        <div className="col-12 mx-5 ">
-          <div className="row justify-content-between col-12 mx-5 ">
-            <div className=" w-50 py-5  mx-5 px-5">
-              <HorizontalNonLinearStepper />
-            </div>
-            <div className="sider d-flex col-4  mt-5 ">
-              <img
-                className="secure mx-1 "
-                src={secure}
-                alt="secure"
-                width="30px"
-                height="30px"
-              />
-              <p className="m">100% secure payment</p>
-            </div>
-          </div>
-        </div>
-      </section> */}
-
-      <div className="container">
-        <div className="row m-3">
-          <div className="col-lg-6">
-            <Stepper activeStep={currentStep -1} orientation="horizontal">
+      <div className="container mt-5">
+        <div className="row ">
+          <div className="col-lg-6 col-12">
+            <Stepper activeStep={currentStep - 1} orientation="horizontal">
               <Step>
-                <StepLabel></StepLabel>
+                <StepLabel>
+                  <span style={{ fontWeight: "bolder" }}>CART</span>
+                </StepLabel>
               </Step>
               <Step>
-                <StepLabel></StepLabel>
+                <StepLabel>
+                  <span style={{ fontWeight: "bolder" }}>DELIVERY DETAILS</span>
+                </StepLabel>
               </Step>
               <Step>
-                <StepLabel></StepLabel>
+                <StepLabel>
+                  <span style={{ fontWeight: "bolder" }}>DELIVERY ADDRESS</span>
+                </StepLabel>
               </Step>
             </Stepper>
-         
           </div>
-          <div className="col-lg-6">
-            <div className="d-flex justify-content-end">
-              <img
-                className="secure "
-                src={secure}
-                alt="secure"
-                width="30px"
-                height="30px"
-              />
-              <p className="ms-1">100% secure payment</p>
+          <div className="col-lg-6 col-12 ">
+            <div className="d-flex justify-content-end step-border-radius">
+            <FaCashRegister className="d-flex align-items-center fs-3"/> 
+            {/* <span className="fs-3 ms-2 mt-0 mb-3 ">: </span> */}
+              <p className="ms-2 fs-4">({totalAmount})</p>
             </div>
           </div>
         </div>
@@ -82,4 +95,3 @@ const StepHeader = ({currentStep, setStep, userData, setUserData, finalData, set
 };
 
 export default StepHeader;
- 

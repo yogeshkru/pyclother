@@ -9,6 +9,8 @@ export const usersSignup = createAsyncThunk(
   async (userData, thunApi) => {
     try {
       const response = await usersService.userRegister(userData);
+
+      thunApi.dispatch(getAllUserFromServer());
       return response;
     } catch (err) {
       toast.error(err?.response?.data?.message);
@@ -17,12 +19,13 @@ export const usersSignup = createAsyncThunk(
   }
 );
 
-//login 
+//login
 export const userLogin = createAsyncThunk(
   "auth/login",
   async (userData, thunkApi) => {
     try {
       const response = await usersService.userLogin(userData);
+      thunkApi.dispatch(getAllUserFromServer());
       return response;
     } catch (err) {
       toast.error(err?.response?.data?.message);
@@ -37,6 +40,7 @@ export const userForget = createAsyncThunk(
   async (userData, thunkApi) => {
     try {
       const response = await usersService.userForget(userData);
+      thunkApi.dispatch(getAllUserFromServer());
       return response;
     } catch (err) {
       toast.error(err?.response?.data?.message);
@@ -52,6 +56,7 @@ export const userResetAPI = createAsyncThunk(
   async (token, thunkApi) => {
     try {
       const response = await usersService.userReset(token);
+      thunkApi.dispatch(getAllUserFromServer());
       return response;
     } catch (error) {
       toast.error(error?.response?.data?.message);
@@ -66,6 +71,7 @@ export const userUpdates = createAsyncThunk(
   async (token, thunkApi) => {
     try {
       const response = await usersService.userUpdate(token);
+      thunkApi.dispatch(getAllUserFromServer());
       return response;
     } catch (err) {
       toast.error(err?.response?.data?.message);
@@ -80,6 +86,7 @@ export const userdeleteme = createAsyncThunk(
   async (token, thunkApi) => {
     try {
       const response = await usersService.userdeleteme(token);
+      thunkApi.dispatch(getAllUserFromServer());
       return response;
     } catch (err) {
       toast.error(err?.response?.data?.message);
@@ -88,16 +95,91 @@ export const userdeleteme = createAsyncThunk(
   }
 );
 
+export const getAllUserFromServer = createAsyncThunk(
+  "auth/getall-user",
+  async (_, thunkApi) => {
+    try {
+      const response = await usersService.getAllUser();
+      return response;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+);
+
+// ***********************************Add To Cart*************************
+
+export const addUserProductToServer = createAsyncThunk(
+  "auth/addtocart",
+  async (product, thunkApi) => {
+    try {
+      const response = await usersService.addToUserCart(product);
+      if (response) {
+        thunkApi.dispatch(getUserCartProductFromServer());
+        return response;
+      }
+    } catch (error) {
+      toast.error(err?.response?.data?.message);
+
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+);
+
+export const getUserCartProductFromServer = createAsyncThunk(
+  "autj/get-user-cart",
+  async (_, thunkApi) => {
+    try {
+      const response = await usersService.getUserCartProduct();
+      if (response) {
+        return response.cart;
+      }
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+);
+
+export const updateUserCartProductQuantity = createAsyncThunk(
+  "auth/user-cart/update",
+  async (data, thunApi) => {
+    try {
+      const response = await usersService.userCartQuantity(data);
+      thunApi.dispatch(getUserCartProductFromServer());
+      if (response) {
+        return response;
+      }
+    } catch (error) {
+      return thunApi.rejectWithValue(error);
+    }
+  }
+);
+
+export const userCartDeleteProductFromServer = createAsyncThunk(
+  "auth/user-delete/cart",
+  async (id, thunkApi) => {
+    try {
+      const response = await usersService.userCartDelete(id);
+      thunkApi.dispatch(getUserCartProductFromServer());
+      if (response) {
+        return response;
+      }
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+);
+
 const inintialState = {
   Error: false,
   Success: false,
-  signupData:"",
+  signupData: "",
   message: "",
   loaders: false,
-  createUser:"",
-  loginUser:""
+  createUser: "",
+  loginUser: "",
+  userCartProduct: [],
 };
-
 
 export const usersSlice = createSlice({
   name: "user",
@@ -131,8 +213,8 @@ export const usersSlice = createSlice({
         state.Error = false;
         state.Success = action.payload.message.message;
         state.loaders = false;
-        
-        state.loginUser=action.payload
+
+        state.loginUser = action.payload;
 
         if (state.Success) {
           toast.success(action.payload?.message?.message);
@@ -222,7 +304,62 @@ export const usersSlice = createSlice({
         state.loaders = false;
         state.message = action.error;
       })
-      
+      .addCase(addUserProductToServer.pending, (state) => {
+        state.loaders = false;
+      })
+      .addCase(addUserProductToServer.fulfilled, (state, action) => {
+        state.loaders = false;
+        state.Error = false;
+        state.Success = true;
+        state.userCartAdded = action.payload;
+      })
+      .addCase(addUserProductToServer.rejected, (state, action) => {
+        state.Error = true;
+        state.Success = false;
+        state.loaders = false;
+        state.message = action.error;
+      })
+      .addCase(getUserCartProductFromServer.pending, (state) => {
+        state.loaders = false;
+      })
+      .addCase(getUserCartProductFromServer.fulfilled, (state, action) => {
+        state.loaders = false;
+        state.Error = false;
+        state.Success = true;
+        state.userCartProduct = action.payload;
+      })
+      .addCase(getUserCartProductFromServer.rejected, (state, action) => {
+        state.Error = true;
+        state.Success = false;
+        state.loaders = false;
+        state.message = action.error;
+      })
+      .addCase(updateUserCartProductQuantity.pending, (state) => {
+        state.loaders = false;
+      })
+      .addCase(updateUserCartProductQuantity.fulfilled, (state, action) => {
+        state.Success = true;
+        state.loaders = false;
+        state.Error = false;
+      })
+      .addCase(updateUserCartProductQuantity.rejected, (state, action) => {
+        state.Error = true;
+        state.loaders = false;
+        state.Success = false;
+        state.message = action.error;
+      }).addCase(userCartDeleteProductFromServer.pending,(state)=>{
+        state.loaders=false
+      }).addCase(userCartDeleteProductFromServer.fulfilled,(state)=>{
+        state.Success=true;
+        state.loaders=false;
+        state.Error=false
+      }).addCase(userCartDeleteProductFromServer.rejected,(state,action)=>{
+        state.Error=true;
+        state.loaders=false;
+        state.Error=true;
+        state.message=action.error
+      })
+
       .addCase(resetAll, () => inintialState);
   },
 });

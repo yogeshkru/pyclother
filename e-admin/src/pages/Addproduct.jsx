@@ -130,7 +130,6 @@ function Addproduct() {
       
       },
       onSubmit: (value) => {
-        console.log(value)
         // if (data !== null) {
         //   const productUpdateDetails = {
         //     id: data._id,

@@ -191,11 +191,13 @@ import rupay from "../assets/image/pngwing.png";
 import visa from "../assets/image/pngwing-2.png";
 import pay from "../assets/image/Group 249.png";
 import women from "../assets/image/women.png";
-import StepHeader from "../Component/StepHeader";
+
 function Delivery_address() {
   const [show, setShow] = useState(false);
   const [address, setAddress] = useState("");
-  console.log(address);
+  
+
+  
 
   // address_deliver
   const {
@@ -403,6 +405,7 @@ function Delivery_address() {
                           <button
                             type="submit"
                             className="delivery-details_button1"
+                            onClick={()=>dispatch(Step())}
                           >
                             Add Address
                           </button>
