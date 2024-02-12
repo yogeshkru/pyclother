@@ -35,6 +35,7 @@ export const postProductOnServer = createAsyncThunk(
       formData.append("height", product?.height);
       formData.append("brether", product?.brether);
       formData.append("weight", product?.weight);
+      formData.append("tax",product?.tax)
 
       formData.append("weight_class", product?.weight_class);
 

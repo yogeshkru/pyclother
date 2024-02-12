@@ -39,7 +39,7 @@ const Mainlayout = () => {
   }, []);
 
   const navigate = useNavigate();
-
+  const { isSuccess } = useSelector((state) => state.shop)
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -60,7 +60,7 @@ const Mainlayout = () => {
           defaultSelectedKeys={[""]}
           onClick={({ key }) => {
             if (key === "signout") {
-              localStorage.clear();
+              localStorage.remove("admin_user");
               navigate("/");
             } else {
               navigate(key);

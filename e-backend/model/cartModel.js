@@ -2,28 +2,32 @@ const mongoose = require("mongoose");
 
 const cartSchema = new mongoose.Schema(
   {
-    cart_user_user_Id: {
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Tbl_user",
     },
-    cart_product_product_Id: {
+    productId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Tbl_product",
     },
     cart_quantity: {
-      type: Number,
-      required: true,
-      min: 1, // Assuming quantity should always be a positive integer
+      type: String,
+      // required: true,
+      min: 1, 
+      default:1
     },
     cart_price: {
       type: Number,
       required: true,
       // You may consider using a specific data type like Decimal128 for currency
     },
-    cart_color_color_Id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Tbl_color",
-    },
+    size:{
+      type:String
+    }
+    // cart_color_color_Id: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "Tbl_color",
+    // },
    
   },
   {

@@ -364,6 +364,18 @@ class UserController {
     res.cookie("user", null, options);
     res.status(200).json({ message: "Logout" });
   };
+
+
+   getAllUser = async(req,res,next)=>{
+    
+  
+    const allUser = await userModel.find()
+
+    res.status(200).json({allUser})
+
+   }
+   
+
 }
 
 module.exports = UserController;

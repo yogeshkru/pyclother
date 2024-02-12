@@ -8,13 +8,16 @@ import { useEffect, useState } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProduct } from "../features/product/productSlice";
-import { GetColorName } from 'hex-color-to-color-name';
-
+import { GetColorName } from "hex-color-to-color-name";
+import Meta from "../Component/Meta";
 
 const OurStore = function () {
+  <Meta title={`${"Our Store"}`}/>
+
+
+ 
+
   const [show, setShow] = useState(true);
-
-
 
   const handleShow = () => {
     setShow(false);
@@ -32,7 +35,6 @@ const OurStore = function () {
   const [categories, setCategories] = useState([]);
   const [colors, setColors] = useState([]);
   const [prices,setPrices] = useState([])
-  const [discounts,setDiscounts]=useState([])
 
   //filter
 
@@ -40,24 +42,19 @@ const OurStore = function () {
   const [brand, setBrand] = useState(null);
   const [color, setColor] = useState(null);
   const [price,setPrice]= useState(null)
-  const[discount,setDiscount]=useState(null)
 
   const [minPrice, setMinPrice] = useState(null);
   const [maxPrice, setMaxPrice] = useState(null);
   const [sort, setSort] = useState(null);
 
   const dispatch = useDispatch();
-  
-  console.log(wholeProduct)
-
-  
 
   useEffect(() => {
     let newBrand = [];
     let category = [];
     let newColors = [];
-    let price =[];
-    let discountPrice =[];
+    let price = [];
+    // let discountPrice =[];
 
     for (let i = 0; i < wholeProduct?.length; i++) {
       const element = wholeProduct[i];
@@ -65,24 +62,23 @@ const OurStore = function () {
       category?.push(element?.category);
       newColors?.push(element?.color);
      price?.push(element?.price)
-     discountPrice.push(element?.discount)
+    //  discountPrice.push(element?)
     }
     setBrands(newBrand);
     setCategories(category);
     setColors(newColors);
     setPrices(price)
-    setDiscounts(discountPrice)
   }, [wholeProduct]);
 
   useEffect(() => {
     const timeOut = setTimeout(() => {
-      dispatch(getAllProduct());
+      dispatch(getAllProduct({ category, brand, color, price }));
     }, 500);
 
     return () => {
       clearTimeout(timeOut);
     };
-  }, [dispatch]);
+  }, [category,price,color,brand]);
 
   //brand
   const brandDetails =
@@ -112,7 +108,7 @@ const OurStore = function () {
   const colorDetails =
     colors &&
     [...new Set(colors)].map((item, i) => {
-       const colorNAme= GetColorName(item);
+      const colorNAme = GetColorName(item) 
       return (
         <div key={i} className="d-flex gap-1">
           <div className="row">
@@ -137,38 +133,21 @@ const OurStore = function () {
       );
     });
 
-    // price
+  // price
 
-
-
-    const priceDetails =
-    prices &&
-    [...new Set(prices)].map((item, i) => (
-      <div key={i} className="d-flex gap-1">
-        <input type="checkbox" onClick={() => setPrice(item)} />
-        <span style={{ textTransform: "capitalize", fontSize: "13px" }}>
-          {item}
-        </span>
-      </div>
-    ));
-
-
-    //DISCOUNT
-    const DiscountDetails =
-    discounts &&
-    [...new Set(discounts)].map((item, i) => (
-      <div key={i} className="d-flex gap-1">
-        <input type="checkbox" onClick={() => setDiscount(item)} />
-        <span style={{ textTransform: "capitalize", fontSize: "13px" }}>
-          {item}
-        </span>
-      </div>
-    ));
-  
-
+    const priceDetails = prices && [...new Set(prices)].map((item, i) => {
+      // Construct the price range string
+      // const priceRange = `${item} and above`;
     
-    
-    
+      return (
+        <div key={i} className="d-flex gap-1 mb-2">
+          <input type="checkbox" onClick={() => setPrice(item)} />
+          <span style={{ textTransform: "capitalize", fontSize: "13px" }}>
+            {item}
+          </span>
+        </div>
+      );
+    });
     
     
 
@@ -320,7 +299,40 @@ const OurStore = function () {
 
             <div className="ourStore-price-gap ">
               <h5 className="ourStore-price-title">PRICE</h5>
-
+{/* 
+              <div className="ourStore-price">
+                <div className="ourStore-range">
+                  <input
+                    type="range"
+                    className="form-range w-75 d-flex mx-auto"
+                    min="0"
+                    max="5"
+                    id="customRange2"
+                  />
+                </div>
+                <div className="d-flex justify-content-around px-5 mt-4 mb-3 price-range">
+                  <div className="form-floating ms-0 mb-3">
+                    <input
+                      type="text"
+                      className="form-control "
+                      id="floatingInput-2"
+                      name="loops"
+                      placeholder=""
+                    />
+                    <label htmlFor="floatingInput-2">From</label>
+                  </div>
+                  <div className="form-floating ms-4">
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="floatingInput-1"
+                      name="loops"
+                      placeholder=""
+                    />
+                    <label htmlFor="floatingInput-1">To</label>
+                  </div>
+                </div>
+              </div> */}
 
               {priceDetails}
             </div>
@@ -362,7 +374,7 @@ const OurStore = function () {
                   </li>
                 </ul>
               </div> */}
-              {DiscountDetails}
+            
             </div>
           </div>
 

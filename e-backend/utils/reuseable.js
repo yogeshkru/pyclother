@@ -31,12 +31,15 @@ class Apifeatures {
   limitFields() {
     if (this.queryStr.fields) {
       const fields = this.queryStr.fields.split(",").join(" ");
-      this.query = this.this.select(fields);
+      this.query = this.query.select(fields);
     } else {
       this.query = this.query.select("-__v");
     }
     return this;
   }
+
+
+
   paginate() {
     const page = this.queryStr.page * 1 || 1;
     const limit = this.queryStr.limit * 1 || 20;

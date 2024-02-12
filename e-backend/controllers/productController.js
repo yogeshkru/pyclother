@@ -4,30 +4,29 @@ const CustomError = require("../utils/customError");
 const Apifeatures = require("../utils/reuseable");
 
 class Product {
-    createProduct = async (req, res) => {
-      const { _id } = req.user;
-      const files = req?.files
-      const combinedData = Object.assign({}, req.body, { shopId: _id });
+  createProduct = async (req, res) => {
+    const { _id } = req.user;
+    const files = req?.files;
+    const combinedData = Object.assign({}, req.body, { shopId: _id });
 
-      combinedData.images = files.map((file) => `${file.filename}`)
-      const newProduct = await productModel.create(combinedData);
+    combinedData.images = files.map((file) => `${file.filename}`);
+    const newProduct = await productModel.create(combinedData);
 
-//  console.log(combi)
-      res.status(201).json({ newProduct });
-    };
+    //  console.log(combi)
+    res.status(201).json({ newProduct });
+  };
 
   getAllShopProduct = async (req, res) => {
-    const { _id } = req.user
-    const shopData = await productModel.find({ shopId: _id }).populate("Gst")
+    const { _id } = req.user;
+    const shopData = await productModel.find({ shopId: _id }).populate("Gst");
 
-    res.status(200).json({ shopData })
-  }
+    res.status(200).json({ shopData });
+  };
 
   updateProduct = async function (req, res, next) {
     const updateProduct = await productModel.findOneAndUpdate(
       { _id: req.params.id },
-      req.
-        body,
+      req.body,
       { new: true }
     );
 
@@ -73,7 +72,7 @@ class Product {
       .filter()
       .sort()
       .limitFields()
-      .paginate();
+      .paginate()
 
     const getAllProducts = await getProduct.query;
     res.status(200).json({ getAllProducts, length: getProduct.length });
@@ -159,5 +158,3 @@ class Product {
 }
 
 module.exports = Product;
-
-

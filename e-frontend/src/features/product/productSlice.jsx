@@ -6,9 +6,9 @@ export const resetAll = createAction("Reset_all");
 
 export const getAllProduct = createAsyncThunk(
   "product/all",
-  async (_, thunkAPI) => {
+  async (data, thunkAPI) => {
     try {
-      const response = await productService.getProduct();
+      const response = await productService.getProduct(data);
       return response.getAllProducts;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -20,8 +20,9 @@ export const getOneProduct = createAsyncThunk(
   "product/one",
   async (id, thunkAPI) => {
     try {
-      const response = await productService.getProduct(id);
-      return response;
+      const response = await productService.getOneProduct(id);
+      thunkAPI.dispatch(getAllProduct())
+      return response.product;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -34,6 +35,7 @@ const initialState = {
   message: "",
   isLoader: false,
   wholeProduct: [],
+  singleProduct:{}
 };
 
 export const productSlice = createSlice({
@@ -64,7 +66,7 @@ export const productSlice = createSlice({
         state.isError = false;
         state.isLoader = false;
         state.isSuccess = true;
-        state.oneProduct = action.payload;
+        state.singleProduct = action.payload;
       })
       .addCase(getOneProduct.rejected, (state, action) => {
         state.isError = true;

@@ -64,7 +64,7 @@ function DeliveryDetails() {
      
      
 
-      <div className="row  p-3 delviery_details_row">
+      <div className="row  p-3 delviery_details_row mt-3">
         <div className="col-lg-2"></div>
 
         <div
