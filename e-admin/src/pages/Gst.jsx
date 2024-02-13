@@ -137,7 +137,7 @@ const Gst = () => {
       HSN_code: Yup.string().required("HSN_code is required "),
       Gst: Yup.string()
       .required('GST is required')
-      .matches(/^\d{3}$/, 'GST must contain exactly three numbers'),
+      .matches(/^\d{1,3}$/, 'GST must contain exactly two numbers'),
     }),
   });
   useEffect(() => {

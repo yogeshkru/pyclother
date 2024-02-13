@@ -14,12 +14,15 @@ function Signup() {
   // *************************************************************
   const dispatch = useDispatch();
   const { createUser } = useSelector((state) => state.users);
+  const [loading,setLodering]=useState(false)
+  console.log(createUser)
 
   const navigate = useNavigate();
   useEffect(() => {
     if (createUser !== "") {
       navigate("/");
     }
+    setLodering(true)
   }, []);
 
   const { values, errors, handleChange, handleBlur, handleSubmit, touched } =
@@ -65,6 +68,7 @@ function Signup() {
 
   return (
     <>
+   
       <div className="otp_background">
         <div className="row otp_page_scroll justify-content-center">
           <div className="col-lg-4  col-sm-12 col-md-7 pt-1">
