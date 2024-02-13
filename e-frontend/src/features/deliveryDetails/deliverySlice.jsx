@@ -2,6 +2,8 @@ import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import addressDetails from "./deliveryService";
 import { toast } from "react-toastify";
 
+export const resetAll = createAction("Reset_all");
+
 
 
 
@@ -19,12 +21,12 @@ export const PostAddress = createAsyncThunk(
 );
 
 
-export const getCartOne = createAsyncThunk(
+export const getUserAddress = createAsyncThunk(
     "auth/cart/getcart",
-    async (cart, thunkApi) => {
+    async (_, thunkApi) => {
         try {
-            const response = await addressDetails.getCart(cart);
-            return response;
+            const response = await addressDetails.getCart();
+            return response.addressFind;
         } catch (err) {
             toast.error(err?.response?.data?.message);
             return thunkApi.rejectWithValue(err);
@@ -33,19 +35,21 @@ export const getCartOne = createAsyncThunk(
 );
 
 
-const inintialState = {
+const initialState = {
     Error: false,
     Success: false,
     message: "",
     loaders: false,
     
-    createAddress:{}
+    createAddress:{},
+    getUserAddressSuccess:"",
+    userAddress:[]
   };
 
   
 export const addressSlice = createSlice({
     name:"address",
-    initialState: inintialState,
+    initialState: initialState,
     reducers: {},
     extraReducers:(builder)=>{
         builder
@@ -67,18 +71,21 @@ export const addressSlice = createSlice({
             state.loaders = false;
             state.message = action.error;
         })
-        .addCase(getCartOne.pending,(state,action)=>{
+        .addCase(getUserAddress.pending,(state,action)=>{
             state.loaders = true
-        }).addCase(getCartOne.fulfilled,(state,action)=>{
+        }).addCase(getUserAddress.fulfilled,(state,action)=>{
             state.loaders=false,
             state.Error=false,
             state.Success=true
-        }).addCase(getCartOne.rejected,(state,action)=>{
+            state.userAddress=action.payload,
+            state.getUserAddressSuccess="userAddressSuccess"
+
+        }).addCase(getUserAddress.rejected,(state,action)=>{
             state.Error = true;
             state.Success = false;
             state.loaders = false;
             state.message = action.error;
-        })
+        }).addCase(resetAll ,()=>initialState)
     }   
 })
 

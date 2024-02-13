@@ -44,6 +44,9 @@ const addressModel = new mongoose.Schema({
     address_pincode: {
         type: Number,
         required: [true, "Pincode is required"]
+    },
+    defaultAddress:{
+        type:Boolean
     }
 });
 

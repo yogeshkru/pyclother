@@ -19,7 +19,7 @@ const createAddress = async(data)=>{
 
 //getCart
 const getCart = async()=>{
-    const response = await axios.get(`${CONN.BASE_URL}/cart/showtocart`,config);
+    const response = await axios.get(`${CONN.BASE_URL}address/address-find`,config);
     if(response.data){
         return response.data
     }

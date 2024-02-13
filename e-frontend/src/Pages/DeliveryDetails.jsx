@@ -10,7 +10,6 @@ import pay from "../assets/image/Group 249.png";
 import {
   
   PostAddress,
-  getCartOne
 } from "../features/deliveryDetails/deliverySlice"
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";

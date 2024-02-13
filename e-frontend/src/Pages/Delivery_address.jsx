@@ -191,53 +191,97 @@ import rupay from "../assets/image/pngwing.png";
 import visa from "../assets/image/pngwing-2.png";
 import pay from "../assets/image/Group 249.png";
 import women from "../assets/image/women.png";
+import {
+  PostAddress,
+  getUserAddress,
+  resetAll,
+} from "../features/deliveryDetails/deliverySlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserCartProductFromServer } from "../features/usersSlice";
+import CONN from "../utils/Url";
 
 function Delivery_address() {
-  const [show, setShow] = useState(false);
-  const [address, setAddress] = useState("");
-  
+  // const [address, setAddress] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  const dispatch = useDispatch();
 
-  
+  const { userAddress, getUserAddressSuccess } = useSelector(
+    (state) => state.userAddress
+  );
+  const { userCartProduct } = useSelector((state) => state.users);
 
-  // address_deliver
+  const [showForm, setFormTrue] = useState(false);
+  const [totalAmount, setTotalAmount] = useState(0);
+  useEffect(() => {
+    let timeOut = setTimeout(() => {
+      dispatch(getUserAddress());
+    }, 500);
+
+    return () => {
+      clearTimeout(timeOut);
+    };
+  }, [getUserAddressSuccess]);
+
+  useEffect(() => {
+    let sum = 0;
+    for (let index = 0; index < userCartProduct?.length; index++) {
+      sum =
+        sum +
+        Number(userCartProduct[index]?.cart_quantity) *
+          userCartProduct[index]?.cart_price;
+      setTotalAmount(sum);
+    }
+
+    let timeOut = setTimeout(() => {
+      dispatch(getUserCartProductFromServer());
+    }, 300);
+
+    return () => {
+      clearTimeout(timeOut);
+    };
+  }, [userCartProduct]);
+
+  const handleLocationChange = (event) => {
+    setSelectedLocation(event.target.value);
+  };
+  const locations = [
+    { id: 1, value: "Home" },
+    { id: 2, value: "Work" },
+  ];
+
   const {
     values,
     errors,
-    handleChange,
     handleBlur,
-    touched,
+    handleChange,
     handleSubmit,
+    touched,
     resetForm,
   } = useFormik({
     initialValues: {
+      user_name: "",
+      user_phone: "",
       address_pincode: "",
       address_area: "",
       address_city: "",
-      
       address_state: "",
       address_country: "",
+      selectedLocation: selectedLocation,
     },
-    onSubmit: (value) => {
-      console.log(value,"lll");
+    validationSchema: Yup.object().shape({
+      // user_name: Yup.string().required("name is required"),
+      // user_phone: Yup.string().required("phone number is required"),
+      // address_pincode: Yup.string().required("pincode is required"),
+      // address_area: Yup.string().required("area is required"),
+      // address_city: Yup.string().required("city is required"),
+      // address_state: Yup.string().required("state is required"),
+      // address_country:Yup.string().required("country is required")
+    }),
+    onSubmit: async (value) => {
+      dispatch(PostAddress(value));
+      resetForm();
+      // navigate("/delivery-address");
     },
-    // validationSchema: Yup.object().shape({
-    //   address_pincode: Yup.string()
-    //     .required("Pin Code is required")
-    //     .matches(/^\d{6}$/, "Age must be a 6-digit number"),
-    //   address_area: Yup.string()
-    //     .required("Area is required")
-    //     .matches(/^[a-zA-Z]+$/, "Age must contain only letters"),
-    //   address_city: Yup.string()
-    //     .required("City is required")
-    //     .matches(/^[a-zA-Z]+$/, "Age must contain only letters"),
-    //   address_state: Yup.string()
-    //     .required("State is required")
-    //     .matches(/^[a-zA-Z]+$/, "Age must contain only letters"),
-    //   address_country: Yup.string()
-    //     .required("State is required")
-    //     .matches(/^[a-zA-Z]+$/, "Age must contain only letters"),
-    // }),
-   
   });
 
   const modalRef = useRef();
@@ -257,41 +301,406 @@ function Delivery_address() {
   }, []);
 
   return (
-    <div className="">
-    
+    // <>
+    //   {userAddress?.length>0 ? (
+    //     <UpdateForm />
+    //   ) : (
+    //     <div>
+    //       <div className="row  p-3 delviery_details_row mt-3" >
+    //         <div className="col-lg-2"></div>
 
-      <div className="row delivery_address_1">
-        <div className="col-lg-2"></div>
-        <div className="col-lg-4 pt-4">
-          <div className="d-flex justify-content-between">
-            <div className="mt-2 delviery_address_content">
-              <h5>Selcet Delivery Address</h5>
-              <h6>Default Address</h6>
-            </div>
-            <div>
-              <button
-                className="delivery_address-modal-btn"
-                onClick={handleShow}
-              >
-                Add New Address
-              </button>
-              {show && (
-                <div className="delivery-address-overlay">
-                  <div className="delivery-address-overlay1" ref={modalRef}>
-                    <div className="d-flex justify-content-between">
-                      <h6 className="fs-5 mt-1">Add New Address</h6>
-                      <button className="close-modal-btn" onClick={handleClose}>
-                        &times;
-                      </button>
-                    </div>
-                    <hr />
-                    <h5 className="fs-6 ">ADDRESS</h5>
-                    <form
-                        onSubmit={handleSubmit} 
-                      className="delivery-address_fluid"
-                    >
-                      <div className="mt-4">
-                        <div>
+    //         <div
+    //           className="col-lg-4 delivery-input-border"
+    //           style={{
+    //             border: "2px solid #e1e2e2",
+    //             padding: "20px",
+    //             borderRadius: "20px",
+    //           }}
+    //         >
+    //           <div>
+    //             <h5 className="text-uppercase fs-6 fw-bold">Contact Details</h5>
+    //             <form onSubmit={handleSubmit}>
+    //               <div className="mt-4">
+    //                 <div>
+    //                   <input
+    //                     type="text"
+    //                     className="deliverydetails_input_fild"
+    //                     placeholder="Name*"
+    //                     name="user_name"
+    //                     onChange={handleChange}
+    //                     value={values.user_name}
+    //                     onBlur={handleBlur}
+    //                   />
+    //                   {errors.user_name && touched.user_name ? (
+    //                     <div style={{ color: "red" }}>{errors.user_name}</div>
+    //                   ) : (
+    //                     ""
+    //                   )}
+    //                 </div>
+    //               </div>
+    //               <div className="mt-4">
+    //                 <div>
+    //                   <input
+    //                     type="number"
+    //                     className="deliverydetails_input_fild"
+    //                     placeholder="Mobile no*"
+    //                     name="user_phone"
+    //                     onChange={handleChange}
+    //                     value={values.user_phone}
+    //                     onBlur={handleBlur}
+    //                   />
+    //                   {errors.user_phone && touched.user_phone ? (
+    //                     <div style={{ color: "red" }}>{errors.user_phone}</div>
+    //                   ) : (
+    //                     ""
+    //                   )}
+    //                 </div>
+    //               </div>
+    //               <div className="mt-4">
+    //                 <h5 className="fs-6 fw-bold">ADDRESS</h5>
+    //                 <div className="mt-4">
+    //                   <div>
+    //                     <input
+    //                       type="number"
+    //                       className="deliverydetails_input_fild"
+    //                       placeholder="Pin code*"
+    //                       name="address_pincode"
+    //                       onChange={handleChange}
+    //                       value={values.address_pincode}
+    //                       onBlur={handleBlur}
+    //                     />
+    //                     {errors.address_pincode && touched.address_pincode ? (
+    //                       <div style={{ color: "red" }}>
+    //                         {errors.address_pincode}
+    //                       </div>
+    //                     ) : (
+    //                       ""
+    //                     )}
+    //                   </div>
+    //                 </div>
+    //                 <div className="mt-4">
+    //                   <div>
+    //                     <input
+    //                       type="text"
+    //                       className="deliverydetails_input_fild"
+    //                       placeholder="Address(House No,Building, Street Area)* "
+    //                       name="address_area"
+    //                       onChange={handleChange}
+    //                       value={values.address_area}
+    //                       onBlur={handleBlur}
+    //                     />
+    //                     {errors.address_area && touched.address_area ? (
+    //                       <div style={{ color: "red" }}>
+    //                         {errors.address_area}
+    //                       </div>
+    //                     ) : (
+    //                       ""
+    //                     )}
+    //                   </div>
+    //                 </div>
+    //                 <div className="mt-4">
+    //                   <div>
+    //                     <input
+    //                       type="text"
+    //                       className="deliverydetails_input_fild"
+    //                       placeholder="Locality/ Town*"
+    //                       name="address_city"
+    //                       onChange={handleChange}
+    //                       value={values.address_city}
+    //                       onBlur={handleBlur}
+    //                     />
+    //                     {errors.address_city && touched.address_city ? (
+    //                       <div style={{ color: "red" }}>
+    //                         {errors.address_city}
+    //                       </div>
+    //                     ) : (
+    //                       ""
+    //                     )}
+    //                   </div>
+    //                 </div>
+
+    //                 <div className="mt-4">
+    //                   <div>
+    //                     <input
+    //                       type="text"
+    //                       className="deliverydetails_input_fild"
+    //                       placeholder="State*"
+    //                       name="address_state"
+    //                       onChange={handleChange}
+    //                       value={values.address_state}
+    //                       onBlur={handleBlur}
+    //                     />
+    //                     {errors.address_state && touched.address_state ? (
+    //                       <div style={{ color: "red" }}>
+    //                         {errors.address_state}
+    //                       </div>
+    //                     ) : (
+    //                       ""
+    //                     )}
+    //                   </div>
+    //                 </div>
+    //                 <div className="mt-4">
+    //                   <div>
+    //                     <input
+    //                       type="text"
+    //                       className="deliverydetails_input_fild"
+    //                       placeholder="country*"
+    //                       name="address_country"
+    //                       onChange={handleChange}
+    //                       value={values.address_country}
+    //                       onBlur={handleBlur}
+    //                     />
+    //                     {errors.address_country && touched.address_country ? (
+    //                       <div style={{ color: "red" }}>
+    //                         {errors.address_country}
+    //                       </div>
+    //                     ) : (
+    //                       ""
+    //                     )}
+    //                   </div>
+    //                 </div>
+    //                 <div className="mt-4">
+    //                   <h5 className="fs-6 fw-bold">SAVE ADDRESS AS</h5>
+    //                 </div>
+    //                 <div className="mt-4">
+    //                   <div className="row">
+    //                     {locations.map((location) => (
+    //                       <div
+    //                         key={location.id}
+    //                         className="col-lg-3 col-4 d-flex align-items-center"
+    //                       >
+    //                         <input
+    //                           type="radio"
+    //                           name="selectedLocation" // Use "address_deliver" as the name for all radio buttons
+    //                           value={values.selectedLocation} // Use location.value as the value for the radio button
+    //                           // Check if selectedLocation matches location.value
+    //                           onChange={handleChange}
+    //                           onBlur={handleBlur}
+    //                         />
+    //                         <label className="p-2">{location.value}</label>
+    //                       </div>
+    //                     ))}
+    //                   </div>
+    //                 </div>
+
+    //                 <div className="mt-4">
+    //                   <div>
+    //                     <button
+    //                       type="submit"
+    //                       className="delivery-details_button"
+    //                     >
+    //                       Add Address
+    //                     </button>
+    //                   </div>
+    //                 </div>
+    //               </div>
+    //             </form>
+    //           </div>
+    //         </div>
+    //         <div className="col-lg-1"></div>
+    //         <div className="col-lg-3 ">
+    //           <div className="payment_details ">
+    //             <h6 className="fw-bold">Order Details</h6>
+    //             <div className="d-flex justify-content-between p">
+    //               <span>Total MRP</span>
+    //               <span>Rs. 1599</span>
+    //             </div>
+    //             <div className="d-flex justify-content-between p ">
+    //               <span>Discount</span>
+    //               <span style={{ color: "#18AC4A" }}>-Rs. 1000</span>
+    //             </div>
+    //             <div className="d-flex justify-content-between p">
+    //               <span>Shipping Fee</span>
+    //               <span>Rs. 99</span>
+    //             </div>
+    //             <div
+    //               style={{
+    //                 borderBottom: "2px solid rgb(225, 226, 226)",
+    //                 padding: "5px",
+    //               }}
+    //             ></div>
+    //             <div className="d-flex justify-content-between p-2"></div>
+    //             <div className="d-flex justify-content-between p">
+    //               <span>
+    //                 <span className="fw-bold">Total</span> MRP
+    //               </span>
+    //               <span className="fw-bold">Rs. 698</span>
+    //             </div>
+    //           </div>
+    //         </div>
+
+    //         <div className="col-lg-2"></div>
+    //       </div>
+
+    //       <div className="d-flex justify-content-center gap-4 mt-3 mb-4 py-4">
+    //         <div style={{ width: "6%" }}>
+    //           <img src={rupay} width="100%" />
+    //         </div>
+    //         <div style={{ width: "4%" }}>
+    //           <img src={phone} width="100%" />
+    //         </div>
+    //         <div style={{ width: "4%" }}>
+    //           <img src={visa} width="100%" />
+    //         </div>
+    //         <div style={{ width: "2%" }}>
+    //           <img src={pay} width="100%" />
+    //         </div>
+    //       </div>
+    //     </div>
+    //   )}
+
+    // </>
+
+    <>
+      <UpdateForm />
+    </>
+  );
+}
+
+const UpdateForm = () => {
+  const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
+  const modalRef = useRef();
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const [addressId, setAddressId] = useState("");
+  const [place, setPlace] = useState("");
+  const [cartArray, setCartArray] = useState([]);
+  const [defaultAddress, setDefaultAddress] = useState(false); // Corrected the state variable name
+
+  const { userAddress, getUserAddressSuccess } = useSelector(
+    (state) => state.userAddress
+  );
+
+  const { userCartProduct } = useSelector((state) => state.users);
+
+  const [productUpdateDetail, setProductUpdateDetail] = useState(null);
+  const [totalAmount, setTotalAmount] = useState(0);
+
+  useEffect(() => {
+    let sum = 0;
+    for (let index = 0; index < userCartProduct?.length; index++) {
+      sum =
+        sum +
+        Number(
+          userCartProduct[index]?.cart_quantity *
+            userCartProduct[index]?.cart_price
+        );
+      setTotalAmount(sum);
+    }
+  }, []);
+
+  useEffect(() => {
+    let timeOut = setTimeout(() => {
+      dispatch(getUserAddress());
+      dispatch(getUserCartProductFromServer());
+    }, 500);
+
+    return () => {
+      clearTimeout(timeOut);
+    };
+  }, [getUserAddressSuccess]);
+
+  const handleClickOutside = (e) => {
+    if (modalRef.current && !modalRef.current.contains(e.target)) {
+      handleClose();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const { values, errors, handleChange, handleBlur, handleSubmit, resetForm } =
+    useFormik({
+      initialValues: {
+        address_pincode: "",
+        address_area: "",
+        address_city: "",
+        user_name: "",
+        user_phone: "",
+        address_state: "",
+        address_country: "",
+      
+        defaultAddress: false,
+      },
+      onSubmit: (value) => {
+         const data={...value,place}
+         console.log(data)
+        dispatch(PostAddress(data));
+        resetForm();
+      },
+    });
+
+  return (
+    <div className="">
+      
+
+      <div className="container">
+        <div className="row">
+          <div className="col-7">
+            <div className="d-flex justify-content-around">
+              <div className="mt-2 delivery_address_content">
+                <h5 className="mb-0">Select Delivery Address</h5>
+                <h6 className="mb-0">Default Address</h6>
+              </div>
+
+              <div className="">
+                <button
+                  className="delivery_address-modal-btn mb-0"
+                  onClick={handleShow}
+                >
+                  Add New Address
+                </button>
+
+                {show ? (
+                  <div className="delivery-address-overlay">
+                    <div className="delivery-address-overlay1" ref={modalRef}>
+                      <div className="d-flex justify-content-between">
+                        <h6 className="fs-5 mt-1">Add New Address</h6>
+                        <button
+                          className="close-modal-btn"
+                          onClick={handleClose}
+                        >
+                          &times;
+                        </button>
+                      </div>
+                      <hr />
+                      <h5 className="fs-6 ">ADDRESS</h5>
+                      <form
+                        onSubmit={handleSubmit}
+                        className="delivery-address_fluid"
+                      >
+                        <div className="mt-4">
+                          <input
+                            type="text"
+                            className="deliverydetails_input_fild"
+                            placeholder="Name"
+                            name="user_name"
+                            value={values.user_name}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                          />
+                        </div>
+
+                        <div className="mt-4">
+                          <input
+                            type="number"
+                            className="deliverydetails_input_fild"
+                            value={values.user_phone}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            placeholder="Phone"
+                            id="user_phone"
+                          />
+                        </div>
+                        <div className="mt-4">
                           <input
                             type="number"
                             className="deliverydetails_input_fild"
@@ -302,9 +711,7 @@ function Delivery_address() {
                             onBlur={handleBlur}
                           />
                         </div>
-                      </div>
-                      <div className="mt-4">
-                        <div>
+                        <div className="mt-4">
                           <input
                             type="text"
                             className="deliverydetails_input_fild"
@@ -315,9 +722,7 @@ function Delivery_address() {
                             value={values.address_area}
                           />
                         </div>
-                      </div>
-                      <div className="mt-4">
-                        <div>
+                        <div className="mt-4">
                           <input
                             type="text"
                             className="deliverydetails_input_fild"
@@ -328,9 +733,7 @@ function Delivery_address() {
                             value={values.address_city}
                           />
                         </div>
-                      </div>
-                      <div className="mt-4">
-                        <div>
+                        <div className="mt-4">
                           <input
                             type="text"
                             className="deliverydetails_input_fild"
@@ -341,9 +744,7 @@ function Delivery_address() {
                             value={values.address_state}
                           />
                         </div>
-                      </div>
-                      <div className="mt-4">
-                        <div>
+                        <div className="mt-4">
                           <input
                             type="text"
                             className="deliverydetails_input_fild"
@@ -354,178 +755,199 @@ function Delivery_address() {
                             value={values.address_country}
                           />
                         </div>
-                      </div>
-                      <div className="mt-3">
-                        <h5 className="fs-6 fw-bold">SAVE ADDRESS AS</h5>
-                      </div>
-                      <div className="mt-4">
-                        <div className="row">
-                          <div className="col-lg-2 col-4">
-                            <div className="d-flex ">
-                              <input
-                                type="radio"
-                                name="Home"
-                                value="home"
-                                onChange={(e) => setAddress(e.target.value)}
-                              />
-                              <span className="ms-1">Home</span>
-                            </div>
-                          </div>
-                          <div className="col-lg-2 col-4 ms-2">
-                            <div className="d-flex ">
-                              <input
-                                type="radio"
-                                name="Home"
-                                value="work"
-                                onChange={(e) => setAddress(e.target.value)}
-                              />
-                              <span className="ms-1">Work</span>
-                            </div>
-                          </div>
+                        <div className="mt-3">
+                          <h5 className="fs-6 fw-bold">SAVE ADDRESS AS</h5>
                         </div>
-                      </div>
-                      <div className="mt-4">
-                        <select
-                          class="form-select"
-                          aria-label="Default select example"
-                          
-                        >
-                          <option value="billing" selected>
-                            billing
-                          </option>
-                          <option value="shipping">shipping</option>
-                        </select>
-                      </div>
-                      <div className="mt-4">
-                        <input type="checkbox" /> Make this my default address
-                      </div>
+                        <div className="mt-4">
+                          <div className="row">
+                            <div className="col-lg-2 col-4">
+                              <div className="d-flex ">
+                                <input
+                                  type="radio"
+                                  name="place"
+                                  value="Home"
+                                
+                                  onChange={(e)=>setPlace(e.target.value)}
+                                
+                                />
+                                <span className="ms-1">Home</span>
+                              </div>
+                            </div>
+                            <div className="col-lg-2 col-4 ms-2">
+                              <div className="d-flex ">
+                                <input
+                                  type="radio"
+                                  name="place"
+                                  value="Work"
+                                  
+                                  onChange={(e)=>setPlace(e.target.value)}
 
-                      <div className="mt-4">
-                        <div>
-                          <button
-                            type="submit"
-                            className="delivery-details_button1"
-                            onClick={()=>dispatch(Step())}
-                          >
-                            Add Address
-                          </button>
+                                />
+                                <span className="ms-1">Work</span>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </form>
+                        <div className="mt-4">
+                          <input
+                            type="checkbox"
+                            name="defaultAddress"
+                            value={values.defaultAddress}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                          />{" "}
+                          Make this my default address
+                        </div>
+                        <div className="mt-4">
+                          <div>
+                            <button
+                              type="submit"
+                              className="delivery-details_button1"
+                            >
+                              Add Address
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
                   </div>
-                </div>
-              )}
+                ) : (
+                  ""
+                )}
+              </div>
             </div>
-          </div>
-
-          <div className="mt-4">
-            <div className="delviery_address_boxShow">
-              <div className="row ">
-                <div className="col-lg-1">
-                  <input type="radio" />
-                </div>
-
-                <div className="col-lg-6">
-                  <div className="delivery_address_content12">
-                    <h6 className="delviery_address_color">
-                      Name{" "}
-                      <span className="delivery_address_home ms-3">Home</span>
-                    </h6>
-                    <div className="mt-3">
-                      <address>
-                        60, This Street, Puducherry Villupuram, Tamilnadu -
-                        605015
-                      </address>
-                      <div>
-                        Mobile:{" "}
-                        <span className="delviery_address_color">
-                          98765 43210
-                        </span>
+            {userAddress?.map((item, i) => (
+              <div className="mt-4 w-75" key={i}>
+                <div className="delviery_address_boxShow">
+                  <div className="row">
+                    <div className="col-lg-1">
+                      <input
+                        type="radio"
+                        onClick={() => setAddressId(item?._id)}
+                      />
+                    </div>
+                    <div className="col-lg-6">
+                      <div className="delivery_address_content12">
+                        <h6 className="delivery_address_color">
+                          {item?.user_name}
+                          <span className="delivery_address_home ms-3">
+                            {item?.address_deliver}
+                          </span>
+                        </h6>
+                        <div className="mt-3">
+                          <address>{item?.address_area}</address>
+                        </div>
+                        <div>
+                          Mobile:
+                          <span
+                            className="delviery_address_color ms-2 "
+                            style={{ color: "#6c757d" }}
+                          >
+                            {item?.user_phone}
+                          </span>
+                        </div>
+                        <div className="mt-2">
+                          <p>Pay on Delivery available</p>
+                        </div>
                       </div>
-                      <div>
-                        <li>Pay on Delivery available</li>
+                    </div>
+                    <div className="col-lg-12">
+                      <div className="d-flex justify-content-end align-items-end gap-3 h-100">
+                        <button className="delivery_address_edite text-green" onClick={()=>handleEdite(i)}>
+                          Edit
+                        </button>
+                        <span>|</span>
+                        <button className="delivery_address_edite text-danger">
+                          Remove
+                        </button>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="col-lg-5">
-                  <div className="d-flex justify-content-end align-items-end gap-3 h-100">
-                    <button className="delivery_address_edite">Edite</button>
-                    <p>|</p>
-                    <button className="delivery_address_edite">Remove</button>
+              </div>
+            ))}
+          </div>
+
+          <div className="col-5 mt-4 ">
+            <div className="pb-0 d-flex">
+              <div className="col-6">
+                {userCartProduct?.map((item, j) => {
+                  const { images, brand } = item?.productId[0];
+                  return (
+                    <>
+                      <div className="image-fluid d-flex align-items-center gap-2">
+                        <img
+                          src={`${CONN.IMAGE_URL}${images[0]}`}
+                          alt={brand}
+                          height={60}
+                          className="gap-2 mt-3"
+                        />
+                        <div className="mt-4">
+                          <p className="delivery_address_content12 ">
+                            Delivery Between
+                          </p>
+                          <h6 className="fw-bold">21 Dec - 23 Dec</h6>
+                        </div>
+                      </div>
+                    </>
+                  );
+                })}
+              </div>
+
+              <div className="col-6">
+                <div className="mt-4">
+                  <div className="payment_details">
+                    <h6>Order Details</h6>
+                    <div className="d-flex justify-content-between p-2">
+                      <span>Total MRP</span>
+                      <span>&#x20b9; {totalAmount}</span>
+                    </div>
+                    <div className="d-flex justify-content-between p-2 ">
+                      <span>Discount</span>
+                      <span style={{ color: "#18AC4A" }}>Rs. -</span>
+                    </div>
+                    <div className="d-flex justify-content-between p-2">
+                      <span>Shipping Fee</span>
+                      <span>Rs. -</span>
+                    </div>
+                    <div
+                      style={{
+                        borderBottom: "1px solid black",
+                        padding: "5px",
+                      }}
+                    ></div>
+                    <div className="d-flex justify-content-between p-2">
+                      <span>
+                        <span className="fw-bold">Total</span> MRP
+                      </span>
+                      <span> {totalAmount}</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="col-lg-1"></div>
-        <div className="col-lg-1 Delivery_address_border"></div>
-        <div className="col-lg-3">
-          <div className="mt-2">
-            <h5>Delivery Details</h5>
-          </div>
-          <div className="d-flex gap-4">
-            <div className="delivery_address_image">
-              <img src={women} width="100%" />
-            </div>
-            <div className="mt-4">
-              <p className="delivery_address_content12 ">Delivery Between</p>
-              <h6 className="fw-bold">21 Dec - 23 Dec</h6>
-            </div>
-          </div>
-          <div className="mt-4">
-            <div className="payment_details">
-              <h6>Order Details</h6>
-              <div className="d-flex justify-content-between p-2">
-                <span>Total MRP</span>
-                <span>Rs. 1599</span>
-              </div>
-              <div className="d-flex justify-content-between p-2 ">
-                <span>Discount</span>
-                <span style={{ color: "#18AC4A" }}>-Rs. 1000</span>
-              </div>
-              <div className="d-flex justify-content-between p-2">
-                <span>Shipping Fee</span>
-                <span>Rs. 99</span>
-              </div>
-              <div
-                style={{ borderBottom: "1px solid black", padding: "5px" }}
-              ></div>
-              <div className="d-flex justify-content-between p-2">
-                <span>
-                  <span className="fw-bold">Total</span> MRP
-                </span>
-                <span>Rs. 698</span>
-              </div>
-            </div>
-          </div>
-          <div className="m-3 text-center">
-            <button className="orderpalced_btn w-75">Continue</button>
-          </div>
-        </div>
-
-        <div className="col-lg-1"></div>
       </div>
 
       <div className="mt-5">
         <div className="d-flex justify-content-center gap-4 mt-3 mb-4">
           <div style={{ width: "6%" }}>
-            <img src={rupay} width="100%" />
+            <img src={rupay} width="100%" alt="Rupay" />
           </div>
           <div style={{ width: "4%" }}>
-            <img src={phone} width="100%" />
+            <img src={phone} width="100%" alt="Phone" />
           </div>
           <div style={{ width: "4%" }}>
-            <img src={visa} width="100%" />
+            <img src={visa} width="100%" alt="Visa" />
           </div>
           <div style={{ width: "2%" }}>
-            <img src={pay} width="100%" />
+            <img src={pay} width="100%" alt="Pay" />
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Delivery_address;

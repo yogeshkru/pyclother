@@ -49,7 +49,7 @@ function Cart() {
     }
   }, [productUpdateDetail]);
 
-  useEffect(() => {
+  useEffect(() =>  {
     let sum = 0;
     for (let index = 0; index < userCartProduct?.length; index++) {
       sum =
@@ -93,7 +93,6 @@ function Cart() {
                 const { images, brand, name, color, model } =
                   item?.productId[0];
                 const setColor = GetColorName(color);
-                console.log(item?.productId[0]);
                 return (
                   <div
                     key={index}
