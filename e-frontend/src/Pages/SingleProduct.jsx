@@ -42,10 +42,10 @@ function SingleProduct() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [color, setColor] = useState(null);
+  
   const [sizeClick, setSizeClick] = useState(null);
   const [alreadyAdded, setAlreadyAdded] = useState(false);
-  const [quantity, setQuantity] = useState(1);
+
   const [ratings, setRatings] = useState([]);
   const [suggested, setSuggested] = useState([]);
 
@@ -228,13 +228,38 @@ function SingleProduct() {
 
                 <div className="d-flex gap-2">
                   <div className="pt-1">{singleProduct?.totalrating}</div>
-                  <div>
+                  <div className="d-flex">
                     <ReactStars
                       count={1}
                       size={24}
                       value={parseFloat(singleProduct?.totalrating) || 0} // Average rating value
                       activeColor="#ffd700"
                     ></ReactStars>
+                     <ReactStars
+                      count={1}
+                      size={24}
+                      value={parseFloat(singleProduct?.totalrating) || 0} // Average rating value
+                      activeColor="#ffd700"
+                    ></ReactStars>
+                      <ReactStars
+                      count={1}
+                      size={24}
+                      value={parseFloat(singleProduct?.totalrating) || 0} // Average rating value
+                      activeColor="#ffd700"
+                    ></ReactStars>
+                      <ReactStars
+                      count={1}
+                      size={24}
+                      value={parseFloat(singleProduct?.totalrating) || 0} // Average rating value
+                      activeColor="#ffd700"
+                    ></ReactStars>
+                    <ReactStars
+                      count={1}
+                      size={24}
+                      value={parseFloat(singleProduct?.totalrating) || 0} // Average rating value
+                      activeColor="#ffd700"
+                    ></ReactStars>
+
                   </div>
                   <div className="pt-1">
                     ({singleProduct?.ratings?.length} Ratings)
