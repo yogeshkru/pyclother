@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import "../styles/productcard.css";
 
-
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 import { CiHeart } from "react-icons/ci";
 import { wishListPostData } from "../features/usersSlice";
@@ -10,45 +10,41 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProduct } from "../features/product/productSlice";
 import CONN from "../utils/Url";
-import { FaGrinHearts } from "react-icons/fa";
+
+import { TbHeartQuestion } from "react-icons/tb";
 
 const ProductCard = function ({ data }) {
-  const [click, setClick] = useState({});
+  
 
   const navigate = useNavigate();
   const { Whislistget } = useSelector((state) => state.users);
-  const { wholeProduct } = useSelector((state) => state.product);
-  const [whishListTrue,setWishListTrue]= useState(false)
-   useEffect(()=>{
-    for(let index=0;index<wholeProduct?.length;index++){
+  console.log(Whislistget)
 
-
-      setWishListTrue(Whislistget.includes(wholeProduct[index]?._id))
-    }
-   },[])
+  const [whishlistId, setwhishlistId] = useState([]);
 
 
   const dispatch = useDispatch();
   const handleWishlist = (i) => {
-    // setClick(prevClicks => ({
-    //   ...prevClicks,
-    //   [i]: !prevClicks[i]
-    // }));
+   
+
     dispatch(wishListPostData(i));
   };
-  
-
-
 
   useEffect(() => {
     const timeOut = setTimeout(() => {
       dispatch(getAllProduct());
     }, 500);
+    let extractWishList = [];
+    Whislistget.forEach((elment) => {
+      extractWishList.push(elment?._id);
+    });
+
+    setwhishlistId(extractWishList);
 
     return () => {
       clearTimeout(timeOut);
     };
-  }, [dispatch]);
+  }, [dispatch,Whislistget]);
 
   return (
     <>
@@ -61,24 +57,17 @@ const ProductCard = function ({ data }) {
           >
             <div className="productCard position-relative">
               <div className="productCard-wishlist-icon position-absolute">
-                {/* <Link> */}
-                {/* {click[item._id] ? (
-                  <CiHeart
-                    className="productCard-wishlist-img fs-4 text-white"
-                    onClick={() => handleWishlist(item._id)}
-                  />
-                ) : (
-                  <FaGrinHearts
-                    className="productCard-wishlist-img fs-4 text-white"
-                    onClick={() => handleWishlist(item._id)}
-                  />
-                )} */}
-
-<div onClick={()=>handleWishlist(item?._id)}>
-
-{whishListTrue?<CiHeart/> :<FaGrinHearts/> }
-</div>
                
+
+                <div onClick={() => handleWishlist(item?._id)}>
+                  {whishlistId.includes(item._id) ? (
+                    <AiFillHeart size={20} color="#df0067" />
+                  ) : (
+                    <TbHeartQuestion />
+                  )}
+                </div>
+
+          
               </div>
               <div className="box">
                 <img

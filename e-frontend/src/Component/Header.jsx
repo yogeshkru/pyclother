@@ -15,10 +15,12 @@ import {
   wishListGetData,
   getUserProfileOnServer,
 } from "../features/usersSlice";
+import {useNavigate} from "react-router-dom"
 
 function Header() {
   const [sidenavWidth, setSidenavWidth] = useState(0);
   const isMobile = useMediaQuery({ maxWidth: 600 });
+  const navigate=useNavigate()
   const handleFont = {
     fontWeight: "bold",
     color: "#343434",
@@ -63,6 +65,19 @@ function Header() {
   // ****************************************************
 
   // *******************
+
+  const handleClick=()=>{
+    navigate("/Whislist")
+  }
+  const handleImage=()=>{
+    navigate("/")
+  }
+  const handleBag=()=>{
+    navigate("/stepper")
+  }
+  const handleProfile=()=>{
+    navigate("/profile")
+  }
 
   return (
     <div>
@@ -144,8 +159,8 @@ function Header() {
             <div className="container">
               <div className="row">
                 <div className="col-lg-3">
-                  <div className="header_logo">
-                    <img src={logo} width="100%" />
+                  <div className="header_logo" onClick={handleImage}>
+                    <img src={logo} width="100%" onClick={()=>navigate("/")} />
                   </div>
                 </div>
                 <div className="col-lg-3">
@@ -495,7 +510,8 @@ function Header() {
                 </div>
                 <div className="col-lg-2 mt-1 ">
                   <div className="d-flex justify-content-between">
-                    <div className="d-flex flex-column text-center ">
+                    <div className="d-flex flex-column text-center " onClick={handleProfile} style={{cursor:"pointer"}}>
+                    
                       <FaRegUser
                         style={{
                           marginLeft: "10px",
@@ -503,24 +519,31 @@ function Header() {
                           color: "#343434",
                         }}
                       />
-                      <Link to="/profile">
+                    
                         <span style={handleFont}>Profile</span>
-                      </Link>
+                     
                     </div>
                     <div className="Header--wishlist">
-                      <div className="d-flex flex-column text-center ms-4">
-                        <FaRegHeart
-                          style={{ marginLeft: "10px", fontSize: "20px" }}
-                        />
+                      <div className="d-flex flex-column text-center ms-4" onClick={handleClick} style={{cursor:"pointer"}}>
+                      
+                          <FaRegHeart
+                            style={{ marginLeft: "10px", fontSize: "20px" }}
+                          />
 
-                        <div className={Whislistget.length>0 ? "Header--wishlist1" :""}>
-                          {Whislistget.length>0?Whislistget.length:""}
-                        </div>
+                          <div
+                            className={
+                              Whislistget.length > 0 ? "Header--wishlist1" : ""
+                            }
+                          >
+                            {Whislistget.length > 0 ? Whislistget.length : ""}
+                          </div>
+                      
 
                         <span style={handleFont}>Wishlist</span>
                       </div>
                     </div>
-                    <div className="d-flex flex-column text-center ms-4">
+                    <div className="d-flex flex-column text-center ms-4" onClick={handleBag} style={{cursor:"pointer"}}>
+
                       <PiHandbagBold
                         style={{ marginLeft: "10px", fontSize: "20px" }}
                       />
