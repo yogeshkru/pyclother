@@ -11,12 +11,17 @@ import { Link } from "react-router-dom";
 import "../styles/Home.css";
 import { getAllProduct } from "../features/product/productSlice";
 import URL from "../../../e-admin/src/utilis/Url";
+import {
+  wishListGetData,
+  getUserProfileOnServer,
+} from "../features/usersSlice";
+
 function Header() {
   const [sidenavWidth, setSidenavWidth] = useState(0);
   const isMobile = useMediaQuery({ maxWidth: 600 });
   const handleFont = {
     fontWeight: "bold",
-    color:"#343434",
+    color: "#343434",
   };
   const openNav = () => {
     setSidenavWidth(250);
@@ -30,11 +35,14 @@ function Header() {
 
   // *********************Search funtionality***********************
   const { wholeProduct } = useSelector((state) => state.product);
+  const { Whislistget } = useSelector((state) => state.users);
+  // console.log(y)
   const [searchTerm, setSearchTerm] = useState("");
   const [searchData, setSeachData] = useState(null);
-
   useEffect(() => {
     dispatch(getAllProduct());
+    dispatch(wishListGetData());
+    dispatch(getUserProfileOnServer());
   }, [dispatch]);
 
   const handleSearchChange = (e) => {
@@ -47,8 +55,7 @@ function Header() {
         return product.name.toLowerCase().includes(term.toLowerCase());
       });
 
-      const firstTenFilteredProducts = filteredProducts.slice(0, 10);
-
+    const firstTenFilteredProducts = filteredProducts.slice(0, 10);
 
     setSeachData(firstTenFilteredProducts);
   };
@@ -105,6 +112,7 @@ function Header() {
 
             <div className="text-center">
               <FaRegHeart fontSize={20} />
+
               <p>Wishlist</p>
             </div>
 
@@ -488,21 +496,29 @@ function Header() {
                 <div className="col-lg-2 mt-1 ">
                   <div className="d-flex justify-content-between">
                     <div className="d-flex flex-column text-center ">
-
                       <FaRegUser
-                        style={{ marginLeft: "10px", fontSize: "20px", color:"#343434"}}
+                        style={{
+                          marginLeft: "10px",
+                          fontSize: "20px",
+                          color: "#343434",
+                        }}
                       />
-                    <Link to="/profile">
-
-               
-                      <span style={handleFont} >Profile</span>
+                      <Link to="/profile">
+                        <span style={handleFont}>Profile</span>
                       </Link>
                     </div>
-                    <div className="d-flex flex-column text-center ms-4">
-                      <FaRegHeart
-                        style={{ marginLeft: "10px", fontSize: "20px" }}
-                      />
-                      <span style={handleFont}>Wishlist</span>
+                    <div className="Header--wishlist">
+                      <div className="d-flex flex-column text-center ms-4">
+                        <FaRegHeart
+                          style={{ marginLeft: "10px", fontSize: "20px" }}
+                        />
+
+                        <div className={Whislistget.length>0 ? "Header--wishlist1" :""}>
+                          {Whislistget.length>0?Whislistget.length:""}
+                        </div>
+
+                        <span style={handleFont}>Wishlist</span>
+                      </div>
                     </div>
                     <div className="d-flex flex-column text-center ms-4">
                       <PiHandbagBold

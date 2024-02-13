@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  AiOutlineArrowRight,
-  AiOutlineCamera,
-  AiOutlineDelete,
-} from "react-icons/ai";
+
 import { MdOutlineEditNote } from "react-icons/md";
 import {getUserProfileOnServer, userUpdates} from "../../features/usersSlice"
 import DataTable from "react-data-table-component";

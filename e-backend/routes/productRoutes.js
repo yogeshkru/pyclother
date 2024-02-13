@@ -23,7 +23,7 @@ module.exports = (app) => {
   router.route("/getshop-product").get(authenticateUser,asyncErrorHandler(getAllShopProduct))
   // The below url's manipulate by user's
   router
-    .route("/addwishlist")
+    .route("/addwishlist/:prodId")
     .post(authenticateUser, asyncErrorHandler(addToWishList));
   router
     .route("/ratings")

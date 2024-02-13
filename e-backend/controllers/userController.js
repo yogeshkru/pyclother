@@ -341,12 +341,17 @@ class UserController {
           from: "tbl_products",
           localField: "user_wishlist",
           foreignField: "_id",
-          as: "wishlist",
+          as: "user_wishlist",
         },
       },
     ]);
+    const {  user_wishlist } = Userwishlist[0];
 
-    res.status(200).json({ getBlog: Userwishlist[0] });
+    res.status(200).json({ getBlog: user_wishlist });
+
+
+
+  
   };
 
   logout = async (req, res, next) => {

@@ -93,7 +93,6 @@ function Cart() {
                 const { images, brand, name, color, model } =
                   item?.productId[0];
                 const setColor = GetColorName(color);
-                console.log(item?.productId[0]);
                 return (
                   <div
                     key={index}
