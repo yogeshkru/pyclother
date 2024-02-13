@@ -62,7 +62,7 @@ const OurStore = function () {
       category?.push(element?.category);
       newColors?.push(element?.color);
      price?.push(element?.price)
-    //  discountPrice.push(element?)
+   
     }
     setBrands(newBrand);
     setCategories(category);
@@ -136,8 +136,7 @@ const OurStore = function () {
   // price
 
     const priceDetails = prices && [...new Set(prices)].map((item, i) => {
-      // Construct the price range string
-      // const priceRange = `${item} and above`;
+      
     
       return (
         <div key={i} className="d-flex gap-1 mb-2">
@@ -235,32 +234,7 @@ const OurStore = function () {
 
               <div>
                 <ul className="ps-0">
-                  {/* <li className="ourstore-category-filter  d-flex">
-                    <input type="checkbox" className="ourcheck "></input>{" "}
-                    Tshirts{" "}
-                    <span className="ourstore-filter ms-1 mb-0">
-                      (12345 items )
-                    </span>
-                  </li>
-                  <li className="ourstore-category-filter d-flex">
-                    <input type="checkbox" className="ourcheck"></input>Shirts{" "}
-                    <span className="ourstore-filter ms-1 mb-0">
-                      (123456 items)
-                    </span>
-                  </li>
-                  <li className="ourstore-category-filter d-flex">
-                    <input type="checkbox" className="ourcheck"></input>Sweat
-                    Shirts{" "}
-                    <span className="ourstore-filter ms-1 mb-0">
-                      (12345 items)
-                    </span>
-                  </li>
-                  <li className="ourstore-category-filter d-flex">
-                    <input type="checkbox" className="ourcheck"></input>Kurtas{" "}
-                    <span className="ourstore-filter ms-1 mb-0">
-                      (12345 items)
-                    </span>
-                  </li> */}
+                  
                   {categoryDetails}
                 </ul>
               </div>
@@ -299,40 +273,7 @@ const OurStore = function () {
 
             <div className="ourStore-price-gap ">
               <h5 className="ourStore-price-title">PRICE</h5>
-{/* 
-              <div className="ourStore-price">
-                <div className="ourStore-range">
-                  <input
-                    type="range"
-                    className="form-range w-75 d-flex mx-auto"
-                    min="0"
-                    max="5"
-                    id="customRange2"
-                  />
-                </div>
-                <div className="d-flex justify-content-around px-5 mt-4 mb-3 price-range">
-                  <div className="form-floating ms-0 mb-3">
-                    <input
-                      type="text"
-                      className="form-control "
-                      id="floatingInput-2"
-                      name="loops"
-                      placeholder=""
-                    />
-                    <label htmlFor="floatingInput-2">From</label>
-                  </div>
-                  <div className="form-floating ms-4">
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="floatingInput-1"
-                      name="loops"
-                      placeholder=""
-                    />
-                    <label htmlFor="floatingInput-1">To</label>
-                  </div>
-                </div>
-              </div> */}
+
 
               {priceDetails}
             </div>
@@ -344,36 +285,7 @@ const OurStore = function () {
 
             <div className="ourStore-color">
               <h3 className="ourStore-discount-title mt-3">DISCOUNT</h3>
-              {/* <div className="li-gap">
-                <ul className="ps-0">
-                  <li className="ourstore-discount-filter d-flex">
-                    <input type="checkbox" className="ourcheck"></input>10% and
-                    above
-                  </li>
-                  <li className="ourstore-discount-filter d-flex">
-                    <input type="checkbox" className="ourcheck"></input>20% and
-                    above
-                  </li>
-                  <li className="ourstore-discount-filter d-flex">
-                    <input type="checkbox" className="ourcheck"></input>40% and
-                    above
-                  </li>
-                  <li className="ourstore-discount-filter d-flex">
-                    <input type="checkbox" className="ourcheck"></input>50% and
-                    above
-                  </li>
-
-                  <li className="ourstore-discount-filter">
-                    <input type="checkbox" className="ourcheck"></input>60% and
-                    above
-                  </li>
-
-                  <li className="ourstore-discount-filter">
-                    <input type="checkbox" className="ourcheck"></input>70% and
-                    above
-                  </li>
-                </ul>
-              </div> */}
+           
             
             </div>
           </div>

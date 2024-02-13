@@ -485,7 +485,7 @@ function Addproduct() {
                     </div>
                     <div className="col-lg-4">
                       <div className="product_custom-dropdown">
-                        <label className="fw-bold fs-10">Color</label>
+                        <label className="fw-bold fs-10">Tax</label>
                         <select
                           class="form-select"
                           aria-label="Default select example"
@@ -494,9 +494,9 @@ function Addproduct() {
                           onChange={handleChange}
                           onBlur={handleBlur}
                         >
-                          <option>Open this tax</option>
-                          <option value="Inclusive_tax">Inclusive Tax</option>
-                          <option value="Exclusive_tax">Exclusive Tax</option>
+                           <option value="Exclusive tax">Exclusive Tax</option>
+                          <option value="Inclusive tax">Inclusive Tax</option>
+                         
                         </select>
                         {errors.color && touched.color ? (
                           <div style={{ color: "red" }}>{errors.tax}</div>
@@ -524,11 +524,7 @@ function Addproduct() {
                             </label>
                           </div>
                         ))}
-                        {selectedSizes.length < 4 && (
-                          <div style={{ color: "red" }}>
-                            Please select at least 4 sizes
-                          </div>
-                        )}
+                       
                        
                       </div>
                     </div>

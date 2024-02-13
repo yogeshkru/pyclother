@@ -11,7 +11,6 @@ const { default: mongoose } = require("mongoose");
 
 class UserController {
   createUser = async (req, res, next) => {
-
     try {
       const userAlready = await userModel.findOne({
         user_email: req.body.user_email,
@@ -110,9 +109,7 @@ class UserController {
       findUser.user_passwordResetToken = undefined;
       findUser.user_passwordResetTokenExpired = undefined;
       findUser.save({ validateBeforeSave: false });
-      return next(
-        new customError(err.message, 500)
-      );
+      return next(new customError(err.message, 500));
     }
   };
 
@@ -210,21 +207,57 @@ class UserController {
     }
   };
 
-
   deleteMe = async (req, res) => {
     await userModel.findByIdAndUpdate(
       req.user._id,
       { user_active: false },
       { runValidators: true, new: true }
     );
-    res.state(200).json({message:"Account deleted"})
+    res.state(200).json({ message: "Account deleted" });
   };
 
   // *********************************************************************
-  filterReqObj = (obj, ...allowedFileds) => {
+  // filterReqObj = (obj, ...allowedFileds) => {
+  //   const newObj = {};
+  //   Object.keys(obj).forEach((prop) => {
+  //     if (allowedFileds.includes(prop)) newObj[prop] = obj[prop];
+  //   });
+
+  //   return newObj;
+  // };
+
+  // updateMe = async (req, res, next) => {
+  //   if (req.body.user_password) {
+  //     return next(
+  //       new customError(
+  //         "You cannot update your password using this endpoint",
+  //         400
+  //       )
+  //     );
+  //   }
+
+  //   const filterObj = filterReqObj(
+  //     req.body,
+  //     "user_name",
+  //     "user_email",
+  //     "user_phone",
+
+  //   );
+
+  //   const updateUser = await userModel.findByIdAndUpdate(
+  //     req.user._id,
+  //     filterObj,
+  //     { runValidators: true, new: true }
+  //   );
+
+  //   res.status(200).json({ message: "Userprofileupdated", updateUser });
+  // };
+
+  filterReqObj = (obj, ...allowedFields) => {
+    console.log(obj);
     const newObj = {};
     Object.keys(obj).forEach((prop) => {
-      if (allowedFileds.includes(prop)) newObj[prop] = obj[prop];
+      if (allowedFields.includes(prop)) newObj[prop] = obj[prop];
     });
 
     return newObj;
@@ -240,23 +273,30 @@ class UserController {
       );
     }
 
-    const filterObj = filterReqObj(
+    const filterObj = this.filterReqObj(
       req.body,
       "user_name",
       "user_email",
-      "user_phone",
-
+      "user_phone"
     );
 
-    const updateUser = await userModel.findByIdAndUpdate(
+    const updatedUser = await userModel.findByIdAndUpdate(
       req.user._id,
       filterObj,
       { runValidators: true, new: true }
     );
 
-    res.status(200).json({ message: "Userprofileupdated", updateUser });
+    const  updateUser={
+     user_email:updatedUser?.user_email,
+     user_name:updatedUser?.user_name,
+     user_phone:updatedUser?.user_phone
+
+    }
+
+    res.status(200).json({ message: "User profile updated", updateUser });
   };
-// **********************************************************************
+
+  // **********************************************************************
   getUserById = async (req, res, next) => {
     const { id } = req.params;
 
@@ -269,7 +309,17 @@ class UserController {
     res.status(200).json({ status: "success", data: { user } });
   };
 
- deleteUser = async (req, res, next) => {
+  userProfile = async (req, res, next) => {
+    const { _id } = req.user;
+    const user = await userModel.findById(_id);
+    if (!user) {
+      const error = new customError("user with that Id is not found", 404);
+      return next(error);
+    }
+    res.status(200).json({ status: "success", data: { user } });
+  };
+
+  deleteUser = async (req, res, next) => {
     const { id } = req.params;
 
     const user = await userModel.findByIdAndDelete(id);
@@ -291,12 +341,17 @@ class UserController {
           from: "tbl_products",
           localField: "user_wishlist",
           foreignField: "_id",
-          as: "wishlist",
+          as: "user_wishlist",
         },
       },
     ]);
+    const {  user_wishlist } = Userwishlist[0];
 
-    res.status(200).json({ getBlog: Userwishlist[0] });
+    res.status(200).json({ getBlog: user_wishlist });
+
+
+
+  
   };
 
   logout = async (req, res, next) => {

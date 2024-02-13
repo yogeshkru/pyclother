@@ -16,6 +16,7 @@ module.exports = (app) => {
     getUserById,
     deleteUser,
     getWishList,
+    userProfile,
     getAllUser,
 
     updatePasswordByUserLogin,
@@ -31,6 +32,7 @@ module.exports = (app) => {
 
   // the below url update by authorized user;
 
+  router.route("/get-profile").get(authenticateUser,asyncErrorhandler(userProfile))
   router
     .route("/update-user")
     .patch(authenticateUser, asyncErrorhandler(updateMe));

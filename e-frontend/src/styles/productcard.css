@@ -36,6 +36,9 @@
     transform: scale(1.1);
   }
 
+  .productCart-wishlist{
+    background-color: #df0067;
+  }
   @media only screen and (max-width: 1080px) {
     /* .productcard-mobile-view{
       

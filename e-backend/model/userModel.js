@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "super admin"],
       default: "user",
     },
-    user_wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
+    user_wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Tbl_product" }],
     user_passwordChangedAt: Date,
     user_passwordResetToken: String,
     user_passwordResetTokenExpired: Date,

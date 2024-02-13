@@ -1,5 +1,5 @@
-import ActivationPage from "../Pages/admin/ActivationPage"
+// import ActivationPage from "../Pages/admin/ActivationPage"
 
-export{
-    ActivationPage
-}
+// export{
+//     ActivationPage
+// }

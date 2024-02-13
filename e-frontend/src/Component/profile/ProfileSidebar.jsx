@@ -20,7 +20,7 @@ const ProfilSidebar = ({ active, setActive }) => {
   const logoutHandler =()=>{
     localStorage.removeItem("user")
     navigate("/")
-    window.location.reload()
+ 
   }
 
   return (

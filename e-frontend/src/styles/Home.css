@@ -1045,3 +1045,17 @@ input[type="number"] {
   border-radius: 15px;
   color: white;
 }
+.Header--wishlist{
+  position: relative;
+}
+.Header--wishlist1{
+  position: absolute;
+  top: -10px;
+  left:50px;
+  height:25px;
+  border: 1px solid #df0067;
+  padding:0px 5px;
+  border-radius: 20px;
+  background-color: #df0067;
+  color: white;
+}

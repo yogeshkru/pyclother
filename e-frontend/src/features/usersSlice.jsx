@@ -95,6 +95,20 @@ export const userdeleteme = createAsyncThunk(
   }
 );
 
+// getUserProfile
+
+export const getUserProfileOnServer = createAsyncThunk(
+  "auth/get-user-profile",
+  async (_, thunkApi) => {
+    try {
+      const response = await usersService.getUserProfile();
+      return response;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+);
+
 export const getAllUserFromServer = createAsyncThunk(
   "auth/getall-user",
   async (_, thunkApi) => {
@@ -170,6 +184,30 @@ export const userCartDeleteProductFromServer = createAsyncThunk(
   }
 );
 
+//Wishlist post
+export const wishListPostData=createAsyncThunk("auth/whislistPost",async(userData,thunkApi)=>{
+  try{
+    const response=await usersService.wishListPost(userData)
+    thunkApi.dispatch(wishListGetData())
+    return response
+  }catch(err){
+    toast.error(err?.response?.message?.message)
+    return thunkApi.rejectWithValue(err)
+  }
+})
+
+export const wishListGetData=createAsyncThunk("auth/whislistGet",async(_,thunkApi)=>{
+  try{
+    const response=await usersService.wishListGet()
+    
+    thunkApi.dispatch(getAllUserFromServer());
+    return response
+  }catch(err){
+    toast.error(err?.response?.message?.message)
+    return thunkApi.rejectWithValue(err)
+  }
+})
+
 const inintialState = {
   Error: false,
   Success: false,
@@ -177,8 +215,12 @@ const inintialState = {
   message: "",
   loaders: false,
   createUser: "",
+  userSignSuccess:"",
   loginUser: "",
+  userUpdatedetails: {},
+  userProfile: {},
   userCartProduct: [],
+  Whislistget:[]
 };
 
 export const usersSlice = createSlice({
@@ -195,6 +237,7 @@ export const usersSlice = createSlice({
         state.loaders = false;
         state.Success = action.payload?.status;
         state.createUser = action.payload;
+        state.userSignSuccess="signupSuccess"
 
         if (state.Success) {
           toast.success(action.payload?.message?.message);
@@ -271,11 +314,20 @@ export const usersSlice = createSlice({
         state.loaders = false;
         state.Error = false;
         state.Success = action.payload?.status;
-        state.userForget = action.payload;
+        state.userUpdatedetails = action.payload;
 
         if (state.Success) {
           toast.success(action.payload?.message);
         }
+
+        let currentUserData = JSON.parse(localStorage.getItem("user"));
+        let newUserData = {
+          _id: currentUserData?._id,
+          token: currentUserData?.token,
+          name: action?.payload?.user?.name,
+          email: action?.payload?.user?.email,
+          mobile: action?.payload?.user?.mobile,
+        };
       })
       .addCase(userUpdates.rejected, (state, action) => {
         state.Error = true;
@@ -291,7 +343,6 @@ export const usersSlice = createSlice({
         state.loaders = false;
         state.Error = false;
         state.Success = action.payload?.status;
-        state.userForget = action.payload;
 
         if (state.Success) {
           toast.success(action.payload?.message);
@@ -304,16 +355,16 @@ export const usersSlice = createSlice({
         state.loaders = false;
         state.message = action.error;
       })
-      .addCase(addUserProductToServer.pending, (state) => {
-        state.loaders = false;
+      .addCase(getUserProfileOnServer.pending, (state) => {
+        state.loaders = true;
       })
-      .addCase(addUserProductToServer.fulfilled, (state, action) => {
-        state.loaders = false;
+      .addCase(getUserProfileOnServer.fulfilled, (state, action) => {
         state.Error = false;
         state.Success = true;
-        state.userCartAdded = action.payload;
+        state.loaders = false;
+        state.userProfile = action.payload.data.user;
       })
-      .addCase(addUserProductToServer.rejected, (state, action) => {
+      .addCase(getUserProfileOnServer.rejected, (state, action) => {
         state.Error = true;
         state.Success = false;
         state.loaders = false;
@@ -347,17 +398,60 @@ export const usersSlice = createSlice({
         state.loaders = false;
         state.Success = false;
         state.message = action.error;
-      }).addCase(userCartDeleteProductFromServer.pending,(state)=>{
-        state.loaders=false
-      }).addCase(userCartDeleteProductFromServer.fulfilled,(state)=>{
-        state.Success=true;
-        state.loaders=false;
-        state.Error=false
-      }).addCase(userCartDeleteProductFromServer.rejected,(state,action)=>{
-        state.Error=true;
-        state.loaders=false;
-        state.Error=true;
-        state.message=action.error
+      })
+      .addCase(userCartDeleteProductFromServer.pending, (state) => {
+        state.loaders = true;
+      })
+      .addCase(userCartDeleteProductFromServer.fulfilled, (state) => {
+        state.Success = true;
+        state.loaders = false;
+        state.Error = false;
+      })
+      .addCase(userCartDeleteProductFromServer.rejected, (state, action) => {
+        state.Error = true;
+        state.loaders = false;
+        state.Error = true;
+        state.message = action.error;
+      })
+      .addCase(getAllUserFromServer.pending, (state) => {
+        state.loaders = true;
+      })
+      .addCase(getAllUserFromServer.fulfilled, (state) => {
+        state.Error = false;
+        state.Success = true;
+        state.loaders = false;
+      })
+      .addCase(getAllUserFromServer.rejected, (state, action) => {
+        state.Error = true;
+        state.Success = false;
+        state.loaders = false;
+      })
+      .addCase(wishListPostData.pending, (state) => {
+        state.loaders = true;
+      })
+      .addCase(wishListPostData.fulfilled, (state) => {
+        state.Error = false;
+        state.Success = true;
+        state.loaders = false;
+      })
+      .addCase(wishListPostData.rejected, (state, action) => {
+        state.Error = true;
+        state.Success = false;
+        state.loaders = false;
+      })
+      .addCase(wishListGetData.pending, (state) => {
+        state.loaders = true;
+      })
+      .addCase(wishListGetData.fulfilled, (state,action) => {
+        state.Error = false;
+        state.Success = true;
+        state.loaders = false;
+        state.Whislistget=action.payload.getBlog;
+      })
+      .addCase(wishListGetData.rejected, (state, action) => {
+        state.Error = true;
+        state.Success = false;
+        state.loaders = false;
       })
 
       .addCase(resetAll, () => inintialState);

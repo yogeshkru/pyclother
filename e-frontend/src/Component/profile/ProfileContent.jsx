@@ -1,35 +1,46 @@
-import React, { useState } from "react";
-import {
-  AiOutlineArrowRight,
-  AiOutlineCamera,
-  AiOutlineDelete,
-} from "react-icons/ai";
-import * as yup from "yup";
+import React, { useEffect, useState } from "react";
+
+import { MdOutlineEditNote } from "react-icons/md";
+import {getUserProfileOnServer, userUpdates} from "../../features/usersSlice"
 import DataTable from "react-data-table-component";
-
-
 
 import { useFormik } from "formik";
 
-import { MdOutlineTrackChanges } from "react-icons/md";
-import { useDispatch } from "react-redux";
-import { Postenquiry } from "../../features/enquery/enqSlice";
 
-const profileSchema = yup.object({
-  user_name: yup.string(),
-  user_email: yup.string(),
-  user_phone: yup.number(),
-});
+import { Postenquiry } from "../../features/enquery/enqSlice";
+import { useSelector,useDispatch } from "react-redux";
 
 const ProfileContent = ({ active }) => {
+  const [edite, setEdite] = useState(false);
+   const dispatch=useDispatch()
+
+   useEffect(()=>{
+  
+    let timeOut =setTimeout(()=>{
+
+      dispatch(getUserProfileOnServer())
+    },300)
+    
+    return ()=>{
+      clearTimeout(timeOut)
+    }
+   },[])
+   const {userProfile} = useSelector((data)=>data.users)
+
   const formik = useFormik({
+    enableReinitialize:true,
     initialValues: {
-      user_name: "",
-      user_email: "",
-      user_phone: "",
+      user_name: userProfile?.user_name,
+      user_email: userProfile?.user_email,
+      user_phone:userProfile?.user_phone
     },
-    onSubmit: (value) => { },
+    onSubmit: (value) => {
+     dispatch(userUpdates(value))
+    },
   });
+  const handleEdite = () => {
+    setEdite(!edite);
+  };
 
   return (
     <>
@@ -38,47 +49,59 @@ const ProfileContent = ({ active }) => {
           <>
             <div className="d-flex justify-content-center">
               <div className="text-center">
-                <img
-                  src="https://mirzacdns3.s3.ap-south-1.amazonaws.com/cache/catalog/RLV0015/2-800x800.jpg"
-                  alt="user-image"
-                  className="rounded-circle object-cover border mt-5"
-                  width={100}
-                />
                 <div className="w-30 h-30 bg-secondary rounded-circle cursor-pointer position-absolute bottom-0 end-0">
-                  <AiOutlineCamera />
+                  {/* <AiOutlineCamera /> */}
                 </div>
               </div>
             </div>
             <br />
             <br />
+
+            <h4 className="text-center">
+              Edite Profile{" "}
+              <span style={{ cursor: "pointer" }} onClick={handleEdite}>
+                <MdOutlineEditNote />
+              </span>
+            </h4>
             <div className="px-5">
               <form onSubmit={formik.handleSubmit}>
-                <div className="d-flex flex-column pb-3">
+                <div className="mb-2">
+                  <label>Name</label>
                   <input
                     type="text"
-                    className="border p-1 rounded mb-3 w-50 mx-auto"
-                    placeholder="Full Name"
+                    className="form-control"
+                    name="user_name"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     value={formik.values.user_name}
-                    onBlur={formik.handleBlur("user_name")}
-                    onChange={formik.handleChange("user_name")}
-                  />
-                  <input
-                    type="text"
-                    className="border p-1 rounded mb-3 w-50 mx-auto"
-                    placeholder="Email"
-                    value={formik.values.user_email}
-                    onBlur={formik.handleBlur("user_email")}
-                    onChange={formik.handleChange("user_email")}
-                  />
-                  <input
-                    type="text"
-                    className="border p-1 rounded mb-3  w-50 mx-auto"
-                    placeholder="Phone"
-                    value={formik.values.user_phone}
-                    onBlur={formik.handleBlur("user_phone")}
-                    onChange={formik.handleChange("user_phone")}
+                    disabled={!edite}
                   />
                 </div>
+                <div className="mb-2">
+                  <label>Email</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="user_email"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.user_email}
+                    disabled={!edite}
+                  />
+                </div>
+                <div className="mb-2">
+                  <label>Phone</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="user_phone"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.user_phone}
+                    disabled={!edite}
+                  />
+                </div>
+
                 <button
                   type="submit"
                   className="border p-1 rounded-2 d-flex mx-auto mb-5"
@@ -97,24 +120,12 @@ const ProfileContent = ({ active }) => {
         </div>
       )}
 
-
-      {active === 3 && (
-
-
-        <Query />
-
-
-
-      )}
+      {active === 3 && <Query />}
     </>
   );
 };
 
 function AllOrders() {
-
-
-
-
   const columns = [
     {
       name: "Id",
@@ -137,7 +148,6 @@ function AllOrders() {
       selector: (row) => row.action,
     },
   ];
-
 
   const data = [];
   // for (let id = 0; id < couponGet.length; id++) {
@@ -170,40 +180,30 @@ function AllOrders() {
   //   });
   // }
   return (
-    (<>
-
-
+    <>
       <div className="w-75">
-
         <DataTable columns={columns} data={data} pagination />
       </div>
-
-    </>)
-  )
+    </>
+  );
 }
 
-
 const Query = () => {
+  const dispatch = useDispatch();
+  const [query, setQuery] = useState("");
 
-  const dispatch = useDispatch()
-  const [query,setQuery]= useState("")
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-     
-    
-  const handleSubmit=(e)=>{
-    e.preventDefault()
-
-    dispatch(Postenquiry(query))
-    console.log(query)
-
-  }
+    dispatch(Postenquiry(query));
+    console.log(query);
+  };
   return (
     <>
-
       <div className="container mt-5 d-flex align-items-center pt-5  ">
         <div className="row justify-content-center align-items-center">
           <div className="col-md-6">
-            <form onSubmit={handleSubmit} >
+            <form onSubmit={handleSubmit}>
               <textarea
                 name=""
                 id=""
@@ -211,20 +211,19 @@ const Query = () => {
                 className="form-control"
                 rows="16"
                 placeholder="Enter your query"
-                onChange={(e)=>setQuery(e.target.value)}
+                onChange={(e) => setQuery(e.target.value)}
               ></textarea>
 
               <div className="d-flex mx-auto">
-
-
-                <button type="submit" className="btn btn-secondary mt-2">Sumbmit</button>
+                <button type="submit" className="btn btn-secondary mt-2">
+                  Sumbmit
+                </button>
               </div>
-
             </form>
           </div>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 export default ProfileContent;
