@@ -26,6 +26,7 @@ import { OpenRoutes } from "./protect/OpenRoutes";
 import StepHeader from "./Component/StepHeader";
 
 
+
 function App() {
  
   return (
@@ -55,7 +56,7 @@ function App() {
         
             <Route path="orderpalced" element={<Orderplaced />} />
             <Route path="Whislist" element={<Whislist />} />
-
+          
             <Route path="payment" element={<Payment />} />
             
             <Route path="profile" element={<Profile/>}/>
