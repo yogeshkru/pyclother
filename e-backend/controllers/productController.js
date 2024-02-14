@@ -1,5 +1,6 @@
 const productModel = require("../model/productModel");
-const UserModel = require("../model/userModel");
+const userModel = require("../model/userModel");
+
 const CustomError = require("../utils/customError");
 const Apifeatures = require("../utils/reuseable");
 
@@ -72,17 +73,52 @@ class Product {
       .filter()
       .sort()
       .limitFields()
-      .paginate()
+      .paginate();
 
     const getAllProducts = await getProduct.query;
     res.status(200).json({ getAllProducts, length: getProduct.length });
   };
 
-  addToWishList = async function (req, res, next) {
-    const { _id } = req.user;
-    const { prodId } = req.body;
-    const user = await UserModel.findById(_id);
+  // addToWishList = async function (req, res, next) {
+  //   const { _id } = req.user;
+  //   const { prodId } = req.body;
+  //   const user = await userModel.findById(_id);
 
+  //   if (!user) {
+  //     const error = new CustomError(
+  //       "User with the given ID does not exist",
+  //       404
+  //     );
+  //     return next(error);
+  //   }
+
+  //   const alreadyAdded = user.user_wishlist.find(
+  //     (id) => id.toString() === prodId
+  //   );
+
+  //   if (alreadyAdded) {
+  //     let userProduct = await userModel.findByIdAndDelete(
+  //       _id,
+  //       { $pull: { user_wishlist: prodId } },
+  //       { new: true }
+  //     );
+
+  //     return res.status(200).json({ message: "Addedtowishlist", userProduct });
+  //   } else {
+  //     let productUser = await userModel.findByIdAndUpdate(
+  //       _id,
+  //       { $push: { user_wishlist: prodId } },
+  //       { new: true }
+  //     );
+  //     return res.status(200).json({ productUser });
+  //   }
+  // };
+
+  addToWishList = async (req, res, next) => {
+    const { _id } = req.user;
+    const { prodId } = req.params;
+    const user = await userModel.findById(_id);
+  
     if (!user) {
       const error = new CustomError(
         "User with the given ID does not exist",
@@ -90,28 +126,20 @@ class Product {
       );
       return next(error);
     }
-
-    const alreadyAdded = user.user_wishlist.find(
-      (id) => id.toString() === prodId
-    );
-
-    if (alreadyAdded) {
-      let userProduct = await UserModel.findByIdAndDelete(
-        _id,
-        { $pull: { user_wishlist: prodId } },
-        { new: true }
-      );
-
-      return res.status(200).json({ message: "Addedtowishlist", userProduct });
+  
+    const index = user.user_wishlist.indexOf(prodId); 
+  
+    if (index !== -1) { 
+      user.user_wishlist.splice(index, 1);
     } else {
-      let productUser = await UserModel.findByIdAndUpdate(
-        _id,
-        { $push: { user_wishlist: prodId } },
-        { new: true }
-      );
-      return res.status(200).json({ productUser });
+      user.user_wishlist.push(prodId); 
     }
+  
+    await user.save(); 
+  
+    return res.status(200).json({ message: "Wishlist updated successfully", user });
   };
+  
 
   async ratingfunc(req, res, next) {
     const { _id } = req.user;

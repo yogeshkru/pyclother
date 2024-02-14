@@ -5,39 +5,31 @@ class Addressdetails {
   //post
   addressCreate = async (req, res, next) => {
     try {
-      const {
-        address_area,
-        address_city,
-        address_state,
-        address_country,
-        address_pincode,
-        address_deliver,
-        user_name,
-        user_phone,
-        selectedLocation,
-      } = req.body;
+      // const {
+      //   address_area,
+      //   address_city,
+      //   address_state,
+      //   address_country,
+      //   address_pincode,
+      //   address_deliver,
+      //   user_name,
+      //   user_phone,
+      //   selectedLocation,
+      // } = req.body;
       const { _id } = req.user; // Corrected from user_id to _id
 
-      const billingAddressCount = await addressModel.countDocuments({
-        user_id: _id,
-        address_type: "billing",
-      }); // Corrected from user_id to _id
+      // const billingAddressCount = await addressModel.countDocuments({
+      //   user_id: _id,
+      //   address_type: "billing",
+      // }); // Corrected from user_id to _id
 
-      const address_type = billingAddressCount === 0 ? "billing" : "shipping";
+      // const address_type = billingAddressCount === 0 ? "billing" : "shipping";
 
-      const newAddress = await addressModel.create({
-        user_id: _id,
-        address_area,
-        address_city,
-        address_state,
-        address_country,
-        address_pincode,
-        address_type,
-        address_deliver,
-        user_name,
-        user_phone,
-        selectedLocation,
-      });
+      const newAddress = await addressModel.create({ 
+        ...req.body,
+        user_id: _id 
+    });
+    
 
       res
         .status(201)
@@ -75,51 +67,64 @@ class Addressdetails {
   };
 
   //update
-  addressUpdateBilling = async (req, res, next) => {
-    try {
-      const {
-        address_area,
-        address_city,
-        address_state,
-        adddress_country,
-        address_pincode,
-        user_name,
-        user_phone,
-      } = req.body;
-      const { address_id } = req.params;
-      const { _id } = req.user;
-      // Check if the specified address belongs to the user and is a billing address
-      const existingBillingAddress = await addressModel.findOne({
-        _id: address_id,
-        user_id: _id,
-        address_type: "billing",
-      });
+  // addressUpdateBilling = async (req, res, next) => {
+  //   try {
+  //     const {
+  //       address_area,
+  //       address_city,
+  //       address_state,
+  //       adddress_country,
+  //       address_pincode,
+  //       user_name,
+  //       user_phone,
+  //     } = req.body;
+  //     const { address_id } = req.params;
+  //     const { _id } = req.user;
+  //     // Check if the specified address belongs to the user and is a billing address
+  //     const existingBillingAddress = await addressModel.findOne({
+  //       _id: address_id,
+  //       user_id: _id,
+  //       address_type: "billing",
+  //     });
 
-      if (!existingBillingAddress) {
-        return res
-          .status(404)
-          .json({
-            success: false,
-            message: "Billing address not found for the user",
-          });
+  //     if (!existingBillingAddress) {
+  //       return res
+  //         .status(404)
+  //         .json({
+  //           success: false,
+  //           message: "Billing address not found for the user",
+  //         });
+  //     }
+
+  //     // Update the existing billing address
+  //     existingBillingAddress.address_area = address_area;
+  //     existingBillingAddress.address_city = address_city;
+  //     existingBillingAddress.address_state = address_state;
+  //     existingBillingAddress.address_country = adddress_country;
+  //     existingBillingAddress.address_pincode = address_pincode;
+  //     existingBillingAddress.user_name = user_name;
+  //     existingBillingAddress.user_phone = user_phone;
+  //     // Save the changes
+  //     await existingBillingAddress.save();
+
+  //     res.status(200).json({ success: true, data: existingBillingAddress });
+  //   } catch (err) {
+  //     return next(new CustomError(err.message, 500));
+  //   }
+  // };
+
+  addressUpdateBilling=async(req,res,next)=>{
+    try{
+      const UpdateAddress=await addressModel.findByIdAndUpdate(req.params.id,req.body,{runValidators:true,new:true})
+      if(!UpdateAddress){
+        return next(new CustomError("Give Id is not exists",409))
       }
-
-      // Update the existing billing address
-      existingBillingAddress.address_area = address_area;
-      existingBillingAddress.address_city = address_city;
-      existingBillingAddress.address_state = address_state;
-      existingBillingAddress.address_country = adddress_country;
-      existingBillingAddress.address_pincode = address_pincode;
-      existingBillingAddress.user_name = user_name;
-      existingBillingAddress.user_phone = user_phone;
-      // Save the changes
-      await existingBillingAddress.save();
-
-      res.status(200).json({ success: true, data: existingBillingAddress });
-    } catch (err) {
+      res.status(200).json({ UpdateAddress });
+      
+    }catch(err){
       return next(new CustomError(err.message, 500));
     }
-  };
+  }
 
   addressUpdateShipping = async (req, res, next) => {
     try {

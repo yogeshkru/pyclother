@@ -63,8 +63,7 @@ function SingleProduct() {
 
   useEffect(() => {
     for (let index = 0; index < userCartProduct?.length; index++) {
-           
-      if (id ===   userCartProduct[index]?.productId[0]?._id) {
+      if (id ===   userCartProduct[index]?.productId?._id) {
         setAlreadyAdded(true);
       }
     }

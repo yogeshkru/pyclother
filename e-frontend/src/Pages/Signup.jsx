@@ -13,14 +13,14 @@ import { useNavigate } from "react-router-dom";
 function Signup() {
   // *************************************************************
   const dispatch = useDispatch();
-  const { createUser } = useSelector((state) => state.users);
+  const { userSignSuccess } = useSelector((state) => state.users);
 
   const navigate = useNavigate();
   useEffect(() => {
-    if (createUser !== "") {
+    if (userSignSuccess === "signupSuccess") {
       navigate("/");
     }
-  }, []);
+  });
 
   const { values, errors, handleChange, handleBlur, handleSubmit, touched } =
     useFormik({

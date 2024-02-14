@@ -11,6 +11,7 @@ class Order {
       
       order_paymentInfo,
       order_total_Discount,
+      orderItems
     } = req.body;
     const { _id } = req.user;
 
@@ -22,6 +23,7 @@ class Order {
         order_totalPrice,
         order_total_Discount,
         order_paymentInfo,
+        orderItems
       }).save();
 
       res.status(200).json({ order });

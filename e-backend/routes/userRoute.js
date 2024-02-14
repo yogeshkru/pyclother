@@ -2,6 +2,7 @@ module.exports = (app) => {
   const router = require("express").Router();
   const { authenticateUser, restrict } = require("../middleware/auth");
   const UserController = require("../controllers/userController");
+  const PayMentMethod = require("../controllers/paymentController");
   const asyncErrorhandler = require("../utils/asyncErrorhandler");
   const {
     createUser,
@@ -22,17 +23,25 @@ module.exports = (app) => {
     updatePasswordByUserLogin,
   } = new UserController();
 
+  // *************************Payment Verfication ************************
+  const { checkOut, paymentVerfication } = new PayMentMethod();
+
+  router.route("/checkout-point").post(authenticateUser,asyncErrorhandler(checkOut));
+  router.route("/payment-point").post(authenticateUser,asyncErrorhandler(paymentVerfication));
+// ***************************************************************************
   // urls without protect
 
   router.route("/createUser").post(asyncErrorhandler(createUser));
   router.route("/login").post(asyncErrorhandler(login));
   router.route("/forgot").post(asyncErrorhandler(forgetPassword));
   router.route("/reset/:token").patch(asyncErrorhandler(resetPassword));
-  router.route("/getall-user").get(asyncErrorhandler(getAllUser))
+  router.route("/getall-user").get(asyncErrorhandler(getAllUser));
 
   // the below url update by authorized user;
 
-  router.route("/get-profile").get(authenticateUser,asyncErrorhandler(userProfile))
+  router
+    .route("/get-profile")
+    .get(authenticateUser, asyncErrorhandler(userProfile));
   router
     .route("/update-user")
     .patch(authenticateUser, asyncErrorhandler(updateMe));
@@ -83,7 +92,6 @@ module.exports = (app) => {
       restrict("super admin"),
       asyncErrorhandler(fetchAllUser)
     );
- 
 
   app.use("/api/user", router);
 };

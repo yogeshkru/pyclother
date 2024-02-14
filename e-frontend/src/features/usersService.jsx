@@ -56,7 +56,11 @@ const getAllUser = async function (data) {
 // **********************Authenticated User***********************//
 // updateuser-auth
 const userUpdate = async function (userdata) {
-  const response = await axios.patch(`${CONN.BASE_URL}user/update-user`,userdata,config);
+  const response = await axios.patch(
+    `${CONN.BASE_URL}user/update-user`,
+    userdata,
+    config
+  );
   if (response.data) {
     return response.data;
   }
@@ -69,13 +73,13 @@ const userdeleteme = async function (userdata) {
   }
 };
 
-const getUserProfile= async function(){
-  const response = await axios.get(`${CONN.BASE_URL}user/get-profile`,config)
+const getUserProfile = async function () {
+  const response = await axios.get(`${CONN.BASE_URL}user/get-profile`, config);
 
-  if(response.data){
-    return response.data
+  if (response.data) {
+    return response.data;
   }
-}
+};
 
 //getwishlist
 const getwishlist = async function (userData) {
@@ -106,19 +110,38 @@ const getUserCartProduct = async function () {
 };
 
 const userCartQuantity = async function (data) {
-
   const response = await axios.patch(
-    `${CONN.BASE_URL}cart/update-cartitem/${data?.cartItemId}`,{newQuantity:data?.quantity},config );
+    `${CONN.BASE_URL}cart/update-cartitem/${data?.cartItemId}`,
+    { newQuantity: data?.quantity },
+    config
+  );
   if (response.data) {
     return response.data;
   }
 };
 
-const userCartDelete = async function(id){
-  const response = await axios.delete(`${CONN.BASE_URL}cart/deletefromcart/${id}`,config)
-  if(response.data){
-    return response.data
+const userCartDelete = async function (id) {
+  const response = await axios.delete(
+    `${CONN.BASE_URL}cart/deletefromcart/${id}`,
+    config
+  );
+  if (response.data) {
+    return response.data;
   }
+};
+
+//Wishlist Post
+const wishListPost=async(id)=>{
+  const response=await axios.post(`${CONN.BASE_URL}product/addwishlist/${id}`,"",config)
+  return response.data
+
+}
+
+//Wishlist Get
+const wishListGet=async()=>{
+   const response= await axios.get(`${CONN.BASE_URL}user/getwishlist`,config)
+   
+   return response.data
 }
 
 const userDetails = {
@@ -129,10 +152,10 @@ const userDetails = {
   getAllUser,
   userCartDelete,
   userdeleteme,
-   userUpdate,
-   getUserProfile,
-
-
+  userUpdate,
+  getUserProfile,
+  wishListPost,
+  wishListGet,
   addToUserCart,
   getUserCartProduct,
   userCartQuantity,

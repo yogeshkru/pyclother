@@ -7,7 +7,7 @@ module.exports = (app) => {
 
   router
     .route("/create-order")
-    .post( asyncErrorHandler(createOrder));
+    .post(authenticateUser, asyncErrorHandler(createOrder));
   router
     .route("/get-myorder")
     .get(authenticateUser, asyncErrorHandler(getoneorder));

@@ -91,7 +91,7 @@ function Cart() {
             {userCartProduct &&
               userCartProduct?.map((item, index) => {
                 const { images, brand, name, color, model } =
-                  item?.productId[0];
+                  item?.productId;
                 const setColor = GetColorName(color);
                 return (
                   <div
