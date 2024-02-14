@@ -44,6 +44,7 @@ function Cart() {
         updateUserCartProductQuantity({
           cartItemId: productUpdateDetail?.cartItemId,
           quantity: productUpdateDetail?.quantity,
+          
         })
       );
     }

@@ -18,7 +18,6 @@ const ProductCard = function ({ data }) {
 
   const navigate = useNavigate();
   const { Whislistget } = useSelector((state) => state.users);
-  console.log(Whislistget)
 
   const [whishlistId, setwhishlistId] = useState([]);
 

@@ -5,7 +5,6 @@ import phone from "../assets/image/pngwing-4.png";
 import rupay from "../assets/image/pngwing.png";
 import visa from "../assets/image/pngwing-2.png";
 import pay from "../assets/image/Group 249.png";
-import women from "../assets/image/women.png";
 import {
   PostAddress,
   deleteUserAddress,
@@ -19,106 +18,9 @@ import CONN from "../utils/Url";
 import "../styles/Delivery_address.css";
 import axios from "axios";
 import { config } from "../utils/axiosConfig";
-import { postOrder,Reset_all } from "../features/order/orderSlice";
+import { postOrder, Reset_all } from "../features/order/orderSlice";
 
 function Delivery_address() {
-  // const [selectedLocation, setSelectedLocation] = useState(null);
-  // const dispatch = useDispatch();
-
-  // const { userAddress, getUserAddressSuccess } = useSelector(
-  //   (state) => state.userAddress
-  // );
-  // const { userCartProduct } = useSelector((state) => state.users);
-
-  // const [showForm, setFormTrue] = useState(false);
-  // const [totalAmount, setTotalAmount] = useState(0);
-  // useEffect(() => {
-  //   let timeOut = setTimeout(() => {
-  //     dispatch(getUserAddress());
-  //   }, 500);
-
-  //   return () => {
-  //     clearTimeout(timeOut);
-  //   };
-  // }, [getUserAddressSuccess]);
-
-  // useEffect(() => {
-  //   let sum = 0;
-  //   for (let index = 0; index < userCartProduct?.length; index++) {
-  //     sum =
-  //       sum +
-  //       Number(userCartProduct[index]?.cart_quantity) *
-  //         userCartProduct[index]?.cart_price;
-  //     setTotalAmount(sum);
-  //   }
-
-  //   let timeOut = setTimeout(() => {
-  //     dispatch(getUserCartProductFromServer());
-  //   }, 300);
-
-  //   return () => {
-  //     clearTimeout(timeOut);
-  //   };
-  // }, [userCartProduct]);
-
-  // const handleLocationChange = (event) => {
-  //   setSelectedLocation(event.target.value);
-  // };
-  // const locations = [
-  //   { id: 1, value: "Home" },
-  //   { id: 2, value: "Work" },
-  // ];
-
-  // const {
-  //   values,
-  //   errors,
-  //   handleBlur,
-  //   handleChange,
-  //   handleSubmit,
-  //   touched,
-  //   resetForm,
-  // } = useFormik({
-  //   initialValues: {
-  //     user_name: "",
-  //     user_phone: "",
-  //     address_pincode: "",
-  //     address_area: "",
-  //     address_city: "",
-  //     address_state: "",
-  //     address_country: "",
-  //     selectedLocation: selectedLocation,
-  //   },
-  //   validationSchema: Yup.object().shape({
-  //     user_name: Yup.string().required("name is required"),
-  //     user_phone: Yup.string().required("phone number is required"),
-  //     address_pincode: Yup.string().required("pincode is required"),
-  //     address_area: Yup.string().required("area is required"),
-  //     address_city: Yup.string().required("city is required"),
-  //     address_state: Yup.string().required("state is required"),
-  //     address_country:Yup.string().required("country is required")
-  //   }),
-  //   onSubmit: async (value) => {
-  //     dispatch(PostAddress(value));
-  //     resetForm();
-  //     navigate("/delivery-address");
-  //   },
-  // });
-
-  // const modalRef = useRef();
-  // const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
-  // const handleClickOutside = (e) => {
-  //   if (modalRef.current && !modalRef.current.contains(e.target)) {
-  //     handleClose();
-  //   }
-  // };
-  // useEffect(() => {
-  //   document.addEventListener("mousedown", handleClickOutside);
-
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, []);
 
   return (
     <>
@@ -147,14 +49,19 @@ const UpdateForm = () => {
   const { userAddress, getUserAddressSuccess } = useSelector(
     (state) => state.userAddress
   );
+  // *************************User cart *************************************//
 
   const { userCartProduct } = useSelector((state) => state.users);
-
+  const [userCart, setUserCart] = useState([]);
+  console.log(userCart)
+  // **********************************************************************
   const [totalAmount, setTotalAmount] = useState(0);
 
   useEffect(() => {
+    let cart = [];
     let sum = 0;
     for (let index = 0; index < userCartProduct?.length; index++) {
+      cart.push(userCartProduct[index]?.productId);
       sum =
         sum +
         Number(
@@ -163,6 +70,8 @@ const UpdateForm = () => {
         );
       setTotalAmount(sum);
     }
+
+    setUserCart(cart);
   }, [userCartProduct]);
 
   const [cartProduct, setCartProductState] = useState([]);
@@ -172,9 +81,9 @@ const UpdateForm = () => {
 
     for (let index = 0; index < userCartProduct?.length; index++) {
       items.push({
-        product: userCartProduct[index]?.productId?._id,
         quantity: userCartProduct[index]?.cart_quantity,
         price: userCartProduct[index]?.cart_price,
+        size: userCartProduct[index]?.size,
       });
     }
     setCartProductState(items);
@@ -262,19 +171,16 @@ const UpdateForm = () => {
         );
 
         setTimeout(() => {
-        
-
           dispatch(
             postOrder({
-              totalPrice: totalAmount,
+              order_totalPrice: totalAmount,
               order_total_Discount: totalAmount,
+              cartItem: userCart,
               orderItems: cartProduct,
               order_paymentInfo: result.data,
-              order_user_address:addressId
+              order_user_address: addressId,
             })
           );
-
-          dispatch(Reset_all())
         }, 3000);
       },
       prefill: {

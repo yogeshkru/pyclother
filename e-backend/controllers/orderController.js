@@ -11,9 +11,24 @@ class Order {
       
       order_paymentInfo,
       order_total_Discount,
-      orderItems
+      orderItems,
+      cartItem
     } = req.body;
     const { _id } = req.user;
+
+
+    // group cart items by shopId
+     const shopItemMap = new Map();
+
+     for(const item of cartItem){
+        const shopId = item?.shopId
+        if(!shopItemMap.has(shopId)){
+          shopItemMap.set(shopId,[])
+        }
+        shopItemMap.get(shopId)
+     }
+
+
 
     try {
       const order = await new orderModel({
@@ -23,7 +38,8 @@ class Order {
         order_totalPrice,
         order_total_Discount,
         order_paymentInfo,
-        orderItems
+        orderItems,
+        cartItem
       }).save();
 
       res.status(200).json({ order });

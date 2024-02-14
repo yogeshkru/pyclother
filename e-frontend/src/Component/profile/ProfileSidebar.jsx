@@ -142,7 +142,7 @@ const ProfilSidebar = ({ active, setActive }) => {
               Address
             </span>
           </div> */}
-
+{/* 
 <div
             className="d-flex align-items-center w-100 mb-4 cursor-pointer"
             onClick={() => setActive(3) }
@@ -158,18 +158,18 @@ const ProfilSidebar = ({ active, setActive }) => {
             >
               Query
             </span>
-          </div> 
+          </div>  */}
           <div
             className="d-flex align-items-center w-100 mb-4 cursor-pointer mt-3"
-            onClick={() => setActive(4) || logoutHandler() }
+            onClick={() => setActive(3) || logoutHandler() }
           >
             <AiOutlineLogin
               size={20}
-              className={active === 4 ? "text-danger" : ""}
+              className={active === 3 ? "text-danger" : ""}
             />
             <span
               className={`pl-3 ${
-                active === 4? "text-danger" : ""
+                active === 3? "text-danger" : ""
               } d-md-block d-none ms-2`}
             >
               Log out

@@ -226,15 +226,15 @@ function SingleProduct() {
                 </p>
 
                 <div className="d-flex gap-2">
-                  <div className="pt-1">{singleProduct?.totalrating}</div>
+                  {/* <div className="pt-1">{singleProduct?.totalrating}</div> */}
                   <div className="d-flex">
                     <ReactStars
-                      count={1}
+                      count={5}
                       size={24}
                       value={parseFloat(singleProduct?.totalrating) || 0} // Average rating value
                       activeColor="#ffd700"
                     ></ReactStars>
-                     <ReactStars
+                     {/* <ReactStars
                       count={1}
                       size={24}
                       value={parseFloat(singleProduct?.totalrating) || 0} // Average rating value
@@ -257,7 +257,7 @@ function SingleProduct() {
                       size={24}
                       value={parseFloat(singleProduct?.totalrating) || 0} // Average rating value
                       activeColor="#ffd700"
-                    ></ReactStars>
+                    ></ReactStars> */}
 
                   </div>
                   <div className="pt-1">
