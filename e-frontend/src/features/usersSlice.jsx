@@ -185,28 +185,34 @@ export const userCartDeleteProductFromServer = createAsyncThunk(
 );
 
 //Wishlist post
-export const wishListPostData=createAsyncThunk("auth/whislistPost",async(userData,thunkApi)=>{
-  try{
-    const response=await usersService.wishListPost(userData)
-    thunkApi.dispatch(wishListGetData())
-    return response
-  }catch(err){
-    toast.error(err?.response?.message?.message)
-    return thunkApi.rejectWithValue(err)
+export const wishListPostData = createAsyncThunk(
+  "auth/whislistPost",
+  async (userData, thunkApi) => {
+    try {
+      const response = await usersService.wishListPost(userData);
+      thunkApi.dispatch(wishListGetData());
+      return response;
+    } catch (err) {
+      toast.error(err?.response?.message?.message);
+      return thunkApi.rejectWithValue(err);
+    }
   }
-})
+);
 
-export const wishListGetData=createAsyncThunk("auth/whislistGet",async(_,thunkApi)=>{
-  try{
-    const response=await usersService.wishListGet()
-    
-    thunkApi.dispatch(getAllUserFromServer());
-    return response
-  }catch(err){
-    toast.error(err?.response?.message?.message)
-    return thunkApi.rejectWithValue(err)
+export const wishListGetData = createAsyncThunk(
+  "auth/whislistGet",
+  async (_, thunkApi) => {
+    try {
+      const response = await usersService.wishListGet();
+
+      thunkApi.dispatch(getAllUserFromServer());
+      return response;
+    } catch (err) {
+      toast.error(err?.response?.message?.message);
+      return thunkApi.rejectWithValue(err);
+    }
   }
-})
+);
 
 const inintialState = {
   Error: false,
@@ -215,12 +221,12 @@ const inintialState = {
   message: "",
   loaders: false,
   createUser: "",
-  userSignSuccess:"",
+  userSignSuccess: "",
   loginUser: "",
   userUpdatedetails: {},
   userProfile: {},
   userCartProduct: [],
-  Whislistget:[]
+  Whislistget: [],
 };
 
 export const usersSlice = createSlice({
@@ -237,7 +243,7 @@ export const usersSlice = createSlice({
         state.loaders = false;
         state.Success = action.payload?.status;
         state.createUser = action.payload;
-        state.userSignSuccess="signupSuccess"
+        state.userSignSuccess = "signupSuccess";
 
         if (state.Success) {
           toast.success(action.payload?.message?.message);
@@ -442,11 +448,11 @@ export const usersSlice = createSlice({
       .addCase(wishListGetData.pending, (state) => {
         state.loaders = true;
       })
-      .addCase(wishListGetData.fulfilled, (state,action) => {
+      .addCase(wishListGetData.fulfilled, (state, action) => {
         state.Error = false;
         state.Success = true;
         state.loaders = false;
-        state.Whislistget=action.payload.getBlog;
+        state.Whislistget = action.payload.getBlog;
       })
       .addCase(wishListGetData.rejected, (state, action) => {
         state.Error = true;

@@ -3,10 +3,11 @@ import React, { useEffect, useState } from "react";
 import "../styles/productcard.css";
 
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { MdOutlineClose } from "react-icons/md";
 
 import { CiHeart } from "react-icons/ci";
 import { wishListPostData } from "../features/usersSlice";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProduct } from "../features/product/productSlice";
 import CONN from "../utils/Url";
@@ -14,19 +15,13 @@ import CONN from "../utils/Url";
 import { TbHeartQuestion } from "react-icons/tb";
 
 const ProductCard = function ({ data }) {
-  
-
   const navigate = useNavigate();
   const { Whislistget } = useSelector((state) => state.users);
-  console.log(Whislistget)
-
+  
+  const location = useLocation();
   const [whishlistId, setwhishlistId] = useState([]);
-
-
   const dispatch = useDispatch();
   const handleWishlist = (i) => {
-   
-
     dispatch(wishListPostData(i));
   };
 
@@ -44,7 +39,7 @@ const ProductCard = function ({ data }) {
     return () => {
       clearTimeout(timeOut);
     };
-  }, [dispatch,Whislistget]);
+  }, [dispatch, Whislistget]);
 
   return (
     <>
@@ -57,17 +52,15 @@ const ProductCard = function ({ data }) {
           >
             <div className="productCard position-relative">
               <div className="productCard-wishlist-icon position-absolute">
-               
-
                 <div onClick={() => handleWishlist(item?._id)}>
-                  {whishlistId.includes(item._id) ? (
+                  {location.pathname === "/Whislist" ? (
+                    <MdOutlineClose />
+                  ) : whishlistId.includes(item._id) ? (
                     <AiFillHeart size={20} color="#df0067" />
                   ) : (
                     <TbHeartQuestion />
                   )}
                 </div>
-
-          
               </div>
               <div className="box">
                 <img
@@ -94,10 +87,6 @@ const ProductCard = function ({ data }) {
                 <h6 className="productCard-price mt-1 ms-2 fw-semibold">
                   {item?.price}
                 </h6>
-                {/* 
-                <button className="text-center d-flex addtobag rounded-2 text-white mx-auto p-2" style={{background:"#df0067"}}>
-                  Add to Wishlist
-                </button> */}
               </div>
             </div>
           </div>

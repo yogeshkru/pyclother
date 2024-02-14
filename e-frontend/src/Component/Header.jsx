@@ -15,12 +15,13 @@ import {
   wishListGetData,
   getUserProfileOnServer,
 } from "../features/usersSlice";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 function Header() {
   const [sidenavWidth, setSidenavWidth] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const isMobile = useMediaQuery({ maxWidth: 600 });
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const handleFont = {
     fontWeight: "bold",
     color: "#343434",
@@ -47,6 +48,16 @@ function Header() {
     dispatch(getUserProfileOnServer());
   }, [dispatch]);
 
+  useEffect(() => {
+   
+    const localUsers = JSON.parse(localStorage.getItem("user"));
+    if (localUsers && localUsers.token !== "") {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, [isLoggedIn]);
+
   const handleSearchChange = (e) => {
     const term = e.target.value;
     setSearchTerm(term);
@@ -66,17 +77,20 @@ function Header() {
 
   // *******************
 
-  const handleClick=()=>{
-    navigate("/Whislist")
-  }
-  const handleImage=()=>{
-    navigate("/")
-  }
-  const handleBag=()=>{
-    navigate("/stepper")
-  }
-  const handleProfile=()=>{
-    navigate("/profile")
+  const handleClick = () => {
+    navigate("/Whislist");
+  };
+  const handleImage = () => {
+    navigate("/");
+  };
+  const handleBag = () => {
+    navigate("/stepper");
+  };
+  const handleProfile = () => {
+    navigate("/profile");
+  };
+  const handleLogin=()=>{
+    navigate("/login")
   }
 
   return (
@@ -160,7 +174,11 @@ function Header() {
               <div className="row">
                 <div className="col-lg-3">
                   <div className="header_logo" onClick={handleImage}>
-                    <img src={logo} width="100%" onClick={()=>navigate("/")} />
+                    <img
+                      src={logo}
+                      width="100%"
+                      onClick={() => navigate("/")}
+                    />
                   </div>
                 </div>
                 <div className="col-lg-3">
@@ -510,40 +528,67 @@ function Header() {
                 </div>
                 <div className="col-lg-2 mt-1 ">
                   <div className="d-flex justify-content-between">
-                    <div className="d-flex flex-column text-center " onClick={handleProfile} style={{cursor:"pointer"}}>
-                    
-                      <FaRegUser
-                        style={{
-                          marginLeft: "10px",
-                          fontSize: "20px",
-                          color: "#343434",
-                        }}
-                      />
-                    
-                        <span style={handleFont}>Profile</span>
-                     
-                    </div>
-                    <div className="Header--wishlist">
-                      <div className="d-flex flex-column text-center ms-4" onClick={handleClick} style={{cursor:"pointer"}}>
-                      
-                          <FaRegHeart
-                            style={{ marginLeft: "10px", fontSize: "20px" }}
+                   
+                      {isLoggedIn ? (
+                         <div
+                         className="d-flex flex-column text-center "
+                         onClick={handleProfile}
+                         style={{ cursor: "pointer" }}
+                       >
+                          <FaRegUser
+                            style={{
+                              marginLeft: "10px",
+                              fontSize: "20px",
+                              color: "#343434",
+                            }}
                           />
 
-                          <div
-                            className={
-                              Whislistget.length > 0 ? "Header--wishlist1" : ""
-                            }
-                          >
-                            {Whislistget.length > 0 ? Whislistget.length : ""}
-                          </div>
-                      
+                          <span style={handleFont}>Profile</span>
+                        </div>
+                      ) : (
+                        <div
+                        className="d-flex flex-column text-center "
+                        onClick={handleLogin}
+                        style={{ cursor: "pointer" }}
+                      >
+                          <FaRegUser
+                            style={{
+                              marginLeft: "10px",
+                              fontSize: "20px",
+                              color: "#343434",
+                            }}
+                          />
+
+                          <span style={handleFont}>Login</span>
+                        </div>
+                      )}
+                 
+                    <div className="Header--wishlist">
+                      <div
+                        className="d-flex flex-column text-center ms-4"
+                        onClick={handleClick}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <FaRegHeart
+                          style={{ marginLeft: "10px", fontSize: "20px" }}
+                        />
+
+                        <div
+                          className={
+                            Whislistget.length > 0 ? "Header--wishlist1" : ""
+                          }
+                        >
+                          {Whislistget.length > 0 ? Whislistget.length : ""}
+                        </div>
 
                         <span style={handleFont}>Wishlist</span>
                       </div>
                     </div>
-                    <div className="d-flex flex-column text-center ms-4" onClick={handleBag} style={{cursor:"pointer"}}>
-
+                    <div
+                      className="d-flex flex-column text-center ms-4"
+                      onClick={handleBag}
+                      style={{ cursor: "pointer" }}
+                    >
                       <PiHandbagBold
                         style={{ marginLeft: "10px", fontSize: "20px" }}
                       />

@@ -183,9 +183,7 @@ function SingleProduct() {
                         src={`${CONN.IMAGE_URL}${item}`}
                         alt="product"
                         width="80px"
-                        // className={`rounded-3 ${
-                        //   selectedItemId === item ? "selected" : ""
-                        // }`}
+                       
                         onClick={() => setSelectImage(j)}
                       />
                     </div>
@@ -196,7 +194,7 @@ function SingleProduct() {
               <div>
                 <div className="ms-0">
                   <img
-                    // src={select[0]?.src ? select[0]?.src : details[0].src}
+                  
                     src={`${CONN.IMAGE_URL}${
                       singleProduct &&
                       singleProduct?.images &&
@@ -332,7 +330,7 @@ function SingleProduct() {
                         </p>
                       </div>
                     </div>
-                    {/* <div className="col-lg-1 col-1"></div> */}
+                
                     <div
                       className="col-lg-4 col-5 button2-background ms-3"
                       style={handleStyle}
@@ -349,7 +347,7 @@ function SingleProduct() {
 
                 <div className="singleproduct-product-info">
                   <h5 className="mt-5">PRODUCT DETAILS</h5>
-                  {/* <p className="pt-3">{singleProduct && singleProduct.color ? GetColorName(singleProduct.color) + '&nbsp;&nbsp;&nbsp;' + `${singleProduct.category}` : ""}</p> */}
+             
 
                   <p
                     className="pt-3"

@@ -6,13 +6,12 @@ import women_wear from "../assets/image/women_wear.png";
 import kids_wear from "../assets/image/Kids.png"
 import Marquee from "react-fast-marquee";
 import home_end from "../assets/image/end_of_season1.jpeg";
-import home from "../assets/image/home_carousel1.jpeg";
-import home1 from "../assets/image/home_carousel2.jpeg";
+
 import home_carousel1r from '../assets/image/home_carousel1r.png'
 import home_carousel2r from '../assets/image/home_carousel2r.png'
 import home_carouselbagr from '../assets/image/home_carouselbagr.png'
 import home_carousel3r from '../assets/image/home_carousel3r.png'
-import home_carousel4r from '../assets/image/home_carousel4r.png'
+
 import home_carousel5f from '../assets/image/home_carousel5f.png'
 
 

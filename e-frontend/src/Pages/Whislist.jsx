@@ -1,98 +1,39 @@
 import React from "react";
-import whislist from "../assets/image/whislist1.jpeg";
-import { Link } from "react-router-dom";
-import { IoMdClose } from "react-icons/io";
-import whislist1 from "../assets/image/whishlist2.jpeg";
-import whislist2 from "../assets/image/whislist3.jpeg";
 
+import { useLocation, useNavigate } from "react-router-dom";
+
+import whislist1 from "../assets/image/wishlist.jpeg";
+import { MdOutlineClose } from "react-icons/md";
+import { useSelector } from "react-redux";
+import URL from "../utils/Url";
+import ProductCard from "../Component/ProductCard";
 function Whislist() {
+  const { Whislistget } = useSelector((state) => state.users);
+  
+  const navigate=useNavigate()
   return (
     <div className="mt-3 pb-5 mb-5 ">
- 
       <div className="container mb-5 pb-5">
-      <h5 className="mt-5">My Wish list</h5>   
-        <div className="row mt-4">
-          <div className="col-lg-2 ">
-            <div class="card  ">
-              <div className="whislist_content_1">
-                <img src={whislist} class="card-img-top" alt="..." />
-                <div className="whislist_content_icon">
-                  <IoMdClose
-                    color="black"
-                    style={{
-                      fontSize: "18px",
-                      backgroundColor: "white",
-                      borderRadius: "20px",
-                    }}
-                  />
-                </div>
+        <h5 className="mt-5">
+          My Wishlist{" "}
+          <span style={{ color: "gray" }}>({Whislistget.length} items)</span>
+        </h5>
+      
+        <div className="row">
+          {Whislistget?.length > 0 ? (
+          
+            <ProductCard data={Whislistget}/>
+          ) : (
+            <div className="text-center">
+              <div className="w-25 m-auto">
+                <img src={whislist1} width="100%" />
               </div>
-              <div class="whislist_content">
-                <h5 class="card-title">US.POLO</h5>
-                <p class="card-text">Men 's Cotton Pure cotton T-shirts</p>
-                <p>Rs-499</p>
-              </div>
-              <hr className="whislist_horziation"/>
-              <div className="whislist_button">
-                <Link className="whislist_button_color">Add To Bag</Link>
-              </div>
+              <button style={{padding:"5px 20px",color:"white",backgroundColor:"#df0067",borderRadius:"14px"}} onClick={()=>navigate("/ourstore")}>Shop now</button>
             </div>
-          </div>
-          <div className="col-lg-2">
-            <div class="card">
-              <div className="whislist_content_1">
-                <img src={whislist2} class="card-img-top" alt="..." />
-                <div className="whislist_content_icon">
-                  <IoMdClose
-                    color="black"
-                    style={{
-                      fontSize: "18px",
-                      backgroundColor: "white",
-                      borderRadius: "20px",
-                    }}
-                  />
-                </div>
-              </div>
-              <div class="whislist_content">
-                <h5 class="card-title">US.POLO</h5>
-                <p class="card-text">Men 's Cotton Pure cotton T-shirts</p>
-                <p>Rs-499</p>
-              </div>
-              <hr className="whislist_horziation"/>
-              <div className="whislist_button">
-                <Link className="whislist_button_color">Add To Bag</Link>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-2">
-            <div class="card">
-              <div className="whislist_content_1">
-                <img src={whislist1} class="card-img-top" alt="..." />
-                <div className="whislist_content_icon">
-                  <IoMdClose
-                    color="black"
-                    style={{
-                      fontSize: "18px",
-                      backgroundColor: "white",
-                      borderRadius: "20px",
-                    }}
-                  />
-                </div>
-              </div>
-              <div class="whislist_content">
-                <h5 class="card-title">US.POLO</h5>
-                <p class="card-text">Men 's Cotton Pure cotton T-shirts</p>
-                <p>Rs-499</p>
-              </div>
-              <hr className="whislist_horziation"/>
-              <div className="whislist_button">
-                <Link className="whislist_button_color">Add To Bag</Link>
-              </div>
-            </div>
-          </div>
+          )}
         </div>
       </div>
-    </div >
+    </div>
   );
 }
 
