@@ -36,7 +36,6 @@ class orderitem {
             const orderItem_product_name = findProduct1.name;
             const orderItem_product_amount = findProduct1.price;
 
-            console.log(gstValue, orderItem_product_name, orderItem_product_amount, "newproduct")
 
    
 
@@ -78,7 +77,6 @@ class orderitem {
             if (billing_address_state === shipping_address_state) {
                 const cgstAmount = (cgst_percentage / 100) * totalPrice;
                 const sgstAmount = (sgst_percentage / 100) * totalPrice;
-                console.log(cgstAmount, "cgst")
                 newOrderItem.orderItem_product_cgst_percentage = cgst_percentage;
                 newOrderItem.orderItem_product_sgst_percentage = sgst_percentage;
                 newOrderItem.orderItem_product_cgst_value = cgstAmount;

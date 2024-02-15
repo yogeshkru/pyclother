@@ -185,7 +185,6 @@ class Addressdetails {
   //findone
   addressfind = async (req, res, next) => {
     const {_id} = req.user
-    console.log(_id)
     try {
       const addressFind = await addressModel.find({user_id:_id});
       if (!addressFind) {

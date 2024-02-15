@@ -19,9 +19,10 @@ import "../styles/Delivery_address.css";
 import axios from "axios";
 import { config } from "../utils/axiosConfig";
 import { postOrder, Reset_all } from "../features/order/orderSlice";
-
+import ProductCard from "../Component/ProductCard";
+import Address from "../assets/image/noAddress.png";
+import {Back} from "../features/stepper/StepperSlice"
 function Delivery_address() {
-
   return (
     <>
       <UpdateForm />
@@ -30,8 +31,10 @@ function Delivery_address() {
 }
 
 const UpdateForm = () => {
+  
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
+  const [detailsCategory, setDetailsCategory] = useState([]);
   const modalRef = useRef();
 
   const handleClose = () => setShow(false);
@@ -52,6 +55,7 @@ const UpdateForm = () => {
   // *************************User cart *************************************//
 
   const { userCartProduct } = useSelector((state) => state.users);
+  const { wholeProduct } = useSelector((state) => state.product);
   const [userCart, setUserCart] = useState([]);
   // **********************************************************************
   const [totalAmount, setTotalAmount] = useState(0);
@@ -71,6 +75,23 @@ const UpdateForm = () => {
     }
 
     setUserCart(cart);
+
+    let data = [];
+    for (let i = 0; i < userCartProduct?.length; i++) {
+      let categoryDetails = userCartProduct[i]?.category;
+      let DescriptionDetails = userCartProduct[i]?.description;
+      data.push({ categoryDetails, DescriptionDetails });
+    }
+    const filtered =
+      wholeProduct &&
+      wholeProduct.some((item) =>
+        data.some(
+          (userData) =>
+            userData.categoryDetails === item.category &&
+            userData.DescriptionDetails === item.description
+        )
+      );
+    setDetailsCategory(filtered);
   }, [userCartProduct]);
 
   const [cartProduct, setCartProductState] = useState([]);
@@ -222,7 +243,7 @@ const UpdateForm = () => {
       enableReinitialize: true,
       initialValues: {
         address_pincode: editeItem?.address_pincode || "",
-        // address_area:editeItem?.address_area || "",
+
         address_city: editeItem?.address_city || "",
         user_name: editeItem?.user_name || "",
         user_phone: editeItem?.user_phone || "",
@@ -258,7 +279,7 @@ const UpdateForm = () => {
     <div className="">
       <div className="container mt-3">
         <div className="row">
-          <div className="col-7">
+          <div className="col-lg-7 col-12 ">
             <div className=" row">
               <div className="mt-2 col-lg-5">
                 <h5 className="mb-0">Select Delivery Address</h5>
@@ -428,63 +449,79 @@ const UpdateForm = () => {
                 )}
               </div>
             </div>
-            {userAddress?.map((item, i) => (
-              <div className="mt-4 w-75" key={i}>
-                <div className="delviery_address_boxShow">
-                  <div className="row">
-                    <div className="col-lg-1">
-                      <input
-                        type="radio"
-                        checked={addressId === item._id}
-                        onChange={() => handleRadioClick(item._id)}
-                      />
-                    </div>
-                    <div className="col-lg-6">
-                      <div className="delivery_address_content12">
-                        <h6 className="delivery_address_color">
-                          {item?.user_name}
-                          <span className="delivery_address_home ms-3">
-                            {item?.place}
-                          </span>
-                        </h6>
-                        <div className="mt-3">
-                          <address>{item?.address_area}</address>
-                        </div>
-                        <div>
-                          Mobile:
-                          <span
-                            className="delviery_address_color ms-2 "
-                            style={{ color: "#6c757d" }}
-                          >
-                            {item?.user_phone}
-                          </span>
-                        </div>
-                        <div className="mt-2">
-                          <p>Pay on Delivery available</p>
+            {userAddress.length ? (
+              userAddress?.map((item, i) => (
+                <div className="mt-4 w-75" key={i}>
+                  <div className="delviery_address_boxShow">
+                    <div className="row">
+                      <div className="col-lg-1">
+                        <input
+                          type="radio"
+                          checked={addressId === item._id}
+                          onChange={() => handleRadioClick(item._id)}
+                        />
+                      </div>
+                      <div className="col-lg-6">
+                        <div className="delivery_address_content12">
+                          <h6 className="delivery_address_color">
+                            {item?.user_name}
+                            <span className="delivery_address_home ms-3">
+                              {item?.place}
+                            </span>
+                          </h6>
+                          <div className="mt-3">
+                            <address>{item?.address_area}</address>
+                          </div>
+                          <div>
+                            Mobile:
+                            <span
+                              className="delviery_address_color ms-2 "
+                              style={{ color: "#6c757d" }}
+                            >
+                              {item?.user_phone}
+                            </span>
+                          </div>
+                          <div className="mt-2">
+                            <p>Pay on Delivery available</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="col-lg-12">
-                      <div className="d-flex justify-content-end align-items-end gap-3 h-100">
-                        <button
-                          className="delivery_address_edite text-green"
-                          onClick={() => handleEdite(item._id)}
-                        >
-                          Edit
-                        </button>
-                        <span>|</span>
-                        <button
-                          className="delivery_address_edite text-danger"
-                          onClick={() => dispatch(deleteUserAddress(item?._id))}
-                        >
-                          Remove
-                        </button>
+                      <div className="col-lg-12">
+                        <div className="d-flex justify-content-end align-items-end gap-3 h-100">
+                          <button
+                            className="delivery_address_edite text-danger"
+                            onClick={() => handleEdite(item._id)}
+                          >
+                            Edit
+                          </button>
+                          <span>|</span>
+                          <button
+                            className="delivery_address_edite text-danger"
+                            onClick={() =>
+                              dispatch(deleteUserAddress(item?._id))
+                            }
+                          >
+                            Remove
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
+              ))
+            ) : (
+              <div className="mt-4">
+                <img src={Address} width="30%" />
+                <div className="mt-2">
+                  <h4>Please Add Address</h4>
+                </div>
               </div>
-            ))}
+            )}
+
+
+            <div className="mt-2">
+                 <button onClick={()=>dispatch(Back())} style={{padding:"7px 20px",backgroundColor:"#df0067",color:"white",borderRadius:"20px"}}>Back Page</button>
+            </div>
           </div>
 
           <div className="col-5 mt-4 ">
@@ -528,7 +565,7 @@ const UpdateForm = () => {
                 })}
               </div>
 
-              <div className="col-6">
+              <div className="col-lg-6 col-12">
                 <div className="mt-4">
                   <div className="payment_details">
                     <h6>Order Details</h6>
@@ -592,6 +629,10 @@ const UpdateForm = () => {
             <img src={pay} width="100%" alt="Pay" />
           </div>
         </div>
+      </div>
+
+      <div className="mt-3">
+        <ProductCard data={detailsCategory} />
       </div>
     </div>
   );

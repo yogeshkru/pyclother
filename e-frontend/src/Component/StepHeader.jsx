@@ -23,7 +23,7 @@ const steps = [
 const StepHeader = () => {
   const { currentStep } = useSelector((state) => state.step);
 
-  const navigate = useNavigate();
+ 
   const dispatch = useDispatch();
   const [totalAmount,setTotalAmount]=useState(0)
   const { userCartProduct } = useSelector((state) => state?.users);

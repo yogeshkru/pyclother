@@ -19,7 +19,6 @@ class PayMentMethod {
 
   paymentVerfication = async (req, res) => {
     const { razorpayOrderId, razorpayPaymentId } = req.body;
-console.log(razorpayOrderId,razorpayPaymentId)
     res.json({ razorpayOrderId, razorpayPaymentId }); 
   };
 }

@@ -26,6 +26,7 @@ import ProductCard from "../Component/ProductCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getOneProduct, getAllProduct } from "../features/product/productSlice";
 import Meta from "../Component/Meta";
+import { toast } from "react-toastify";
 
 function SingleProduct() {
   const [selectImage, setSelectImage] = useState(0);
@@ -33,6 +34,7 @@ function SingleProduct() {
     border: "1px solid black",
     padding: "10px",
     borderRadius: "14px",
+    cursor: "pointer",
   };
 
   // *********************************************************
@@ -42,7 +44,6 @@ function SingleProduct() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  
   const [sizeClick, setSizeClick] = useState(null);
   const [alreadyAdded, setAlreadyAdded] = useState(false);
 
@@ -50,10 +51,7 @@ function SingleProduct() {
   const [suggested, setSuggested] = useState([]);
 
   const handleSizeClick = (item) => {
-
-    setSizeClick(item)
-   
-
+    setSizeClick(item);
   };
   const { singleProduct, wholeProduct } = useSelector(
     (state) => state?.product
@@ -63,7 +61,7 @@ function SingleProduct() {
 
   useEffect(() => {
     for (let index = 0; index < userCartProduct?.length; index++) {
-      if (id ===   userCartProduct[index]?.productId?._id) {
+      if (id === userCartProduct[index]?.productId?._id) {
         setAlreadyAdded(true);
       }
     }
@@ -107,20 +105,19 @@ function SingleProduct() {
   }, [id]);
 
   const uploadProductCart = () => {
-    if(sizeClick ===null){
-      alert("Select the size")
+    if (sizeClick === null) {
+      toast.error("Please Select the Size");
 
-      return false
-    }else{
+      return false;
+    } else {
       dispatch(
         addUserProductToServer({
           productId: singleProduct?._id,
           price: singleProduct?.price,
-          size:sizeClick
+          size: sizeClick,
         })
       );
     }
-    
   };
 
   // ****************************************************************
@@ -182,9 +179,6 @@ function SingleProduct() {
                         src={`${CONN.IMAGE_URL}${item}`}
                         alt="product"
                         width="80px"
-                        // className={`rounded-3 ${
-                        //   selectedItemId === item ? "selected" : ""
-                        // }`}
                         onClick={() => setSelectImage(j)}
                       />
                     </div>
@@ -193,9 +187,8 @@ function SingleProduct() {
               </div>
 
               <div>
-                <div className="ms-0">
+                <div className="ms-0" >
                   <img
-                    // src={select[0]?.src ? select[0]?.src : details[0].src}
                     src={`${CONN.IMAGE_URL}${
                       singleProduct &&
                       singleProduct?.images &&
@@ -204,6 +197,7 @@ function SingleProduct() {
                         : ""
                     }`}
                     alt={singleProduct?.brand}
+                    id="image1"
                     width="400px"
                     height="550px"
                     className="singleproduct-main-image"
@@ -226,39 +220,13 @@ function SingleProduct() {
                 </p>
 
                 <div className="d-flex gap-2">
-                  {/* <div className="pt-1">{singleProduct?.totalrating}</div> */}
                   <div className="d-flex">
                     <ReactStars
                       count={5}
                       size={24}
-                      value={parseFloat(singleProduct?.totalrating) || 0} // Average rating value
+                      value={parseFloat(singleProduct?.totalrating) || 0}
                       activeColor="#ffd700"
                     ></ReactStars>
-                     {/* <ReactStars
-                      count={1}
-                      size={24}
-                      value={parseFloat(singleProduct?.totalrating) || 0} // Average rating value
-                      activeColor="#ffd700"
-                    ></ReactStars>
-                      <ReactStars
-                      count={1}
-                      size={24}
-                      value={parseFloat(singleProduct?.totalrating) || 0} // Average rating value
-                      activeColor="#ffd700"
-                    ></ReactStars>
-                      <ReactStars
-                      count={1}
-                      size={24}
-                      value={parseFloat(singleProduct?.totalrating) || 0} // Average rating value
-                      activeColor="#ffd700"
-                    ></ReactStars>
-                    <ReactStars
-                      count={1}
-                      size={24}
-                      value={parseFloat(singleProduct?.totalrating) || 0} // Average rating value
-                      activeColor="#ffd700"
-                    ></ReactStars> */}
-
                   </div>
                   <div className="pt-1">
                     ({singleProduct?.ratings?.length} Ratings)
@@ -271,23 +239,6 @@ function SingleProduct() {
                   </p>
                   <p className="text-success mt-1">{singleProduct?.tax}</p>
                 </div>
-                {/* <div className="d-flex gap-4 mt-3">
-                  <div className=" single_product_border singleProduct_size">
-                    <p>XS</p>
-                  </div>
-                  <div className=" single_product_border singleProduct_size1">
-                    <p>S</p>
-                  </div>
-                  <div className=" single_product_border singleProduct_size1">
-                    <p>M</p>
-                  </div>
-                  <div className=" single_product_border singleProduct_size1">
-                    <p>L</p>
-                  </div>
-                  <div className=" single_product_border singleProduct_size">
-                    <p>XL</p>
-                  </div>
-                </div> */}
 
                 <div className="row">
                   {separateSize?.map((item, i) => (
@@ -295,8 +246,7 @@ function SingleProduct() {
                       <div className="d-flex gap-1">
                         <input
                           type="radio"
-                          checked={sizeClick===item} 
-
+                          checked={sizeClick === item}
                           onClick={() => handleSizeClick(item)}
                         />
                         {item}
@@ -331,7 +281,7 @@ function SingleProduct() {
                         </p>
                       </div>
                     </div>
-                    {/* <div className="col-lg-1 col-1"></div> */}
+
                     <div
                       className="col-lg-4 col-5 button2-background ms-3"
                       style={handleStyle}
@@ -348,7 +298,6 @@ function SingleProduct() {
 
                 <div className="singleproduct-product-info">
                   <h5 className="mt-5">PRODUCT DETAILS</h5>
-                  {/* <p className="pt-3">{singleProduct && singleProduct.color ? GetColorName(singleProduct.color) + '&nbsp;&nbsp;&nbsp;' + `${singleProduct.category}` : ""}</p> */}
 
                   <p
                     className="pt-3"
@@ -377,9 +326,11 @@ function SingleProduct() {
             <p className="text-center fs-5 py-3">
               Shop More {singleProduct?.category}
             </p>
-            <div className="d-flex flex-wrap">
-              <ProductCard data={suggested} />
-            </div>
+            <a href="#image1" style={{ color: "black" }}>
+              <div className="d-flex flex-wrap">
+                <ProductCard data={suggested} />
+              </div>
+            </a>
           </div>
         </div>
       </section>

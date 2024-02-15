@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 
 import "../styles/productcard.css";
 
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart } from "react-icons/ai";
+import { MdOutlineClose } from "react-icons/md";
+
 
 import { CiHeart } from "react-icons/ci";
 import { wishListPostData } from "../features/usersSlice";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProduct } from "../features/product/productSlice";
 import CONN from "../utils/Url";
@@ -14,18 +16,13 @@ import CONN from "../utils/Url";
 import { TbHeartQuestion } from "react-icons/tb";
 
 const ProductCard = function ({ data }) {
-  
-
   const navigate = useNavigate();
   const { Whislistget } = useSelector((state) => state.users);
-
+  
+  const location = useLocation();
   const [whishlistId, setwhishlistId] = useState([]);
-
-
   const dispatch = useDispatch();
   const handleWishlist = (i) => {
-   
-
     dispatch(wishListPostData(i));
   };
 
@@ -43,30 +40,35 @@ const ProductCard = function ({ data }) {
     return () => {
       clearTimeout(timeOut);
     };
-  }, [dispatch,Whislistget]);
+  }, [dispatch, Whislistget]);
 
   return (
     <>
-      {data?.map((item, index) => {
+      {data && data?.map((item) => {
         const productName = item?.category?.replace(/\s+/g, "-");
         return (
           <div
-            key={index}
+            key={item._id}
             className="col-xl-2 col-lg-4 col-md-6 mt-3  productcard-mobile-view ms-4"
           >
             <div className="productCard position-relative">
               <div className="productCard-wishlist-icon position-absolute">
-               
-
                 <div onClick={() => handleWishlist(item?._id)}>
-                  {whishlistId.includes(item._id) ? (
-                    <AiFillHeart size={20} color="#df0067" />
+                  {location.pathname === "/Whislist" && whishlistId.includes(item._id) ? (
+                    <MdOutlineClose />
+                  )
+                  
+                  : whishlistId.includes(item._id) ? (
+                  
+                    <div style={{border:"1px solid white",borderRadius:"15px",padding:'2px 4px'}}>
+                    <AiFillHeart size={20} color="#df0067"/>
+                    </div>
                   ) : (
-                    <TbHeartQuestion />
+                    <div style={{border:"1px solid white",borderRadius:"15px",padding:'2px 4px'}}>
+                    <CiHeart size={20} />
+                    </div>
                   )}
                 </div>
-
-          
               </div>
               <div className="box">
                 <img
@@ -93,10 +95,6 @@ const ProductCard = function ({ data }) {
                 <h6 className="productCard-price mt-1 ms-2 fw-semibold">
                   {item?.price}
                 </h6>
-                {/* 
-                <button className="text-center d-flex addtobag rounded-2 text-white mx-auto p-2" style={{background:"#df0067"}}>
-                  Add to Wishlist
-                </button> */}
               </div>
             </div>
           </div>
