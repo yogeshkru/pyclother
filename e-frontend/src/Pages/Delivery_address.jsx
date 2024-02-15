@@ -53,7 +53,6 @@ const UpdateForm = () => {
 
   const { userCartProduct } = useSelector((state) => state.users);
   const [userCart, setUserCart] = useState([]);
-  console.log(userCart)
   // **********************************************************************
   const [totalAmount, setTotalAmount] = useState(0);
 
@@ -129,6 +128,16 @@ const UpdateForm = () => {
   };
 
   const checkOutHandler = async () => {
+
+
+    if(!addressId){
+      alert("Select Address")
+
+      return 
+      
+    }
+
+
     const res = await loadScript(
       "https://checkout.razorpay.com/v1/checkout.js"
     );
@@ -147,6 +156,8 @@ const UpdateForm = () => {
       alert("Something went wrong");
       return;
     }
+
+    
 
     const { amount, id: order_id, currency } = result?.data?.order;
     const options = {
@@ -170,18 +181,25 @@ const UpdateForm = () => {
           config
         );
 
-        setTimeout(() => {
-          dispatch(
-            postOrder({
-              order_totalPrice: totalAmount,
-              order_total_Discount: totalAmount,
-              cartItem: userCart,
-              orderItems: cartProduct,
-              order_paymentInfo: result.data,
-              order_user_address: addressId,
-            })
-          );
-        }, 3000);
+          
+        
+
+          setTimeout(() => {
+            dispatch(
+              postOrder({
+                order_totalPrice: totalAmount,
+                order_total_Discount: totalAmount,
+                cartItem: userCart,
+                orderItems: cartProduct,
+                order_paymentInfo: result.data,
+                order_user_address: addressId,
+              })
+            );
+          }, 3000);
+
+
+         
+       
       },
       prefill: {
         name: "VCW",
