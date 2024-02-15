@@ -26,7 +26,6 @@ function Forget() {
       }),
       onSubmit: (value) => {
         dispatch(userForget(value));
-        console.log(value);
       },
     });
   

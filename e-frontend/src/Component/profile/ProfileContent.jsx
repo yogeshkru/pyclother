@@ -36,6 +36,7 @@ const ProfileContent = ({ active }) => {
     },
     onSubmit: (value) => {
      dispatch(userUpdates(value))
+     setEdite(true)
     },
   });
   const handleEdite = () => {
@@ -105,6 +106,7 @@ const ProfileContent = ({ active }) => {
                 <button
                   type="submit"
                   className="border p-1 rounded-2 d-flex mx-auto mb-5"
+                
                 >
                   Submit
                 </button>
@@ -150,35 +152,7 @@ function AllOrders() {
   ];
 
   const data = [];
-  // for (let id = 0; id < couponGet.length; id++) {
-  //   data.push({
-  //     id: id + 1,
-  //     coupon: couponGet[id]?.coupon_name,
-  //     expired: new Date(couponGet[id]?.coupon_expired).toLocaleDateString(),
-  //     discount: couponGet[id]?.coupon_discount,
-
-  //     action: (
-  //       <>
-  //         <div className="d-flex">
-  //           <Link
-  //             style={{ marginRight: "10px" }}
-  //             className="mainlayout_icons"
-  //             onClick={() => handleEdite(couponGet[id]._id)}
-  //           >
-  //             <FiEdit />
-  //           </Link>
-  //           <Link>
-  //             <MdDelete
-  //               fontSize={15}
-  //               className="mainlayout_icons"
-  //               onClick={() => handleDelete(couponGet[id]._id)}
-  //             />
-  //           </Link>
-  //         </div>
-  //       </>
-  //     ),
-  //   });
-  // }
+  
   return (
     <>
       <div className="w-75">
@@ -196,7 +170,6 @@ const Query = () => {
     e.preventDefault();
 
     dispatch(Postenquiry(query));
-    console.log(query);
   };
   return (
     <>
@@ -216,7 +189,7 @@ const Query = () => {
 
               <div className="d-flex mx-auto">
                 <button type="submit" className="btn btn-secondary mt-2">
-                  Sumbmit
+                  Submit
                 </button>
               </div>
             </form>

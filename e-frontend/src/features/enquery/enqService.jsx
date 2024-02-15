@@ -7,10 +7,7 @@ import URL from "../../utils/Url";
 
 
 const Createenquiry = async (data) => {
-    const response = await axios.post(
-      `${URL.BASE_URL}enquiry/createEnquiry`,
-      data
-    );
+    const response = await axios.post(`${URL.BASE_URL}enquiry/createEnquiry`,data,config);
   
     if (response.data) {
       return response.data;

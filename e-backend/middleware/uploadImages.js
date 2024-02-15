@@ -29,24 +29,7 @@ const uploadPhoto = multer({
   limits: { fileSize: 2000000 },
 });
 
-// const productImage = async (req, res, next) => {
-//   if (!req.files) return next();
 
-//   const product = await Promise.all(
-//     req.files.map(async (file) => {
-//     //   const destinationPath = path.join(
-//     //     __dirname,
-//     //     "public",
-//     //     "product",
-//     //     file.filename
-//     //   );
-
-//     //   await fs.rename(file.path, destinationPath);
-//     //   return destinationPath;
-//     })
-//   );
-//   console.log(product);
-// };
 
 
 module.exports = { uploadPhoto };

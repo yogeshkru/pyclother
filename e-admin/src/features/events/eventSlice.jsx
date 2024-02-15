@@ -88,7 +88,6 @@ export const eventSlice = createSlice({
         state.isLoader = false;
         state.isSuccess = true;
         state.eventArray = action.payload;
-        console.log(action.payload);
       })
       .addCase(getEvent.rejected, (state, action) => {
         state.isError = true;

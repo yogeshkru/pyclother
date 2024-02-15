@@ -23,11 +23,18 @@ import { Step } from "../features/stepper/StepperSlice";
 
 function Cart() {
   const dispatch = useDispatch();
-  const navigate= useNavigate()
+  const navigate = useNavigate();
+  const [detailCategory, setdetailsCategory] = useState([]);
+  
 
   const { userCartProduct } = useSelector((state) => state.users);
+  const { wholeProduct } = useSelector((state) => state.product);
+
   const [productUpdateDetail, setProductUpdateDetail] = useState(null);
   const [totalAmount, setTotalAmount] = useState(0);
+  const handleReplace=()=>{
+    navigate(-1)
+  }
   useEffect(() => {
     let timeOut = setTimeout(() => {
       dispatch(getUserCartProductFromServer());
@@ -58,40 +65,57 @@ function Cart() {
           userCartProduct[index]?.cart_price;
       setTotalAmount(sum);
     }
+    let data = [];
+    for (let i = 0; i < userCartProduct?.length; i++) {
+      let userCategory = userCartProduct[i]?.productId?.category;
+      let userDescription = userCartProduct[i]?.productId?.description;
+      data.push({ userCategory, userDescription });
+    
+    }
+
+    let cartCategory = wholeProduct.filter((item) =>
+      data.some(
+        (userData) =>
+          userData.userCategory === item.category &&
+          userData.userDescription === item.description
+      )
+    );
+
+    setdetailsCategory(cartCategory);
   }, [userCartProduct]);
 
   return (
     <>
       <div>
         <section className="container">
-          <div className="d-flex py-4 ms-4">
+          <div className="d-flex pt-3 pb-3 gap-5">
+           <div>
+           <button style={{padding:"4px 20px",backgroundColor:"#df0067",color:"white",borderRadius:"20px"}} onClick={handleReplace}>Back to shop</button>
+           </div>
             <h4 className="mb-0" style={{ color: "#9867c5" }}>
               My Bag
+              <span className=" ms-2 fw-100  fs-5 mb-0 cart-total"
+              style={{ color: "#9867c5" }}> ({userCartProduct?.length} items)</span>
             </h4>
-            <p
-              className=" ms-2 fw-100  fs-5 mb-0 cart-total"
-              style={{ color: "#9867c5" }}
-            >
-              ({userCartProduct?.length} items)
-            </p>
+            
           </div>
+          
         </section>
       </div>
 
       <div className="container">
         <div className="row">
-          <div className="col-12">
+          <div className="col-12 mt-3">
             <div className="cart-header d-flex justify-content-between align-items-center">
-              <h4 className="cart-col-1 cart-text-color">Product</h4>
-              <h4 className="cart-col-2 cart-text-color">Price</h4>
-              <h4 className="cart-col-3 cart-text-color">Quantity</h4>
-              <h4 className="cart-col-4 cart-text-color">Total</h4>
+              <h5 className="cart-col-1 cart-text-color">Product</h5>
+              <h5 className="cart-col-2 cart-text-color">Price</h5>
+              <h5 className="cart-col-3 cart-text-color">Quantity</h5>
+              <h5 className="cart-col-4 cart-text-color">Total</h5>
             </div>
 
             {userCartProduct &&
               userCartProduct?.map((item, index) => {
-                const { images, brand, name, color, model } =
-                  item?.productId[0];
+                const { images, brand, name, color, model } = item?.productId;
                 const setColor = GetColorName(color);
                 return (
                   <div
@@ -161,7 +185,12 @@ function Cart() {
                         />
                       </div>
                       <div className="ms-2">
-                        <AiFillDelete className="text-danger fs-5" onClick={()=>dispatch(userCartDeleteProductFromServer(item?._id))}  />
+                        <AiFillDelete
+                          className="text-danger fs-5"
+                          onClick={() =>
+                            dispatch(userCartDeleteProductFromServer(item?._id))
+                          }
+                        />
                       </div>
                     </div>
                     <div className="cart-col-4">
@@ -187,11 +216,13 @@ function Cart() {
               <div className="d-flex flex-colunt align-item">
                 <button
                   className="cart-details-button"
-                  onClick={() => totalAmount ===0?navigate("/ourstore"): dispatch(Step())}
+                  onClick={() =>
+                    totalAmount === 0 ? navigate("/ourstore") : dispatch(Step())
+                  }
                 >
                   {
                     //  Procced
-                    totalAmount ===0 ?"Shop More":"Proceed"
+                    totalAmount === 0 ? "Shop More" : "Proceed"
                   }
                 </button>
               </div>
@@ -207,7 +238,7 @@ function Cart() {
           <div className="col-12">
             <p className="text-left fs-5 py-3 ms-3">You may also like:</p>
             <div className="d-flex flex-wrap">
-              <ProductCard />
+              <ProductCard data={detailCategory} />
             </div>
           </div>
         </div>

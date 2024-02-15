@@ -1,4 +1,4 @@
-import { useState,useContext } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "./App.css";
@@ -18,17 +18,28 @@ import Payment from "./Pages/Payment";
 import Whislist from "./Pages/Whislist";
 import Otp from "./Pages/Otp";
 import Signup from "./Pages/Signup";
-import Profile from "./Pages/Profile"
+import Profile from "./Pages/Profile";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { PrivateRoutes } from "./protect/PrivateRoutes";
+import {useNavigate} from "react-router-dom";
 import { OpenRoutes } from "./protect/OpenRoutes";
 import StepHeader from "./Component/StepHeader";
-
-
+import Pagenotfound from "./Pages/Pagenotfound";
 
 function App() {
- 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    
+    const localUsers = JSON.parse(localStorage.getItem("user"));
+    if (localUsers && localUsers.token !== "") {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
+
   return (
     <>
       <BrowserRouter>
@@ -40,28 +51,28 @@ function App() {
             <Route index element={<Home />} />
             <Route path="singleProduct/:name/:id" element={<SingleProduct />} />
 
-
-
-
             <Route path="Addtocart" element={<Cart />} />
             <Route path="delivery-address" element={<Delivery_address />} />
 
-
-            
             <Route path="ourstore" element={<OurStore />} />
 
-         
-            <Route path="stepper" element={<StepHeader />} />
-            {/* <Route path="cart" element={<Cart />} /> */}
-        
+            <Route path="stepper" element={
+              <PrivateRoutes>
+                <StepHeader />
+              </PrivateRoutes>
+            } />
+       
+
             <Route path="orderpalced" element={<Orderplaced />} />
             <Route path="Whislist" element={<Whislist />} />
-          
+
             <Route path="payment" element={<Payment />} />
-            
-            <Route path="profile" element={<Profile/>}/>
 
-
+            <Route path="profile" element={
+              <PrivateRoutes>
+                <Profile />
+              </PrivateRoutes>
+            } />
 
             <Route path="deliveryDetails" element={<DeliveryDetails />} />
           </Route>
@@ -89,9 +100,7 @@ function App() {
           {/* ***************Private Routes*************** */}
 
           {/* <Route path=""/> */}
-
-
-
+          <Route path="*" element={<Pagenotfound/>}/>
         </Routes>
 
         <ToastContainer

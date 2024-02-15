@@ -23,7 +23,7 @@ const steps = [
 const StepHeader = () => {
   const { currentStep } = useSelector((state) => state.step);
 
-  const navigate = useNavigate();
+ 
   const dispatch = useDispatch();
   const [totalAmount,setTotalAmount]=useState(0)
   const { userCartProduct } = useSelector((state) => state?.users);
@@ -51,10 +51,13 @@ for(let index=0;index<userCartProduct?.length;index++){
     switch (step) {
       case 1:
         return <Cart />;
+      // case 2:
+        // return <DeliveryDetails />;
       case 2:
-        return <DeliveryDetails />;
-      case 3:
         return <Delivery_address />;
+
+      case 3:
+        return   
     }
   }
   return (
@@ -68,15 +71,23 @@ for(let index=0;index<userCartProduct?.length;index++){
                   <span style={{ fontWeight: "bolder" }}>CART</span>
                 </StepLabel>
               </Step>
-              <Step>
+              {/* <Step>
                 <StepLabel>
                   <span style={{ fontWeight: "bolder" }}>DELIVERY DETAILS</span>
                 </StepLabel>
-              </Step>
+              </Step> */}
               <Step>
                 <StepLabel>
                   <span style={{ fontWeight: "bolder" }}>DELIVERY ADDRESS</span>
                 </StepLabel>
+
+              </Step>
+
+              <Step>
+                <StepLabel>
+                  <span style={{ fontWeight: "bolder" }}>ORDER PLACED</span>
+                </StepLabel>
+
               </Step>
             </Stepper>
           </div>

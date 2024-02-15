@@ -32,7 +32,6 @@ function Loginadmin() {
 
   }),
   onSubmit:(value)=>{
-    console.log(value)
   }
 
   })

@@ -6,13 +6,12 @@ import women_wear from "../assets/image/women_wear.png";
 import kids_wear from "../assets/image/Kids.png"
 import Marquee from "react-fast-marquee";
 import home_end from "../assets/image/end_of_season1.jpeg";
-import home from "../assets/image/home_carousel1.jpeg";
-import home1 from "../assets/image/home_carousel2.jpeg";
+
 import home_carousel1r from '../assets/image/home_carousel1r.png'
 import home_carousel2r from '../assets/image/home_carousel2r.png'
 import home_carouselbagr from '../assets/image/home_carouselbagr.png'
 import home_carousel3r from '../assets/image/home_carousel3r.png'
-import home_carousel4r from '../assets/image/home_carousel4r.png'
+
 import home_carousel5f from '../assets/image/home_carousel5f.png'
 
 
@@ -46,12 +45,17 @@ import home_details8 from "../assets/image/home_details2.jpeg";
 import home_details9 from "../assets/image/home_details1.jpeg";
 import delivery from "../assets/image/delviery.png";
 import exchange from "../assets/image/exchange.png";
+import {useNavigate} from "react-router-dom"
 function Home() {
+  const navigate=useNavigate()
   //slides
   const [data, setData] = useState(0);
 
   const [index, setIndex] = useState(0);
 
+  const handleSlides=()=>{
+     navigate("/ourstore")
+  }
   useEffect(() => {
     const intervalId = setInterval(() => {
       setIndex((prevIndex) => (prevIndex + 1) % 4);
@@ -81,7 +85,7 @@ function Home() {
     <>
     <div className=" container-fluid overflow-hidden">
     
-      <div className="home_carousel mt-auto">
+      <div className="home_carousel mt-auto " onClick={handleSlides}>
         {slides.map((item, i) => (
           <img
             key={i}
@@ -162,6 +166,7 @@ function Home() {
         id="carouselExampleDark"
         className="carousel carousel-dark slide"
         data-bs-ride="carousel"
+        onClick={handleSlides}
       >
         <div className="carousel-indicators">
           <button

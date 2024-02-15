@@ -62,7 +62,6 @@ const Gst = () => {
   const handleEdit = (i) => {
     const edits = getallGst.find((item) => item._id === i);
     setEdit(edits)
-    console.log(edits)
 
 
   }

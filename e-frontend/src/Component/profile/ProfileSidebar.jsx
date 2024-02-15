@@ -16,12 +16,11 @@ const ProfilSidebar = ({ active, setActive }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-
-  const logoutHandler =()=>{
-    localStorage.removeItem("user")
-    navigate("/")
- 
-  }
+  const logoutHandler = () => {
+    localStorage.removeItem("user");
+    navigate("/");
+    window.location.reload()
+  };
 
   return (
     <>
@@ -41,56 +40,7 @@ const ProfilSidebar = ({ active, setActive }) => {
             </span>
           </div>
 
-          {/* <div
-            className="d-flex align-items-center w-100 mb-4 cursor-pointer"
-            onClick={() => setActive(2)}
-          >
-            <HiOutlineShoppingBag
-              size={20}
-              className={active === 2 ? "text-danger" : ""}
-            />
-            <span
-              className={`pl-3 ${
-                active === 2 ? "text-danger" : ""
-              } d-md-block d-none`}
-            >
-              Orders
-            </span>
-          </div> */}
-
-          {/* <div
-            className="d-flex align-items-center w-100 mb-4 cursor-pointer"
-            onClick={() => setActive(3)}
-          >
-            <HiOutlineReceiptRefund
-              size={20}
-              className={active === 3 ? "text-danger" : ""}
-            />
-            <span
-              className={`pl-3 ${
-                active === 3 ? "text-danger" : ""
-              } d-md-block d-none`}
-            >
-              Refunds
-            </span>
-          </div> */}
-{/* 
-          <div
-            className="d-flex align-items-center w-100 mb-4 cursor-pointer"
-            onClick={() => setActive(4) || navigate("/inbox")}
-          >
-            <AiOutlineMessage
-              size={20}
-              className={active === 4 ? "text-danger" : ""}
-            />
-            <span
-              className={`pl-3 ${
-                active === 4 ? "text-danger" : ""
-              } d-md-block d-none`}
-            >
-              Inbox
-            </span>
-          </div> */}
+   
 
           <div
             className="d-flex align-items-center w-100 mb-4 cursor-pointer mt-3"
@@ -102,29 +52,14 @@ const ProfilSidebar = ({ active, setActive }) => {
             />
             <span
               className={`pl-3 ${
-                active === 2? "text-danger" : ""
+                active === 2 ? "text-danger" : ""
               } d-md-block d-none ms-2`}
             >
               Track Order
             </span>
           </div>
 
-          {/* <div
-            className="d-flex align-items-center w-100 mb-4 cursor-pointer mt-3"
-            onClick={() => setActive(3)}
-          >
-            <AiOutlineCreditCard
-              size={20}
-              className={active === 3 ? "text-danger" : ""}
-            />
-            <span
-              className={`pl-3 ${
-                active === 3 ? "text-danger" : ""
-              } d-md-block d-none`}
-            >
-              Payment Methods
-            </span>
-          </div> */}
+     
 
           {/* <div
             className="d-flex align-items-center w-100 mb-4 cursor-pointer mt-3"
@@ -145,7 +80,7 @@ const ProfilSidebar = ({ active, setActive }) => {
 
 <div
             className="d-flex align-items-center w-100 mb-4 cursor-pointer"
-            onClick={() => setActive(3) }
+            onClick={() => setActive(3)}
           >
             <AiOutlineMessage
               size={20}

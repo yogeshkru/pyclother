@@ -7,7 +7,6 @@ import DataTable from "react-data-table-component";
 function Customers() {
   const dispatch=useDispatch()
   const {getAllUser}=useSelector((state)=>state.superadmin)
-  console.log(getAllUser)
 
 
   useEffect(()=>{
