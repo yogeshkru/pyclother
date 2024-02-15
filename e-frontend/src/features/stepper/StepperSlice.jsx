@@ -11,9 +11,12 @@ export const StepperSlice=createSlice({
   reducers:{
     Step(state){
         state.currentStep+=1
+    },
+    Back(state){
+      state.currentStep-=1
     }
   }
 })
 
-export const {Step}=StepperSlice.actions;
+export const {Step,Back}=StepperSlice.actions;
 export default StepperSlice.reducer;

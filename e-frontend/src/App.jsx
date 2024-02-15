@@ -25,6 +25,7 @@ import { PrivateRoutes } from "./protect/PrivateRoutes";
 import {useNavigate} from "react-router-dom";
 import { OpenRoutes } from "./protect/OpenRoutes";
 import StepHeader from "./Component/StepHeader";
+import Pagenotfound from "./Pages/Pagenotfound";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -55,15 +56,23 @@ function App() {
 
             <Route path="ourstore" element={<OurStore />} />
 
-            <Route path="stepper" element={<StepHeader />} />
-            {/* <Route path="cart" element={<Cart />} /> */}
+            <Route path="stepper" element={
+              <PrivateRoutes>
+                <StepHeader />
+              </PrivateRoutes>
+            } />
+       
 
             <Route path="orderpalced" element={<Orderplaced />} />
             <Route path="Whislist" element={<Whislist />} />
 
             <Route path="payment" element={<Payment />} />
 
-            <Route path="profile" element={<Profile />} />
+            <Route path="profile" element={
+              <PrivateRoutes>
+                <Profile />
+              </PrivateRoutes>
+            } />
 
             <Route path="deliveryDetails" element={<DeliveryDetails />} />
           </Route>
@@ -91,6 +100,7 @@ function App() {
           {/* ***************Private Routes*************** */}
 
           {/* <Route path=""/> */}
+          <Route path="*" element={<Pagenotfound/>}/>
         </Routes>
 
         <ToastContainer

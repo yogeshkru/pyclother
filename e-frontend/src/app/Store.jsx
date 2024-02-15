@@ -3,12 +3,14 @@ import usersSlice from "../features/usersSlice";
 import productSlice from "../features/product/productSlice";
 import querySlice from "../features/enquery/enqSlice";
 import StepperSlice from "../features/stepper/StepperSlice";
+import userAddress from "../features/deliveryDetails/deliverySlice"
 export const store = configureStore({
   reducer: {
     users:usersSlice,
     product:productSlice,
     query:querySlice,
-    step:StepperSlice
+    step:StepperSlice,
+    userAddress:userAddress
 
   },
 });

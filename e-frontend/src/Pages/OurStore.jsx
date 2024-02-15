@@ -204,7 +204,7 @@ const OurStore = function () {
         </div>
       </section>
 
-      {/* "col-lg-3 col-12 ourStore-border-right " */}
+   
 
       <section className="container py-1 ourStore-border-top  ">
         <div className="row ">

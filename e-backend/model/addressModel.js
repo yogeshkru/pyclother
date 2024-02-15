@@ -18,17 +18,11 @@ const addressModel = new mongoose.Schema({
         enum: ['billing', 'shipping'],
         default: 'billing'
     },
-    address_area: {
+    place: {
         type: String,
         required: [true, "Area is required"]
     },
-    address_deliver:{
-        type:String,
-        enum:["home","work"],
-        required: [true, "location is required"],
-        default:"home"
-        
-    },
+   
     address_city: {
         type: String,
         required: [true, "City is required"]
@@ -44,6 +38,13 @@ const addressModel = new mongoose.Schema({
     address_pincode: {
         type: Number,
         required: [true, "Pincode is required"]
+    },
+    defaultAddress:{
+        type:Boolean
+    },
+    address_details:{
+        type:String,
+        required: [true, "Address Details is required"]
     }
 });
 

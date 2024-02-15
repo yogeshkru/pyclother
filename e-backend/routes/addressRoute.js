@@ -20,7 +20,7 @@ module.exports = (app) => {
     .route("/address-create")
     .post(authenticateUser, asyncErrorhandler(addressCreate));
   router
-    .route("address_patch_billing/:id")
+    .route("/address_patch_billing/:id")
     .patch(authenticateUser, asyncErrorhandler(addressUpdateBilling));
     router
     .route("address_patch_shipping/:id")

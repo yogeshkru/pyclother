@@ -110,7 +110,6 @@ function Colorlist() {
     Object.values(row).some(value =>
       value.toString().toLowerCase().includes(search.toLowerCase()))
   );
-  console.log(searchColor, "iuwhuiwgv")
   const handleEdite = (i) => {
     const findColor = getAllColor.find((item) => item._id === i);
     setEdite(findColor);

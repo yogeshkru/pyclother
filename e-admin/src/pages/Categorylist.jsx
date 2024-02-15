@@ -25,12 +25,10 @@ function Categorylist() {
   const[searchTerm,setSearch]=useState("");
   const dispatch = useDispatch();
   const { categoryGet } = useSelector((state) => state.category);
-  console.log(categoryGet);
 
   const handleEdite = (i) => {
     const categoryEdite = categoryGet.find((item) => item._id === i);
     setEdite(categoryEdite);
-    console.log(categoryEdite);
   };
   const handleDelete = (i) => {
     dispatch(categoryDeleteData(i));
@@ -84,7 +82,7 @@ function Categorylist() {
     Object.values(row).some(value=>
       value.toString().toLowerCase().includes(searchTerm.toLowerCase())
       )
-    ); console.log(searchTerm,"wefwee")
+    ); 
 
 
   const data = [];

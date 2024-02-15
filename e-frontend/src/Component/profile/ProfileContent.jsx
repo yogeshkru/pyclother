@@ -170,7 +170,6 @@ const Query = () => {
     e.preventDefault();
 
     dispatch(Postenquiry(query));
-    console.log(query);
   };
   return (
     <>
@@ -190,7 +189,7 @@ const Query = () => {
 
               <div className="d-flex mx-auto">
                 <button type="submit" className="btn btn-secondary mt-2">
-                  Sumbmit
+                  Submit
                 </button>
               </div>
             </form>

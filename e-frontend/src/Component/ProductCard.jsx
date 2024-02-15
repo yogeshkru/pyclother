@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 
 import "../styles/productcard.css";
 
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart } from "react-icons/ai";
 import { MdOutlineClose } from "react-icons/md";
+
 
 import { CiHeart } from "react-icons/ci";
 import { wishListPostData } from "../features/usersSlice";
@@ -43,22 +44,29 @@ const ProductCard = function ({ data }) {
 
   return (
     <>
-      {data?.map((item, index) => {
+      {data && data?.map((item) => {
         const productName = item?.category?.replace(/\s+/g, "-");
         return (
           <div
-            key={index}
+            key={item._id}
             className="col-xl-2 col-lg-4 col-md-6 mt-3  productcard-mobile-view ms-4"
           >
             <div className="productCard position-relative">
               <div className="productCard-wishlist-icon position-absolute">
                 <div onClick={() => handleWishlist(item?._id)}>
-                  {location.pathname === "/Whislist" ? (
+                  {location.pathname === "/Whislist" && whishlistId.includes(item._id) ? (
                     <MdOutlineClose />
-                  ) : whishlistId.includes(item._id) ? (
-                    <AiFillHeart size={20} color="#df0067" />
+                  )
+                  
+                  : whishlistId.includes(item._id) ? (
+                  
+                    <div style={{border:"1px solid white",borderRadius:"15px",padding:'2px 4px'}}>
+                    <AiFillHeart size={20} color="#df0067"/>
+                    </div>
                   ) : (
-                    <TbHeartQuestion />
+                    <div style={{border:"1px solid white",borderRadius:"15px",padding:'2px 4px'}}>
+                    <CiHeart size={20} />
+                    </div>
                   )}
                 </div>
               </div>

@@ -38,7 +38,6 @@ const duplicateKerHandler = function (err) {
 };
 
 const validationErrorHandler = (err) => {
-  console.log(err)
   const error = Object.values(err.errors).map((val) => val.message);
   const errorMessages = error.join(". ");
   const msg = `Invalid input data: ${errorMessages}`;

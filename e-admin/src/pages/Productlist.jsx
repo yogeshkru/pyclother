@@ -240,7 +240,6 @@ function Productlist() {
     try {
       await dispatch(deleletProductImageonserver(data,id));
     } catch (error) {
-      console.log(error);
     }
   };
   let productImageUrl = edite?.images;
@@ -248,7 +247,6 @@ function Productlist() {
   let handleImageDeleteArray = (url) => {
     const deleteImage = productImageUrl.find((data) => data?.url === url);
 
-    console.log(deleteImage);
     productImageUrl.splice(deleteImage, 1);
   };
   // ********************************************************

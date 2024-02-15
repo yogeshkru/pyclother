@@ -1059,3 +1059,29 @@ input[type="number"] {
   background-color: #df0067;
   color: white;
 }
+.wishlist-Box{
+  display: flex;
+  height: 100px;
+  width: 100px;
+  border: 1px solid black;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.wishlist-Box img{
+  padding: 10px;
+}
+.whislist-board{
+  height: 340px;
+  width: 300px;
+  display: flex;
+  margin: auto;
+}
+header {
+  
+
+  /* padding: 20px;  */
+  position: fixed;
+top: 0;
+  width: 100%;
+  z-index: 1111 ; 
+}

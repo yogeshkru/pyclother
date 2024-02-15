@@ -8,6 +8,8 @@ import HeadRoom from "react-headroom";
 import { useMediaQuery } from "react-responsive";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { BiSolidStore } from "react-icons/bi";
+
 import "../styles/Home.css";
 import { getAllProduct } from "../features/product/productSlice";
 import URL from "../../../e-admin/src/utilis/Url";
@@ -20,6 +22,7 @@ import { useNavigate } from "react-router-dom";
 function Header() {
   const [sidenavWidth, setSidenavWidth] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const {wholeProduct}=useSelector(state=>state.product)
   const isMobile = useMediaQuery({ maxWidth: 600 });
   const navigate = useNavigate();
   const handleFont = {
@@ -37,9 +40,8 @@ function Header() {
   const dispatch = useDispatch();
 
   // *********************Search funtionality***********************
-  const { wholeProduct } = useSelector((state) => state.product);
-  const { Whislistget } = useSelector((state) => state.users);
-  // console.log(y)
+  
+  const { Whislistget,userCartProduct } = useSelector((state) => state.users);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchData, setSeachData] = useState(null);
   useEffect(() => {
@@ -65,10 +67,10 @@ function Header() {
     const filteredProducts =
       wholeProduct &&
       wholeProduct?.filter((product) => {
-        return product.name.toLowerCase().includes(term.toLowerCase());
+        return product?.name.toLowerCase().includes(term.toLowerCase());
       });
 
-    const firstTenFilteredProducts = filteredProducts.slice(0, 10);
+    const firstTenFilteredProducts = filteredProducts.slice(0, 5);
 
     setSeachData(firstTenFilteredProducts);
   };
@@ -80,6 +82,10 @@ function Header() {
   const handleClick = () => {
     navigate("/Whislist");
   };
+  const handleStore = () => {
+    navigate("/ourstore");
+  };
+
   const handleImage = () => {
     navigate("/");
   };
@@ -168,7 +174,9 @@ function Header() {
           </div>
         </div>
       ) : (
-        <HeadRoom>
+        <HeadRoom >
+          {/* <header> */}
+          
           <div className="header_padding">
             <div className="container">
               <div className="row">
@@ -497,7 +505,7 @@ function Header() {
                                 <div className="d-flex py-3 justify-conten-between">
                                   <div>
                                     <img
-                                      src={`${URL.IMAGE_URL}${item?.images}`}
+                                      src={`${URL.IMAGE_URL}${item?.images[0]}`}
                                       alt={item?.name}
                                       style={{
                                         height: "30px",
@@ -526,8 +534,13 @@ function Header() {
                     ) : null}
                   </div>
                 </div>
-                <div className="col-lg-2 mt-1 ">
+                <div className="col-lg-1 mt-1 ">
+                  
                   <div className="d-flex justify-content-between">
+
+                
+
+                 
                    
                       {isLoggedIn ? (
                          <div
@@ -562,7 +575,51 @@ function Header() {
                           <span style={handleFont}>Login</span>
                         </div>
                       )}
+                        <div className="Header--wishlist">
+                      <div
+                        className="d-flex flex-column text-center ms-4"
+                        onClick={handleStore}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <BiSolidStore
+                          style={{ marginLeft: "10px", fontSize: "20px" }}
+                        />
+
+                        {/* <div
+                          className={
+                            Whislistget?.length > 0 ? "Header--wishlist1" : ""
+                          }
+                        >
+                          {Whislistget?.length > 0 ? Whislistget.length : ""}
+                        </div> */}
+
+                        <span style={handleFont}>Shop </span>
+                      </div>
+                    </div>
                  
+                    
+                    {/* <div className="Header--wishlist">
+                      <div
+                        className="d-flex flex-column text-center ms-4"
+                        onClick={handleClick}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <FaRegHeart
+                          style={{ marginLeft: "10px", fontSize: "20px" }}
+                        />
+
+                        <div
+                          className={
+                            Whislistget?.length > 0 ? "Header--wishlist1" : ""
+                          }
+                        >
+                          {Whislistget?.length > 0 ? Whislistget.length : ""}
+                        </div>
+
+                        <span style={handleFont}>Wishlist</span>
+                      </div>
+                    </div> */}
+
                     <div className="Header--wishlist">
                       <div
                         className="d-flex flex-column text-center ms-4"
@@ -575,32 +632,44 @@ function Header() {
 
                         <div
                           className={
-                            Whislistget.length > 0 ? "Header--wishlist1" : ""
+                            Whislistget?.length > 0 ? "Header--wishlist1" : ""
                           }
                         >
-                          {Whislistget.length > 0 ? Whislistget.length : ""}
+                          {Whislistget?.length > 0 ? Whislistget.length : ""}
                         </div>
 
                         <span style={handleFont}>Wishlist</span>
                       </div>
                     </div>
-                    <div
-                      className="d-flex flex-column text-center ms-4"
-                      onClick={handleBag}
-                      style={{ cursor: "pointer" }}
-                    >
-                      <PiHandbagBold
-                        style={{ marginLeft: "10px", fontSize: "20px" }}
-                      />
-                      <span style={{ marginLeft: "7px", fontWeight: "bold" }}>
-                        Bag
-                      </span>
+                 
+
+                    <div className="Header--wishlist">
+                      <div
+                        className="d-flex flex-column text-center ms-4"
+                        onClick={handleBag}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <PiHandbagBold
+                          style={{ marginLeft: "10px", fontSize: "20px" }}
+                        />
+
+                        <div
+                          className={
+                            userCartProduct.length > 0 ? "Header--wishlist1" : ""
+                          }
+                        >
+                          {userCartProduct.length > 0 ? userCartProduct.length : ""}
+                        </div>
+
+                        <span className="text-center fw-bold ps-1">Bag</span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          {/* </header> */}
         </HeadRoom>
       )}
     </div>
