@@ -84,12 +84,20 @@ const productSchema = new mongoose.Schema(
     meta_keyboard: String,
     tax:String,
     discount:String,
+    isDelete:{
+      type:Boolean,
+      default:true
+  },
+
+  
     fabric:String,
     material:String,
     fit:String,
     neck:String,
     sleeve:String
+  
   },
+  
 
   { timestamps: true }
 );

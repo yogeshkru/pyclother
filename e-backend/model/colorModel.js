@@ -28,8 +28,15 @@ const colorSchema = new mongoose.Schema(
             type:Number,
            
             
-          }
+          },
+          isDelete:{
+            type:Boolean,
+            default:true
+        
+        },
+        
     }
+    
 );
 
 

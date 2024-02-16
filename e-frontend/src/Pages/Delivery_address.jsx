@@ -21,7 +21,7 @@ import { config } from "../utils/axiosConfig";
 import { postOrder, Reset_all } from "../features/order/orderSlice";
 import ProductCard from "../Component/ProductCard";
 import Address from "../assets/image/noAddress.png";
-import {Back} from "../features/stepper/StepperSlice"
+import { Back } from "../features/stepper/StepperSlice";
 function Delivery_address() {
   return (
     <>
@@ -31,7 +31,6 @@ function Delivery_address() {
 }
 
 const UpdateForm = () => {
-  
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const [detailsCategory, setDetailsCategory] = useState([]);
@@ -48,7 +47,6 @@ const UpdateForm = () => {
   const [place, setPlace] = useState("");
   const [editeItem, setEditeItem] = useState(null);
 
-  
   const { userAddress, getUserAddressSuccess } = useSelector(
     (state) => state.userAddress
   );
@@ -64,7 +62,14 @@ const UpdateForm = () => {
     let cart = [];
     let sum = 0;
     for (let index = 0; index < userCartProduct?.length; index++) {
-      cart.push(userCartProduct[index]?.productId);
+      // console.log(userCartProduct[index]?.)
+
+      cart.push({
+        cartProductId: userCartProduct[index]?.productId?._id,
+        cart_price: userCartProduct[index]?.cart_price,
+
+        cart_quantity: userCartProduct[index]?.cart_quantity,
+      });
       sum =
         sum +
         Number(
@@ -72,19 +77,21 @@ const UpdateForm = () => {
             userCartProduct[index]?.cart_price
         );
       setTotalAmount(sum);
+      console.log(cart);
     }
 
     setUserCart(cart);
 
     let data = [];
     for (let i = 0; i < userCartProduct?.length; i++) {
-      let categoryDetails = userCartProduct[i]?.category;
-      let DescriptionDetails = userCartProduct[i]?.description;
+      let categoryDetails = userCartProduct[i]?.productId?.category;
+      let DescriptionDetails = userCartProduct[i]?.productId?.description;
       data.push({ categoryDetails, DescriptionDetails });
     }
+
     const filtered =
       wholeProduct &&
-      wholeProduct.some((item) =>
+      wholeProduct.filter((item) =>
         data.some(
           (userData) =>
             userData.categoryDetails === item.category &&
@@ -149,6 +156,12 @@ const UpdateForm = () => {
   };
 
   const checkOutHandler = async () => {
+    if (!addressId) {
+      alert("Select Address");
+
+      return;
+    }
+
     const res = await loadScript(
       "https://checkout.razorpay.com/v1/checkout.js"
     );
@@ -499,9 +512,18 @@ const UpdateForm = () => {
               </div>
             )}
 
-
             <div className="mt-2">
-                 <button onClick={()=>dispatch(Back())} style={{padding:"7px 20px",backgroundColor:"#df0067",color:"white",borderRadius:"20px"}}>Back Page</button>
+              <button
+                onClick={() => dispatch(Back())}
+                style={{
+                  padding: "7px 20px",
+                  backgroundColor: "#df0067",
+                  color: "white",
+                  borderRadius: "20px",
+                }}
+              >
+                Back Page
+              </button>
             </div>
           </div>
 
@@ -612,7 +634,7 @@ const UpdateForm = () => {
         </div>
       </div>
 
-      <div className="mt-3">
+      <div className="mt-3 d-flex flex-wrap">
         <ProductCard data={detailsCategory} />
       </div>
     </div>

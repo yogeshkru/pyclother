@@ -12,7 +12,8 @@ const GSTSchema = new mongoose.Schema({
     },
     isdeleted:{
         type:Boolean,
-        default:0
+        default:true
     }
+
 })
 module.exports = mongoose.model("Tbl_gst", GSTSchema);

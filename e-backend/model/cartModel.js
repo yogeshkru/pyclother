@@ -29,7 +29,14 @@ const cartSchema = new mongoose.Schema(
     cart_three_delivery_data: {
       type: String,
     },
+    isDelete:{
+      type:Boolean,
+      default:true
+  
   },
+  
+  },
+
 
   {
     timestamps: true,

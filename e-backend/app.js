@@ -29,10 +29,6 @@ if (process.env.NODE_ENV == "development") {
 // *****************Third part liberary****************
 // app.use(helmet());
 
-
-
-
-
 app.use(cors());
 
 // app.use("/public", cors()); // Assuming images are served from the "/public" route
@@ -49,7 +45,23 @@ app.use(xss());
 
 // prevent parameter pollution
 app.use(
-  hpp({ whitelist: ["brand", "quantity", "ratings", "price", "createdAt"] })
+  hpp({
+    whitelist: [
+      "brand",
+      "quantity",
+      "ratings",
+      "price",
+      "createdAt",
+      "description",
+      "color",
+      "length",
+      "fabric",
+      "fit",
+      "neck",
+      "sleeve",
+      "length"
+    ],
+  })
 );
 
 app.use(express.static(path.join(__dirname, "public")));

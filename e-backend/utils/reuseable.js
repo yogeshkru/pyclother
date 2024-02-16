@@ -3,6 +3,7 @@ class Apifeatures {
     this.query = query;
     this.queryStr = queryStr;
     this.queryObj = { ...this.queryStr };
+
   }
   excludes() {
     const exculdeFields = ["page", "sort", "limit", "fields"];
@@ -21,11 +22,38 @@ class Apifeatures {
 
   sort() {
     if (this.queryStr.sort) {
+      console.log(this.queryStr.sort);
       const sortBy = this.queryStr.sort.split(",").join(" ");
       this.query = this.query.sort(sortBy);
     } else {
       this.query = this.query.sort("-createdAt");
     }
+    return this;
+  }
+
+  search() {
+    const searchFields = [
+      "name",
+      "category",
+      "brand",
+      "description",
+      "color",
+      "length",
+      "fabric",
+      "fit",
+      "neck",
+      "sleeve",
+      "size",
+    ];
+
+    searchFields.forEach((fields) => {
+      if (this.queryStr[fields]) {
+        this.query = this.query.find({
+          [fields]: { $regex: this.queryStr[fields], $options: "i" },
+        });
+      }
+    });
+
     return this;
   }
   limitFields() {
@@ -37,8 +65,6 @@ class Apifeatures {
     }
     return this;
   }
-
-
 
   paginate() {
     const page = this.queryStr.page * 1 || 1;

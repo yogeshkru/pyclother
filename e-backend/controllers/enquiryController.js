@@ -11,14 +11,13 @@ class EnquiryController {
     try {
       let { _id } = req.user
 
+    // const {queryData} = req.body;
 
-    const queryData = req.body;
+    // queryData.user_id = _id
+      const newEnquiry = await enquiryModel.create({
 
-    queryData.user_id = _id
-      const newEnquiry = await enquiryModel.create(
-
-        queryData
-      );
+        ...req.body,user_id:_id
+    });
       res.status(201).json({ newEnquiry });
     } catch (error) {
       next(new CustomError(error.message, 500));

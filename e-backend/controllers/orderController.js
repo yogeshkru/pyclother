@@ -1,52 +1,61 @@
 const orderModel = require("../model/orderModel");
 const CustomError = require("../utils/customError");
+const productModel = require("../model/productModel")
 
 class Order {
   createOrder = async (req, res, next) => {
-    const {
-      // user_name,
-      order_user_address,
-
-      order_totalPrice,
-      
-      order_paymentInfo,
-      order_total_Discount,
-      orderItems,
-      cartItem
-    } = req.body;
-    const { _id } = req.user;
-
-
-    // group cart items by shopId
-     const shopItemMap = new Map();
-
-     for(const item of cartItem){
-        const shopId = item?.shopId
-        if(!shopItemMap.has(shopId)){
-          shopItemMap.set(shopId,[])
-        }
-        shopItemMap.get(shopId)
-     }
-
-
-
     try {
-      const order = await new orderModel({
-        order_user: _id,
-
+      const {
+        // user_name,
         order_user_address,
-        order_totalPrice,
-        order_total_Discount,
-        order_paymentInfo,
-        orderItems,
-        cartItem
-      }).save();
 
-      res.status(200).json({ order });
+        order_totalPrice,
+
+        order_paymentInfo,
+        order_total_Discount,
+        cartItem,
+      } = req.body;
+      const { _id } = req.user;
+
+      // cartItem is [array] which comes from frontend*********************************$in to extract the product by id 
+      
+      const products = await productModel.find({ _id: { $in: cartItem } });
+
+      // group cart items by shopId
+      const shopItemMap = new Map();
+         
+      for (const item of products) {
+
+        const shopId = item?.shopId;
+        if (!shopItemMap.has(shopId)) {
+          shopItemMap.set(shopId, []);
+        }
+        shopItemMap.get(shopId).push(item);
+      }
+
+      
+      const orders = [];
+
+      for (const [shopId, items] of shopItemMap) {
+
+        // const totalPrice = items.reduce((acc,curr)=>acc+curr.)
+        const order = await orderModel.create({
+          cartItem: items,
+          order_user_address,
+          order_totalPrice,
+          order_paymentInfo,
+          order_total_Discount,
+          order_user:_id
+        });
+        orders.push(order);
+      }
+
+      res.status(200).json({ orders });
     } catch (error) {
       next(new CustomError(error.message, 400));
     }
   };
+  
 
   async getoneorder(req, res, next) {
     const { id } = req.params;

@@ -35,6 +35,12 @@ let blogSchema = new mongoose.Schema(
       type: String,
       default: "Admin",
     },
+    isDelete:{
+      type:Boolean,
+      default:true
+  
+  },
+  
   },
   { timestamps: true }
 );

@@ -48,7 +48,13 @@ const orderItemSchema = new mongoose.Schema({
     },
     orderItem_product_price:{
         type:Number
-    }
-})
+    },
+    isDelete:{
+        type:Boolean,
+        default:true
+    
+    },
+    
+},{timestamps:true})
 module.exports = mongoose.model("Tbl_orderItem",orderItemSchema);
 

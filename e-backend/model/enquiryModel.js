@@ -16,6 +16,12 @@ const enquirySchema = new mongoose.Schema(
         values: ["Submitted", "Contacted", "In Progress", "Resolved"],
       },
     },
+    isDelete:{
+      type:Boolean,
+      default:true
+  
+  },
+  
   },
   {
     timestamps: true,
