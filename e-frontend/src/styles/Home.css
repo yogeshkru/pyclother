@@ -1,7 +1,4 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
-
-
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap");
 
 .header--search {
   position: relative;
@@ -37,10 +34,24 @@
   border-radius: 0 !important;
   border-bottom: 5px solid var(--KIDS--COLOR) !important;
 }
-input[type="radio"] {
+/* input[type="radio"] {
   width: 20px;
   height: 20px;
   accent-color: #df0067;
+} */
+.radio--design {
+  display: none !important;
+}
+
+.radio-button_design {
+  padding: 10px 15px;
+  border: 2px solid gray;
+  border-radius: 50%;
+  font-size: 20px;
+}
+
+input[type="radio"]:checked + .label-1 {
+  border: 2px solid #df0067;
 }
 
 .header__input--search {
@@ -221,18 +232,16 @@ li {
   border-radius: 20px;
 }
 .payment_details {
-  border: 2px dashed #9E9E9E;
+  border: 2px dashed #9e9e9e;
   padding: 10px 20px;
   border-radius: 20px;
   margin-top: 20px;
-
-
 }
-.payment_row_margin{
+.payment_row_margin {
   margin: 0 !important;
- 
-  border-top: 2px solid #DEDEDE;
-  border-bottom: 2px solid #DEDEDE;
+
+  border-top: 2px solid #dedede;
+  border-bottom: 2px solid #dedede;
 }
 .home_rating_content {
   overflow: hidden;
@@ -332,7 +341,7 @@ li {
 }
 .home_indicator_active {
   background-color: white;
-  box-shadow: 0px 0px 5px #555;   
+  box-shadow: 0px 0px 5px #555;
 }
 
 p {
@@ -350,7 +359,6 @@ p {
 
 .home_geniune_product1 {
   padding: 20px;
- 
 }
 .home_geniune_product_img {
   width: 20%;
@@ -418,7 +426,7 @@ p {
   min-height: 120px;
   border-radius: 20px;
 }
-.home_mens--total{
+.home_mens--total {
   margin: 0 !important;
 }
 .home_mens--upto1 {
@@ -471,48 +479,46 @@ p {
 
   transform: skewX(15deg) rotate(-1deg);
 }
-.delivery_address_1{
+.delivery_address_1 {
   margin-left: 0 !important;
   margin-right: 0 !important;
   padding-right: 0 !important;
   padding-left: 0 !important;
   border: 1px solid black;
-  border-top: 2px solid #DEDEDE;
-  border-bottom: 2px solid #DEDEDE;
-
+  border-top: 2px solid #dedede;
+  border-bottom: 2px solid #dedede;
 }
-.Delivery_address_border{
-  border-left: 2px solid #DEDEDE;
+.Delivery_address_border {
+  border-left: 2px solid #dedede;
 }
-.delivery_address_edite{
-  background:transparent;
+.delivery_address_edite {
+  background: transparent;
   font-size: 14px;
 }
-.delivery_address_image{
+.delivery_address_image {
   width: 15%;
 }
-.delviery_address_color{
+.delviery_address_color {
   color: #111;
   font-weight: 700;
 }
-.delviery_address_boxShow{
+.delviery_address_boxShow {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-   padding: 40px;
-   border-radius: 15px;
+  padding: 40px;
+  border-radius: 15px;
 }
-.delivery_address_content12{
+.delivery_address_content12 {
   font-size: 14px;
-  color:#7D7D7D ;
+  color: #7d7d7d;
 }
-.delivery_address_home{
-  border:1px solid green;
+.delivery_address_home {
+  border: 1px solid green;
   font-size: 10px;
   padding: 1px 15px;
   border-radius: 10px;
   color: green;
-  
 }
-.delivery_address_button{
+.delivery_address_button {
   padding: 10px 12px;
   border-radius: 15px;
   outline: none;
@@ -605,16 +611,11 @@ p {
 @keyframes marqueeAnimation {
   0% {
     transform: translateX(-100%);
-
   }
   100% {
-    transform: translateX(100%); 
+    transform: translateX(100%);
   }
 }
-
-
-
-
 
 .rfm-marquee-container {
   overflow: hidden;
@@ -671,8 +672,8 @@ p {
   text-align: center;
   margin-top: 10px;
   color: white;
-  
-  font-family: 'Cinzel', serif;
+
+  font-family: "Cinzel", serif;
 }
 .home_total_details {
   margin: 40px 0px !important;
@@ -815,7 +816,6 @@ input[type="number"] {
 
 .login_font_padding {
   padding: 40px;
-  ;
 }
 .deliverydetails_input_fild {
   border: 1px solid black;
@@ -827,10 +827,10 @@ input[type="number"] {
 }
 .delviery_details_row {
   margin: 0 !important;
-  border-top: 2px solid #DEDEDE;
-  border-bottom: 2px solid #DEDEDE;
+  border-top: 2px solid #dedede;
+  border-bottom: 2px solid #dedede;
 }
-.delivery-address_fluid{
+.delivery-address_fluid {
   z-index: 11111 !important;
 }
 
@@ -850,7 +850,7 @@ input[type="number"] {
 .otp_page_padding {
   padding-top: 7%;
 }
-.delivery-details_button{
+.delivery-details_button {
   padding: 15px 20px;
   width: 100%;
   background-color: #df0067;
@@ -989,7 +989,7 @@ input[type="number"] {
   .otp_page_padding {
     padding-top: 80px !important;
   }
-  .delivery-address-overlay1{
+  .delivery-address-overlay1 {
     width: 80% !important;
   }
 }
@@ -999,12 +999,11 @@ input[type="number"] {
   }
 }
 
+.delivery-address-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
 
-.delivery-address-overlay{
- position: absolute;
-  top:0;
-  left:0;
- 
   width: 100%;
   height: 100%;
   z-index: 1111 !important;
@@ -1012,7 +1011,7 @@ input[type="number"] {
   justify-content: center;
   align-items: start;
 }
-.delivery-address-overlay1{
+.delivery-address-overlay1 {
   margin-top: 20px;
   background-color: #fff;
   padding: 20px;
@@ -1020,46 +1019,45 @@ input[type="number"] {
   width: 28%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
-.close-modal-btn{
+.close-modal-btn {
   background: none;
   font-size: 30px;
 }
-.delivery_address-modal-btn{
-  background:none;
+.delivery_address-modal-btn {
+  background: none;
   margin-top: 5px;
   padding: 5px 15px;
   border: 1px solid black;
   border-radius: 14px;
 }
-.delivery-details_button1{
+.delivery-details_button1 {
   width: 100%;
   background-color: #df0067;
   padding: 10px 10px;
   border-radius: 15px;
   color: white;
 }
-.delivery-details_buttons{
-
+.delivery-details_buttons {
   background-color: #df0067;
   padding: 10px 10px;
   border-radius: 15px;
   color: white;
 }
-.Header--wishlist{
+.Header--wishlist {
   position: relative;
 }
-.Header--wishlist1{
+.Header--wishlist1 {
   position: absolute;
   top: -10px;
-  left:50px;
-  height:25px;
+  left: 50px;
+  height: 25px;
   border: 1px solid #df0067;
-  padding:0px 5px;
+  padding: 0px 5px;
   border-radius: 20px;
   background-color: #df0067;
   color: white;
 }
-.wishlist-Box{
+.wishlist-Box {
   display: flex;
   height: 100px;
   width: 100px;
@@ -1067,21 +1065,19 @@ input[type="number"] {
   border-radius: 12px;
   cursor: pointer;
 }
-.wishlist-Box img{
+.wishlist-Box img {
   padding: 10px;
 }
-.whislist-board{
+.whislist-board {
   height: 340px;
   width: 300px;
   display: flex;
   margin: auto;
 }
 header {
-  
-
   /* padding: 20px;  */
   position: fixed;
-top: 0;
+  top: 0;
   width: 100%;
-  z-index: 1111 ; 
+  z-index: 1111;
 }

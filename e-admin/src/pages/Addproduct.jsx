@@ -1,8 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
 
-
-
-
 import { colorgets } from "../features/color/colorSlice";
 import { brandGets } from "../features/brandSlice";
 import { categoryGetData } from "../features/category/categorySlice";
@@ -16,7 +13,7 @@ import SERVERURL from "../utilis/Url";
 import "dropify/dist/css/dropify.min.css";
 import { IoIosAddCircleOutline } from "react-icons/io";
 
-import { useParams,useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   productUpdateOnServer,
   postProductOnServer,
@@ -31,7 +28,7 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 
 function Addproduct() {
   const dispatch = useDispatch();
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const { id } = useParams();
   const sizeData = ["XS", "S", "M", "L", "XL", "XXL"];
   const [selectedSizes, setSelectedSizes] = useState([]);
@@ -117,7 +114,7 @@ function Addproduct() {
         rewardpoint: data?.rewardpoint || "",
         sort: data?.sort || "",
         length: data?.length || "",
-     
+
         height: data?.height || "",
         brether: data?.brether || "",
         weight: data?.weight || "",
@@ -126,25 +123,21 @@ function Addproduct() {
         meta_description: data?.meta_description || "",
         meta_keyboard: data?.meta_keyboard || "",
         tax: "",
-        discount:""
-      
+        discount: "",
+        fabric: "",
+        material: "",
+        fit: "",
+        neck: "",
+        sleeve: "",
       },
       onSubmit: (value) => {
-        // if (data !== null) {
-        //   const productUpdateDetails = {
-        //     id: data._id,
-        //     productUpdate: value,
-        //     size: selectedSizes,
-        //   };
-        //   dispatch(productUpdateOnServer(productUpdateDetails));
-        // } else {
-        //   const productDetails = { ...value, Available: Available, images: images };
-        //   dispatch(postProductOnServer(productDetails));
-        // }
-     
-        const productDetails = { ...value, Available: Available, images: images, size: selectedSizes, };
-          dispatch(postProductOnServer(productDetails));
-
+        const productDetails = {
+          ...value,
+          Available: Available,
+          images: images,
+          size: selectedSizes,
+        };
+        dispatch(postProductOnServer(productDetails));
       },
       validationSchema: Yup.object().shape({
         name: Yup.string().required("Product Name is required"),
@@ -159,12 +152,9 @@ function Addproduct() {
         category: Yup.string().required("Category is required"),
         sort: Yup.string().required("Sort is required"),
         quantity: Yup.string().required("Quantity is required"),
-
-       
+        tax: Yup.string().required("Tax is required"),
       }),
     });
-
-  
 
   const get_brand = Getbrand?.map((item) => (
     <option key={item?._id} value={item.brand_title}>
@@ -190,28 +180,13 @@ function Addproduct() {
     </option>
   ));
 
-  // ********************************
-  // const img = [];
-  // console.log(img)
-
-  //  const newForm = new FormData()
-
-  //  images.forEach((image)=>{
-  //   newForm.append("images",image)
-  //  })
-
-  // useEffect(() => {
-  //   values.images = img;
-  // }, [img]);
-
-  // *********************************
+  
 
   useEffect(() => {
     dispatch(brandGets());
     dispatch(colorgets());
     dispatch(categoryGetData());
     dispatch(Getgst());
-   
   }, [dispatch]);
 
   return (
@@ -494,11 +469,11 @@ function Addproduct() {
                           onChange={handleChange}
                           onBlur={handleBlur}
                         >
-                           <option value="Exclusive tax">Exclusive Tax</option>
+                          <option>Select the Tax</option>
+                          <option value="Exclusive tax" >Exclusive Tax</option>
                           <option value="Inclusive tax">Inclusive Tax</option>
-                         
                         </select>
-                        {errors.color && touched.color ? (
+                        {errors.tax && touched.tax ? (
                           <div style={{ color: "red" }}>{errors.tax}</div>
                         ) : (
                           ""
@@ -524,8 +499,6 @@ function Addproduct() {
                             </label>
                           </div>
                         ))}
-                       
-                       
                       </div>
                     </div>
                     <div className="col-lg-4">
@@ -539,132 +512,205 @@ function Addproduct() {
                         onBlur={handleBlur}
                       />
                     </div>
-                  
+                    <div className="col-lg-4">
+                      <label className="fw-bold fs-10">Fabric</label>
+                      <UseInput
+                        type="text"
+                        label="Fabric"
+                        name="fabric"
+                        value={values.fabric}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                    </div>
                   </div>
 
-                  <div className="mt-3 mb-2">
-                    <label className="fw-bold fs-10">Description</label>
-                    <UseInput
-                      type="text"
-                      label="Description"
-                      name="description"
+                  <div className="row">
+                    <div className="col-lg-4">
+                      <div className="">
+                        <label className="fw-bold fs-10">Material</label>
+                        <UseInput
+                          type="text"
+                          label="Material"
+                          name="material"
+                          value={values.material}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-lg-4">
+                      <div className="">
+                        <label className="fw-bold fs-10">Fit</label>
+                        <UseInput
+                          type="text"
+                          label="Fit"
+                          name="fit"
+                          value={values.fit}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="col-lg-4">
+                      <div className="">
+                        <label className="fw-bold fs-10">Neck</label>
+                        <UseInput
+                          type="text"
+                          label="Neck"
+                          name="neck"
+                          value={values.neck}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+
+                  </div>
+                  <div className="row">
+                  <div class="mb-1 col-lg-8">
+                    <label
+                      for="exampleFormControlTextarea1"
+                      class="form-label fw-bold fs-10"
+                    >
+                      Description
+                    </label>
+                    <textarea
+                      class="form-control"
+                      id="exampleFormControlTextarea1"
+                      rows="3"
                       value={values.description}
+                      name="description"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                    />
+                    ></textarea>
+                      {errors.description && touched.description ? (
+                  <div style={{ color: "red" }}>{errors.description}</div>
+                ) : (
+                  ""
+                )}
                   </div>
-                  {errors.description && touched.description ? (
-                    <div style={{ color: "red" }}>{errors.description}</div>
-                  ) : (
-                    ""
-                  )}
+                  <div className="col-lg-4">
+                  <div className="">
+                        <label className="fw-bold fs-10">Sleeve</label>
+                        <UseInput
+                          type="text"
+                          label="Sleeve"
+                          name="sleeve"
+                          value={values.sleeve}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                  </div>
+                  </div>
                 </div>
+               
+              </div>
 
-                <div className="col-lg-12 mt-2">
-                  <div class="card p-4">
-                    <div className="pb-2">
-                      {showSortNotification && (
-                        <div
-                          className="notification d-flex justify-content-end"
-                          style={{ fontFamily: "Roboto, sans-serif" }}
-                        >
-                          You can sort the images by drag-and-drop!
-                        </div>
-                      )}
-
-                      <label
-                        className="pb-2"
+              <div className="col-lg-12 mt-2">
+                <div class="card p-4">
+                  <div className="pb-2">
+                    {showSortNotification && (
+                      <div
+                        className="notification d-flex justify-content-end"
                         style={{ fontFamily: "Roboto, sans-serif" }}
                       >
-                        Minimum five image{" "}
-                        <span className="text-red-500">*</span>
+                        You can sort the images by drag-and-drop!
+                      </div>
+                    )}
+
+                    <label
+                      className="pb-2"
+                      style={{ fontFamily: "Roboto, sans-serif" }}
+                    >
+                      Minimum five image <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="file"
+                      name=""
+                      id="upload"
+                      className="hidden"
+                      multiple
+                      onChange={handleImageChange}
+                      style={{ display: "none" }}
+                    />
+
+                    <div className="w-100 d-flex align-items-center flex-wrap ms-4">
+                      <label htmlFor="upload">
+                        <AiOutlinePlusCircle
+                          size={30}
+                          className="mt-3"
+                          color="#555"
+                        />
                       </label>
-                      <input
-                        type="file"
-                        name=""
-                        id="upload"
-                        className="hidden"
-                        multiple
-                        onChange={handleImageChange}
-                        style={{ display: "none" }}
-                      />
 
-                      <div className="w-100 d-flex align-items-center flex-wrap ms-4">
-                        <label htmlFor="upload">
-                          <AiOutlinePlusCircle
-                            size={30}
-                            className="mt-3"
-                            color="#555"
+                      {images.map((image, index) => (
+                        <div
+                          key={index}
+                          className="position-relative"
+                          draggable
+                          onDragStart={(e) => {
+                            e.dataTransfer.setData("text/plain", index);
+                          }}
+                          onDragOver={(e) => e.preventDefault()}
+                          onDrop={(e) => {
+                            e.preventDefault();
+                            const dragIndex = parseInt(
+                              e.dataTransfer.getData("text/plain"),
+                              10
+                            );
+                            handleImageOrderChange(dragIndex, index);
+                          }}
+                          onMouseOver={() => handleMouseOver(index)}
+                          onMouseOut={handleMouseOut}
+                        >
+                          <button
+                            type="button"
+                            onClick={() => handleImageDelete(image)}
+                            className="btn-close position-absolute"
+                            style={{ top: "10px", right: "10px" }}
+                          ></button>
+                          <img
+                            src={URL.createObjectURL(image)}
+                            alt="image"
+                            className="image-preview ms-2 bg-white"
+                            title={
+                              hoveredIndex === index
+                                ? `Image ${index + 1}`
+                                : null
+                            }
                           />
-                        </label>
+                        </div>
+                      ))}
 
-                        {images.map((image, index) => (
+                      <div className="row mt-1">
+                        {data?.images.map((item) => (
                           <div
-                            key={index}
-                            className="position-relative"
-                            draggable
-                            onDragStart={(e) => {
-                              e.dataTransfer.setData("text/plain", index);
-                            }}
-                            onDragOver={(e) => e.preventDefault()}
-                            onDrop={(e) => {
-                              e.preventDefault();
-                              const dragIndex = parseInt(
-                                e.dataTransfer.getData("text/plain"),
-                                10
-                              );
-                              handleImageOrderChange(dragIndex, index);
-                            }}
-                            onMouseOver={() => handleMouseOver(index)}
-                            onMouseOut={handleMouseOut}
+                            className="col-lg-3 "
+                            style={{ position: "relative" }}
                           >
-                            <button
-                              type="button"
-                              onClick={() => handleImageDelete(image)}
-                              className="btn-close position-absolute"
-                              style={{ top: "10px", right: "10px" }}
-                            ></button>
                             <img
-                              src={URL.createObjectURL(image)}
-                              alt="image"
-                              className="image-preview ms-2 bg-white"
-                              title={
-                                hoveredIndex === index
-                                  ? `Image ${index + 1}`
-                                  : null
-                              }
+                              src={`${SERVERURL.IMAGE_URL}${item}`}
+                              width="100%"
                             />
+                            <div
+                              style={{
+                                position: "absolute",
+                                top: "0",
+                                right: "15px",
+                              }}
+                            >
+                              <IoIosAddCircleOutline
+                                style={{ color: "white" }}
+                                fontSize={20}
+                              />
+                            </div>
                           </div>
                         ))}
-
-                         <div className="row mt-1">
-                          {data?.images.map((item) =>
-                          (
-                            <div
-                              className="col-lg-3 "
-                              style={{ position: "relative" }}
-                            >
-                              <img
-                                src={`${SERVERURL.IMAGE_URL}${item}`}
-                                width="100%"
-                              />
-                              <div
-                                style={{
-                                  position: "absolute",
-                                  top: "0",
-                                  right: "15px",
-                                }}
-                              >
-                                <IoIosAddCircleOutline
-                                  style={{ color: "white" }}
-                                  fontSize={20}
-                                />
-                              </div>
-                            </div>
-                          )
-                          
-                          )}
-                        </div> 
                       </div>
                     </div>
                   </div>
@@ -672,152 +718,152 @@ function Addproduct() {
               </div>
             </div>
             <div className="col-lg-4">
-              <div className="col-lg-12">
-                <div class="card mt-2">
-                  <div class="card-body product_input">
-                    <div className="">
-                      <h4>Dimension</h4>
-                    </div>
+            <div className="col-lg-12">
+              <div class="card mt-2">
+                <div class="card-body product_input">
+                  <div className="">
+                    <h4>Dimension</h4>
+                  </div>
 
-                    <div className="row mb-1">
+                  <div className="row mb-1">
+                    <div className="col-lg-6">
+                      <label className="fw-bold fs-10">Length</label>
+                      <UseInput
+                        type="number"
+                        label="Length"
+                        name="length"
+                        onChange={handleChange}
+                        value={values.length}
+                        onBlur={handleBlur}
+                      />
+                    </div>
+                    <div className="col-lg-6">
+                      <label className="fw-bold fs-10">Breadth</label>
+                      <UseInput
+                        type="number"
+                        label="Brether"
+                        name="brether"
+                        value={values.brether}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                    </div>
+                  </div>
+                  <div className="mt-3 mb-2">
+                    <div className="row">
                       <div className="col-lg-6">
-                        <label className="fw-bold fs-10">Length</label>
+                        <label className="fw-bold fs-10">Height</label>
                         <UseInput
                           type="number"
-                          label="Length"
-                          name="length"
+                          label="height"
+                          name="height"
                           onChange={handleChange}
-                          value={values.length}
                           onBlur={handleBlur}
+                          value={values.height}
                         />
                       </div>
                       <div className="col-lg-6">
-                        <label className="fw-bold fs-10">Breadth</label>
-                        <UseInput
-                          type="number"
-                          label="Brether"
-                          name="brether"
-                          value={values.brether}
+                        <label className="fw-bold fs-10">Dimension class</label>
+                        <select
+                          class="form-select"
+                          aria-label="Default select example"
+                          name="diamension_class"
+                          value={values.diamension_class}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                        />
-                      </div>
-                    </div>
-                    <div className="mt-3 mb-2">
-                      <div className="row">
-                        <div className="col-lg-6">
-                          <label className="fw-bold fs-10">Height</label>
-                          <UseInput
-                            type="number"
-                            label="height"
-                            name="height"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.height}
-                          />
-                        </div>
-                        <div className="col-lg-6">
-                          <label className="fw-bold fs-10">
-                            Dimension class
-                          </label>
-                          <select
-                            class="form-select"
-                            aria-label="Default select example"
-                            name="diamension_class"
-                            value={values.diamension_class}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                          >
-                            <option selected>Open this select menu</option>
-                            <option value="Centimeter">Centimeter</option>
-                            <option value="Millimeter">Millimeter</option>
-                            <option value="Inch">Inch</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="mt-3 mb-2">
-                      <div className="row">
-                        <div className="col-lg-6">
-                          <label className="fw-bold fs-10">Weight</label>
-                          <UseInput
-                            type="number"
-                            label="Weight"
-                            name="weight"
-                            value={values.weight}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                          />
-                        </div>
-                        <div className="col-lg-6">
-                          <label className="fw-bold fs-10">Weight class</label>
-                          <select
-                            class="form-select"
-                            aria-label="Default select example"
-                            name="weight_class"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.weight_class}
-                          >
-                            <option selected>Open this select menu</option>
-                            <option value="Kilogram">Kilogram</option>
-                            <option value="Gram">Gram</option>
-                            <option value="Pound">Pound</option>
-                          </select>
-                        </div>
+                        >
+                          <option selected>Open this select menu</option>
+                          <option value="Centimeter">Centimeter</option>
+                          <option value="Millimeter">Millimeter</option>
+                          <option value="Inch">Inch</option>
+                        </select>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div className="col-lg-12 ">
-                <div class="card mt-2">
-                  <div
-                    class="card-body  product_input"
-                    style={{ padding: " 23px 12px" }}
-                  >
-                    <div className="">
-                      <h4>SEO</h4>
-                    </div>
-                    <div className="mb-2">
-                      <label className="fw-bold fs-10">Meta Title </label>
-                      <UseInput
-                        type="text"
-                        label="Meta Title"
-                        name="meta_title"
-                        value={values.meta_title}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                      />
-                    </div>
-                    <div className="mb-2">
-                      <label className="fw-bold fs-10">Meta Description </label>
-                      <UseInput
-                        type="text"
-                        label="Meta Description"
-                        name="meta_description"
-                        value={values.meta_description}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                      />
-                    </div>
-                    <div className="mb-2">
-                      <label className="fw-bold fs-10">Meta Keyword </label>
-                      <UseInput
-                        type="text"
-                        label="Meta Keyword"
-                        name="meta_keyboard"
-                        value={values.meta_keyboard}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                      />
+                  <div className="mt-3 mb-2">
+                    <div className="row">
+                      <div className="col-lg-6">
+                        <label className="fw-bold fs-10">Weight</label>
+                        <UseInput
+                          type="number"
+                          label="Weight"
+                          name="weight"
+                          value={values.weight}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                      <div className="col-lg-6">
+                        <label className="fw-bold fs-10">Weight class</label>
+                        <select
+                          class="form-select"
+                          aria-label="Default select example"
+                          name="weight_class"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.weight_class}
+                        >
+                          <option selected>Open this select menu</option>
+                          <option value="Kilogram">Kilogram</option>
+                          <option value="Gram">Gram</option>
+                          <option value="Pound">Pound</option>
+                        </select>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+            <div className="col-lg-12 ">
+              <div class="card mt-2">
+                <div
+                  class="card-body  product_input"
+                  style={{ padding: " 23px 12px" }}
+                >
+                  <div className="">
+                    <h4>SEO</h4>
+                  </div>
+                  <div className="mb-2">
+                    <label className="fw-bold fs-10">Meta Title </label>
+                    <UseInput
+                      type="text"
+                      label="Meta Title"
+                      name="meta_title"
+                      value={values.meta_title}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                  </div>
+                  <div className="mb-2">
+                    <label className="fw-bold fs-10">Meta Description </label>
+                    <UseInput
+                      type="text"
+                      label="Meta Description"
+                      name="meta_description"
+                      value={values.meta_description}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                  </div>
+                  <div className="mb-2">
+                    <label className="fw-bold fs-10">Meta Keyword </label>
+                    <UseInput
+                      type="text"
+                      label="Meta Keyword"
+                      name="meta_keyboard"
+                      value={values.meta_keyboard}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+          </div>
+       
         </div>
+
         <div className="mt-2">
           <button type="submit" className="brand_padding--border">
             Add Product

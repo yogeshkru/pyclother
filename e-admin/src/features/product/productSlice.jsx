@@ -43,7 +43,11 @@ export const postProductOnServer = createAsyncThunk(
 
       formData.append("meta_description", product?.meta_description);
       formData.append("meta_keyboard", product?.meta_keyboard);
-
+      formData.append("fabric", product?.fabric);
+      formData.append("material", product?.material);
+      formData.append("fit", product?.fit);
+      formData.append("neck", product?.neck);
+      formData.append("sleeve", product?.sleeve);
       const response = await productService.productPost(formData);
       return response;
     } catch (error) {

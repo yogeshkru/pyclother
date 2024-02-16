@@ -87,8 +87,14 @@ const productSchema = new mongoose.Schema(
     isDelete:{
       type:Boolean,
       default:true
-  
   },
+
+  
+    fabric:String,
+    material:String,
+    fit:String,
+    neck:String,
+    sleeve:String
   
   },
   

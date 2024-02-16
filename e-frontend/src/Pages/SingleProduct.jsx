@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "../styles/SingleProduct.css";
 import { IoBagOutline } from "react-icons/io5";
-import { TbShoppingBag } from "react-icons/tb";
+
 import { CiHeart } from "react-icons/ci";
-import { IoIosStar } from "react-icons/io";
-import moneyBlue from "../assets/image/money_blue.jpeg";
-import bruno from "../assets/image/bruno.jpeg";
+import { AiFillHeart } from "react-icons/ai";
+
 import { Link, useNavigate, useParams } from "react-router-dom";
-import twoshirt from "../assets/image/two_shirt.jpeg";
-import bluemoney from "../assets/image/money_blue.jpeg";
-import { MdOutlineKeyboardArrowDown } from "react-icons/md";
-import { FaStar } from "react-icons/fa6";
+
 import {
   addUserProductToServer,
   getUserCartProductFromServer,
+  wishListPostData,
 } from "../features/usersSlice";
 import ReactStars from "react-stars";
 import { FaTruckArrowRight } from "react-icons/fa6";
@@ -27,6 +24,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getOneProduct, getAllProduct } from "../features/product/productSlice";
 import Meta from "../Component/Meta";
 import { toast } from "react-toastify";
+import Reviews from "./Reviews";
 
 function SingleProduct() {
   const [selectImage, setSelectImage] = useState(0);
@@ -46,7 +44,7 @@ function SingleProduct() {
 
   const [sizeClick, setSizeClick] = useState(null);
   const [alreadyAdded, setAlreadyAdded] = useState(false);
-
+  const [wishlistAlready, setwishlistAlready] = useState(false);
   const [ratings, setRatings] = useState([]);
   const [suggested, setSuggested] = useState([]);
 
@@ -57,20 +55,31 @@ function SingleProduct() {
     (state) => state?.product
   );
 
+  console.log(wholeProduct);
   const { userCartProduct } = useSelector((state) => state?.users);
+  const { Whislistget } = useSelector((state) => state.users);
 
   useEffect(() => {
     for (let index = 0; index < userCartProduct?.length; index++) {
       if (id === userCartProduct[index]?.productId?._id) {
         setAlreadyAdded(true);
+        break;
       }
     }
   }, [userCartProduct]);
+  useEffect(() => {
+    let found = false;
+    for (let i = 0; i < Whislistget.length; i++) {
+      if (Whislistget[i]._id === id) {
+        found = true;
+        break;
+      }
+    }
 
-  // const colorNAme =
+    setwishlistAlready(found);
+  }, [Whislistget, id]);
+
   let separateSize = singleProduct?.size?.join("")?.split(",");
-
-  // console.log();
 
   useEffect(() => {
     const filterData =
@@ -187,7 +196,7 @@ function SingleProduct() {
               </div>
 
               <div>
-                <div className="ms-0" >
+                <div className="ms-0">
                   <img
                     src={`${CONN.IMAGE_URL}${
                       singleProduct &&
@@ -240,16 +249,23 @@ function SingleProduct() {
                   <p className="text-success mt-1">{singleProduct?.tax}</p>
                 </div>
 
-                <div className="row">
+                <div className="row mt-3">
                   {separateSize?.map((item, i) => (
-                    <div className="col-lg-2 " key={i}>
-                      <div className="d-flex gap-1">
+                    <div className="col-lg-1" key={i}>
+                      <div className="d-flex">
                         <input
                           type="radio"
                           checked={sizeClick === item}
                           onClick={() => handleSizeClick(item)}
+                          className="radio--design"
+                          id={`radio-${i}`} 
                         />
-                        {item}
+                        <label
+                          className="radio-button_design label-1"
+                          htmlFor={`radio-${i}`}
+                        >
+                          {item}
+                        </label>
                       </div>
                     </div>
                   ))}
@@ -285,13 +301,23 @@ function SingleProduct() {
                     <div
                       className="col-lg-4 col-5 button2-background ms-3"
                       style={handleStyle}
+                      onClick={() => dispatch(wishListPostData(id))}
                     >
-                      <div className="d-flex justify-content-center gap-2 mb-0">
-                        <div>
-                          <CiHeart className="fs-5 mb- text-white" />
+                      {wishlistAlready ? (
+                        <div className="d-flex justify-content-center gap-2 mb-0">
+                          <div>
+                            <AiFillHeart className="fs-5" color="#df0067" />
+                          </div>
+                          <p className="fs-6 mb-0 text-white">Wishlisted</p>
                         </div>
-                        <p className="fs-6 mb-0 text-white">Wishlist</p>
-                      </div>
+                      ) : (
+                        <div className="d-flex justify-content-center gap-2 mb-0">
+                          <div>
+                            <CiHeart className="fs-5 mb- text-white" />
+                          </div>
+                          <p className="fs-6 mb-0 text-white">Wishlist</p>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -310,15 +336,28 @@ function SingleProduct() {
                     }}
                   ></p>
 
-                  <p className=""> Graphic printed</p>
-                  <p className="">Regular length</p>
-                  <p>Rounded Neck</p>
+                  <p style={{ textTransform: "capitalize" }}>
+                    {singleProduct?.fabric}
+                  </p>
+                  <p style={{ textTransform: "capitalize" }}>
+                    {" "}
+                    {singleProduct?.fit}
+                  </p>
+                  <p style={{ textTransform: "capitalize" }}>
+                    {singleProduct?.neck} neck
+                  </p>
+                  <p style={{ textTransform: "capitalize" }}>
+                    {singleProduct?.sleeve}
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+      <div className="container">
+        <Reviews />
+      </div>
 
       <section className=" container py-5">
         <div className="row ms-0">

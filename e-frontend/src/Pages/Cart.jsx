@@ -115,8 +115,9 @@ function Cart() {
               <h5 className="cart-col-4 cart-text-color">Total</h5>
             </div>
 
-            {userCartProduct &&
+            {userCartProduct?.length &&
               userCartProduct?.map((item, index) => {
+                console.log(item)
                 const { images, brand, name, color, model } = item?.productId;
                 const setColor = GetColorName(color);
                 return (

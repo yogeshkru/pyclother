@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import logo from "../assets/image/logo12.png";
 import { IoMdSearch } from "react-icons/io";
 import { FaRegUser } from "react-icons/fa6";
@@ -20,10 +20,12 @@ import {
 import { useNavigate } from "react-router-dom";
 
 function Header() {
+  const [menuItem,setMenuItem]=useState(true)
   const [sidenavWidth, setSidenavWidth] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const {wholeProduct}=useSelector(state=>state.product)
+  const { wholeProduct } = useSelector((state) => state.product);
   const isMobile = useMediaQuery({ maxWidth: 600 });
+
   const navigate = useNavigate();
   const handleFont = {
     fontWeight: "bold",
@@ -40,8 +42,8 @@ function Header() {
   const dispatch = useDispatch();
 
   // *********************Search funtionality***********************
-  
-  const { Whislistget,userCartProduct } = useSelector((state) => state.users);
+
+  const { Whislistget, userCartProduct } = useSelector((state) => state.users);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchData, setSeachData] = useState(null);
   useEffect(() => {
@@ -51,7 +53,6 @@ function Header() {
   }, [dispatch]);
 
   useEffect(() => {
-   
     const localUsers = JSON.parse(localStorage.getItem("user"));
     if (localUsers && localUsers.token !== "") {
       setIsLoggedIn(true);
@@ -59,6 +60,7 @@ function Header() {
       setIsLoggedIn(false);
     }
   }, [isLoggedIn]);
+  
 
   const handleSearchChange = (e) => {
     const term = e.target.value;
@@ -73,6 +75,11 @@ function Header() {
     const firstTenFilteredProducts = filteredProducts.slice(0, 5);
 
     setSeachData(firstTenFilteredProducts);
+    
+  };
+  const handleItemClick = () => {
+   
+    setMenuItem(false);
   };
 
   // ****************************************************
@@ -95,9 +102,9 @@ function Header() {
   const handleProfile = () => {
     navigate("/profile");
   };
-  const handleLogin=()=>{
-    navigate("/login")
-  }
+  const handleLogin = () => {
+    navigate("/login");
+  };
 
   return (
     <div>
@@ -159,7 +166,7 @@ function Header() {
             </div>
           </div>
           <div>
-            <div className="text-center header--search">
+            <div className="text-center header--search" >
               <input
                 type="search"
                 autoComplete="off"
@@ -174,9 +181,9 @@ function Header() {
           </div>
         </div>
       ) : (
-        <HeadRoom >
+        <HeadRoom>
           {/* <header> */}
-          
+
           <div className="header_padding">
             <div className="container">
               <div className="row">
@@ -190,290 +197,10 @@ function Header() {
                   </div>
                 </div>
                 <div className="col-lg-3">
-                  {/* <div className="d-flex justify-content-between"> */}
-                  {/* Mens */}
-                  {/* <div className="dropdown mb-0">
-                      <button
-                        className="btn header__button1 mb-0"
-                        type="button"
-                        id="dropdownMenuButton"
-                        data-mdb-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        Mens
-                      </button>
-
-                      <ul
-                        class="dropdown-menu Headers__menus"
-                        aria-labelledby="dropdownMenuButton"
-                      >
-                        <div className="row d-flex justify-content-">
-                          <div className="col-lg-3">
-                            <h5
-                              style={{
-                                fontWeight: "bold",
-                                color: "#56DDFF",
-                                fontSize: "15px",
-                              }}
-                              className="dropdown-item"
-                            >
-                              Top Wear
-                            </h5>
-                            <li className="mt-2 dropdown-item">T-Shirts</li>
-                            <li className="dropdown-item">Casual Shirts</li>
-                            <li className="dropdown-item">Formal Shirts</li>
-                            <li className="dropdown-item">Sweat Shirts</li>
-                            <li className="dropdown-item">Sweaters</li>
-                            <li className="dropdown-item">Jackets</li>
-                            <li className="dropdown-item">Blazers & Coats</li>
-                            <li className="dropdown-item">Suits</li>
-                            <li className="dropdown-item">Rain Jackets</li>
-                          </div>
-                          <div className="col-lg-3">
-                            <li
-                              style={{
-                                fontWeight: "bold",
-                                color: "#56DDFF",
-                                fontSize: "15px",
-                              }}
-                              className="dropdown-item"
-                            >
-                              Bottom Wear
-                            </li>
-                            <li className="mt-2 dropdown-item">Jeans</li>
-                            <li className="dropdown-item">Casual Trousers</li>
-                            <li className="dropdown-item">Formal Trousers</li>
-                            <li className="dropdown-item">Shorts</li>
-                            <li className="dropdown-item">Track Pants</li>
-                            <li className="dropdown-item">Joggers</li>
-                          </div>
-                          <div className="col-lg-3">
-                            <li
-                              style={{
-                                fontWeight: "bold",
-                                color: "#56DDFF",
-                                fontSize: "15px",
-                              }}
-                              className="dropdown-item"
-                            >
-                              Traditional wear
-                            </li>
-                            <li className="mt-2 dropdown-item">
-                              Kurtas & Kurta Set
-                            </li>
-                            <li className="dropdown-item">Sherwains</li>
-                            <li className="dropdown-item">Nehru Jackets</li>
-                            <li className="dropdown-item">Dhotis</li>
-                          </div>
-                          <div className="col-lg-3">
-                            <li
-                              style={{
-                                fontWeight: "bold",
-                                color: "#56DDFF",
-                                fontSize: "15px",
-                              }}
-                              className="dropdown-item"
-                            >
-                              Inner Wear & Sleep Wear
-                            </li>
-                            <li className="mt-2 dropdown-item ">
-                              Briefs & Trunks
-                            </li>
-                            <li className="dropdown-item">Boxers</li>
-                            <li className="dropdown-item">Vests</li>
-                            <li className="dropdown-item">
-                              Sleep Wear & Lounge Wear
-                            </li>
-                          </div>
-                        </div>
-                      </ul>
-                    </div> */}
-                  {/* Womens */}
-                  {/* <div class="dropdown">
-                      <button
-                        class="btn header__button2"
-                        type="button"
-                        id="dropdownMenuButton"
-                        data-mdb-toggle="dropdown"
-                        aria-expanded="false"
-                        style={{ fontWeight: "bold", fontSize: "20px" }}
-                      >
-                        Womens
-                      </button>
-
-                      <ul
-                        class="dropdown-menu header__Womens Headers__menus"
-                        aria-labelledby="dropdownMenuButton"
-                      >
-                        <div className="row">
-                          <div className="col-lg-4">
-                            <h5
-                              style={{
-                                fontWeight: "bold",
-                                color: "#FCB03F",
-                                fontSize: "15px",
-                              }}
-                              className="dropdown-item"
-                            >
-                              Indian & Fusion Wear
-                            </h5>
-                            <li className="mt-2 dropdown-item">
-                              Kurtas & Suits
-                            </li>
-                            <li className="dropdown-item">
-                              Kurtas, Tunics & Top
-                            </li>
-                            <li className="dropdown-item">Sareers</li>
-                            <li className="dropdown-item">Ethnic Wear</li>
-                            <li className="dropdown-item">
-                              Leggings, Salwar's Churidars
-                            </li>
-                            <li className="dropdown-item">Skirts & Palazzos</li>
-                            <li className="dropdown-item">Dress Materisls</li>
-                            <li className="dropdown-item">Lehengas Cholis</li>
-                            <li className="dropdown-item">Jackets</li>
-                          </div>
-                          <div className="col-lg-4">
-                            <li
-                              style={{
-                                fontWeight: "bold",
-                                color: "#FCB03F",
-                                fontSize: "15px",
-                              }}
-                              className="dropdown-item"
-                            >
-                              Western Wear
-                            </li>
-                            <li className="mt-2 dropdown-item">Dresses</li>
-                            <li className="dropdown-item">Tops</li>
-                            <li className="dropdown-item">T-Shirts</li>
-                            <li className="dropdown-item">Jeans</li>
-                            <li className="dropdown-item">Trousers & Capris</li>
-                            <li className="dropdown-item">Play suits</li>
-                            <li className="dropdown-item">Jump suits</li>
-                            <li className="dropdown-item">
-                              Sweaters & Sweat Shirts
-                            </li>
-                            <li className="dropdown-item">
-                              Blazers & WaitCoat
-                            </li>
-                          </div>
-                          <div className="col-lg-4">
-                            <li
-                              style={{
-                                fontWeight: "bold",
-                                color: "#FCB03F",
-                                fontSize: "15px",
-                              }}
-                              className="dropdown-item"
-                            >
-                              Sleep Wear
-                            </li>
-                            <li className="mt-2 dropdown-item">Shape Wear</li>
-                            <li className="dropdown-item">
-                              Sleep Wear & Lounge Wear
-                            </li>
-                            <li className="dropdown-item">Swim Wear</li>
-                            <li className="dropdown-item">Thermals</li>
-                          </div>
-                        </div>
-                      </ul>
-                    </div> */}
-                  {/* Kids */}
-                  {/* <div class="dropdown">
-                      <button
-                        class="btn header__button3"
-                        type="button"
-                        id="dropdownMenuButton"
-                        data-mdb-toggle="dropdown"
-                        aria-expanded="false"
-                        style={{ fontWeight: "bold", fontSize: "20px" }}
-                      >
-                        Kids
-                      </button>
-
-                      <ul
-                        class="dropdown-menu  header__Womens Headers__menus"
-                        aria-labelledby="dropdownMenuButton"
-                      >
-                        <div className="row">
-                          <div className="col-lg-4">
-                            <h5
-                              style={{
-                                fontWeight: "bold",
-                                color: "#DF0067",
-                                fontSize: "15px",
-                              }}
-                              className="dropdown-item"
-                            >
-                              Boys Clothing
-                            </h5>
-                            <li className="mt-2 dropdown-item">T-Shirts</li>
-                            <li className="dropdown-item">Shirts</li>
-                            <li className="dropdown-item">Shorts</li>
-                            <li className="dropdown-item">Jeans</li>
-                            <li className="dropdown-item">Trousers</li>
-                            <li className="dropdown-item">Clothing Sets</li>
-                            <li className="dropdown-item">Dress Materisls</li>
-                            <li className="dropdown-item">Party Wear</li>
-                            <li className="dropdown-item">Value Packs</li>
-                          </div>
-                          <div className="col-lg-4">
-                            <li
-                              style={{
-                                fontWeight: "bold",
-                                color: "#DF0067",
-                                fontSize: "15px",
-                              }}
-                              className="dropdown-item"
-                            >
-                              Girls Clothing
-                            </li>
-                            <li className="mt-2 dropdown-item">Dresses</li>
-                            <li className="dropdown-item">Tops</li>
-                            <li className="dropdown-item">T-Shirts</li>
-                            <li className="dropdown-item">Jeans</li>
-                            <li className="dropdown-item">Shorts & Skirts</li>
-                            <li className="dropdown-item">Tights & leggings</li>
-                            <li className="dropdown-item">Jump suits</li>
-                            <li className="dropdown-item">
-                              Sweaters & Sweat Shirts
-                            </li>
-                            <li className="dropdown-item">
-                              Blazers & WaitCoat
-                            </li>
-                          </div>
-                          <div className="col-lg-4">
-                            <li
-                              style={{
-                                fontWeight: "bold",
-                                color: "#DF0067",
-                                fontSize: "15px",
-                              }}
-                              className="dropdown-item"
-                            >
-                              Infants
-                            </li>
-                            <li className="mt-2 dropdown-item">Bodysuits</li>
-                            <li className="dropdown-item">
-                              Rompers & Sleepsuits
-                            </li>
-                            <li className="dropdown-item">Clothing Sets</li>
-                            <li className="dropdown-item">T-Shirts & Top</li>
-                            <li className="dropdown-item">Bottom Wear</li>
-                            <li className="dropdown-item">Winter Wear</li>
-                            <li className="dropdown-item">
-                              Inner Wear & Sleep Wear
-                            </li>
-                            <li className="dropdown-item">Infant Care</li>
-                          </div>
-                        </div>
-                      </ul>
-                    </div> */}
-                  {/* </div> */}
+             
                 </div>
                 <div className="col-lg-4">
-                  <div className="text-center header--search">
+                  <div className="text-center header--search" >
                     <input
                       type="search"
                       autoComplete="off"
@@ -486,9 +213,13 @@ function Header() {
                     <div className="header__icon">
                       <IoMdSearch />
                     </div>
-
+                 
                     {searchData && searchData.length !== 0 ? (
-                      <div className="position-absolute min-h-30vh bg-white shadow-sm-2 p-4 z-10 w-100 rounded-4">
+                      <div
+                        className="position-absolute min-h-30vh bg-white shadow-sm-2 p-4  w-100 rounded-4 mouseOutDta"
+                        ref={mouseData}
+                        style={{ zIndex: 999 }}
+                      >
                         {searchData &&
                           searchData.map((item, index) => {
                             const productName = item?.category?.replace(
@@ -501,11 +232,12 @@ function Header() {
                                 to={`singleProduct/${productName}/${item?._id}`}
                                 key={index}
                                 className="text-decoration-none"
+                               
                               >
                                 <div className="d-flex py-3 justify-conten-between">
                                   <div>
                                     <img
-                                      src={`${URL.IMAGE_URL}${item?.images[0]}`}
+                                      src={`${URL.IMAGE_URL}${item?.images}`}
                                       alt={item?.name}
                                       style={{
                                         height: "30px",
@@ -535,47 +267,41 @@ function Header() {
                   </div>
                 </div>
                 <div className="col-lg-1 mt-1 ">
-                  
                   <div className="d-flex justify-content-between">
+                    {isLoggedIn ? (
+                      <div
+                        className="d-flex flex-column text-center "
+                        onClick={handleProfile}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <FaRegUser
+                          style={{
+                            marginLeft: "10px",
+                            fontSize: "20px",
+                            color: "#343434",
+                          }}
+                        />
 
-                
-
-                 
-                   
-                      {isLoggedIn ? (
-                         <div
-                         className="d-flex flex-column text-center "
-                         onClick={handleProfile}
-                         style={{ cursor: "pointer" }}
-                       >
-                          <FaRegUser
-                            style={{
-                              marginLeft: "10px",
-                              fontSize: "20px",
-                              color: "#343434",
-                            }}
-                          />
-
-                          <span style={handleFont}>Profile</span>
-                        </div>
-                      ) : (
-                        <div
+                        <span style={handleFont}>Profile</span>
+                      </div>
+                    ) : (
+                      <div
                         className="d-flex flex-column text-center "
                         onClick={handleLogin}
                         style={{ cursor: "pointer" }}
                       >
-                          <FaRegUser
-                            style={{
-                              marginLeft: "10px",
-                              fontSize: "20px",
-                              color: "#343434",
-                            }}
-                          />
+                        <FaRegUser
+                          style={{
+                            marginLeft: "10px",
+                            fontSize: "20px",
+                            color: "#343434",
+                          }}
+                        />
 
-                          <span style={handleFont}>Login</span>
-                        </div>
-                      )}
-                        <div className="Header--wishlist">
+                        <span style={handleFont}>Login</span>
+                      </div>
+                    )}
+                    <div className="Header--wishlist">
                       <div
                         className="d-flex flex-column text-center ms-4"
                         onClick={handleStore}
@@ -585,40 +311,13 @@ function Header() {
                           style={{ marginLeft: "10px", fontSize: "20px" }}
                         />
 
-                        {/* <div
-                          className={
-                            Whislistget?.length > 0 ? "Header--wishlist1" : ""
-                          }
-                        >
-                          {Whislistget?.length > 0 ? Whislistget.length : ""}
-                        </div> */}
+                      
 
                         <span style={handleFont}>Shop </span>
                       </div>
                     </div>
-                 
-                    
-                    {/* <div className="Header--wishlist">
-                      <div
-                        className="d-flex flex-column text-center ms-4"
-                        onClick={handleClick}
-                        style={{ cursor: "pointer" }}
-                      >
-                        <FaRegHeart
-                          style={{ marginLeft: "10px", fontSize: "20px" }}
-                        />
 
-                        <div
-                          className={
-                            Whislistget?.length > 0 ? "Header--wishlist1" : ""
-                          }
-                        >
-                          {Whislistget?.length > 0 ? Whislistget.length : ""}
-                        </div>
-
-                        <span style={handleFont}>Wishlist</span>
-                      </div>
-                    </div> */}
+                   
 
                     <div className="Header--wishlist">
                       <div
@@ -641,7 +340,6 @@ function Header() {
                         <span style={handleFont}>Wishlist</span>
                       </div>
                     </div>
-                 
 
                     <div className="Header--wishlist">
                       <div
@@ -655,10 +353,14 @@ function Header() {
 
                         <div
                           className={
-                            userCartProduct.length > 0 ? "Header--wishlist1" : ""
+                            userCartProduct.length > 0
+                              ? "Header--wishlist1"
+                              : ""
                           }
                         >
-                          {userCartProduct.length > 0 ? userCartProduct.length : ""}
+                          {userCartProduct.length > 0
+                            ? userCartProduct.length
+                            : ""}
                         </div>
 
                         <span className="text-center fw-bold ps-1">Bag</span>
