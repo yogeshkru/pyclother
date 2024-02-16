@@ -32,7 +32,7 @@ const productSchema = new mongoose.Schema(
       {
         star: Number,
         comment: String,
-        postedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+        postedBy: { type: mongoose.Schema.Types.ObjectId, ref: "Tbl_user" },
       },
     ],
     totalrating: {

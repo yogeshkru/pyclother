@@ -225,6 +225,9 @@ export const wishListGetData = createAsyncThunk(
   }
 );
 
+
+
+
 const inintialState = {
   Error: false,
   Success: false,

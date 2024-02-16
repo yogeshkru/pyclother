@@ -27,6 +27,7 @@ import { toast } from "react-toastify";
 import Reviews from "./Reviews";
 
 function SingleProduct() {
+  const [render,setRender]=useState(0)
   const [selectImage, setSelectImage] = useState(0);
   const handleStyle = {
     border: "1px solid black",
@@ -54,6 +55,7 @@ function SingleProduct() {
   const { singleProduct, wholeProduct } = useSelector(
     (state) => state?.product
   );
+  console.log(singleProduct?.totalrating)
 
   const { userCartProduct } = useSelector((state) => state?.users);
   const { Whislistget } = useSelector((state) => state.users);
@@ -110,7 +112,7 @@ function SingleProduct() {
     return () => {
       clearTimeout(timeOut);
     };
-  }, [id]);
+  }, [id,render]);
 
   const uploadProductCart = () => {
     if (sizeClick === null) {
@@ -257,7 +259,7 @@ function SingleProduct() {
                           checked={sizeClick === item}
                           onClick={() => handleSizeClick(item)}
                           className="radio--design"
-                          id={`radio-${i}`} 
+                          id={`radio-${i}`}
                         />
                         <label
                           className="radio-button_design label-1"
@@ -355,7 +357,7 @@ function SingleProduct() {
         </div>
       </section>
       <div className="container">
-        <Reviews />
+        <Reviews details={singleProduct?._id}/>
       </div>
 
       <section className=" container py-5">
