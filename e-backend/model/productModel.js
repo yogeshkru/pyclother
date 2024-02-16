@@ -83,7 +83,12 @@ const productSchema = new mongoose.Schema(
     meta_description: String,
     meta_keyboard: String,
     tax:String,
-    discount:String
+    discount:String,
+    fabric:String,
+    material:String,
+    fit:String,
+    neck:String,
+    sleeve:String
   },
 
   { timestamps: true }
