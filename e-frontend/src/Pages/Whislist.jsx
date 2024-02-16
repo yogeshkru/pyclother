@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import whislist1 from "../assets/image/wishlist.jpeg";
 import { MdOutlineClose } from "react-icons/md";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import xtic from "../assets/image/ticxgame.png";
 import otic from "../assets/image/ticgame.png";
 import ProductCard from "../Component/ProductCard";
@@ -140,6 +140,7 @@ function Whislist() {
   //   setWishDetails(filtered);
   // }, [Whislistget, wholeProduct]);
 
+  const dispatch = useDispatch()
 
    useEffect(()=>{
     const data = new Set();
@@ -153,6 +154,9 @@ function Whislist() {
       return DetailsCategory === item.category && DetailsDescription ===item.description;
     })
     )
+
+    dispatch(wishListGetData())
+  dispatch(getAllUserFromServer());
 
     setWishDetails(filtered)
    },[Whislistget,wholeProduct])

@@ -2,7 +2,6 @@ const { default: mongoose } = require("mongoose");
 const cartModel = require("../model/cartModel");
 const CustomError = require("../utils/CustomError");
 const productModel = require("../model/productModel");
-const productModel = require("../model/productModel");
 
 
 class Carts {
@@ -25,13 +24,12 @@ class Carts {
       }
  
       const product = await productModel.findById(productId)
-      console.log(product)
 
       const newCart = await cartModel.create({
         userId: _id,
         productId: productId,
-        size,
-        cart_price: price,
+        // size,
+        cart_price: product.price,
       });
       res.status(200).json({ newCart });
     } catch (error) {

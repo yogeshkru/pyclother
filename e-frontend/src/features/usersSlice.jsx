@@ -9,8 +9,10 @@ export const usersSignup = createAsyncThunk(
   async (userData, thunApi) => {
     try {
       const response = await usersService.userRegister(userData);
+if(response){
 
-      thunApi.dispatch(getAllUserFromServer());
+  thunApi.dispatch(getAllUserFromServer());
+}
       return response;
     } catch (err) {
       toast.error(err?.response?.data?.message);
@@ -25,7 +27,10 @@ export const userLogin = createAsyncThunk(
   async (userData, thunkApi) => {
     try {
       const response = await usersService.userLogin(userData);
-      thunkApi.dispatch(getAllUserFromServer());
+      if(response){
+
+        thunkApi.dispatch(getAllUserFromServer());
+      }
       return response;
     } catch (err) {
       toast.error(err?.response?.data?.message);
@@ -115,7 +120,7 @@ export const addUserProductToServer = createAsyncThunk(
     try {
       const response = await usersService.addToUserCart(product);
       if (response) {
-        thunkApi.dispatch(getUserCartProductFromServer());
+        // thunkApi.dispatch(getUserCartProductFromServer());
         return response;
       }
     } catch (error) {
@@ -145,10 +150,13 @@ export const updateUserCartProductQuantity = createAsyncThunk(
   async (data, thunApi) => {
     try {
       const response = await usersService.userCartQuantity(data);
-      thunApi.dispatch(getUserCartProductFromServer());
+
       if (response) {
-        return response;
+      return thunApi.dispatch(getUserCartProductFromServer());
+
       }
+      return response;
+
     } catch (error) {
       return thunApi.rejectWithValue(error);
     }
@@ -160,10 +168,12 @@ export const userCartDeleteProductFromServer = createAsyncThunk(
   async (id, thunkApi) => {
     try {
       const response = await usersService.userCartDelete(id);
-      thunkApi.dispatch(getUserCartProductFromServer());
       if (response) {
-        return response;
+      thunkApi.dispatch(getUserCartProductFromServer());
+
       }
+      return response;
+
     } catch (error) {
       return thunkApi.rejectWithValue(error);
     }
@@ -187,7 +197,11 @@ export const wishListPostData = createAsyncThunk(
   async (userData, thunkApi) => {
     try {
       const response = await usersService.wishListPost(userData);
-      thunkApi.dispatch(wishListGetData());
+      if(response){
+
+         return thunkApi.dispatch(wishListGetData());
+
+      }
       return response;
     } catch (err) {
       toast.error(err?.response?.message?.message);
@@ -202,7 +216,7 @@ export const wishListGetData = createAsyncThunk(
     try {
       const response = await usersService.wishListGet();
 
-      thunkApi.dispatch(getAllUserFromServer());
+    
       return response;
     } catch (err) {
       toast.error(err?.response?.message?.message);

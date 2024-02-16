@@ -55,7 +55,6 @@ function SingleProduct() {
     (state) => state?.product
   );
 
-  console.log(wholeProduct);
   const { userCartProduct } = useSelector((state) => state?.users);
   const { Whislistget } = useSelector((state) => state.users);
 

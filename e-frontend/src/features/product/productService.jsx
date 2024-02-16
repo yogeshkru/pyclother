@@ -21,19 +21,17 @@ const getProduct = async (data) => {
       queryParams.append("category", data?.category);
     }
     const response = await axios.get(
-      `${URL.BASE_URL}product/getall-product?${queryParams}`
+      `${URL.BASE_URL}product/getall-product`
     );
 
     if (response.data) {
       return response.data;
     }
   } catch (error) {
-    throw new Error(error);
+    throw new Error(error.message);
   }
 
-  if (response.data) {
-    return response.data;
-  }
+
 };
 
 const getOneProduct = async function (id) {

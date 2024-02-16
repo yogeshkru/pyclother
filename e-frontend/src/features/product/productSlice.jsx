@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 export const resetAll = createAction("Reset_all");
 
 export const getAllProduct = createAsyncThunk(
-  "product/all",
+  "product/all/from",
   async (data, thunkAPI) => {
     try {
       const response = await productService.getProduct(data);
