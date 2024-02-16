@@ -54,8 +54,8 @@ function SingleProduct() {
   const { singleProduct, wholeProduct } = useSelector(
     (state) => state?.product
   );
+  console.log()
 
-  console.log(wholeProduct);
   const { userCartProduct } = useSelector((state) => state?.users);
   const { Whislistget } = useSelector((state) => state.users);
 
@@ -258,7 +258,7 @@ function SingleProduct() {
                           checked={sizeClick === item}
                           onClick={() => handleSizeClick(item)}
                           className="radio--design"
-                          id={`radio-${i}`} 
+                          id={`radio-${i}`}
                         />
                         <label
                           className="radio-button_design label-1"
@@ -356,7 +356,7 @@ function SingleProduct() {
         </div>
       </section>
       <div className="container">
-        <Reviews />
+        <Reviews details={singleProduct?._id}/>
       </div>
 
       <section className=" container py-5">

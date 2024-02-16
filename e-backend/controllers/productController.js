@@ -177,7 +177,7 @@ class Product {
 
     let actualRating = Math.round(ratingSum / totalrating);
     let finalproduct = await productModel.findByIdAndUpdate(
-      prod,
+      prodId,
       { totalrating: actualRating },
       { new: true }
     );

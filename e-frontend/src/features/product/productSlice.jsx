@@ -29,6 +29,21 @@ export const getOneProduct = createAsyncThunk(
   }
 );
 
+
+export const RatingsPost=createAsyncThunk(
+  "rating/post",async(userData,thunkAPI)=>{
+   try{
+    const response=await productService.Ratings(userData)
+    thunkAPI.dispatch(getAllProduct())
+    return response
+   }catch(err){
+    return thunkAPI.rejectWithValue(err)
+   }
+
+
+  }
+)
+
 const initialState = {
   isError: false,
   isSuccess: false,
@@ -73,6 +88,21 @@ export const productSlice = createSlice({
         state.isLoader = false;
         state.isSuccess = false;
         state.message = action.payload;
+      })
+      .addCase(RatingsPost.pending, (state) => {
+        state.isLoader = true;
+      })
+      .addCase(RatingsPost.fulfilled, (state, action) => {
+        state.isError = false;
+        state.isLoader = false;
+        state.isSuccess = true;
+      
+      })
+      .addCase(RatingsPost.rejected, (state, action) => {
+        state.isError = true;
+        state.isLoader = false;
+        state.isSuccess = false;
+       
       });
   },
 });
