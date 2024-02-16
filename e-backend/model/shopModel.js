@@ -74,7 +74,14 @@ const shopSchema = new mongoose.Schema(
     shop_passwordChangedAt: Date,
     shop_passwordResetToken: String,
     shop_passwordResetTokenExpired: Date,
+    isDelete:{
+      type:Boolean,
+      default:true
+  
   },
+  
+  },
+  
   {
     timestamps: true,
   }

@@ -1,5 +1,6 @@
 const orderModel = require("../model/orderModel");
 const CustomError = require("../utils/customError");
+const productModel = require("../model/productModel")
 
 class Order {
   createOrder = async (req, res, next) => {
@@ -12,15 +13,18 @@ class Order {
 
         order_paymentInfo,
         order_total_Discount,
-        orderItems,
         cartItem,
       } = req.body;
       const { _id } = req.user;
 
+      // cartItem is [array] which comes from frontend*********************************$in to extract the product by id 
+      
+      const products = await productModel.find({ _id: { $in: cartItem } });
+
       // group cart items by shopId
       const shopItemMap = new Map();
          
-      for (const item of cartItem) {
+      for (const item of products) {
         const shopId = item?.shopId;
         if (!shopItemMap.has(shopId)) {
           shopItemMap.set(shopId, []);
@@ -40,13 +44,12 @@ class Order {
           order_totalPrice,
           order_paymentInfo,
           order_total_Discount,
-          orderItems,
           order_user:_id
         });
         orders.push(order);
       }
 
-      res.status(200).json({ orders });
+      res.status(200).json({ order });
     } catch (error) {
       next(new CustomError(error.message, 400));
     }

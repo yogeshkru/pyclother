@@ -45,7 +45,15 @@ const addressModel = new mongoose.Schema({
     address_details:{
         type:String,
         required: [true, "Address Details is required"]
+    },
+    isDelete:{
+        type:Boolean,
+        default:true
+
     }
-});
+},
+{timestamps:true}
+
+);
 
 module.exports = mongoose.model("Tbl_address", addressModel);

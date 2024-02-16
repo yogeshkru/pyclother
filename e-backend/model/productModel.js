@@ -83,8 +83,15 @@ const productSchema = new mongoose.Schema(
     meta_description: String,
     meta_keyboard: String,
     tax:String,
-    discount:String
+    discount:String,
+    isDelete:{
+      type:Boolean,
+      default:true
+  
   },
+  
+  },
+  
 
   { timestamps: true }
 );

@@ -64,7 +64,8 @@ const UpdateForm = () => {
     let cart = [];
     let sum = 0;
     for (let index = 0; index < userCartProduct?.length; index++) {
-      cart.push(userCartProduct[index]?.productId);
+    
+      cart.push(userCartProduct[index]?.productId?._id);
       sum =
         sum +
         Number(
@@ -78,13 +79,17 @@ const UpdateForm = () => {
 
     let data = [];
     for (let i = 0; i < userCartProduct?.length; i++) {
-      let categoryDetails = userCartProduct[i]?.category;
-      let DescriptionDetails = userCartProduct[i]?.description;
+      let categoryDetails = userCartProduct[i]?.productId?.category;
+      let DescriptionDetails = userCartProduct[i]?.productId?.description;
       data.push({ categoryDetails, DescriptionDetails });
     }
+
+
+
     const filtered =
       wholeProduct &&
-      wholeProduct.some((item) =>
+      wholeProduct.filter((item) =>
+
         data.some(
           (userData) =>
             userData.categoryDetails === item.category &&
@@ -631,7 +636,7 @@ const UpdateForm = () => {
         </div>
       </div>
 
-      <div className="mt-3">
+      <div className="mt-3 d-flex flex-wrap">
         <ProductCard data={detailsCategory} />
       </div>
     </div>

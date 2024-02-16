@@ -73,6 +73,8 @@ function Cart() {
     
     }
 
+  
+
     let cartCategory = wholeProduct.filter((item) =>
       data.some(
         (userData) =>

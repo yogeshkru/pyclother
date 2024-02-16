@@ -73,7 +73,9 @@ class Product {
       .filter()
       .sort()
       .limitFields()
-      .paginate();
+      .search()
+      .paginate()
+
 
     const getAllProducts = await getProduct.query;
     res.status(200).json({ getAllProducts, length: getProduct.length });
