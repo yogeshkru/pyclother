@@ -122,7 +122,7 @@ const ProfileContent = ({ active }) => {
         </div>
       )}
 
-      {active === 3 && <Query />}
+      {/* {active === 3 && <Query />} */}
     </>
   );
 };
