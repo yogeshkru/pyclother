@@ -48,7 +48,7 @@ const UpdateForm = () => {
   const [place, setPlace] = useState("");
   const [editeItem, setEditeItem] = useState(null);
 
-  const [defaultAddress, setDefaultAddress] = useState(false); // Corrected the state variable name
+  
   const { userAddress, getUserAddressSuccess } = useSelector(
     (state) => state.userAddress
   );
@@ -64,7 +64,8 @@ const UpdateForm = () => {
     let cart = [];
     let sum = 0;
     for (let index = 0; index < userCartProduct?.length; index++) {
-      cart.push(userCartProduct[index]?.productId);
+    
+      cart.push(userCartProduct[index]?.productId?._id);
       sum =
         sum +
         Number(
@@ -78,13 +79,17 @@ const UpdateForm = () => {
 
     let data = [];
     for (let i = 0; i < userCartProduct?.length; i++) {
-      let categoryDetails = userCartProduct[i]?.category;
-      let DescriptionDetails = userCartProduct[i]?.description;
+      let categoryDetails = userCartProduct[i]?.productId?.category;
+      let DescriptionDetails = userCartProduct[i]?.productId?.description;
       data.push({ categoryDetails, DescriptionDetails });
     }
+
+
+
     const filtered =
       wholeProduct &&
-      wholeProduct.some((item) =>
+      wholeProduct.filter((item) =>
+
         data.some(
           (userData) =>
             userData.categoryDetails === item.category &&
@@ -149,6 +154,16 @@ const UpdateForm = () => {
   };
 
   const checkOutHandler = async () => {
+
+
+    if(!addressId){
+      alert("Select Address")
+
+      return 
+      
+    }
+
+
     const res = await loadScript(
       "https://checkout.razorpay.com/v1/checkout.js"
     );
@@ -167,6 +182,8 @@ const UpdateForm = () => {
       alert("Something went wrong");
       return;
     }
+
+    
 
     const { amount, id: order_id, currency } = result?.data?.order;
     const options = {
@@ -190,18 +207,25 @@ const UpdateForm = () => {
           config
         );
 
-        setTimeout(() => {
-          dispatch(
-            postOrder({
-              order_totalPrice: totalAmount,
-              order_total_Discount: totalAmount,
-              cartItem: userCart,
-              orderItems: cartProduct,
-              order_paymentInfo: result.data,
-              order_user_address: addressId,
-            })
-          );
-        }, 3000);
+          
+        
+
+          setTimeout(() => {
+            dispatch(
+              postOrder({
+                order_totalPrice: totalAmount,
+                order_total_Discount: totalAmount,
+                cartItem: userCart,
+                orderItems: cartProduct,
+                order_paymentInfo: result.data,
+                order_user_address: addressId,
+              })
+            );
+          }, 3000);
+
+
+         
+       
       },
       prefill: {
         name: "VCW",
@@ -612,7 +636,7 @@ const UpdateForm = () => {
         </div>
       </div>
 
-      <div className="mt-3">
+      <div className="mt-3 d-flex flex-wrap">
         <ProductCard data={detailsCategory} />
       </div>
     </div>

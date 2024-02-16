@@ -40,7 +40,14 @@ const userSchema = new mongoose.Schema(
     user_passwordChangedAt: Date,
     user_passwordResetToken: String,
     user_passwordResetTokenExpired: Date,
+    isDelete:{
+      type:Boolean,
+      default:true
+  
   },
+  
+  },
+
   {
     timestamps: true,
   }

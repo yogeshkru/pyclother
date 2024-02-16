@@ -41,7 +41,15 @@ const adminUserSchema = new mongoose.Schema(
     admin_passwordChangedAt: Date,
     admin_passwordResetToken: String,
     admin_passwordResetTokenExpired: Date,
+    isDelete:{
+      type:Boolean,
+      default:true
+  
   },
+  
+  },
+
+
   {
     timestamps: true,
   }

@@ -27,7 +27,13 @@ const categorySchema = new mongoose.Schema({
     type:Number,
    
     
-  }
-});
+  },
+  isDelete:{
+    type:Boolean,
+    default:true
+
+},
+
+},{timestamps:true});
 
 module.exports = mongoose.model("Tbl_category", categorySchema);

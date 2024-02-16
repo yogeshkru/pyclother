@@ -14,8 +14,14 @@ const couponSchmea=new mongoose.Schema(
         coupon_discount:{
             type:Number,
             required:[true,"Discount is required"]
-        }
-    }
+        },
+        isDelete:{
+            type:Boolean,
+            default:true
+        
+        },
+        
+    },{timestamps:true}
 )
 
 module.exports = mongoose.model("Tbl_coupons",couponSchmea)

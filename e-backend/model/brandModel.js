@@ -28,7 +28,13 @@ const brandSchema = new mongoose.Schema({
     type:Number,
    
     
-  }
+  },
+  isDelete:{
+    type:Boolean,
+    default:true
+
+},
+
 });
 
 module.exports = mongoose.model("Tbl_Brand", brandSchema);

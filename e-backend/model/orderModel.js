@@ -16,6 +16,13 @@ const orderSchema = new mongoose.Schema(
       required: true,
     },
 
+    order_quantity: {
+      type: String,
+    },
+    order_product_size: {
+      type: String,
+    },
+
     order_paymentInfo: {
       // paymentMethod: {
       //   type: String,
@@ -38,26 +45,26 @@ const orderSchema = new mongoose.Schema(
       },
     },
 
-    orderItems: [
-      {
-        // product: {
-        //   type: mongoose.Schema.Types.ObjectId,
-        //   ref: "Tbl_product",
-        //   // required: true,
-        // },
-        // color: {
-        //   type:String
-        //   // ref: "Color",
-        //   // required: true,
-        // },
-        quantity: {
-          type: Number,
-          required: true,
-        },
-        price: { type: Number, required: true },
-        size:{type:String,required:true}
-      },
-    ],
+    // orderItems: [
+    //   {
+    //     product: {
+    //       type: mongoose.Schema.Types.ObjectId,
+    //       ref: "Tbl_product",
+    //       // required: true,
+    //     },
+    //     color: {
+    //       type:String
+    //       // ref: "Color",
+    //       // required: true,
+    //     },
+    //     quantity: {
+    //       type: Number,
+    //       required: true,
+    //     },
+    //     price: { type: Number, required: true },
+    //     size:{type:String,required:true}
+    //   },
+    // ],
 
     order_paidAt: {
       type: Date,
@@ -127,6 +134,10 @@ const orderSchema = new mongoose.Schema(
       //     ? "Pending"
       //     : "Ordered";
       // },
+    },
+    isDelete: {
+      type: Boolean,
+      default: true,
     },
   },
   {
