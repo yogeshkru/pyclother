@@ -21,7 +21,7 @@ import { config } from "../utils/axiosConfig";
 import { postOrder, Reset_all } from "../features/order/orderSlice";
 import ProductCard from "../Component/ProductCard";
 import Address from "../assets/image/noAddress.png";
-import {Back} from "../features/stepper/StepperSlice"
+import { Back } from "../features/stepper/StepperSlice";
 function Delivery_address() {
   return (
     <>
@@ -31,7 +31,6 @@ function Delivery_address() {
 }
 
 const UpdateForm = () => {
-  
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const [detailsCategory, setDetailsCategory] = useState([]);
@@ -48,7 +47,6 @@ const UpdateForm = () => {
   const [place, setPlace] = useState("");
   const [editeItem, setEditeItem] = useState(null);
 
-  
   const { userAddress, getUserAddressSuccess } = useSelector(
     (state) => state.userAddress
   );
@@ -64,8 +62,14 @@ const UpdateForm = () => {
     let cart = [];
     let sum = 0;
     for (let index = 0; index < userCartProduct?.length; index++) {
-    
-      cart.push(userCartProduct[index]?.productId?._id);
+      // console.log(userCartProduct[index]?.)
+
+      cart.push({
+        cartProductId: userCartProduct[index]?.productId?._id,
+        cart_price: userCartProduct[index]?.cart_price,
+
+        cart_quantity: userCartProduct[index]?.cart_quantity,
+      });
       sum =
         sum +
         Number(
@@ -73,6 +77,7 @@ const UpdateForm = () => {
             userCartProduct[index]?.cart_price
         );
       setTotalAmount(sum);
+      console.log(cart);
     }
 
     setUserCart(cart);
@@ -84,12 +89,9 @@ const UpdateForm = () => {
       data.push({ categoryDetails, DescriptionDetails });
     }
 
-
-
     const filtered =
       wholeProduct &&
       wholeProduct.filter((item) =>
-
         data.some(
           (userData) =>
             userData.categoryDetails === item.category &&
@@ -154,15 +156,11 @@ const UpdateForm = () => {
   };
 
   const checkOutHandler = async () => {
+    if (!addressId) {
+      alert("Select Address");
 
-
-    if(!addressId){
-      alert("Select Address")
-
-      return 
-      
+      return;
     }
-
 
     const res = await loadScript(
       "https://checkout.razorpay.com/v1/checkout.js"
@@ -182,8 +180,6 @@ const UpdateForm = () => {
       alert("Something went wrong");
       return;
     }
-
-    
 
     const { amount, id: order_id, currency } = result?.data?.order;
     const options = {
@@ -207,25 +203,18 @@ const UpdateForm = () => {
           config
         );
 
-          
-        
-
-          setTimeout(() => {
-            dispatch(
-              postOrder({
-                order_totalPrice: totalAmount,
-                order_total_Discount: totalAmount,
-                cartItem: userCart,
-                orderItems: cartProduct,
-                order_paymentInfo: result.data,
-                order_user_address: addressId,
-              })
-            );
-          }, 3000);
-
-
-         
-       
+        setTimeout(() => {
+          dispatch(
+            postOrder({
+              order_totalPrice: totalAmount,
+              order_total_Discount: totalAmount,
+              cartItem: userCart,
+              orderItems: cartProduct,
+              order_paymentInfo: result.data,
+              order_user_address: addressId,
+            })
+          );
+        }, 3000);
       },
       prefill: {
         name: "VCW",
@@ -523,9 +512,18 @@ const UpdateForm = () => {
               </div>
             )}
 
-
             <div className="mt-2">
-                 <button onClick={()=>dispatch(Back())} style={{padding:"7px 20px",backgroundColor:"#df0067",color:"white",borderRadius:"20px"}}>Back Page</button>
+              <button
+                onClick={() => dispatch(Back())}
+                style={{
+                  padding: "7px 20px",
+                  backgroundColor: "#df0067",
+                  color: "white",
+                  borderRadius: "20px",
+                }}
+              >
+                Back Page
+              </button>
             </div>
           </div>
 

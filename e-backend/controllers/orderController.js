@@ -25,6 +25,7 @@ class Order {
       const shopItemMap = new Map();
          
       for (const item of products) {
+
         const shopId = item?.shopId;
         if (!shopItemMap.has(shopId)) {
           shopItemMap.set(shopId, []);
@@ -49,7 +50,7 @@ class Order {
         orders.push(order);
       }
 
-      res.status(200).json({ order });
+      res.status(200).json({ orders });
     } catch (error) {
       next(new CustomError(error.message, 400));
     }
