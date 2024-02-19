@@ -1,6 +1,7 @@
 const orderModel = require("../model/orderModel");
 const CustomError = require("../utils/customError");
 const productModel = require("../model/productModel")
+const { Types } = require('mongoose');
 
 class Order {
   createOrder = async (req, res, next) => {
@@ -17,40 +18,64 @@ class Order {
       } = req.body;
       const { _id } = req.user;
 
+
+
+             
+
+
       // cartItem is [array] which comes from frontend*********************************$in to extract the product by id 
       
-      const products = await productModel.find({ _id: { $in: cartItem } });
+
+      const products = await productModel.find({ _id: { $in: cartItem.map(item=>item._id) } });
+
+
+      const updateOrders = products.map(product => {
+        const updatedCartItem = cartItem.find(item => new Types.ObjectId(item._id).equals(product._id));
+
+        if (updatedCartItem) {
+            return {
+                ...product.toObject(),
+                cartUserQuantity: updatedCartItem.cartUserQuantity,
+                userSize: updatedCartItem.userSize
+            };
+        }
+        return null
+    });
+    
+      
+  console.log(updateOrders)
+
 
       // group cart items by shopId
-      const shopItemMap = new Map();
+      // const shopItemMap = new Map();
          
-      for (const item of products) {
+      // for (const item of products) {
 
-        const shopId = item?.shopId;
-        if (!shopItemMap.has(shopId)) {
-          shopItemMap.set(shopId, []);
-        }
-        shopItemMap.get(shopId).push(item);
-      }
+      //   const shopId = item?.shopId;
+      //   if (!shopItemMap.has(shopId)) {
+      //     shopItemMap.set(shopId, []);
+      //   }
+      //   shopItemMap.get(shopId).push(item);
+      // }
 
       
-      const orders = [];
+      // const orders = [];
 
-      for (const [shopId, items] of shopItemMap) {
+      // for (const [shopId, items] of shopItemMap) {
 
-        // const totalPrice = items.reduce((acc,curr)=>acc+curr.)
-        const order = await orderModel.create({
-          cartItem: items,
-          order_user_address,
-          order_totalPrice,
-          order_paymentInfo,
-          order_total_Discount,
-          order_user:_id
-        });
-        orders.push(order);
-      }
+      //   // const totalPrice = items.reduce((acc,curr)=>acc+curr.)
+      //   const order = await orderModel.create({
+      //     cartItem: items,
+      //     order_user_address,
+      //     order_totalPrice,
+      //     order_paymentInfo,
+      //     order_total_Discount,
+      //     order_user:_id
+      //   });
+      //   orders.push(order);
+      // }
 
-      res.status(200).json({ orders });
+      res.status(200).json({ updateOrders });
     } catch (error) {
       next(new CustomError(error.message, 400));
     }

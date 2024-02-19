@@ -35,7 +35,7 @@ const getProduct = async (data) => {
 
 };
 
-const getOneProduct = async function (id) {
+const getOneProductServer = async function (id) {
   const response = await axios.get(`${URL.BASE_URL}product/product-id/${id}`);
 
   if (response.data) {
@@ -49,7 +49,7 @@ const Ratings=async function(data){
 }
 
 const productService = {
-  getOneProduct,
+  getOneProductServer,
   getProduct,
   Ratings
 };

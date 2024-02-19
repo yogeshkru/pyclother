@@ -6,7 +6,7 @@ const productModel = require("../model/productModel");
 
 class Carts {
   cart = async (req, res, next) => {
-    const { productId } = req.body;
+    const { productId,size } = req.body;
     const { _id } = req.user;
 
     try {
@@ -28,7 +28,7 @@ class Carts {
       const newCart = await cartModel.create({
         userId: _id,
         productId: productId,
-        // size,
+        size,
         cart_price: product.price,
       });
       res.status(200).json({ newCart });

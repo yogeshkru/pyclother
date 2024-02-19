@@ -27,7 +27,6 @@ import { toast } from "react-toastify";
 import Reviews from "./Reviews";
 
 function SingleProduct() {
-  const [render,setRender]=useState(0)
   const [selectImage, setSelectImage] = useState(0);
   const handleStyle = {
     border: "1px solid black",
@@ -55,19 +54,24 @@ function SingleProduct() {
   const { singleProduct, wholeProduct } = useSelector(
     (state) => state?.product
   );
-  console.log(singleProduct?.totalrating)
 
   const { userCartProduct } = useSelector((state) => state?.users);
   const { Whislistget } = useSelector((state) => state.users);
 
   useEffect(() => {
-    for (let index = 0; index < userCartProduct?.length; index++) {
-      if (id === userCartProduct[index]?.productId?._id) {
-        setAlreadyAdded(true);
+    
+
+ let cartfound =false
+    for(let i=0;i<userCartProduct?.length;i++){
+
+      if(userCartProduct[i]?.productId?._id ===id){
+        cartfound=true
         break;
       }
     }
-  }, [userCartProduct]);
+
+    setAlreadyAdded(cartfound);
+  }, [userCartProduct,id]);
   useEffect(() => {
     let found = false;
     for (let i = 0; i < Whislistget.length; i++) {
@@ -97,10 +101,14 @@ function SingleProduct() {
         if (Array.isArray(wholeProduct[i]?.ratings)) {
           allRatings = allRatings.concat(wholeProduct[i].ratings);
         }
-        setRatings(allRatings);
       }
+
+      setRatings(allRatings);
+
     }
-  }, [wholeProduct]);
+
+
+  }, []);
 
   useEffect(() => {
     let timeOut = setTimeout(() => {
@@ -112,7 +120,7 @@ function SingleProduct() {
     return () => {
       clearTimeout(timeOut);
     };
-  }, [id,render]);
+  }, [id]);
 
   const uploadProductCart = () => {
     if (sizeClick === null) {
@@ -130,6 +138,7 @@ function SingleProduct() {
     }
   };
 
+  console.log(sizeClick)
   // ****************************************************************
 
   return (

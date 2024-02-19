@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { MdOutlineEditNote } from "react-icons/md";
-import {getUserProfileOnServer, userUpdates} from "../../features/usersSlice"
+import {getAllUserFromServer, getUserProfileOnServer, userUpdates} from "../../features/usersSlice"
 import DataTable from "react-data-table-component";
 
 import { useFormik } from "formik";
@@ -19,6 +19,7 @@ const ProfileContent = ({ active }) => {
     let timeOut =setTimeout(()=>{
 
       dispatch(getUserProfileOnServer())
+      dispatch(getAllUserFromServer())
     },300)
     
     return ()=>{

@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice, createAction } from "@reduxjs/toolkit";
 import productService from "./productService";
 
-
 export const resetAll = createAction("Reset_all");
 
 export const getAllProduct = createAsyncThunk(
@@ -9,7 +8,7 @@ export const getAllProduct = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const response = await productService.getProduct(data);
-      
+
       return response.getAllProducts;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -21,9 +20,8 @@ export const getOneProduct = createAsyncThunk(
   "product/one",
   async (id, thunkAPI) => {
     try {
-      const response = await productService.getOneProduct(id);
-      thunkAPI.dispatch(getAllProduct())
-    
+      const response = await productService.getOneProductServer(id);
+
       return response.product;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -31,21 +29,20 @@ export const getOneProduct = createAsyncThunk(
   }
 );
 
-
-export const RatingsPost=createAsyncThunk(
-  "rating/post",async(userData,thunkAPI)=>{
-   try{
-    const response=await productService.Ratings(userData)
-    
-   
-    return response
-   }catch(err){
-    return thunkAPI.rejectWithValue(err)
-   }
-
-
+export const RatingsPost = createAsyncThunk(
+  "rating/post",
+  async (userData, thunkAPI) => {
+    try {
+      const response = await productService.Ratings(userData);
+      if (response) {
+        thunkAPI.dispatch(getOneProduct(userData?.prodId));
+      }
+      return response;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err);
+    }
   }
-)
+);
 
 const initialState = {
   isError: false,
@@ -53,7 +50,7 @@ const initialState = {
   message: "",
   isLoader: false,
   wholeProduct: [],
-  singleProduct:{}
+  singleProduct: {},
 };
 
 export const productSlice = createSlice({
@@ -99,17 +96,13 @@ export const productSlice = createSlice({
         state.isError = false;
         state.isLoader = false;
         state.isSuccess = true;
-      
       })
       .addCase(RatingsPost.rejected, (state, action) => {
         state.isError = true;
         state.isLoader = false;
         state.isSuccess = false;
-       
       });
   },
 });
-
-
 
 export default productSlice.reducer;

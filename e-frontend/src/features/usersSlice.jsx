@@ -9,10 +9,9 @@ export const usersSignup = createAsyncThunk(
   async (userData, thunApi) => {
     try {
       const response = await usersService.userRegister(userData);
-if(response){
-
-  thunApi.dispatch(getAllUserFromServer());
-}
+      if (response) {
+        thunApi.dispatch(getAllUserFromServer());
+      }
       return response;
     } catch (err) {
       toast.error(err?.response?.data?.message);
@@ -27,8 +26,7 @@ export const userLogin = createAsyncThunk(
   async (userData, thunkApi) => {
     try {
       const response = await usersService.userLogin(userData);
-      if(response){
-
+      if (response) {
         thunkApi.dispatch(getAllUserFromServer());
       }
       return response;
@@ -120,7 +118,7 @@ export const addUserProductToServer = createAsyncThunk(
     try {
       const response = await usersService.addToUserCart(product);
       if (response) {
-        // thunkApi.dispatch(getUserCartProductFromServer());
+        thunkApi.dispatch(getUserCartProductFromServer());
         return response;
       }
     } catch (error) {
@@ -152,11 +150,9 @@ export const updateUserCartProductQuantity = createAsyncThunk(
       const response = await usersService.userCartQuantity(data);
 
       if (response) {
-      return thunApi.dispatch(getUserCartProductFromServer());
-
+        thunApi.dispatch(getUserCartProductFromServer());
       }
       return response;
-
     } catch (error) {
       return thunApi.rejectWithValue(error);
     }
@@ -168,12 +164,11 @@ export const userCartDeleteProductFromServer = createAsyncThunk(
   async (id, thunkApi) => {
     try {
       const response = await usersService.userCartDelete(id);
-      if (response) {
-      thunkApi.dispatch(getUserCartProductFromServer());
+      // if (response) {
+        thunkApi.dispatch(getUserCartProductFromServer());
 
-      }
+      // }
       return response;
-
     } catch (error) {
       return thunkApi.rejectWithValue(error);
     }
@@ -197,10 +192,8 @@ export const wishListPostData = createAsyncThunk(
   async (userData, thunkApi) => {
     try {
       const response = await usersService.wishListPost(userData);
-      if(response){
-
-         return thunkApi.dispatch(wishListGetData());
-
+      if (response) {
+        return thunkApi.dispatch(wishListGetData());
       }
       return response;
     } catch (err) {
@@ -216,7 +209,6 @@ export const wishListGetData = createAsyncThunk(
     try {
       const response = await usersService.wishListGet();
 
-    
       return response;
     } catch (err) {
       toast.error(err?.response?.message?.message);
@@ -224,9 +216,6 @@ export const wishListGetData = createAsyncThunk(
     }
   }
 );
-
-
-
 
 const inintialState = {
   Error: false,
@@ -411,18 +400,22 @@ export const usersSlice = createSlice({
         state.loaders = false;
         state.Success = false;
         state.message = action.error;
-      }).addCase(userCartDeleteProductFromServer.pending,(state)=>{
-        state.loaders=false
-      }).addCase(userCartDeleteProductFromServer.fulfilled,(state)=>{
-        state.Success=true;
-        state.loaders=false;
-        state.Error=false
-      }).addCase(userCartDeleteProductFromServer.rejected,(state,action)=>{
-        state.Error=true;
-        state.loaders=false;
-        state.Error=true;
-        state.message=action.error
-      }).addCase(getUserProfileOnServer.pending, (state) => {
+      })
+      .addCase(userCartDeleteProductFromServer.pending, (state) => {
+        state.loaders = false;
+      })
+      .addCase(userCartDeleteProductFromServer.fulfilled, (state) => {
+        state.Success = true;
+        state.loaders = false;
+        state.Error = false;
+      })
+      .addCase(userCartDeleteProductFromServer.rejected, (state, action) => {
+        state.Error = true;
+        state.loaders = false;
+        state.Error = true;
+        state.message = action.error;
+      })
+      .addCase(getUserProfileOnServer.pending, (state) => {
         state.loaders = true;
       })
       .addCase(getUserProfileOnServer.fulfilled, (state, action) => {

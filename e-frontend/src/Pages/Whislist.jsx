@@ -9,7 +9,8 @@ import xtic from "../assets/image/ticxgame.png";
 import otic from "../assets/image/ticgame.png";
 import ProductCard from "../Component/ProductCard";
 import { toast } from "react-toastify";
-
+import { getAllUserFromServer, wishListGetData } from "../features/usersSlice";
+import { getAllProduct} from "../features/product/productSlice"
 function Whislist() {
   const [dataDetails, setDataDetails] = useState([
     "",
@@ -155,9 +156,9 @@ function Whislist() {
     })
     )
 
-    dispatch(wishListGetData())
-  dispatch(getAllUserFromServer());
-
+    // dispatch(wishListGetData())
+  // dispatch(getAllUserFromServer());
+//  dispatch(getAllProduct())
     setWishDetails(filtered)
    },[Whislistget,wholeProduct])
 
