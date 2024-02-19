@@ -111,6 +111,7 @@ function Whislist() {
   const { wholeProduct } = useSelector((state) => state.product);
   const [wishDetails, setWishDetails] = useState([]);
   const navigate = useNavigate();
+ 
   // useEffect(() => {
   //   let data = [];
   //   for (let i = 0; i < Whislistget.length; i++) {
@@ -140,22 +141,24 @@ function Whislist() {
   //   setWishDetails(filtered);
   // }, [Whislistget, wholeProduct]);
 
-
-   useEffect(()=>{
+  useEffect(() => {
     const data = new Set();
-    Whislistget.forEach(({category,description})=>{
-      data.add(`${category}_${description}`)
-    })
+    Whislistget.forEach(({ category, description }) => {
+      data.add(`${category}_${description}`);
+    });
 
-    const filtered = wholeProduct.filter((item)=>
-    Array.from(data).some((key)=>{
-      const[DetailsCategory,DetailsDescription]=key.split("_");
-      return DetailsCategory === item.category && DetailsDescription ===item.description;
-    })
-    )
+    const filtered = wholeProduct.filter((item) =>
+      Array.from(data).some((key) => {
+        const [DetailsCategory, DetailsDescription] = key.split("_");
+        return (
+          DetailsCategory === item.category &&
+          DetailsDescription === item.description
+        );
+      })
+    );
 
-    setWishDetails(filtered)
-   },[Whislistget,wholeProduct])
+    setWishDetails(filtered);
+  }, [Whislistget, wholeProduct]);
 
   return (
     <div className="mt-3 pb-5 mb-5 ">

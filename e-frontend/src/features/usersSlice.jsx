@@ -451,7 +451,10 @@ export const usersSlice = createSlice({
         state.loaders = false;
       })
 
-      .addCase(resetAll, () => inintialState);
+      builder.addCase(resetAll, (state) => {
+       
+        Object.assign(state, { ...inintialState, loaders: state.loaders });
+      });
   },
 });
 

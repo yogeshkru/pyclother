@@ -13,7 +13,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllProduct } from "../features/product/productSlice";
 import CONN from "../utils/Url";
 
-import { TbHeartQuestion } from "react-icons/tb";
 
 const ProductCard = function ({ data }) {
   const navigate = useNavigate();
