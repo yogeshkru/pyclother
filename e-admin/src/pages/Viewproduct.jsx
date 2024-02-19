@@ -88,7 +88,7 @@ function Viewproduct() {
               <h6>Tax</h6>
             </div>
             <div className="col-lg-1">:</div>
-            <div className="col-lg-5">{state.Gst.gst_percentage}%</div>
+            <div className="col-lg-5">{state?.Gst?.gst_percentage}%</div>
           </div>
           <div className="row mt-2">
             <div className="col-lg-6">

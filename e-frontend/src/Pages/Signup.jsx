@@ -21,6 +21,9 @@ function Signup() {
       navigate("/");
     }
   });
+  const handleSign=()=>{
+    navigate("/login")
+  }
 
   const { values, errors, handleChange, handleBlur, handleSubmit, touched } =
     useFormik({
@@ -223,8 +226,7 @@ function Signup() {
 
                 <div className="mt-4">
                   <p className="login_size">
-                    Having trouble while logging in{" "}
-                    <span className="login_color">Get Help</span>{" "}
+                  Already have an account  <span onClick={handleSign} style={{color:"#df0067",fontWeight:"bold",cursor:"pointer"}}>Login </span> 
                   </p>
                 </div>
               </div>

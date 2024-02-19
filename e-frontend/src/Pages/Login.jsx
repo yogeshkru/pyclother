@@ -15,6 +15,9 @@ function Forget() {
   const {loginUser}=useSelector((state)=>state.users)
   const dispatch = useDispatch();
   const navigate=useNavigate()
+  const handleSignup=()=>{
+    navigate("/signup")
+  }
   const { values, errors, handleChange, handleBlur, handleSubmit, touched } =
     useFormik({
       initialValues: {
@@ -153,8 +156,8 @@ function Forget() {
 
               <div className="mt-4">
                 <p className="login_size">
-                  Having trouble while logging in{" "}
-                  <span className="login_color">Get Help</span>{" "}
+                  Create a <span onClick={handleSignup} style={{color:"#df0067",fontWeight:"bold",cursor:"pointer"}}>New Account</span> 
+                 
                 </p>
               </div>
             </div>
