@@ -16,7 +16,7 @@ function Footer() {
   return (
     <>
       <div className="footer__image">
-        <img src={footer} width="100%" />
+        {/* <img src={footer} width="100%" /> */}
       </div>
       <div className="footer_background">
         <div className="container">

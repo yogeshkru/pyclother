@@ -20,7 +20,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 function Header() {
-  const [menuItem,setMenuItem]=useState(true)
+ 
   const [sidenavWidth, setSidenavWidth] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { wholeProduct } = useSelector((state) => state.product);
@@ -77,10 +77,7 @@ function Header() {
     setSeachData(firstTenFilteredProducts);
     
   };
-  const handleItemClick = () => {
-   
-    setMenuItem(false);
-  };
+  
 
   // ****************************************************
 
@@ -217,7 +214,7 @@ function Header() {
                     {searchData && searchData.length !== 0 ? (
                       <div
                         className="position-absolute min-h-30vh bg-white shadow-sm-2 p-4  w-100 rounded-4 mouseOutDta"
-                        ref={mouseData}
+                      
                         style={{ zIndex: 999 }}
                       >
                         {searchData &&

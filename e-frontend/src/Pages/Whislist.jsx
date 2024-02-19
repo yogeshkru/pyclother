@@ -4,12 +4,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import whislist1 from "../assets/image/wishlist.jpeg";
 import { MdOutlineClose } from "react-icons/md";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import xtic from "../assets/image/ticxgame.png";
 import otic from "../assets/image/ticgame.png";
 import ProductCard from "../Component/ProductCard";
 import { toast } from "react-toastify";
-
+import { getAllUserFromServer, wishListGetData } from "../features/usersSlice";
+import { getAllProduct} from "../features/product/productSlice"
 function Whislist() {
   const [dataDetails, setDataDetails] = useState([
     "",
@@ -140,6 +141,7 @@ function Whislist() {
   //   setWishDetails(filtered);
   // }, [Whislistget, wholeProduct]);
 
+  const dispatch = useDispatch()
 
    useEffect(()=>{
     const data = new Set();
@@ -154,6 +156,9 @@ function Whislist() {
     })
     )
 
+    // dispatch(wishListGetData())
+  // dispatch(getAllUserFromServer());
+//  dispatch(getAllProduct())
     setWishDetails(filtered)
    },[Whislistget,wholeProduct])
 

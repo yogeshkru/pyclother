@@ -55,18 +55,23 @@ function SingleProduct() {
     (state) => state?.product
   );
 
-  console.log(wholeProduct);
   const { userCartProduct } = useSelector((state) => state?.users);
   const { Whislistget } = useSelector((state) => state.users);
 
   useEffect(() => {
-    for (let index = 0; index < userCartProduct?.length; index++) {
-      if (id === userCartProduct[index]?.productId?._id) {
-        setAlreadyAdded(true);
+    
+
+ let cartfound =false
+    for(let i=0;i<userCartProduct?.length;i++){
+
+      if(userCartProduct[i]?.productId?._id ===id){
+        cartfound=true
         break;
       }
     }
-  }, [userCartProduct]);
+
+    setAlreadyAdded(cartfound);
+  }, [userCartProduct,id]);
   useEffect(() => {
     let found = false;
     for (let i = 0; i < Whislistget.length; i++) {
@@ -96,10 +101,14 @@ function SingleProduct() {
         if (Array.isArray(wholeProduct[i]?.ratings)) {
           allRatings = allRatings.concat(wholeProduct[i].ratings);
         }
-        setRatings(allRatings);
       }
+
+      setRatings(allRatings);
+
     }
-  }, [wholeProduct]);
+
+
+  }, []);
 
   useEffect(() => {
     let timeOut = setTimeout(() => {
@@ -129,6 +138,7 @@ function SingleProduct() {
     }
   };
 
+  console.log(sizeClick)
   // ****************************************************************
 
   return (
@@ -258,7 +268,7 @@ function SingleProduct() {
                           checked={sizeClick === item}
                           onClick={() => handleSizeClick(item)}
                           className="radio--design"
-                          id={`radio-${i}`} 
+                          id={`radio-${i}`}
                         />
                         <label
                           className="radio-button_design label-1"
@@ -356,7 +366,7 @@ function SingleProduct() {
         </div>
       </section>
       <div className="container">
-        <Reviews />
+        <Reviews details={singleProduct?._id}/>
       </div>
 
       <section className=" container py-5">

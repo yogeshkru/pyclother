@@ -13,7 +13,7 @@ class Product {
     combinedData.images = files.map((file) => `${file.filename}`);
     const newProduct = await productModel.create(combinedData);
 
-    //  console.log(combi)
+   
     res.status(201).json({ newProduct });
   };
 
@@ -52,7 +52,12 @@ class Product {
   getOneProduct = async (req, res, next) => {
     const { id } = req.params;
 
-    const product = await productModel.findById(id).populate("color");
+    const product = await productModel.findById(id).populate({
+      path: 'ratings.postedBy', 
+      model: 'Tbl_user', 
+      select: 'user_name', 
+    });
+    
 
     if (!product) {
       const error = new CustomError(`Product with that ID is not found`, 404);
@@ -63,7 +68,7 @@ class Product {
       id,
       { $inc: { numViews: 1 } },
       { new: true }
-    );
+    )
     res.status(200).json({ product });
   };
 
@@ -179,10 +184,10 @@ class Product {
 
     let actualRating = Math.round(ratingSum / totalrating);
     let finalproduct = await productModel.findByIdAndUpdate(
-      prod,
+      prodId,
       { totalrating: actualRating },
       { new: true }
-    );
+    )
     res.status(200).json({ finalproduct });
   }
 }

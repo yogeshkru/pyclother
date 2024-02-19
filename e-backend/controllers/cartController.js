@@ -1,11 +1,12 @@
 const { default: mongoose } = require("mongoose");
 const cartModel = require("../model/cartModel");
 const CustomError = require("../utils/CustomError");
+const productModel = require("../model/productModel");
 
 
 class Carts {
   cart = async (req, res, next) => {
-    const { productId, price, size } = req.body;
+    const { productId,size } = req.body;
     const { _id } = req.user;
 
     try {
@@ -21,12 +22,14 @@ class Carts {
         );
         return next(error);
       }
+ 
+      const product = await productModel.findById(productId)
 
       const newCart = await cartModel.create({
         userId: _id,
         productId: productId,
         size,
-        cart_price: price,
+        cart_price: product.price,
       });
       res.status(200).json({ newCart });
     } catch (error) {

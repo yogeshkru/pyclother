@@ -9,7 +9,7 @@ export const PostAddress = createAsyncThunk(
   async (address, thunkApi) => {
     try {
       const response = await addressDetails.createAddress(address);
-      thunkApi.dispatch(getUserAddress())
+      // thunkApi.dispatch(getUserAddress())
 
       return response;
     } catch (err) {
@@ -37,7 +37,7 @@ export const deleteUserAddress = createAsyncThunk(
   async (id, thunkApi) => {
     try {
       const response = await addressDetails.deleteAddress(id);
-      thunkApi.dispatch(getUserAddress())
+      // thunkApi.dispatch(getUserAddress())
       return response;
     } catch (error) {
       return thunkApi.rejectWithValue(error);
@@ -50,7 +50,7 @@ export const PatchUserAddress = createAsyncThunk(
     async (id, thunkApi) => {
       try {
         const response = await addressDetails.patchAddress(id);
-        thunkApi.dispatch(getUserAddress())
+        // thunkApi.dispatch(getUserAddress())
         return response;
       } catch (error) {
         return thunkApi.rejectWithValue(error);

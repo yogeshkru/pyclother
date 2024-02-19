@@ -7,7 +7,7 @@ import { MdOutlineClose } from "react-icons/md";
 
 
 import { CiHeart } from "react-icons/ci";
-import { wishListPostData } from "../features/usersSlice";
+import { resetAll, wishListPostData } from "../features/usersSlice";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProduct } from "../features/product/productSlice";
@@ -24,6 +24,7 @@ const ProductCard = function ({ data }) {
   const dispatch = useDispatch();
   const handleWishlist = (i) => {
     dispatch(wishListPostData(i));
+    // dispatch(resetAll())
   };
 
   useEffect(() => {

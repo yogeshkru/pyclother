@@ -1,5 +1,6 @@
 import axios from "axios";
 import URL from "../../utils/Url";
+import { config } from "../../utils/axiosConfig";
 
 const getProduct = async (data) => {
   try {
@@ -14,29 +15,27 @@ const getProduct = async (data) => {
     }
 
     if (data?.color) {
-      queryParams.append(`color`, data?.color); // Append 'sort' parameter with color value
+      queryParams.append(`color`, data?.color); 
   }
 
     if (data?.category) {
       queryParams.append("category", data?.category);
     }
     const response = await axios.get(
-      `${URL.BASE_URL}product/getall-product?${queryParams}`
+      `${URL.BASE_URL}product/getall-product`
     );
 
     if (response.data) {
       return response.data;
     }
   } catch (error) {
-    throw new Error(error);
+    throw new Error(error.message);
   }
 
-  if (response.data) {
-    return response.data;
-  }
+
 };
 
-const getOneProduct = async function (id) {
+const getOneProductServer = async function (id) {
   const response = await axios.get(`${URL.BASE_URL}product/product-id/${id}`);
 
   if (response.data) {
@@ -44,9 +43,15 @@ const getOneProduct = async function (id) {
   }
 };
 
+const Ratings=async function(data){
+   const response=await axios.post(`${URL.BASE_URL}product/ratings`,data,config)
+   return response.data
+}
+
 const productService = {
-  getOneProduct,
+  getOneProductServer,
   getProduct,
+  Ratings
 };
 
 export default productService;

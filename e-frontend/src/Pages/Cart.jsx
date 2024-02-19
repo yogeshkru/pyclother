@@ -11,6 +11,7 @@ import { FaPlus } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getUserCartProductFromServer,
+  resetAll,
   updateUserCartProductQuantity,
   userCartDeleteProductFromServer,
 } from "../features/usersSlice";
@@ -86,6 +87,41 @@ function Cart() {
     setdetailsCategory(cartCategory);
   }, [userCartProduct]);
 
+
+
+
+
+
+
+
+//  **********************************************************************
+
+const deleteUserCart=async (id)=>{
+ const response= await  dispatch(userCartDeleteProductFromServer(id))
+
+//  if(userCartDeleteProductFromServer.fulfilled.match(response)){
+
+//    dispatch(getUserCartProductFromServer());
+
+//  }
+
+ if (response.meta.requestStatus === 'fulfilled') {
+  dispatch(getUserCartProductFromServer());
+  // dispatch(resetAll())
+}
+
+}
+
+
+
+// *************************************************************************
+
+
+
+
+
+
+
   return (
     <>
       <div>
@@ -117,8 +153,10 @@ function Cart() {
 
             {userCartProduct?.length &&
               userCartProduct?.map((item, index) => {
-                console.log(item)
-                const { images, brand, name, color, model } = item?.productId;
+
+                const { images, brand, name, color, model ,category ,_id} = item?.productId;
+                const productName = category?.replace(/\s+/g,"-")
+
                 const setColor = GetColorName(color);
                 return (
                   <div
@@ -131,6 +169,7 @@ function Cart() {
                           src={`${CONN.IMAGE_URL}${images[0]}`}
                           alt={brand}
                           className="img-fluid"
+                          onClick={()=>navigate(`/singleProduct/${productName}/${_id}`)}
                         />
                       </div>
 
@@ -191,7 +230,7 @@ function Cart() {
                         <AiFillDelete
                           className="text-danger fs-5"
                           onClick={() =>
-                            dispatch(userCartDeleteProductFromServer(item?._id))
+                            deleteUserCart(item?._id)
                           }
                         />
                       </div>

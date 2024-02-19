@@ -52,6 +52,7 @@ function Forget() {
   useEffect(()=>{
     if(loginUser !== ""){
       navigate("/")
+      window.location.reload()
     }
   })
   return (
@@ -112,7 +113,7 @@ function Forget() {
                         ? "login_success_1"
                         : ""
                     }`}
-                    placeholder="Password"
+                    placeholder="type"
                     name="user_password"
                     value={values.user_password}
                     onChange={handleChange}

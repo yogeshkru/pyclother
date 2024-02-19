@@ -22,6 +22,7 @@ import { postOrder, Reset_all } from "../features/order/orderSlice";
 import ProductCard from "../Component/ProductCard";
 import Address from "../assets/image/noAddress.png";
 import {Back} from "../features/stepper/StepperSlice"
+import { useNavigate } from "react-router-dom";
 function Delivery_address() {
   return (
     <>
@@ -31,6 +32,7 @@ function Delivery_address() {
 }
 
 const UpdateForm = () => {
+  const navigate = useNavigate()
   
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
@@ -65,7 +67,13 @@ const UpdateForm = () => {
     let sum = 0;
     for (let index = 0; index < userCartProduct?.length; index++) {
     
-      cart.push(userCartProduct[index]?.productId?._id);
+      const newObj = {
+        _id: userCartProduct[index]?.productId?._id,
+        cartUserQuantity: userCartProduct[index]?.cart_quantity,
+        userSize: userCartProduct[index]?.size
+      };
+      
+      cart.push(newObj);
       sum =
         sum +
         Number(
@@ -533,6 +541,8 @@ const UpdateForm = () => {
             <div className="pb-0 d-flex">
               <div className="col-6 mt-4">
                 {userCartProduct?.map((item, j) => {
+                 const {category,_id} = item?.productId
+                 const productName = category?.replace(/\s+/g,"-")
                   const { cart_three_delivery_data, cart_delivery_date } = item;
                   const { images, brand } = item?.productId;
                   const startDate = new Date(cart_delivery_date);
@@ -551,12 +561,13 @@ const UpdateForm = () => {
 
                   return (
                     <>
-                      <div className="image-fluid d-flex align-items-center gap-2 ">
+                      <div className="image-fluid d-flex align-items-center gap-2 " key={j}>
                         <img
                           src={`${CONN.IMAGE_URL}${images[0]}`}
                           alt={brand}
                           height={60}
                           className="gap-2 mt-3"
+                          onClick={()=>navigate(`/singleProduct/${productName}/${_id}`)}
                         />
                         <div className="mt-4">
                           <p className="delivery_address_content12 ">
