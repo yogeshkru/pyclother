@@ -48,8 +48,7 @@ class Apifeatures {
 
     searchFields.forEach((fields) => {
       if (this.queryStr[fields]) {
-        this.query = this.query.find({
-          [fields]: { $regex: this.queryStr[fields], $options: "i" },
+        this.query = this.query.find({[fields]: { $regex: this.queryStr[fields], $options: "i" },
         });
       }
     });
