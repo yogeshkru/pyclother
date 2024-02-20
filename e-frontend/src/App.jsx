@@ -54,7 +54,7 @@ function App() {
             <Route path="Addtocart" element={<Cart />} />
             <Route path="delivery-address" element={<Delivery_address />} />
 
-            <Route path="ourstore" element={<OurStore />} />
+            <Route path="ourstore/:searchTerm" element={<OurStore />} />
 
             <Route path="stepper" element={
               <PrivateRoutes>

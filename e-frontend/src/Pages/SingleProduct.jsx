@@ -10,6 +10,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   addUserProductToServer,
   getUserCartProductFromServer,
+  wishListGetData,
   wishListPostData,
 } from "../features/usersSlice";
 import ReactStars from "react-stars";
@@ -58,6 +59,16 @@ function SingleProduct() {
 
   const { userCartProduct } = useSelector((state) => state?.users);
   const { Whislistget } = useSelector((state) => state.users);
+
+  const updateWishList = async (id)=>{
+  const response= await dispatch(wishListPostData(id))
+
+  if (response.meta.requestStatus === "fulfilled"){
+
+    dispatch(wishListGetData());
+  }
+
+  }
 
   useEffect(() => {
     
@@ -123,23 +134,29 @@ function SingleProduct() {
     };
   }, [id]);
 
-  const uploadProductCart = () => {
+  const uploadProductCart = async () => {
     if (sizeClick === null) {
       toast.error("Please Select the Size");
 
       return false;
     } else {
-      dispatch(
+     const response = await dispatch(
         addUserProductToServer({
           productId: singleProduct?._id,
           price: singleProduct?.price,
           size: sizeClick,
         })
       );
+
+      if(response.meta.requestStatus === "fulfilled"){
+        dispatch(getUserCartProductFromServer())
+      }
+
+
     }
   };
 
-  console.log(sizeClick)
+  
   // ****************************************************************
 
   return (
@@ -312,7 +329,11 @@ function SingleProduct() {
                     <div
                       className="col-lg-4 col-5 button2-background ms-3"
                       style={handleStyle}
-                      onClick={() => dispatch(wishListPostData(id))}
+                      onClick={() => 
+                      
+                      updateWishList(id)
+                      
+                      }
                     >
                       {wishlistAlready ? (
                         <div className="d-flex justify-content-center gap-2 mb-0">

@@ -35,8 +35,12 @@ const ProfileContent = ({ active }) => {
       user_email: userProfile?.user_email,
       user_phone:userProfile?.user_phone
     },
-    onSubmit: (value) => {
-     dispatch(userUpdates(value))
+    onSubmit: async(value) => {
+    const response = await dispatch(userUpdates(value))
+
+    if(response.meta.requestStatus ==="fulfilled"){
+      dispatch(getAllUserFromServer())
+    }
      setEdite(true)
     },
   });
