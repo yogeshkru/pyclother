@@ -8,6 +8,7 @@ module.exports = (app) => {
     getoneorder,
     updateOrders,
     getAllSellerOrders,
+    getUserOrders,
   } = new Order();
   let { authenticateUser, restrict } = require("../middleware/auth");
 
@@ -23,6 +24,10 @@ module.exports = (app) => {
   // router
   // .route("/update-address")
   // .patch(authenticateUser, asyncErrorHandler(updateaddress));
+
+  router
+    .route("/get-user-order")
+    .get(authenticateUser, asyncErrorHandler(getUserOrders));
 
   router
     .route("/get-all")

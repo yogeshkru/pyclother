@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from "react";
-// import { Cartheader } from "../Component/Cartheader";
-
-import tick from "../assets/image/tick.png";
-import rounded from "../assets/image/rounded.jpeg";
+// import { Cartheader } from "../Component/Carthea
 import "../styles/cart.css";
 import ProductCard from "../Component/ProductCard";
-import StepHeader from "../Component/StepHeader";
-import secured from "../assets/image/secured.png";
-import { FaPlus } from "react-icons/fa6";
+
 import { useDispatch, useSelector } from "react-redux";
 import {
   getUserCartProductFromServer,
@@ -47,15 +42,24 @@ function Cart() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (productUpdateDetail !== null) {
-      dispatch(
-        updateUserCartProductQuantity({
-          cartItemId: productUpdateDetail?.cartItemId,
-          quantity: productUpdateDetail?.quantity,
-        })
-      );
-    }
-  }, [productUpdateDetail]);
+    const updateCartProduct = async () => {
+        if (productUpdateDetail !== null) {
+            const response = await dispatch(
+                updateUserCartProductQuantity({
+                    cartItemId: productUpdateDetail?.cartItemId,
+                    quantity: productUpdateDetail?.quantity,
+                })
+            );
+
+            if (response.meta.requestStatus === "fulfilled") {
+                dispatch(getUserCartProductFromServer());
+            }
+        }
+    };
+
+    updateCartProduct();
+}, [productUpdateDetail]);
+
 
   useEffect(() => {
     let sum = 0;

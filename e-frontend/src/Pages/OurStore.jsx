@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import ProductCard from "../Component/ProductCard";
 import "../styles/ourstore.css";
@@ -14,7 +14,8 @@ import Meta from "../Component/Meta";
 const OurStore = function () {
   <Meta title={`${"Our Store"}`}/>
 
-
+  const {searchTerm} = useParams()
+  console.log(searchTerm)
  
 
   const [show, setShow] = useState(true);
@@ -78,13 +79,13 @@ const OurStore = function () {
 
   useEffect(() => {
     const timeOut = setTimeout(() => {
-      dispatch(getAllProduct({ category, brand, color, price }));
+      dispatch(getAllProduct({ category, brand, color, price,searchTerm }));
     }, 500);
 
     return () => {
       clearTimeout(timeOut);
     };
-  }, [category,price,color,brand]);
+  }, [category,price,color,brand,searchTerm]);
 
   //brand
   const brandDetails =

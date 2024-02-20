@@ -2,6 +2,8 @@ import axios from "axios";
 import URL from "../../utils/Url";
 import { config } from "../../utils/axiosConfig";
 
+
+
 const getProduct = async (data) => {
   try {
     const queryParams = new URLSearchParams();
@@ -21,8 +23,28 @@ const getProduct = async (data) => {
     if (data?.category) {
       queryParams.append("category", data?.category);
     }
+
+
+    const searchFields = [
+      "name",
+      // "description",
+      // "length",
+      // "fabric",
+      // "fit",
+      // "neck",
+      // "sleeve",
+      // "size",
+    ];
+
+    if (data?.searchTerm) {
+      searchFields.forEach((field) => {
+        queryParams.append(field, data.searchTerm);
+      });
+    }
+
+
     const response = await axios.get(
-      `${URL.BASE_URL}product/getall-product`
+      `${URL.BASE_URL}product/getall-product?${queryParams.toString()}`
     );
 
     if (response.data) {

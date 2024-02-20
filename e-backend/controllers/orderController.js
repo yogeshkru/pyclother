@@ -2,7 +2,7 @@ const orderModel = require("../model/orderModel");
 const CustomError = require("../utils/customError");
 const productModel = require("../model/productModel");
 const { Types } = require("mongoose");
-const shopModel = require("../model/shopModel")
+const shopModel = require("../model/shopModel");
 class Order {
   createOrder = async (req, res, next) => {
     try {
@@ -62,24 +62,20 @@ class Order {
           order_total_Discount,
           order_user: _id,
         });
+
         orders.push(order);
       }
 
-      res.status(200).json({ updateOrders });
+      res.status(200).json({ orders });
     } catch (error) {
       next(new CustomError(error.message, 400));
     }
   };
 
-  // All orders of seller
+  // ***************************All orders of seller **********************
 
   async getAllSellerOrders(req, res, next) {
     const { _id } = req.user;
-
-    console.log(_id)
-
-    const dd = await shopModel.findById(_id)
-    console.log(dd)
 
     try {
       const orders = await orderModel
@@ -91,6 +87,26 @@ class Order {
       return next(new CustomError(error.message, 500));
     }
   }
+
+  // **********************************get user Order **********************
+
+  async getUserOrders(req, res, next) {
+    const { _id } = req.user;
+
+    try {
+      const userOrder = await orderModel
+        .find({ order_user: _id })
+        .sort({ createdAt: -1 });
+
+      res
+        .status(200)
+        .json({ success: true, length: userOrder.length, userOrder });
+    } catch (error) {
+      return next(new CustomError(error.message, 500));
+    }
+  }
+
+  // ****************************************************************************************************************************
 
   async getoneorder(req, res, next) {
     const { id } = req.params;

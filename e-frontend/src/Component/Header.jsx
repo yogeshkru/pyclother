@@ -20,10 +20,8 @@ import {
 import { useNavigate } from "react-router-dom";
 
 function Header() {
- 
   const [sidenavWidth, setSidenavWidth] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const { wholeProduct } = useSelector((state) => state.product);
   const isMobile = useMediaQuery({ maxWidth: 600 });
 
   const navigate = useNavigate();
@@ -44,10 +42,27 @@ function Header() {
   // *********************Search funtionality***********************
 
   const { Whislistget, userCartProduct } = useSelector((state) => state.users);
+  const { wholeProduct } = useSelector((state) => state.product);
+
+  // **********************************************************************
   const [searchTerm, setSearchTerm] = useState("");
+
   const [searchData, setSeachData] = useState(null);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    // document.getElementById("navLink").click();
+
+    if (searchTerm) {
+      navigate(`/ourstore/${searchTerm}`);
+    }
+
+    // window.location/.href = "/ourstore";
+  };
+  // *************************************************************************
   useEffect(() => {
     dispatch(getAllProduct());
+
     dispatch(wishListGetData());
     dispatch(getUserProfileOnServer());
   }, [dispatch]);
@@ -60,24 +75,21 @@ function Header() {
       setIsLoggedIn(false);
     }
   }, [isLoggedIn]);
-  
 
   const handleSearchChange = (e) => {
     const term = e.target.value;
     setSearchTerm(term);
 
-    const filteredProducts =
-      wholeProduct &&
-      wholeProduct?.filter((product) => {
-        return product?.name.toLowerCase().includes(term.toLowerCase());
-      });
+    // const filteredProducts =
+    //   wholeProduct &&
+    //   wholeProduct?.filter((product) => {
+    //     return product?.name.toLowerCase().includes(term.toLowerCase());
+    //   });
 
-    const firstTenFilteredProducts = filteredProducts.slice(0, 5);
+    // const firstTenFilteredProducts = filteredProducts.slice(0, 5);
 
-    setSeachData(firstTenFilteredProducts);
-    
+    // setSeachData(firstTenFilteredProducts);
   };
-  
 
   // ****************************************************
 
@@ -163,7 +175,7 @@ function Header() {
             </div>
           </div>
           <div>
-            <div className="text-center header--search" >
+            <div className="text-center header--search">
               <input
                 type="search"
                 autoComplete="off"
@@ -193,11 +205,9 @@ function Header() {
                     />
                   </div>
                 </div>
-                <div className="col-lg-3">
-             
-                </div>
+                <div className="col-lg-3"></div>
                 <div className="col-lg-4">
-                  <div className="text-center header--search" >
+                  <div className="text-center header--search">
                     <input
                       type="search"
                       autoComplete="off"
@@ -208,13 +218,18 @@ function Header() {
                     />
 
                     <div className="header__icon">
-                      <IoMdSearch />
+                      <a
+                        id="navLink"
+                        href="/ourstore"
+                        style={{ display: "none" }}
+                      ></a>
+
+                      <IoMdSearch onClick={handleSearch} />
                     </div>
-                 
+
                     {searchData && searchData.length !== 0 ? (
                       <div
                         className="position-absolute min-h-30vh bg-white shadow-sm-2 p-4  w-100 rounded-4 mouseOutDta"
-                      
                         style={{ zIndex: 999 }}
                       >
                         {searchData &&
@@ -229,12 +244,11 @@ function Header() {
                                 to={`singleProduct/${productName}/${item?._id}`}
                                 key={index}
                                 className="text-decoration-none"
-                               
                               >
                                 <div className="d-flex py-3 justify-conten-between">
                                   <div>
                                     <img
-                                      src={`${URL.IMAGE_URL}${item?.images}`}
+                                      src={`${URL.IMAGE_URL}${item?.images[0]}`}
                                       alt={item?.name}
                                       style={{
                                         height: "30px",
@@ -308,13 +322,9 @@ function Header() {
                           style={{ marginLeft: "10px", fontSize: "20px" }}
                         />
 
-                      
-
                         <span style={handleFont}>Shop </span>
                       </div>
                     </div>
-
-                   
 
                     <div className="Header--wishlist">
                       <div

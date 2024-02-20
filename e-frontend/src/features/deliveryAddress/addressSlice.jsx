@@ -215,3 +215,7 @@ export const AddressesSlice = createSlice({
             })
     }
 })
+
+
+
+export default  AddressesSlice.reducer
