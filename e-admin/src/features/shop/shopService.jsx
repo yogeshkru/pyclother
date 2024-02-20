@@ -1,6 +1,6 @@
 import axios from "axios";
 import URL from "../../utilis/Url";
-
+import {config} from "../../utilis/axiosConfig"
 //CREATE ==>SHOP
 const createShop = async (data) => {
   const response = await axios.post(`${URL.BASE_URL}shop/create-shop`, data);
@@ -76,6 +76,13 @@ async function deleteAuthShop() {
   }
 }
 
+
+const getShopuserByid=async()=>{
+  const response=await axios.get(`${URL.BASE_URL}shop/getshop`,config)
+  console.log(response)
+  return response.data
+}
+
 const shopService = {
   createShop,
   loginShop,
@@ -85,6 +92,7 @@ const shopService = {
   updateDetailsShop,
   updateShopPassword,
   deleteAuthShop,
+  getShopuserByid
 };
 
 export default shopService;

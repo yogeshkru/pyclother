@@ -66,6 +66,15 @@ export const ShopDeleteData=createAsyncThunk(
     }
 )
 
+export const ShopByRoleId=createAsyncThunk(
+    "auth/getRole",async(data,thunApi)=>{
+        return handleAsyncRequest(shopService.getShopuserByid,data,thunApi)
+    }
+)
+
+
+
+
 const initialState={
     isError:false,
     isSuccess:false,
@@ -77,7 +86,8 @@ const initialState={
     ResetShop:{},
     UpdateShop:{},
     UpDateShopPassword:{},
-    DeleteShop:{}
+    DeleteShop:{},
+    Role:""
 
 }
 export const shopSlice=createSlice({
@@ -206,6 +216,22 @@ export const shopSlice=createSlice({
             
         })
         .addCase(ShopDeleteData.rejected,(state,action)=>{
+            state.isError=true;
+            state.isSuccess=false;
+            state.isLoaders=false;
+            state.Message=action.error
+        })
+        .addCase(ShopByRoleId.pending,(state,action)=>{
+            state.isLoaders=true
+        })
+        .addCase(ShopByRoleId.fulfilled,(state,action)=>{
+            state.isLoaders=false;
+            state.isError=false;
+            state.isSuccess=true;
+            state.Role=action.payload?.data?.user?.role;
+            
+        })
+        .addCase(ShopByRoleId.rejected,(state,action)=>{
             state.isError=true;
             state.isSuccess=false;
             state.isLoaders=false;

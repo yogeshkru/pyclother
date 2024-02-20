@@ -63,10 +63,10 @@ module.exports = (app) => {
       asyncErrorHandler(blockUser)
     );
   router
-    .route("/getshop/:id")
+    .route("/getshop")
     .get(
       authenticateUser,
-      restrict("super admin"),
+      restrict("super admin","shop admin"),
       asyncErrorHandler(getUserById)
     );
   router
