@@ -1,8 +1,15 @@
-import React from "react";
+import React,{useEffect} from "react";
 import DataTable from "react-data-table-component";
-
+import  {orderdetailsGets} from "../features/Order/OrderSlice";
+import {useSelector,useDispatch} from "react-redux";
 function Orders() {
+    const {ordergetallorders}=useSelector(state=>state.orderget)
+    console.log(ordergetallorders)
+    const dispatch=useDispatch()
 
+    useEffect(()=>{
+       dispatch(orderdetailsGets())
+    },[dispatch])
 
   const columns = [
     {

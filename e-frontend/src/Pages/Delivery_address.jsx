@@ -21,7 +21,8 @@ import { config } from "../utils/axiosConfig";
 import { postOrder, Reset_all } from "../features/order/orderSlice";
 import ProductCard from "../Component/ProductCard";
 import Address from "../assets/image/noAddress.png";
-import { Back } from "../features/stepper/StepperSlice";
+import {Back} from "../features/stepper/StepperSlice"
+import { useNavigate } from "react-router-dom";
 function Delivery_address() {
   return (
     <>
@@ -31,6 +32,8 @@ function Delivery_address() {
 }
 
 const UpdateForm = () => {
+  const navigate = useNavigate()
+  
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const [detailsCategory, setDetailsCategory] = useState([]);
@@ -47,6 +50,7 @@ const UpdateForm = () => {
   const [place, setPlace] = useState("");
   const [editeItem, setEditeItem] = useState(null);
 
+  
   const { userAddress, getUserAddressSuccess } = useSelector(
     (state) => state.userAddress
   );
@@ -62,14 +66,14 @@ const UpdateForm = () => {
     let cart = [];
     let sum = 0;
     for (let index = 0; index < userCartProduct?.length; index++) {
-      // console.log(userCartProduct[index]?.)
-
-      cart.push({
-        cartProductId: userCartProduct[index]?.productId?._id,
-        cart_price: userCartProduct[index]?.cart_price,
-
-        cart_quantity: userCartProduct[index]?.cart_quantity,
-      });
+    
+      const newObj = {
+        _id: userCartProduct[index]?.productId?._id,
+        cartUserQuantity: userCartProduct[index]?.cart_quantity,
+        userSize: userCartProduct[index]?.size
+      };
+      
+      cart.push(newObj);
       sum =
         sum +
         Number(
@@ -77,7 +81,6 @@ const UpdateForm = () => {
             userCartProduct[index]?.cart_price
         );
       setTotalAmount(sum);
-      console.log(cart);
     }
 
     setUserCart(cart);
@@ -89,9 +92,12 @@ const UpdateForm = () => {
       data.push({ categoryDetails, DescriptionDetails });
     }
 
+
+
     const filtered =
       wholeProduct &&
       wholeProduct.filter((item) =>
+
         data.some(
           (userData) =>
             userData.categoryDetails === item.category &&
@@ -156,11 +162,15 @@ const UpdateForm = () => {
   };
 
   const checkOutHandler = async () => {
-    if (!addressId) {
-      alert("Select Address");
 
-      return;
+
+    if(!addressId){
+      alert("Select Address")
+
+      return 
+      
     }
+
 
     const res = await loadScript(
       "https://checkout.razorpay.com/v1/checkout.js"
@@ -180,6 +190,8 @@ const UpdateForm = () => {
       alert("Something went wrong");
       return;
     }
+
+    
 
     const { amount, id: order_id, currency } = result?.data?.order;
     const options = {
@@ -203,18 +215,25 @@ const UpdateForm = () => {
           config
         );
 
-        setTimeout(() => {
-          dispatch(
-            postOrder({
-              order_totalPrice: totalAmount,
-              order_total_Discount: totalAmount,
-              cartItem: userCart,
-              orderItems: cartProduct,
-              order_paymentInfo: result.data,
-              order_user_address: addressId,
-            })
-          );
-        }, 3000);
+          
+        
+
+          setTimeout(() => {
+            dispatch(
+              postOrder({
+                order_totalPrice: totalAmount,
+                order_total_Discount: totalAmount,
+                cartItem: userCart,
+                orderItems: cartProduct,
+                order_paymentInfo: result.data,
+                order_user_address: addressId,
+              })
+            );
+          }, 3000);
+
+
+         
+       
       },
       prefill: {
         name: "VCW",
@@ -512,18 +531,9 @@ const UpdateForm = () => {
               </div>
             )}
 
+
             <div className="mt-2">
-              <button
-                onClick={() => dispatch(Back())}
-                style={{
-                  padding: "7px 20px",
-                  backgroundColor: "#df0067",
-                  color: "white",
-                  borderRadius: "20px",
-                }}
-              >
-                Back Page
-              </button>
+                 <button onClick={()=>dispatch(Back())} style={{padding:"7px 20px",backgroundColor:"#df0067",color:"white",borderRadius:"20px"}}>Back Page</button>
             </div>
           </div>
 
@@ -531,6 +541,8 @@ const UpdateForm = () => {
             <div className="pb-0 d-flex">
               <div className="col-6 mt-4">
                 {userCartProduct?.map((item, j) => {
+                 const {category,_id} = item?.productId
+                 const productName = category?.replace(/\s+/g,"-")
                   const { cart_three_delivery_data, cart_delivery_date } = item;
                   const { images, brand } = item?.productId;
                   const startDate = new Date(cart_delivery_date);
@@ -549,12 +561,13 @@ const UpdateForm = () => {
 
                   return (
                     <>
-                      <div className="image-fluid d-flex align-items-center gap-2 ">
+                      <div className="image-fluid d-flex align-items-center gap-2 " key={j}>
                         <img
                           src={`${CONN.IMAGE_URL}${images[0]}`}
                           alt={brand}
                           height={60}
                           className="gap-2 mt-3"
+                          onClick={()=>navigate(`/singleProduct/${productName}/${_id}`)}
                         />
                         <div className="mt-4">
                           <p className="delivery_address_content12 ">

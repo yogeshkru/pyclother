@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ReactStars from "react-stars";
-import { RatingsPost } from "../features/product/productSlice";
+import { RatingsPost, getAllProduct, getOneProduct } from "../features/product/productSlice";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -24,11 +24,13 @@ function Reviews({ details }) {
     } else {
       const data = { star: Rating, comment: textarea, prodId: details };
       dispatch(RatingsPost(data));
+
     }
     setRatings("");
     setTextarea("");
     setShow(false);
   };
+
   return (
     <>
       <h4>Reviews</h4>

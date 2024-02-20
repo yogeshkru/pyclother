@@ -55,7 +55,7 @@ class Product {
     const product = await productModel.findById(id).populate({
       path: 'ratings.postedBy', 
       model: 'Tbl_user', 
-      select: 'user_name user_email', 
+      select: 'user_name', 
     });
     
 

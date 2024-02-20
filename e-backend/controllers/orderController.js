@@ -1,7 +1,8 @@
 const orderModel = require("../model/orderModel");
 const CustomError = require("../utils/customError");
-const productModel = require("../model/productModel")
-
+const productModel = require("../model/productModel");
+const { Types } = require("mongoose");
+const shopModel = require("../model/shopModel")
 class Order {
   createOrder = async (req, res, next) => {
     try {
@@ -17,15 +18,31 @@ class Order {
       } = req.body;
       const { _id } = req.user;
 
-      // cartItem is [array] which comes from frontend*********************************$in to extract the product by id 
-      
-      const products = await productModel.find({ _id: { $in: cartItem } });
+      // cartItem is [array] which comes from frontend*********************************$in to extract the product by id
+
+      const products = await productModel.find({
+        _id: { $in: cartItem.map((item) => item._id) },
+      });
+
+      const updateOrders = products.map((product) => {
+        const updatedCartItem = cartItem.find((item) =>
+          new Types.ObjectId(item._id).equals(product._id)
+        );
+
+        if (updatedCartItem) {
+          return {
+            ...product.toObject(),
+            cartUserQuantity: updatedCartItem.cartUserQuantity,
+            userSize: updatedCartItem.userSize,
+          };
+        }
+        return null;
+      });
 
       // group cart items by shopId
       const shopItemMap = new Map();
-         
-      for (const item of products) {
 
+      for (const item of updateOrders) {
         const shopId = item?.shopId;
         if (!shopItemMap.has(shopId)) {
           shopItemMap.set(shopId, []);
@@ -33,11 +50,9 @@ class Order {
         shopItemMap.get(shopId).push(item);
       }
 
-      
       const orders = [];
 
       for (const [shopId, items] of shopItemMap) {
-
         // const totalPrice = items.reduce((acc,curr)=>acc+curr.)
         const order = await orderModel.create({
           cartItem: items,
@@ -45,17 +60,37 @@ class Order {
           order_totalPrice,
           order_paymentInfo,
           order_total_Discount,
-          order_user:_id
+          order_user: _id,
         });
         orders.push(order);
       }
 
-      res.status(200).json({ orders });
+      res.status(200).json({ updateOrders });
     } catch (error) {
       next(new CustomError(error.message, 400));
     }
   };
-  
+
+  // All orders of seller
+
+  async getAllSellerOrders(req, res, next) {
+    const { _id } = req.user;
+
+    console.log(_id)
+
+    const dd = await shopModel.findById(_id)
+    console.log(dd)
+
+    try {
+      const orders = await orderModel
+        .find({ "cartItem.shopId": _id })
+        .sort({ createdAt: -1 });
+
+      res.status(200).json({ success: true, orders });
+    } catch (error) {
+      return next(new CustomError(error.message, 500));
+    }
+  }
 
   async getoneorder(req, res, next) {
     const { id } = req.params;

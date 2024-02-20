@@ -50,6 +50,12 @@ const OurStore = function () {
   const dispatch = useDispatch();
 
   useEffect(() => {
+
+     let AllProduct  = new Set();
+     
+
+
+
     let newBrand = [];
     let category = [];
     let newColors = [];
@@ -156,7 +162,7 @@ const OurStore = function () {
       <section className="container py-5 ourStore-breadcrumb ">
         <div className="row ms-0">
           <div className="d-flex justify-content-around ms-0">
-            <div className="col-4  mb-0 d-flex align-items-center ms-0">
+            <div className="  mb-0 d-flex align-items-center ms-0">
               <nav
                 style={{ "--bs-breadcrumb-divider": ">" }}
                 aria-label="breadcrumb"
@@ -178,14 +184,14 @@ const OurStore = function () {
               </nav>
             </div>
 
-            <div className="col-4 d-flex align-items-center ourStore-product-count mb-0 ms-0">
+            <div className=" d-flex align-items-center ourStore-product-count mb-0 ms-0">
               <div className="d-flex flex-column text-center mb-0 ms-0 ">
                 <h4 className="mb-0 ms-0">Men Top wear</h4>
                 <p className="ourStore-stock mb-0 ms-0">(12345 items)</p>
               </div>
             </div>
 
-            <div className="col-4 sort-store d-flex align-items-center  ms-0">
+            {/* <div className=" sort-store d-flex align-items-center  ms-0">
               <div className="d-flex mx-auto ">
                 <p className="mb-0 ms-0 ">Sort By:</p>
 
@@ -199,7 +205,7 @@ const OurStore = function () {
                   <option value="High to low"> High to low</option>
                 </select>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
@@ -291,7 +297,7 @@ const OurStore = function () {
           </div>
 
           <div className="col-lg-9 col-6 ourStore-product-render  ">
-            <div className="d-flex gap-10 flex-wrap ">
+            <div className="d-flex gap-18 flex-wrap ">
               <ProductCard data={wholeProduct} />
             </div>
 

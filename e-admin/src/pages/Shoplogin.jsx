@@ -13,7 +13,7 @@ import {Link, useNavigate} from "react-router-dom"
 
 function Shoplogin() {
 
-  const isAuthenticated = !!localStorage.getItem("admin_user")
+  // const isAuthenticated = !!localStorage.getItem("admin_user")
   const [eye, setEye] = useState(false);
   const{isSuccess}=useSelector(state=>state.shop)
   const navigator=useNavigate()
@@ -51,6 +51,7 @@ function Shoplogin() {
   useEffect(() => {
     if (isSuccess) {
       navigator("/admin")
+      window.location.reload()
     }
    
   })
