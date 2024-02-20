@@ -99,7 +99,8 @@ function Header() {
     navigate("/Whislist");
   };
   const handleStore = () => {
-    navigate("/ourstore");
+    navigate("/ourstore/:");
+    window.location.reload()
   };
 
   const handleImage = () => {
