@@ -9,7 +9,7 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { IoEyeOutline } from "react-icons/io5";
 import { useDispatch ,useSelector} from "react-redux";
-import { userLogin } from "../features/usersSlice";
+import { userLogin,resetAll } from "../features/usersSlice";
 
 function Forget() {
   const {loginUser}=useSelector((state)=>state.users)

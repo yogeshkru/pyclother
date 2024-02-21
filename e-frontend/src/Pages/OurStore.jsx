@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import ProductCard from "../Component/ProductCard";
 import "../styles/ourstore.css";
@@ -12,11 +12,11 @@ import { GetColorName } from "hex-color-to-color-name";
 import Meta from "../Component/Meta";
 
 const OurStore = function () {
-  <Meta title={`${"Our Store"}`}/>
+  <Meta title={`${"Our Store"}`} />;
 
+  const { searchTerm } = useParams();
 
- 
-
+  const navigate = useNavigate();
   const [show, setShow] = useState(true);
 
   const handleShow = () => {
@@ -34,14 +34,14 @@ const OurStore = function () {
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
   const [colors, setColors] = useState([]);
-  const [prices,setPrices] = useState([])
+  const [prices, setPrices] = useState([]);
 
   //filter
 
   const [category, setCategory] = useState(null);
   const [brand, setBrand] = useState(null);
   const [color, setColor] = useState(null);
-  const [price,setPrice]= useState(null)
+  const [price, setPrice] = useState(null);
 
   const [minPrice, setMinPrice] = useState(null);
   const [maxPrice, setMaxPrice] = useState(null);
@@ -50,11 +50,7 @@ const OurStore = function () {
   const dispatch = useDispatch();
 
   useEffect(() => {
-
-     let AllProduct  = new Set();
-     
-
-
+    let AllProduct = new Set();
 
     let newBrand = [];
     let category = [];
@@ -67,24 +63,33 @@ const OurStore = function () {
       newBrand?.push(element?.brand);
       category?.push(element?.category);
       newColors?.push(element?.color);
-     price?.push(element?.price)
-   
+      price?.push(element?.price);
     }
     setBrands(newBrand);
     setCategories(category);
     setColors(newColors);
-    setPrices(price)
+    setPrices(price);
   }, [wholeProduct]);
 
   useEffect(() => {
     const timeOut = setTimeout(() => {
-      dispatch(getAllProduct({ category, brand, color, price }));
+      dispatch(getAllProduct({ category, brand, color, price, searchTerm }));
+      const params = new URLSearchParams();
+
+
+      // if (category) params.append("category", category);
+      // if (brand) params.append("brand", brand);
+      // if (color) params.append("color", color);
+      // if (price) params.append("price", price);
+
+      // if (category) params.append("category", category);
+      // navigate(`/outstore/${searchTerm}?${params.toString()}`);
     }, 500);
 
     return () => {
       clearTimeout(timeOut);
     };
-  }, [category,price,color,brand]);
+  }, [category, price, color, brand, searchTerm]);
 
   //brand
   const brandDetails =
@@ -114,7 +119,7 @@ const OurStore = function () {
   const colorDetails =
     colors &&
     [...new Set(colors)].map((item, i) => {
-      const colorNAme = GetColorName(item) 
+      const colorNAme = GetColorName(item);
       return (
         <div key={i} className="d-flex gap-1">
           <div className="row">
@@ -141,9 +146,9 @@ const OurStore = function () {
 
   // price
 
-    const priceDetails = prices && [...new Set(prices)].map((item, i) => {
-      
-    
+  const priceDetails =
+    prices &&
+    [...new Set(prices)].map((item, i) => {
       return (
         <div key={i} className="d-flex gap-1 mb-2">
           <input type="checkbox" onClick={() => setPrice(item)} />
@@ -153,8 +158,6 @@ const OurStore = function () {
         </div>
       );
     });
-    
-    
 
   // *******************************************************************
   return (
@@ -210,8 +213,6 @@ const OurStore = function () {
         </div>
       </section>
 
-   
-
       <section className="container py-1 ourStore-border-top  ">
         <div className="row ">
           <div className={"col-lg-3 ourStore-border-right col-12"}>
@@ -220,7 +221,7 @@ const OurStore = function () {
                 {show ? (
                   <div className="d-flex justify-content-between">
                     <div>
-                    <h5 className="ourStore-price-title">CATEGORY</h5>
+                      <h5 className="ourStore-price-title">CATEGORY</h5>
                     </div>
                     <div>
                       <FaMagnifyingGlass />
@@ -239,10 +240,7 @@ const OurStore = function () {
               </div>
 
               <div>
-                <ul className="ps-0">
-                  
-                  {categoryDetails}
-                </ul>
+                <ul className="ps-0">{categoryDetails}</ul>
               </div>
             </div>
 
@@ -251,7 +249,7 @@ const OurStore = function () {
                 {bshow ? (
                   <div className="d-flex justify-content-between">
                     <div>
-                    <h5 className="ourStore-price-title">BRAND</h5>
+                      <h5 className="ourStore-price-title">BRAND</h5>
                     </div>
                     <div>
                       <FaMagnifyingGlass />
@@ -270,16 +268,12 @@ const OurStore = function () {
                 )}
               </div>
               <div>
-                <ul className="ps-0">
-            
-                  {brandDetails}
-                </ul>
+                <ul className="ps-0">{brandDetails}</ul>
               </div>
             </div>
 
             <div className="ourStore-price-gap ">
               <h5 className="ourStore-price-title">PRICE</h5>
-
 
               {priceDetails}
             </div>
@@ -291,8 +285,6 @@ const OurStore = function () {
 
             <div className="ourStore-color">
               <h3 className="ourStore-discount-title mt-3">DISCOUNT</h3>
-           
-            
             </div>
           </div>
 

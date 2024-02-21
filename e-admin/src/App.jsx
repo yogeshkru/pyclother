@@ -31,6 +31,7 @@ import Viewproduct from "./pages/Viewproduct";
 import { OpenRoutes } from "./protect/openRoutes";
 import { PrivateRoutes } from "./protect/PrivateRoutes";
 import Privacypolicy from "./pages/Privacypolicy";
+import Viewuserproduct from "./pages/Viewuserproduct";
 function App() {
   let content;
 
@@ -86,6 +87,7 @@ function App() {
             <Route path="policy" element={<Privacypolicy />} />
             <Route path="gst" element={<Gst />} />
             <Route path="view" element={<Viewproduct />} />
+            <Route path="viewuser" element={<Viewuserproduct />} />
           </Route>
         </Routes>
 

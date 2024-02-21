@@ -29,10 +29,11 @@ function Shopsignup() {
         shop_password: "",
         shop_address: "",
         shop_zipcode: "",
-        shop_avatar: "",
+    
       },
       onSubmit: (value) => {
         dispatch(shopSignData(value))
+        console.log(value)
       },
       validationSchema: Yup.object().shape({
         shop_name: Yup.string()
@@ -61,8 +62,7 @@ function Shopsignup() {
         shop_zipcode: Yup.string()
           .matches(/^\d{6}$/, "Must be exactly 6 digits")
           .required("Pincode is required"),
-        shop_avatar: Yup.mixed()
-          .required("Image is required")
+        
          
       }),
     });

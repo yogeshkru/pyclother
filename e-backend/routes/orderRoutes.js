@@ -2,7 +2,14 @@ module.exports = (app) => {
   const router = require("express").Router();
   const Order = require("../controllers/orderController");
   const asyncErrorHandler = require("../utils/asyncErrorhandler");
-  const { createOrder, getAllOrders, getoneorder, updateOrders, updateaddress} = new Order();
+  const {
+    createOrder,
+    getAllOrders,
+    getoneorder,
+    updateOrders,
+    getAllSellerOrders,
+    getUserOrders,
+  } = new Order();
   let { authenticateUser, restrict } = require("../middleware/auth");
 
   router
@@ -14,10 +21,14 @@ module.exports = (app) => {
   router
     .route("/update-order")
     .patch(authenticateUser, asyncErrorHandler(updateOrders));
-    router
-    .route("/update-address")
-    .patch(authenticateUser, asyncErrorHandler(updateaddress));
-    
+  // router
+  // .route("/update-address")
+  // .patch(authenticateUser, asyncErrorHandler(updateaddress));
+
+  router
+    .route("/get-user-order")
+    .get(authenticateUser, asyncErrorHandler(getUserOrders));
+
   router
     .route("/get-all")
     .get(
@@ -26,5 +37,12 @@ module.exports = (app) => {
       asyncErrorHandler(getAllOrders)
     );
 
+  router
+    .route("/get-shop-product")
+    .get(
+      authenticateUser,
+      restrict("super admin", "shop admin"),
+      asyncErrorHandler(getAllSellerOrders)
+    );
   app.use("/api/order", router);
 };

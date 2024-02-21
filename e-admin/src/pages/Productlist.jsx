@@ -37,6 +37,7 @@ function Productlist() {
   const [model, setModel] = useState(false);
   const [edite, setEdite] = useState(null);
   const { getAllShopProduct } = useSelector((state) => state.product);
+  
   const modelRef = useRef(null);
   const {
     values,

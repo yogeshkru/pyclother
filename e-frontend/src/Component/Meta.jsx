@@ -11,4 +11,4 @@ function Meta(props) {
   return null
 }
 
-export default Meta
+export default Meta;

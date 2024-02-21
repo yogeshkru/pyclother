@@ -9,9 +9,9 @@ export const usersSignup = createAsyncThunk(
   async (userData, thunApi) => {
     try {
       const response = await usersService.userRegister(userData);
-      if (response) {
-        thunApi.dispatch(getAllUserFromServer());
-      }
+      // if (response) {
+      //   thunApi.dispatch(getAllUserFromServer());
+      // }
       return response;
     } catch (err) {
       toast.error(err?.response?.data?.message);
@@ -26,9 +26,9 @@ export const userLogin = createAsyncThunk(
   async (userData, thunkApi) => {
     try {
       const response = await usersService.userLogin(userData);
-      if (response) {
-        thunkApi.dispatch(getAllUserFromServer());
-      }
+      // if (response) {
+      //   thunkApi.dispatch(getAllUserFromServer());
+      // }
       return response;
     } catch (err) {
       toast.error(err?.response?.data?.message);
@@ -59,7 +59,7 @@ export const userResetAPI = createAsyncThunk(
   async (token, thunkApi) => {
     try {
       const response = await usersService.userReset(token);
-      thunkApi.dispatch(getAllUserFromServer());
+      // thunkApi.dispatch(getAllUserFromServer());
       return response;
     } catch (error) {
       toast.error(error?.response?.data?.message);
@@ -117,10 +117,10 @@ export const addUserProductToServer = createAsyncThunk(
   async (product, thunkApi) => {
     try {
       const response = await usersService.addToUserCart(product);
-      if (response) {
-        thunkApi.dispatch(getUserCartProductFromServer());
+      // if (response) {
+      //   thunkApi.dispatch(getUserCartProductFromServer());
         return response;
-      }
+      // }
     } catch (error) {
       toast.error(err?.response?.data?.message);
 
@@ -149,9 +149,7 @@ export const updateUserCartProductQuantity = createAsyncThunk(
     try {
       const response = await usersService.userCartQuantity(data);
 
-      if (response) {
-        thunApi.dispatch(getUserCartProductFromServer());
-      }
+  
       return response;
     } catch (error) {
       return thunApi.rejectWithValue(error);
@@ -164,10 +162,7 @@ export const userCartDeleteProductFromServer = createAsyncThunk(
   async (id, thunkApi) => {
     try {
       const response = await usersService.userCartDelete(id);
-      // if (response) {
-        thunkApi.dispatch(getUserCartProductFromServer());
-
-      // }
+     
       return response;
     } catch (error) {
       return thunkApi.rejectWithValue(error);
@@ -192,9 +187,7 @@ export const wishListPostData = createAsyncThunk(
   async (userData, thunkApi) => {
     try {
       const response = await usersService.wishListPost(userData);
-      if (response) {
-        return thunkApi.dispatch(wishListGetData());
-      }
+    
       return response;
     } catch (err) {
       toast.error(err?.response?.message?.message);
@@ -458,7 +451,10 @@ export const usersSlice = createSlice({
         state.loaders = false;
       })
 
-      .addCase(resetAll, () => inintialState);
+      builder.addCase(resetAll, (state) => {
+       
+        Object.assign(state, { ...inintialState, loaders: state.loaders });
+      });
   },
 });
 
