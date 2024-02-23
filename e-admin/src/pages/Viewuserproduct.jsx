@@ -4,6 +4,7 @@ import DataTable from "react-data-table-component";
 function Viewuserproduct() {
   const { state } = useLocation();
   let details = [state];
+  console.log(details)
 
   const columns = [
     {
@@ -35,11 +36,8 @@ function Viewuserproduct() {
     {
       name: "Size",
       selector: (row) => row.userSize,
-    },
-    {
-      name: "Created",
-      selector: (row) => row.created,
-    },
+    }
+   
   ];
   const data = [];
   for (let id = 0; id < details?.length; id++) {
@@ -47,7 +45,10 @@ function Viewuserproduct() {
       id: id + 1,
       name: details[id]?.cartItem[0]?.name,
       model: details[id]?.cartItem[0]?.model,
-      price:details[id]?.cartItem[0]?.price
+      price:details[id]?.cartItem[0]?.price,
+      totalprice:details[id]?.order_totalPrice,
+      totaldiscount:details[id]?.order_total_Discount,
+      userSize:details[id]?.cartItem[0]?.userSize
     });
   }
   return (

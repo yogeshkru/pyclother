@@ -6,23 +6,26 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 function Orders() {
   const [selectOption, setSelectOption] = useState("");
-  const naviageta=useNavigate()
+  const naviageta = useNavigate();
   const { ordergetallorders } = useSelector((state) => state.orderget);
+
+ 
 
   const dispatch = useDispatch();
 
-  const handleViews=(i)=>{
-    naviageta("/admin/viewuser",{state:i})
-  }
+  const handleViews = (i) => {
+    naviageta("/admin/viewuser", { state: i });
+  };
 
   useEffect(() => {
     dispatch(orderdetailsGets());
   }, [dispatch]);
 
   const col = [
+   
     {
-      name: "Id",
-      selector: (row) => row.id,
+      name: "OrderId",
+      selector: (row) => row.orderId,
       sortable: true,
     },
     {
@@ -40,6 +43,11 @@ function Orders() {
       selector: (row) => row.email,
       sortable: true,
     },
+    {
+      name: "CreatedAt",
+      selector: (row) => row.createdat,
+      sortable: true,
+    },
 
     {
       name: "Action",
@@ -49,10 +57,30 @@ function Orders() {
   let data = [];
   for (let i = 0; i < ordergetallorders.length; i++) {
     data.push({
-      id: i + 1,
+     
+
       name: ordergetallorders[i]?.order_user?.user_name,
-      product: <span style={{cursor:"pointer"}} onClick={()=>handleViews(ordergetallorders[i])}>View User Product</span>,
+      product: (
+        <span
+          style={{
+            cursor: "pointer",
+            color: "blue",
+            textDecoration: "underline",
+          }}
+          onClick={() => handleViews(ordergetallorders[i])}
+        >
+          View User Product
+        </span>
+      ),
       email: ordergetallorders[i]?.order_user?.user_email,
+      orderId: ordergetallorders[i]?._id,
+      createdat: (
+        <>
+          <sapn>{ordergetallorders[i]?.createdAt.slice(0, 10)}</sapn><br/>
+          <span>{ordergetallorders[i]?.createdAt.slice(11, 19)}</span>
+        </>
+      ),
+
       action: (
         <select
           value={selectOption}
