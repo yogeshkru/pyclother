@@ -25,7 +25,14 @@ module.exports = (app) => {
   router
     .route("/patch-shop/:token")
     .patch(asyncErrorHandler(shopResetPassword));
-  router.route("/create-shop").post(asyncErrorHandler(shopCreate));
+  router
+    .route("/create-shop")
+    .post(
+      // authenticateUser,
+      // restrict("super admin"),
+      asyncErrorHandler
+     ( shopCreate)
+    );
 
   // with authorization
 
@@ -66,7 +73,7 @@ module.exports = (app) => {
     .route("/getshop")
     .get(
       authenticateUser,
-      restrict("super admin","shop admin"),
+      restrict("super admin", "shop admin"),
       asyncErrorHandler(getUserById)
     );
   router

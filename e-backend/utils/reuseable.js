@@ -44,6 +44,7 @@ class Apifeatures {
       "neck",
       "sleeve",
       "size",
+      
     ];
 
     searchFields.forEach((fields) => {

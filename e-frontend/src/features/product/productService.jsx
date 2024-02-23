@@ -9,7 +9,7 @@ const getProduct = async (data) => {
     const queryParams = new URLSearchParams();
 
     if (data?.brand) {
-      queryParams.append("brand", data?.brand);
+      queryParams.append("brand",data?.brand);
     }
 
     if (data?.price) {
@@ -17,11 +17,11 @@ const getProduct = async (data) => {
     }
 
     if (data?.color) {
-      queryParams.append(`color`, data?.color); 
+      queryParams.append(`color`,data?.color); 
   }
 
     if (data?.category) {
-      queryParams.append("category", data?.category);
+      queryParams.append("category",data?.category);
     }
 
 

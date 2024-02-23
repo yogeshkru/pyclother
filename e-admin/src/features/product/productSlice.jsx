@@ -152,7 +152,10 @@ export const productSlice = createSlice({
         state.isError = false;
         state.isLoading = false;
         state.isSuccess = true;
-        state.navigate="product-navigate"
+        state.navigate_product="yogesh"
+        if(state.isSuccess){
+          toast.success("Product Added")
+        }
       })
       .addCase(postProductOnServer.rejected, (state, action) => {
         state.isError = true;

@@ -12,15 +12,15 @@ import {useDispatch,useSelector} from "react-redux";
 import {Link, useNavigate} from "react-router-dom"
 function Shopsignup() {
   const dispatch=useDispatch();
-  const navigate=useNavigate()
-  const {isSuccess}=useSelector(state=>state.shop)
+
+
   const [eye, setEye] = useState(false);
 
   const handleEye = () => {
     setEye(!eye);
   };
 
-  const { values, errors, handleBlur, handleChange, handleSubmit, touched } =
+  const { values, errors, handleBlur, handleChange, handleSubmit, touched,resetForm } =
     useFormik({
       initialValues: {
         shop_name: "",
@@ -33,7 +33,8 @@ function Shopsignup() {
       },
       onSubmit: (value) => {
         dispatch(shopSignData(value))
-        console.log(value)
+     
+        resetForm()
       },
       validationSchema: Yup.object().shape({
         shop_name: Yup.string()
@@ -66,11 +67,7 @@ function Shopsignup() {
          
       }),
     });
-    useEffect(()=>{
-      if(isSuccess){
-            navigate("/admin")
-      }
-    })
+ 
   return (
     <div className="otp_background ">
       <div className="row justify-content-center shopSignup_row">
@@ -191,18 +188,7 @@ function Shopsignup() {
               Submit
             </button>
           </form>
-          <div className="mt-2">
-            <p style={{ cursor: "pointer" }}>
-              Already have an account?{" "}
-              <span style={{ color: "blue" }}>
-                <Link to="/" style={{textDecoration:"none"}}>
-                ShopLogin
-
-                </Link>
-                </span>
-              
-            </p>
-          </div>
+        
         </div>
       </div>
     </div>

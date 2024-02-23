@@ -50,6 +50,7 @@ function Header() {
 
   const [searchData, setSeachData] = useState(null);
 
+
   const handleSearch = (e) => {
     e.preventDefault();
     // document.getElementById("navLink").click();
@@ -57,6 +58,8 @@ function Header() {
     if (searchTerm) {
       navigate(`/ourstore/${searchTerm}`);
     }
+
+   
 
     // window.location/.href = "/ourstore";
   };
@@ -220,10 +223,10 @@ function Header() {
                       type="search"
                       autoComplete="off"
                       className="header__input--search"
-                      // value={searchTerm}
-                      // onChange={handleSearchChange}
-                      value={keyBoard}
-                      onChange={(e)=>setKeyBoard(e.target.value)}
+                      value={searchTerm}
+                      onChange={handleSearchChange}
+                      // value={keyBoard}
+                      // onChange={(e)=>setKeyBoard(e.target.value)}
                       placeholder="Search for Products, brands and more "
                     />
                     </form>
@@ -323,7 +326,7 @@ function Header() {
                         <span style={handleFont}>Login</span>
                       </div>
                     )}
-                    <div className="Header--wishlist">
+                    {/* <div className="Header--wishlist">
                       <div
                         className="d-flex flex-column text-center ms-4"
                         onClick={handleStore}
@@ -335,7 +338,7 @@ function Header() {
 
                         <span style={handleFont}>Shop </span>
                       </div>
-                    </div>
+                    </div> */}
 
                     <div className="Header--wishlist">
                       <div

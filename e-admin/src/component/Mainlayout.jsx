@@ -95,6 +95,11 @@ const Mainlayout = () => {
       ],
     },
     {
+      key: "shopsign",
+      label: "Shop Sign",
+      icon: <FaCartArrowDown style={{ fontSize: "25px", color: "#BEABC2" }} />,
+    },
+    {
       key: "orders",
       label: "Orders",
       icon: <FaCartArrowDown style={{ fontSize: "25px", color: "#BEABC2" }} />,
@@ -168,18 +173,22 @@ const Mainlayout = () => {
 
  
     const policyIndex = menuItems.findIndex((item) => item.key === "enquiries");
-
-    // If found, remove the items using splice
-    if (customersIndex !== -1) {
+    const catLogIndex = menuItems.findIndex((item) => item.key === "catalog"); 
+    const orderIndex = menuItems.findIndex((item) => item.key === "orders"); 
+    if (customersIndex !== -1 ) {
       menuItems.splice(customersIndex, 1);
+      menuItems.splice(orderIndex, 4);
     }
     if (policyIndex !== -1) {
       menuItems.splice(policyIndex, 1);
     }
-
-    console.log("Role:", Role);
-    console.log("Policy Index:", policyIndex);
-    console.log("Menu Items:", menuItems);
+    if (catLogIndex !== -1) {
+      menuItems.splice(catLogIndex, 1);
+    }
+   if(orderIndex !==-1){
+    menuItems.splice(orderIndex, 2);
+   }
+   
   }
 
   return (
@@ -194,6 +203,7 @@ const Mainlayout = () => {
           mode="inline"
           defaultSelectedKeys={[""]}
           onClick={({ key }) => {
+            console.log(key)
             if (key === "signout") {
               localStorage.removeItem("admin_user");
               navigate("/");

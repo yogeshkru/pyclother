@@ -44,14 +44,20 @@
 }
 
 .radio-button_design {
-  padding: 10px 15px;
-  border: 2px solid gray;
-  border-radius: 50%;
+  border: 1px solid black;
+  background-size: cover;
+  padding: 22px 30px;
+  background-repeat: no-repeat;
+  border-radius: 50px;
+  width: 90%;
   font-size: 20px;
 }
-
+.size_length{
+  width: 30px !important;
+}
 input[type="radio"]:checked + .label-1 {
   border: 2px solid #df0067;
+
 }
 
 .header__input--search {

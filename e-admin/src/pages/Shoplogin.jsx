@@ -15,7 +15,7 @@ function Shoplogin() {
 
   // const isAuthenticated = !!localStorage.getItem("admin_user")
   const [eye, setEye] = useState(false);
-  const{isSuccess}=useSelector(state=>state.shop)
+  const{LoginShop}=useSelector(state=>state.shop)
   const navigator=useNavigate()
  const dispatch=useDispatch()
   const handleEye = () => {
@@ -49,7 +49,7 @@ function Shoplogin() {
     });
 
   useEffect(() => {
-    if (isSuccess) {
+    if (LoginShop !=="") {
       navigator("/admin")
       window.location.reload()
     }
