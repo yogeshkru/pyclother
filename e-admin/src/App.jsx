@@ -47,7 +47,7 @@ function App() {
       <BrowserRouter>
         <Routes>
          
-          <Route path="/shopsign" element={<Shopsignup />} />
+         
           <Route
             path="/"
             element={
@@ -80,7 +80,7 @@ function App() {
             <Route path="product/:id" element={<Addproduct />} />
 
             {/* ********************************** */}
-            <Route path="payment" element={<Payment />} />
+            {/* <Route path="payment" element={<Payment />} /> */}
             <Route path="banners" element={<Banners />} />
 
             <Route path="coupon-list" element={<Couponlist />} />
@@ -88,6 +88,7 @@ function App() {
             <Route path="gst" element={<Gst />} />
             <Route path="view" element={<Viewproduct />} />
             <Route path="viewuser" element={<Viewuserproduct />} />
+            <Route path="shopsign" element={<Shopsignup />} />
           </Route>
         </Routes>
 

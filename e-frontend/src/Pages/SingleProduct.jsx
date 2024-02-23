@@ -279,8 +279,8 @@ function SingleProduct() {
 
                 <div className="row mt-3">
                   {separateSize?.map((item, i) => (
-                    <div className="col-lg-1" key={i}>
-                      <div className="d-flex">
+                    <div className="col-lg-2" key={i}>
+                      <div className="">
                         <input
                           type="radio"
                           checked={sizeClick === item}
@@ -292,7 +292,7 @@ function SingleProduct() {
                           className="radio-button_design label-1"
                           htmlFor={`radio-${i}`}
                         >
-                          {item}
+                        <p className="size_length "> {item}</p> 
                         </label>
                       </div>
                     </div>

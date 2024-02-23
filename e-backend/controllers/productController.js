@@ -86,6 +86,20 @@ class Product {
     res.status(200).json({ getAllProducts, length: getProduct.length });
   };
 
+
+
+  // try{
+
+  //   const page=parseInt(req.query.page)-1 || 0;
+  //   const limit=parseInt(req.query.limit) || 20;
+  //   const search=req.query.search || "";
+  //   const filter=req.query.filter || "All"
+
+  //   res.status(200).json({ getAllProducts, length: getProduct.length });
+  // }catch(err){
+
+  // }
+
   // addToWishList = async function (req, res, next) {
   //   const { _id } = req.user;
   //   const { prodId } = req.body;

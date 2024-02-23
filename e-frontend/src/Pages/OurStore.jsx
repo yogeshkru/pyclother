@@ -14,8 +14,6 @@ import Meta from "../Component/Meta";
 const OurStore = function () {
   <Meta title={`${"Our Store"}`} />;
 
-  const { searchTerm } = useParams();
-
   const navigate = useNavigate();
   const [show, setShow] = useState(true);
 
@@ -31,6 +29,7 @@ const OurStore = function () {
   // ************************Product filter*******************************
   const { wholeProduct } = useSelector((state) => state?.product);
 
+  const [filtered, setFiltered] = useState();
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
   const [colors, setColors] = useState([]);
@@ -49,6 +48,7 @@ const OurStore = function () {
 
   const dispatch = useDispatch();
 
+  // console.log(searchTerm)
   useEffect(() => {
     let AllProduct = new Set();
 
@@ -73,23 +73,13 @@ const OurStore = function () {
 
   useEffect(() => {
     const timeOut = setTimeout(() => {
-      dispatch(getAllProduct({ category, brand, color, price, searchTerm }));
-      const params = new URLSearchParams();
-
-
-      // if (category) params.append("category", category);
-      // if (brand) params.append("brand", brand);
-      // if (color) params.append("color", color);
-      // if (price) params.append("price", price);
-
-      // if (category) params.append("category", category);
-      // navigate(`/outstore/${searchTerm}?${params.toString()}`);
+      dispatch(getAllProduct({ category, brand, color, price }));
     }, 500);
 
     return () => {
       clearTimeout(timeOut);
     };
-  }, [category, price, color, brand, searchTerm]);
+  }, [category, price, color, brand]);
 
   //brand
   const brandDetails =
@@ -158,6 +148,29 @@ const OurStore = function () {
         </div>
       );
     });
+
+  //Search
+
+  const { searchTerm } = useParams();
+
+  console.log(searchTerm);
+  
+  useEffect(() => {
+  
+  
+    let wholeDataBackend;
+  
+    if (searchTerm) {
+      wholeDataBackend = wholeProduct.filter((product) =>
+      Object.values(product).some((value) =>
+      typeof value === 'string' && value.toLowerCase().includes(searchTerm.toLowerCase()))
+    );
+    } else {
+      wholeDataBackend = wholeProduct
+    }
+  
+    setFiltered(wholeDataBackend);
+  }, [wholeProduct, searchTerm]);
 
   // *******************************************************************
   return (
@@ -288,9 +301,9 @@ const OurStore = function () {
             </div>
           </div>
 
-          <div className="col-lg-9 col-6 ourStore-product-render  ">
+          <div className="col-lg-9 col-6 ourStore-product-render">
             <div className="d-flex gap-18 flex-wrap ">
-              <ProductCard data={wholeProduct} />
+              <ProductCard data={filtered} />
             </div>
 
             <div className="ourStore-pagination d-lg-flex mt-5  justify-content-center  m-auto row ">

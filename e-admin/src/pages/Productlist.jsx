@@ -158,9 +158,7 @@ function Productlist() {
   };
 
   const handleUpdate = (i) => {
-    // const data = getAllShopProduct.find((item) => item._id === i);
-    // setEdite(data);
-    // setModel(true);
+    
     navigate(`/admin/product/${i}`)
   };
 

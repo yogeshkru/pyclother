@@ -81,7 +81,7 @@ const initialState={
     Message:"",
     isLoaders:false,
     CrateShop:{},
-    LoginShop:{},
+    LoginShop:"",
     patchShop:{},
     ResetShop:{},
     UpdateShop:{},
@@ -123,6 +123,11 @@ export const shopSlice=createSlice({
             state.isLoaders=false;
             state.isError=false;
             state.isSuccess=true;
+            state.LoginShop=action.payload
+
+            if(state.isSuccess){
+                toast.success("Create Successfully")
+            }
           
             
         })

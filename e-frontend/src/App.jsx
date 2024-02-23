@@ -54,11 +54,8 @@ function App() {
             <Route path="Addtocart" element={<Cart />} />
             <Route path="delivery-address" element={<Delivery_address />} />
 
-<<<<<<< HEAD
             <Route path="ourstore" element={<OurStore />} />
-=======
             <Route path="/ourstore/:searchTerm" element={<OurStore />} />
->>>>>>> f0316cef177e85dd6b24e44d17b7ceebcda206ca
 
             <Route path="stepper" element={
               <PrivateRoutes>
