@@ -25,22 +25,22 @@ const getProduct = async (data) => {
     }
 
 
-    const searchFields = [
-      "name",
-      // "description",
-      // "length",
-      // "fabric",
-      // "fit",
-      // "neck",
-      // "sleeve",
-      // "size",
-    ];
+    // const searchFields = [
+    //   "name",
+    //   // "description",
+    //   // "length",
+    //   // "fabric",
+    //   // "fit",
+    //   // "neck",
+    //   // "sleeve",
+    //   // "size",
+    // ];
 
-    if (data?.searchTerm) {
-      searchFields.forEach((field) => {
-        queryParams.append(field, data.searchTerm);
-      });
-    }
+    // if (data?.searchTerm) {
+    //   searchFields.forEach((field) => {
+    //     queryParams.append(field, data.searchTerm);
+    //   });
+    // }
 
 
     const response = await axios.get(

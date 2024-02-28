@@ -49,6 +49,8 @@ function Header() {
 
   const [searchData, setSeachData] = useState(null);
 
+ console.log(searchTerm)
+
   const handleSearch = (e) => {
     e.preventDefault();
     // document.getElementById("navLink").click();
@@ -56,7 +58,7 @@ function Header() {
     if (searchTerm) {
       navigate(`/ourstore/${searchTerm}`);
     }
-
+window.location.reload()
     // window.location/.href = "/ourstore";
   };
   // *************************************************************************
@@ -99,7 +101,7 @@ function Header() {
     navigate("/Whislist");
   };
   const handleStore = () => {
-    navigate("/ourstore/:");
+    navigate("/ourstore");
     window.location.reload()
   };
 
@@ -219,11 +221,11 @@ function Header() {
                     />
 
                     <div className="header__icon">
-                      <a
+                      {/* <a
                         id="navLink"
                         href="/ourstore"
                         style={{ display: "none" }}
-                      ></a>
+                      ></a> */}
 
                       <IoMdSearch onClick={handleSearch} />
                     </div>
@@ -313,7 +315,7 @@ function Header() {
                         <span style={handleFont}>Login</span>
                       </div>
                     )}
-                    <div className="Header--wishlist">
+                    {/* <div className="Header--wishlist">
                       <div
                         className="d-flex flex-column text-center ms-4"
                         onClick={handleStore}
@@ -325,7 +327,7 @@ function Header() {
 
                         <span style={handleFont}>Shop </span>
                       </div>
-                    </div>
+                    </div> */}
 
                     <div className="Header--wishlist">
                       <div
