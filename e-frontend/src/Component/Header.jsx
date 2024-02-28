@@ -50,6 +50,7 @@ function Header() {
 
   const [searchData, setSeachData] = useState(null);
 
+ console.log(searchTerm)
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -58,6 +59,7 @@ function Header() {
     if (searchTerm) {
       navigate(`/ourstore/${searchTerm}`);
     }
+window.location.reload()
 
    
 
@@ -103,7 +105,7 @@ function Header() {
     navigate("/Whislist");
   };
   const handleStore = () => {
-    navigate("/ourstore/:");
+    navigate("/ourstore");
     window.location.reload()
   };
 
@@ -232,11 +234,11 @@ function Header() {
                     </form>
 
                     <div className="header__icon">
-                      <a
+                      {/* <a
                         id="navLink"
                         href="/ourstore"
                         style={{ display: "none" }}
-                      ></a>
+                      ></a> */}
 
                       <IoMdSearch onClick={handleSearch} />
                     </div>

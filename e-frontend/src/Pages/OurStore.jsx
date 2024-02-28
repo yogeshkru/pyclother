@@ -44,9 +44,12 @@ const OurStore = function () {
 
   const [minPrice, setMinPrice] = useState(null);
   const [maxPrice, setMaxPrice] = useState(null);
-  const [sort, setSort] = useState(null);
+  // const [sort, setSort] = useState(null);
 
   const dispatch = useDispatch();
+
+  const { searchTerm } = useParams();
+  const [filteredData, setFilteredData] = useState([]);
 
   // console.log(searchTerm)
   useEffect(() => {
@@ -58,28 +61,67 @@ const OurStore = function () {
     let price = [];
     // let discountPrice =[];
 
-    for (let i = 0; i < wholeProduct?.length; i++) {
-      const element = wholeProduct[i];
+    for (let i = 0; i < filteredData?.length; i++) {
+      const element = filteredData[i];
       newBrand?.push(element?.brand);
       category?.push(element?.category);
       newColors?.push(element?.color);
-      price?.push(element?.price);
+      price.push(element?.price);
+
     }
     setBrands(newBrand);
     setCategories(category);
     setColors(newColors);
     setPrices(price);
-  }, [wholeProduct]);
+
+    const filteredProducts = wholeProduct.filter(product =>
+      Object.values(product).some(value => {
+        if (typeof value === 'string') {
+          return value.toLowerCase().includes(searchTerm.toLowerCase());
+        } else if (typeof value === 'number') {
+          // Convert searchTerm to a number if it's not NaN
+          const searchTermNumber = parseFloat(searchTerm);
+
+          if (!isNaN(searchTermNumber)) {
+             value === searchTermNumber;
+          }
+        }
+        return false;
+      })
+    );
+    
+
+    setFilteredData(filteredProducts)
+  }, [wholeProduct, searchTerm]);
+
+  // ******************************************************************
+  const [obj, setObj] = useState({});
+  const [filterGenre, setFilterGenre] = useState([]);
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const timeOut = setTimeout(() => {
-      dispatch(getAllProduct({ category, brand, color, price }));
+      dispatch(getAllProduct({ category, price, brand, color }));
     }, 500);
 
     return () => {
       clearTimeout(timeOut);
     };
   }, [category, price, color, brand]);
+
+  // ***************************************************************************************
+
+  // const copyHandleBrand=()=>{
+
+  //   navigate(`/ourstore/${brand}`)
+  // }
+
+  // const handleBrand =(item)=>{
+
+  //   setBrand(item)
+  // }
+  // ****************************************************************************************
 
   //brand
   const brandDetails =
@@ -151,9 +193,7 @@ const OurStore = function () {
 
   //Search
 
-  const { searchTerm } = useParams();
-
-  console.log(searchTerm);
+  
   
   useEffect(() => {
   
@@ -175,6 +215,8 @@ const OurStore = function () {
   // *******************************************************************
   return (
     <>
+      <Meta title={`${searchTerm}`} />
+
       <section className="container py-5 ourStore-breadcrumb ">
         <div className="row ms-0">
           <div className="d-flex justify-content-around ms-0">
@@ -195,7 +237,7 @@ const OurStore = function () {
                     Clothing
                   </li>
                   &nbsp;/&nbsp;
-                  <li className="fw-bold">Men Top wear</li>
+                  <li className="fw-bold">{searchTerm}</li>
                 </ol>
               </nav>
             </div>
@@ -207,11 +249,11 @@ const OurStore = function () {
               </div>
             </div>
 
-            {/* <div className=" sort-store d-flex align-items-center  ms-0">
+            <div className="  d-flex align-items-center  ms-0">
               <div className="d-flex mx-auto ">
-                <p className="mb-0 ms-0 ">Sort By:</p>
+                {/* <p className="mb-0 ms-0 ">Sort By:</p> */}
 
-                <select
+                {/* <select
                   name=""
                   defaultValue={"Low to High"}
                   className="bg-transparent border-0 d-flex ms-0 "
@@ -219,9 +261,11 @@ const OurStore = function () {
                 >
                   <option value="Low to High">Low to high</option>
                   <option value="High to low"> High to low</option>
-                </select>
+                </select> */}
+
+                <input type="text" placeholder="pincode"></input>
               </div>
-            </div> */}
+            </div>
           </div>
         </div>
       </section>
@@ -303,7 +347,7 @@ const OurStore = function () {
 
           <div className="col-lg-9 col-6 ourStore-product-render">
             <div className="d-flex gap-18 flex-wrap ">
-              <ProductCard data={filtered} />
+              <ProductCard data={filteredData} />
             </div>
 
             <div className="ourStore-pagination d-lg-flex mt-5  justify-content-center  m-auto row ">
