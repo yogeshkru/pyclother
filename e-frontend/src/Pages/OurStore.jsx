@@ -143,7 +143,7 @@ const OurStore = function () {
         <div key={i} className="d-flex gap-1 mb-2">
           <input type="checkbox" onClick={() => setPrice(item)} />
           <span style={{ textTransform: "capitalize", fontSize: "13px" }}>
-            {item}
+            ₹{item}
           </span>
         </div>
       );
