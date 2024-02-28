@@ -37,6 +37,7 @@ function Productlist() {
   const [model, setModel] = useState(false);
   const [edite, setEdite] = useState(null);
   const { getAllShopProduct } = useSelector((state) => state.product);
+  
   const modelRef = useRef(null);
   const {
     values,
@@ -157,9 +158,7 @@ function Productlist() {
   };
 
   const handleUpdate = (i) => {
-    // const data = getAllShopProduct.find((item) => item._id === i);
-    // setEdite(data);
-    // setModel(true);
+    
     navigate(`/admin/product/${i}`)
   };
 

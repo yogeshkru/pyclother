@@ -17,7 +17,6 @@ import { getAllProduct } from "../features/product/productSlice";
 import CONN from "../utils/Url";
 import { config } from "../utils/axiosConfig";
 
-import { TbHeartQuestion } from "react-icons/tb";
 
 const ProductCard = function ({ data }) {
   const navigate = useNavigate();

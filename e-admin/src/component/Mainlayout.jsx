@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import men from "../assets/image/men_details.jpeg";
 import { MdPayment } from "react-icons/md";
@@ -25,28 +25,172 @@ import { FaQuestion } from "react-icons/fa6";
 import { FaDisplay } from "react-icons/fa6";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { RiMoneyPoundCircleLine } from "react-icons/ri";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
+import { ShopByRoleId } from "../features/shop/shopSlice";
 import { BsCalendarEventFill } from "react-icons/bs";
 
 const { Header, Sider, Content } = Layout;
 const Mainlayout = () => {
-  const [userRole, setUserRole] = useState("");
+  const dispatch = useDispatch();
+  const { Role } = useSelector((state) => state.shop);
+  console.log(Role);
+
   useEffect(() => {
-    const userRoleData = JSON.parse(localStorage.getItem("admin_user"));
-    const role = userRoleData?.data?.user?.role;
-    setUserRole(role);
-  }, []);
+    dispatch(ShopByRoleId());
+  }, [dispatch]);
 
   const navigate = useNavigate();
-  const { isSuccess } = useSelector((state) => state.shop)
+
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
+  const menuItems = [
+    {
+      key: "",
+      label: "Dashboard",
+      icon: <MdHome style={{ fontSize: "25px", color: "#BEABC2" }} />,
+    },
 
-  
+    {
+      key: "customers",
+      label: "Customers",
+      icon: <FaUser style={{ fontSize: "20px", color: "#BEABC2" }} />,
+    },
+    {
+      key: "catalog",
+      label: (
+        <span className="label-style" style={{ color: "#3e4b5b" }}>
+          Catalog
+        </span>
+      ),
+      icon: <MdShoppingCart style={{ fontSize: "25px", color: "#BEABC2" }} />,
+      children: [
+        {
+          key: "product-list",
+          label: "Product",
+          icon: <MdShoppingCart />,
+        },
+        {
+          key: "brand-list",
+          label: "Brand",
+          icon: <TbBrandBooking />,
+        },
+        {
+          key: "category-list",
+          label: "Category",
+          icon: <BiCategory />,
+        },
+        {
+          key: "color-list",
+          label: "Color",
+          icon: <IoColorFillOutline />,
+        },
+        {
+          key: "gst",
+          label: "Tax",
+          icon: <RiMoneyPoundCircleLine />,
+        },
+      ],
+    },
+    {
+      key: "shopsign",
+      label: "Shop Sign",
+      icon: <FaCartArrowDown style={{ fontSize: "25px", color: "#BEABC2" }} />,
+    },
+    {
+      key: "orders",
+      label: "Orders",
+      icon: <FaCartArrowDown style={{ fontSize: "25px", color: "#BEABC2" }} />,
+    },
+    {
+      key: "events",
+      label: (
+        <span className="label-style" style={{ color: "#3e4b5b" }}>
+          Events
+        </span>
+      ),
+      icon: (
+        <BsCalendarEventFill style={{ fontSize: "25px", color: "#BEABC2" }} />
+      ),
+      children: [
+        {
+          key: "banners",
+          label: "Banners",
+          icon: (
+            <MdKeyboardDoubleArrowRight
+              style={{ fontSize: "25px", color: "#BEABC2" }}
+            />
+          ),
+        },
+      ],
+    },
+   
+
+    {
+      key: "offers",
+      label: (
+        <span className="label-style" style={{ color: "#3e4b5b" }}>
+          Offers
+        </span>
+      ),
+      icon: <BiSolidOffer style={{ fontSize: "25px", color: "#BEABC2" }} />,
+      children: [
+        {
+          key: "coupon-list",
+          label: "Coupon",
+          icon: <RiCouponFill />,
+        },
+      ],
+    },
+
+    {
+      key: "enquiries",
+      label: "Enquiries",
+      icon: <FaQuestion style={{ fontSize: "25px", color: "#BEABC2" }} />,
+    },
+    {
+      key: "policy",
+      label: "Private-Policy",
+      icon: (
+        <MdOutlinePrivacyTip style={{ fontSize: "25px", color: "#BEABC2" }} />
+      ),
+    },
+    {
+      key: "signout",
+      label: "Signout",
+      icon: <FaSignOutAlt style={{ fontSize: "25px", color: "#BEABC2" }} />,
+    },
+  ];
+
+
+  if (Role === "shop admin") {
+   
+    const customersIndex = menuItems.findIndex(
+      (item) => item.key === "customers"
+    );
+
+ 
+    const policyIndex = menuItems.findIndex((item) => item.key === "enquiries");
+    const catLogIndex = menuItems.findIndex((item) => item.key === "catalog"); 
+    const orderIndex = menuItems.findIndex((item) => item.key === "orders"); 
+    if (customersIndex !== -1 ) {
+      menuItems.splice(customersIndex, 1);
+      menuItems.splice(orderIndex, 4);
+    }
+    if (policyIndex !== -1) {
+      menuItems.splice(policyIndex, 1);
+    }
+    if (catLogIndex !== -1) {
+      menuItems.splice(catLogIndex, 1);
+    }
+   if(orderIndex !==-1){
+    menuItems.splice(orderIndex, 2);
+   }
+   
+  }
+
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -59,6 +203,7 @@ const Mainlayout = () => {
           mode="inline"
           defaultSelectedKeys={[""]}
           onClick={({ key }) => {
+            console.log(key)
             if (key === "signout") {
               localStorage.removeItem("admin_user");
               navigate("/");
@@ -66,150 +211,147 @@ const Mainlayout = () => {
               navigate(key);
             }
           }}
-          items={[
-            
-            {
-              key: "",
-              label: "Dashboard",
-              icon: <MdHome style={{ fontSize: "25px", color: "#BEABC2" }} />,
-             
-       
-              
-            },
-            {
-              key: "customers",
-              label: "Customers",
-              icon: <FaUser style={{ fontSize: "20px", color: "#BEABC2" }} />,
-            },
-            {
-              key: "catalog",
-              label: (
-                <span className="label-style" style={{ color: "#3e4b5b" }}>
-                  Catalog
-                </span>
-              ),
-              icon: (
-                <MdShoppingCart
-                  style={{ fontSize: "25px", color: "#BEABC2" }}
-                />
-              ),
-              children: [
-                {
-                  key: "product-list",
-                  label: "Product",
-                  icon: <MdShoppingCart />,
-                },
+          // items={[
+          //   {
+          //     key: "",
+          //     label: "Dashboard",
+          //     icon: <MdHome style={{ fontSize: "25px", color: "#BEABC2" }} />,
+          //   },
+          //   {
+          //     key: "customers",
+          //     label: "Customers",
+          //     icon: <FaUser style={{ fontSize: "20px", color: "#BEABC2" }} />,
+          //   },
+          //   {
+          //     key: "catalog",
+          //     label: (
+          //       <span className="label-style" style={{ color: "#3e4b5b" }}>
+          //         Catalog
+          //       </span>
+          //     ),
+          //     icon: (
+          //       <MdShoppingCart
+          //         style={{ fontSize: "25px", color: "#BEABC2" }}
+          //       />
+          //     ),
+          //     children: [
+          //       {
+          //         key: "product-list",
+          //         label: "Product",
+          //         icon: <MdShoppingCart />,
+          //       },
 
-                {
-                  key: "brand-list",
-                  label: "Brand",
-                  icon: <TbBrandBooking />,
-                },
+          //       {
+          //         key: "brand-list",
+          //         label: "Brand",
+          //         icon: <TbBrandBooking />,
+          //       },
 
-                {
-                  key: "category-list",
-                  label: "Category",
-                  icon: <BiCategory />,
-                },
+          //       {
+          //         key: "category-list",
+          //         label: "Category",
+          //         icon: <BiCategory />,
+          //       },
 
-                {
-                  key: "color-list",
-                  label: "Color",
-                  icon: <IoColorFillOutline />,
-                },
-                {
-                  key: "gst",
-                  label: "Tax",
-                  icon: <RiMoneyPoundCircleLine />,
-                },
-              ],
-            },
+          //       {
+          //         key: "color-list",
+          //         label: "Color",
+          //         icon: <IoColorFillOutline />,
+          //       },
+          //       {
+          //         key: "gst",
+          //         label: "Tax",
+          //         icon: <RiMoneyPoundCircleLine />,
+          //       },
+          //     ],
+          //   },
 
-            {
-              key: "orders",
-              label: "Orders",
-              icon: (
-                <FaCartArrowDown
-                  style={{ fontSize: "25px", color: "#BEABC2" }}
-                />
-              ),
-            },
+          //   {
+          //     key: "orders",
+          //     label: "Orders",
+          //     icon: (
+          //       <FaCartArrowDown
+          //         style={{ fontSize: "25px", color: "#BEABC2" }}
+          //       />
+          //     ),
+          //   },
 
-            {
-              key: "events",
-              label: (
-                <span className="label-style" style={{ color: "#3e4b5b" }}>
-                  Events
-                </span>
-              ),
-              icon: (
-                <BsCalendarEventFill
-                  style={{ fontSize: "25px", color: "#BEABC2" }}
-                />
-              ),
-              children: [
-                {
-                  key: "banners",
-                  label: "Banners",
-                  icon: (
-                    <MdKeyboardDoubleArrowRight
-                      style={{ fontSize: "25px", color: "#BEABC2" }}
-                    />
-                  ),
-                },
-              ],
-            },
-            {
-              key: "payment",
-              label: "Payment",
-              icon: (
-                <MdPayment style={{ fontSize: "25px", color: "#BEABC2" }} />
-              ),
-            },
+          //   {
+          //     key: "events",
+          //     label: (
+          //       <span className="label-style" style={{ color: "#3e4b5b" }}>
+          //         Events
+          //       </span>
+          //     ),
+          //     icon: (
+          //       <BsCalendarEventFill
+          //         style={{ fontSize: "25px", color: "#BEABC2" }}
+          //       />
+          //     ),
+          //     children: [
+          //       {
+          //         key: "banners",
+          //         label: "Banners",
+          //         icon: (
+          //           <MdKeyboardDoubleArrowRight
+          //             style={{ fontSize: "25px", color: "#BEABC2" }}
+          //           />
+          //         ),
+          //       },
+          //     ],
+          //   },
+          //   {
+          //     key: "payment",
+          //     label: "Payment",
+          //     icon: (
+          //       <MdPayment style={{ fontSize: "25px", color: "#BEABC2" }} />
+          //     ),
+          //   },
 
-            {
-              key: "offers",
-              label: (
-                <span className="label-style" style={{ color: "#3e4b5b" }}>
-                  Offers
-                </span>
-              ),
-              icon: (
-                <BiSolidOffer style={{ fontSize: "25px", color: "#BEABC2" }} />
-              ),
-              children: [
-                {
-                  key: "coupon-list",
-                  label: "Coupon",
-                  icon: <RiCouponFill />,
-                },
-              ],
-            },
+          //   {
+          //     key: "offers",
+          //     label: (
+          //       <span className="label-style" style={{ color: "#3e4b5b" }}>
+          //         Offers
+          //       </span>
+          //     ),
+          //     icon: (
+          //       <BiSolidOffer style={{ fontSize: "25px", color: "#BEABC2" }} />
+          //     ),
+          //     children: [
+          //       {
+          //         key: "coupon-list",
+          //         label: "Coupon",
+          //         icon: <RiCouponFill />,
+          //       },
+          //     ],
+          //   },
 
-            {
-              key: "enquiries",
-              label: "Enquiries",
-              icon: (
-                <FaQuestion style={{ fontSize: "25px", color: "#BEABC2" }} />
-              ),
-            },
-            {
-              key: "policy",
-              label: "Private-Policy",
-              icon: (
-                <MdOutlinePrivacyTip
-                  style={{ fontSize: "25px", color: "#BEABC2" }}
-                />
-              ),
-            },
-            {
-              key: "signout",
-              label: "Signout",
-              icon: (
-                <FaSignOutAlt style={{ fontSize: "25px", color: "#BEABC2" }} />
-              ),
-            },
-          ]}
+          //   {
+          //     key: "enquiries",
+          //     label: "Enquiries",
+          //     icon: (
+          //       <FaQuestion style={{ fontSize: "25px", color: "#BEABC2" }} />
+          //     ),
+          //   },
+          //   {
+          //     key: "policy",
+          //     label: "Private-Policy",
+          //     icon: (
+          //       <MdOutlinePrivacyTip
+          //         style={{ fontSize: "25px", color: "#BEABC2" }}
+          //       />
+          //     ),
+          //   },
+          //   {
+          //     key: "signout",
+          //     label: "Signout",
+          //     icon: (
+          //       <FaSignOutAlt style={{ fontSize: "25px", color: "#BEABC2" }} />
+          //     ),
+          //   },
+          // ]}
+          items={menuItems}
         />
       </Sider>
       <Layout>
@@ -247,12 +389,8 @@ const Mainlayout = () => {
                     }}
                   > */}
                   <a onClick={(e) => e.preventDefault()}>
-                    <Space>
-                      VcodeWonders
-                   
-                    </Space>
+                    <Space>VcodeWonders</Space>
                   </a>
-              
                 </div>
               </div>
             </div>
@@ -273,4 +411,5 @@ const Mainlayout = () => {
     </Layout>
   );
 };
+
 export default Mainlayout;

@@ -39,7 +39,7 @@ function Addproduct() {
   const { categoryGet } = useSelector((state) => state.category);
   const { getAllColor } = useSelector((state) => state.color);
   const { getallGst } = useSelector((state) => state.gst);
-  const { getAllShopProduct } = useSelector((state) => state.product);
+  const { getAllShopProduct,navigate_product } = useSelector((state) => state.product);
 
   const data = getAllShopProduct.find((item) => item._id === id);
   // ***************** Images************************
@@ -77,9 +77,7 @@ function Addproduct() {
   };
   useEffect(() => {
     dispatch(getAllProduct());
-    // if(navigate_product !== ""){
-    //      navigate("/admin/product-list")
-    // }
+   
   }, [dispatch]);
 
   const handleCheckboxChange = (item) => {
@@ -138,6 +136,10 @@ function Addproduct() {
           size: selectedSizes,
         };
         dispatch(postProductOnServer(productDetails));
+        if(navigate_product !== "yogesh"){
+          navigate("/admin/product-list")
+        }
+
       },
       validationSchema: Yup.object().shape({
         name: Yup.string().required("Product Name is required"),

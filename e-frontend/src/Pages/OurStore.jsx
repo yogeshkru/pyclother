@@ -29,6 +29,7 @@ const OurStore = function () {
   // ************************Product filter*******************************
   const { wholeProduct } = useSelector((state) => state?.product);
 
+  const [filtered, setFiltered] = useState();
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
   const [colors, setColors] = useState([]);
@@ -50,6 +51,7 @@ const OurStore = function () {
   const { searchTerm } = useParams();
   const [filteredData, setFilteredData] = useState([]);
 
+  // console.log(searchTerm)
   useEffect(() => {
     let AllProduct = new Set();
 
@@ -189,6 +191,27 @@ const OurStore = function () {
       );
     });
 
+  //Search
+
+  
+  
+  useEffect(() => {
+  
+  
+    let wholeDataBackend;
+  
+    if (searchTerm) {
+      wholeDataBackend = wholeProduct.filter((product) =>
+      Object.values(product).some((value) =>
+      typeof value === 'string' && value.toLowerCase().includes(searchTerm.toLowerCase()))
+    );
+    } else {
+      wholeDataBackend = wholeProduct
+    }
+  
+    setFiltered(wholeDataBackend);
+  }, [wholeProduct, searchTerm]);
+
   // *******************************************************************
   return (
     <>
@@ -322,7 +345,7 @@ const OurStore = function () {
             </div>
           </div>
 
-          <div className="col-lg-9 col-6 ourStore-product-render  ">
+          <div className="col-lg-9 col-6 ourStore-product-render">
             <div className="d-flex gap-18 flex-wrap ">
               <ProductCard data={filteredData} />
             </div>

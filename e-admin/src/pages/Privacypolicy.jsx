@@ -19,7 +19,7 @@ function Privacypolicy() {
     <div>
       <form onSubmit={handleSubmit}>
         <div class="form-group">
-          <label for="exampleFormControlTextarea1">Example textarea</label>
+          <label for="exampleFormControlTextarea1">Privacy Policy</label>
           <textarea
             class="form-control"
             id="exampleFormControlTextarea1"
@@ -28,7 +28,7 @@ function Privacypolicy() {
             onChange={(e)=>setValue(e.target.value)}
           ></textarea>
         </div>
-        <button type="submit" className="brand_padding--border">
+        <button type="submit" className="brand_padding--border mt-1">
           Submit
         </button>
       </form>

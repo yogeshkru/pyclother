@@ -23,6 +23,7 @@ function Header() {
   const [sidenavWidth, setSidenavWidth] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const isMobile = useMediaQuery({ maxWidth: 600 });
+  const [keyBoard,setKeyBoard]=useState("")
 
   const navigate = useNavigate();
   const handleFont = {
@@ -59,6 +60,9 @@ function Header() {
       navigate(`/ourstore/${searchTerm}`);
     }
 window.location.reload()
+
+   
+
     // window.location/.href = "/ourstore";
   };
   // *************************************************************************
@@ -117,6 +121,11 @@ window.location.reload()
   const handleLogin = () => {
     navigate("/login");
   };
+
+  const handleSubmit=(e)=>{
+    e.preventDefault()
+    navigate("/ourstore/")
+  }
 
   return (
     <div>
@@ -211,14 +220,18 @@ window.location.reload()
                 <div className="col-lg-3"></div>
                 <div className="col-lg-4">
                   <div className="text-center header--search">
+                    <form onSubmit={handleSubmit}>
                     <input
                       type="search"
                       autoComplete="off"
                       className="header__input--search"
                       value={searchTerm}
                       onChange={handleSearchChange}
+                      // value={keyBoard}
+                      // onChange={(e)=>setKeyBoard(e.target.value)}
                       placeholder="Search for Products, brands and more "
                     />
+                    </form>
 
                     <div className="header__icon">
                       {/* <a

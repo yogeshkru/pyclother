@@ -9,12 +9,15 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { IoEyeOutline } from "react-icons/io5";
 import { useDispatch ,useSelector} from "react-redux";
-import { userLogin } from "../features/usersSlice";
+import { userLogin,resetAll } from "../features/usersSlice";
 
 function Forget() {
   const {loginUser}=useSelector((state)=>state.users)
   const dispatch = useDispatch();
   const navigate=useNavigate()
+  const handleSignup=()=>{
+    navigate("/signup")
+  }
   const { values, errors, handleChange, handleBlur, handleSubmit, touched } =
     useFormik({
       initialValues: {
@@ -154,8 +157,8 @@ function Forget() {
 
               <div className="mt-4">
                 <p className="login_size">
-                  Having trouble while logging in{" "}
-                  <span className="login_color">Get Help</span>{" "}
+                  Create a <span onClick={handleSignup} style={{color:"#df0067",fontWeight:"bold",cursor:"pointer"}}>New Account</span> 
+                 
                 </p>
               </div>
             </div>

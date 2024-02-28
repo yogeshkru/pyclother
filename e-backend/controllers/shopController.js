@@ -142,14 +142,17 @@ class Shop {
   // **************************
 
   getUserById = async (req, res, next) => {
-    const { id } = req.params;
-    const user = await shopModel.findById(id);
+    const { _id } = req.user;
+    const user = await shopModel.findById(_id);
     if (!user) {
       const error = new CustomError("user with that Id is not found", 404);
       return next(error);
     }
+
     res.status(200).json({ message: "success", data: { user } });
   };
+
+  
 
   async getUserDelete(req, res, next) {
     const { id } = req.params;

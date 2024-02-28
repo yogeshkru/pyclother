@@ -21,6 +21,9 @@ function Signup() {
       navigate("/");
     }
   });
+  const handleSign=()=>{
+    navigate("/login")
+  }
 
   const { values, errors, handleChange, handleBlur, handleSubmit, touched } =
     useFormik({
@@ -65,6 +68,7 @@ function Signup() {
 
   return (
     <>
+   
       <div className="otp_background">
         <div className="row otp_page_scroll justify-content-center">
           <div className="col-lg-4  col-sm-12 col-md-7 pt-1">
@@ -205,7 +209,7 @@ function Signup() {
                   ) : (
                     ""
                   )}
-
+9
                   <div className="mt-4">
                     <p className="login_size">
                       By continuing. I agree to the{" "}
@@ -222,8 +226,7 @@ function Signup() {
 
                 <div className="mt-4">
                   <p className="login_size">
-                    Having trouble while logging in{" "}
-                    <span className="login_color">Get Help</span>{" "}
+                  Already have an account  <span onClick={handleSign} style={{color:"#df0067",fontWeight:"bold",cursor:"pointer"}}>Login </span> 
                   </p>
                 </div>
               </div>

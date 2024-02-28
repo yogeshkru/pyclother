@@ -138,6 +138,9 @@ export const PatchGst = createAsyncThunk(
           state.isLoader = false;
           state.isError = false;
           state.isSuccess = true;
+          if(state.isSuccess){
+            toast.error("Deleted Gst")
+          }
         })
         .addCase( DeleteGst.rejected, (state, action) => {
           state.isLoader = false;
@@ -156,6 +159,9 @@ export const PatchGst = createAsyncThunk(
           state.isError = false;
          
           state.isSuccess = true;
+          if(state.isSuccess){
+            toast.success("Update Gst")
+          }
         })
         .addCase(PatchGst.rejected, (state, action) => {
           state.isLoader = false;

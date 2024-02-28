@@ -38,6 +38,7 @@ export const colorpatch = createAsyncThunk(
   async (data, thunkApi) => {
     try {
       const response = await colordata.colorPatch(data);
+      thunkApi.dispatch(colorgets()); 
       return response;
     } catch (err) {
       toast.error(err?.response?.data?.message);

@@ -11,6 +11,7 @@ import uploadImagesSlice from "../features/uploadImages/uploadImagesSlice"
 import enquirySlice from "../features/Enquiry/enquirySlice";
 import eventSlice from "../features/events/eventSlice";
 import privacyPolicySlice  from "../features/Privacypolicy/Privarypolicyslice";
+import OrderGetSlice  from "../features/Order/OrderSlice";
 export const store = configureStore({
   reducer: {
     brand: brandDetails,
@@ -24,7 +25,8 @@ export const store = configureStore({
     upload:uploadImagesSlice,
     enquiry:enquirySlice,
     event:eventSlice,
-    privacy:privacyPolicySlice
+    privacy:privacyPolicySlice,
+    orderget:OrderGetSlice
 
   },
 });

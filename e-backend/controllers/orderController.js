@@ -80,8 +80,9 @@ class Order {
     try {
       const orders = await orderModel
         .find({ "cartItem.shopId": _id })
-        .sort({ createdAt: -1 });
-
+        .sort({ createdAt: -1 })
+        .populate('order_user') 
+        
       res.status(200).json({ success: true, orders });
     } catch (error) {
       return next(new CustomError(error.message, 500));
