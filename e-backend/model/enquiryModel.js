@@ -18,7 +18,8 @@ const enquirySchema = new mongoose.Schema(
     },
     isDelete:{
       type:Boolean,
-      default:true
+      default:true,
+      select:false
   
   },
   
@@ -27,5 +28,9 @@ const enquirySchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+enquirySchema.pre(/^find/,function(next){
+  this.find({isDelete:{$ne:false}})
+  next()
+})
 
 module.exports = mongoose.model("tbl_enquiry", enquirySchema);

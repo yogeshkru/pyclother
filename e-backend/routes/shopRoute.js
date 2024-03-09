@@ -28,8 +28,8 @@ module.exports = (app) => {
   router
     .route("/create-shop")
     .post(
-      // authenticateUser,
-      // restrict("super admin"),
+      authenticateUser,
+      restrict("super admin"),
       asyncErrorHandler
      ( shopCreate)
     );

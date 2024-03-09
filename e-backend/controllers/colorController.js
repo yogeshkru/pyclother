@@ -51,7 +51,7 @@ class ColorController {
   // Delete
    async colorDelete(req, res, next) {
     try {
-      await colorSchema.findByIdAndDelete(req.params.id);
+      await colorSchema.findByIdAndUpdate(req.params.id,{isDelete:false});
       res.status(200).json({ message: "deleted" });
     } catch (err) {
       return next(new customError(err.message, 500));

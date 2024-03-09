@@ -76,7 +76,8 @@ const shopSchema = new mongoose.Schema(
     shop_passwordResetTokenExpired: Date,
     isDelete:{
       type:Boolean,
-      default:true
+      default:true,
+      select:false
   
   },
   
@@ -90,6 +91,10 @@ shopSchema.pre("save", async function (next) {
   if (!this.isModified("shop_password")) return next();
   this.shop_password = await bcrypt.hash(this.shop_password, 14);
 });
+shopSchema.pre(/^find/,function(next){
+  this.find({isDelete:{$ne:false}})
+  next()
+})
 shopSchema.methods.comparePasswordInDb = async function (pwd, pswDB) {
   return await bcrypt.compare(pwd, pswDB);
 };

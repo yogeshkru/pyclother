@@ -44,7 +44,7 @@ class Coupoundeatils {
 
   couponeDelete = async function (req, res, next) {
     try {
-      const couponDelete = await couponSchmea.findByIdAndDelete(req.params.id);
+      const couponDelete = await couponSchmea.findByIdAndUpdate(req.params.id,{isDelete:false});
 
       if (!couponDelete) {
         const error = new CustomError("Given Id is not exist", 401);

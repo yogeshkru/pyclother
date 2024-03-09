@@ -4,10 +4,10 @@ module.exports = (app) => {
   const {
     uploadImages,
     BannerImages,
-    deleteImageProduct
+    deleteImageProduct,Categorys
   } = require("../controllers/uploadControl");
   // const {protect,restrict}
-  const { uploadPhoto,bannerImage } = require("../middleware/uploadImages");
+  const { uploadPhoto } = require("../middleware/uploadImages");
   var { authenticateUser, restrict } = require("../middleware/auth");
 
   router
@@ -22,19 +22,28 @@ module.exports = (app) => {
   router
     .route("/banner-upload")
     .post(
-      authenticateUser,
-      restrict("super admin"),
+      // authenticateUser,
+      // restrict("super admin"),
       uploadPhoto.array("images", 1),
       BannerImages
     );
-
-
     router
     .route("/delete-product-image/:productimage")
     .delete(
       authenticateUser,
       restrict("super admin","shop admin"),
       deleteImageProduct
+
+    )
+
+
+    router
+    .route("/category-upload")
+    .post(
+      authenticateUser,
+      restrict("super admin","shop admin"),
+      uploadPhoto.array("image", 1),
+      Categorys
 
     )
   app.use("/api/upload", router);

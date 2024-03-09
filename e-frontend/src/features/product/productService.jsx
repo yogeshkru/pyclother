@@ -23,6 +23,13 @@ const getProduct = async (data) => {
     if (data?.category) {
       queryParams.append("category",data?.category);
     }
+    if (data?.page) {
+      queryParams.append("page",data?.page);
+    }
+
+    if(data?.searchTerm){
+      queryParams.append("search",data?.searchTerm)
+    }
 
 
     // const searchFields = [

@@ -8,21 +8,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { FiEdit } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
+import { AiOutlinePlusCircle } from "react-icons/ai";
+import axios from "axios";
+import URL from "../../utilis/Url";
 // ****************************************
 import {
   uploadProductImageOnServer,
   deleletProductImageonserver,
 } from "../../features/uploadImages/uploadImagesSlice";
-import URL from "../../utilis/Url";
+
 import {
-  postEvent,
-  getEvent,
+  getEvents,
   deleteEvent,
-  uploadBannerImage
+  uploadBannerImage,
 } from "../../features/events/eventSlice";
 
 // *********************************************************
 import DataTable from "react-data-table-component";
+import { keyframes } from "styled-components";
 
 const BannerContent = ({ active }) => {
   const [startDate, setStartDate] = useState(null);
@@ -122,8 +125,6 @@ const BannerContent = ({ active }) => {
       setError(validationsErrors);
       return;
     }
-
-    dispatch(postEvent(formData));
   };
 
   const validateForm = (data) => {
@@ -365,19 +366,9 @@ const BannerContent = ({ active }) => {
 function ProjectTracking() {
   const dispatch = useDispatch();
   const { eventArray } = useSelector((state) => state.event);
-  const handleDelete = (id) => {
-    dispatch(deleteEvent(id));
-  };
+  const handleDelete = (id) => {};
 
-  useEffect(() => {
-    const timeOut = setTimeout(() => {
-      dispatch(getEvent());
-    }, 500);
 
-    return () => {
-      clearTimeout(timeOut);
-    };
-  }, []);
 
   const col = [
     {
@@ -458,29 +449,122 @@ function ProjectTracking() {
 }
 
 const HomeSlideShow = () => {
-  const { productImage } = useSelector((state) => state.upload);
-  const dispatch = useDispatch()
-  const [formData, setFormData] = useState({
-    images: "",
-  });
+  const [bannners, setBanners] = useState("");
+  const [date,setDate]=useState({
+    start_day:"",
+    end_day:""
+  })
+  const dispatch = useDispatch();
+  const handleDate=(e)=>{
+    setDate({...date,[e.target.name]:e.target.value})
+  }
+
+
+
+  const { eventArray } = useSelector((state) => state.event);
+
+  console.log(eventArray)
+  const col = [
+    {
+      name: "Id",
+      selector: (row) => row.id,
+      sortable: true,
+    },
+    {
+      name: "Image",
+      selector: (row) => row.image,
+      sortable: true,
+    },
+    {
+      name: "Start Day",
+      selector: (row) => row.start,
+    },
+    {
+      name: "End Day",
+      selector: (row) => row.end,
+    },
+
+    {
+      name: "Status",
+      selector: (row) => row.status,
+    },
+  ];
+
+  const data = [];
+  for (let id = 0; id < eventArray.length; id++) {
+    data.push({
+      id: id + 1,
+      image: (
+        <img src={`${URL.IMAGE_URL}${eventArray[id]?.images[0]}`} width="50%" />
+      ),
+      start:eventArray[id]?.start_day,
+      end:eventArray[id]?.end_day,
+      status: (
+        <span
+          style={{
+            backgroundColor:
+              (eventArray[id]?.status === "pending" && "orange") ||
+              (eventArray[id]?.status === "success" && "green") ||
+              (eventArray[id]?.status === "rejected" && "red"),
+            color: "white",
+            padding: "10px",
+
+            textTransform: "capitalize",
+            fontFamily: "Roboto, sans-serif",
+
+            animation:
+              eventArray[id]?.status === "pending"
+                ? "blinking 1s infinite"
+                : "none",
+          }}
+        >
+          {eventArray[id]?.status}
+        </span>
+      ),
+    });
+  }
+  const getTokenFromLocalStorage = localStorage.getItem("admin_user")
+    ? JSON.parse(localStorage.getItem("admin_user"))
+    : null;
+
+  const handleImageChange = (e) => {
+    setBanners(e.target.files[0]);
+  };
 
   useEffect(() => {
-    const img = [];
-    productImage.flat()?.forEach((element) => {
-      img.push({
-        url: element,
-      });
-    });
-
-    setFormData((preFormData) => ({
-      ...preFormData,
-      images: img,
-    }));
-  }, [productImage]);
-
+    dispatch(getEvents());
+  }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(uploadBannerImage (formData))
+  
+
+    const formData = new FormData();
+    formData.append("images", bannners);
+    formData.append("ShopId", getTokenFromLocalStorage?.token);
+    formData.append("start_day", date.start_day);
+    formData.append("end_day", date.end_day);
+    e.currentTarget.reset();
+    setDate({
+      start_day:"",
+      end_day:""
+    })
+
+    axios.post(
+      `${URL.BASE_URL}banner/banners`,
+
+      { ...Object.fromEntries(formData) },
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: getTokenFromLocalStorage
+            ? `Bearer ${getTokenFromLocalStorage.token}`
+            : null,
+          // Accept: "application/json",
+        },
+      }
+    );
+
+    
   };
 
   return (
@@ -494,52 +578,53 @@ const HomeSlideShow = () => {
               </h5>
 
               <form onSubmit={handleSubmit}>
-                <div className="mb-3 border ">
-                  <Dropzone
-                    onDrop={(acceptedFiles) =>
-                      dispatch(uploadProductImageOnServer(acceptedFiles))
-                    }
-                  >
-                    {({ getRootProps, getInputProps }) => (
-                      <section>
-                        <div {...getRootProps()}>
-                          <input {...getInputProps()} />
-                          <p className=" d-flex justify-content-center align-items-center">
-                            Upload Image
-                          </p>
-                        </div>
-                      </section>
-                    )}
-                  </Dropzone>
-                </div>
+                <div className="mb-3 border "></div>
 
                 <div className="d-flex flex-wrap gap-3 mb-3">
-                  {Array.isArray(productImage) &&
-                    productImage.length > 0 &&
-                    productImage.flat().map((i, j) => {
-                      return (
-                        <div className="position-relative" key={j}>
-                          <button
-                            type="button"
-                            onClick={() => dispatch( deleletProductImageonserver(i))}
-                            className="btn-close position-absolute"
-                            style={{ top: "10px", right: "10px" }}
-                          ></button>
-
-                          <img
-                            src={`${URL.IMAGE_URL}${i}`}
-                            alt="images"
-                            width={500}
-                            height={200}
-                          />
-                        </div>
-                      );
-                    })}
+                  <input
+                    type="file"
+                    className="hidden"
+                    onChange={handleImageChange}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="start_date" className="form-label pb-2">
+                    Start Day
+                  </label>
+                  <input
+                    type="date"
+                    id="start_day"
+                    name="start_day"
+                    className="form-control"
+                    value={date.start_day}
+                    onChange={handleDate}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="start_date" className="form-label pb-2">
+                    End Day
+                  </label>
+                  <input
+                    type="date"
+                    id="end_day"
+                    name="end_day"
+                    className="form-control"
+                    value={date.end_day}
+                    onChange={handleDate}
+                  />
                 </div>
 
-                <button className="btn btn-primary mt-2 d-flex justify-content-end" type="submit">Submit</button>
+                <button
+                  className="btn btn-primary mt-2 d-flex justify-content-end"
+                  type="submit"
+                >
+                  Submit
+                </button>
               </form>
             </div>
+          </div>
+          <div className="mt-4">
+            <DataTable columns={col} data={data} pagination />
           </div>
         </div>
       </div>

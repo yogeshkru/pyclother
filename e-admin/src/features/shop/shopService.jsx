@@ -6,7 +6,7 @@ const createShop = async (data) => {
   const response = await axios.post(`${URL.BASE_URL}shop/create-shop`, data,config);
 
   if (response.data) {
-   localStorage.setItem("admin_user",JSON.stringify(response.data))
+  //  localStorage.setItem("admin_user",JSON.stringify(response.data))
   }
   return response.data
 };

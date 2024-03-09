@@ -48,7 +48,9 @@ export const postProductOnServer = createAsyncThunk(
       formData.append("fit", product?.fit);
       formData.append("neck", product?.neck);
       formData.append("sleeve", product?.sleeve);
+      formData.append("gender", product?.gender);
       const response = await productService.productPost(formData);
+      thunkAPI.dispatch(getAllProduct())
       return response;
     } catch (error) {
       toast.error(error?.response?.data?.message);

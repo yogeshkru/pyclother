@@ -3,10 +3,9 @@ class Apifeatures {
     this.query = query;
     this.queryStr = queryStr;
     this.queryObj = { ...this.queryStr };
-
   }
   excludes() {
-    const exculdeFields = ["page", "sort", "limit", "fields"];
+    const exculdeFields = ["page", "sort", "limit", "fields", "search"];
     exculdeFields.forEach((data) => {
       delete this.queryObj[data];
     });
@@ -22,7 +21,6 @@ class Apifeatures {
 
   sort() {
     if (this.queryStr.sort) {
-      console.log(this.queryStr.sort);
       const sortBy = this.queryStr.sort.split(",").join(" ");
       this.query = this.query.sort(sortBy);
     } else {
@@ -32,30 +30,33 @@ class Apifeatures {
   }
 
   search() {
+    if (!this.queryStr.search) {
+      return this;
+    }
+
+    const searchTerm = this.queryStr.search.trim().replace(/%20/g, " ");
     const searchFields = [
       "name",
-      "category",
-      "brand",
       "description",
+      "brand",
       "color",
       "length",
       "fabric",
       "fit",
       "neck",
       "sleeve",
-      "size",
-      
     ];
+    const regexPattern = new RegExp(searchTerm, "i"); // Case-insensitive regex pattern
 
-    searchFields.forEach((fields) => {
-      if (this.queryStr[fields]) {
-        this.query = this.query.find({[fields]: { $regex: this.queryStr[fields], $options: "i" },
-        });
-      }
-    });
+    const orConditions = searchFields.map((field) => ({
+      [field]: { $regex: regexPattern },
+    }));
+
+    this.query.find({ $or: orConditions });
 
     return this;
   }
+
   limitFields() {
     if (this.queryStr.fields) {
       const fields = this.queryStr.fields.split(",").join(" ");

@@ -32,6 +32,7 @@ import { OpenRoutes } from "./protect/openRoutes";
 import { PrivateRoutes } from "./protect/PrivateRoutes";
 import Privacypolicy from "./pages/Privacypolicy";
 import Viewuserproduct from "./pages/Viewuserproduct";
+import Bannerget from "./pages/Bannerget";
 function App() {
   let content;
 
@@ -82,7 +83,7 @@ function App() {
             {/* ********************************** */}
             {/* <Route path="payment" element={<Payment />} /> */}
             <Route path="banners" element={<Banners />} />
-
+            <Route path="bannerget" element={<Bannerget />} />
             <Route path="coupon-list" element={<Couponlist />} />
             <Route path="policy" element={<Privacypolicy />} />
             <Route path="gst" element={<Gst />} />

@@ -61,8 +61,8 @@ const OurStore = function () {
     let price = [];
     // let discountPrice =[];
 
-    for (let i = 0; i < filteredData?.length; i++) {
-      const element = filteredData[i];
+    for (let i = 0; i < wholeProduct?.length; i++) {
+      const element = wholeProduct[i];
       newBrand?.push(element?.brand);
       category?.push(element?.category);
       newColors?.push(element?.color);
@@ -74,24 +74,24 @@ const OurStore = function () {
     setColors(newColors);
     setPrices(price);
 
-    const filteredProducts = wholeProduct.filter(product =>
-      Object.values(product).some(value => {
-        if (typeof value === 'string') {
-          return value.toLowerCase().includes(searchTerm.toLowerCase());
-        } else if (typeof value === 'number') {
-          // Convert searchTerm to a number if it's not NaN
-          const searchTermNumber = parseFloat(searchTerm);
+    // const filteredProducts = wholeProduct.filter(product =>
+    //   Object.values(product).some(value => {
+    //     if (typeof value === 'string') {
+    //       return value.toLowerCase().includes(searchTerm.toLowerCase());
+    //     } else if (typeof value === 'number') {
+    //       // Convert searchTerm to a number if it's not NaN
+    //       const searchTermNumber = parseFloat(searchTerm);
 
-          if (!isNaN(searchTermNumber)) {
-             value === searchTermNumber;
-          }
-        }
-        return false;
-      })
-    );
+    //       if (!isNaN(searchTermNumber)) {
+    //          value === searchTermNumber;
+    //       }
+    //     }
+    //     return false;
+    //   })
+    // );
     
 
-    setFilteredData(filteredProducts)
+    // setFilteredData(filteredProducts)
   }, [wholeProduct, searchTerm]);
 
   // ******************************************************************
@@ -124,7 +124,7 @@ const OurStore = function () {
   // ****************************************************************************************
 
   //brand
-  const brandDetails =
+    const brandDetails =
     brands &&
     [...new Set(brands)].map((item, i) => (
       <div key={i} className="d-flex gap-1">
@@ -347,7 +347,7 @@ const OurStore = function () {
 
           <div className="col-lg-9 col-6 ourStore-product-render">
             <div className="d-flex gap-18 flex-wrap ">
-              <ProductCard data={filteredData} />
+              <ProductCard data={wholeProduct} />
             </div>
 
             <div className="ourStore-pagination d-lg-flex mt-5  justify-content-center  m-auto row ">

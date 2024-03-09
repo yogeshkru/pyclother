@@ -86,7 +86,8 @@ const productSchema = new mongoose.Schema(
     discount:String,
     isDelete:{
       type:Boolean,
-      default:true
+      default:true,
+      select:false
   },
 
   
@@ -94,12 +95,22 @@ const productSchema = new mongoose.Schema(
     material:String,
     fit:String,
     neck:String,
-    sleeve:String
+    sleeve:String,
+    gender:{
+      type:String,
+      required:[true,"gender is"]
+    }
   
   },
   
 
   { timestamps: true }
 );
+
+productSchema.pre(/^find/,function(next){
+  this.find({isDelete:{$ne:false}})
+  next()
+})
+
 
 module.exports = mongoose.model("Tbl_product", productSchema);

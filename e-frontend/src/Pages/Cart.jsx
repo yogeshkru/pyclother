@@ -132,7 +132,7 @@ const deleteUserCart=async (id)=>{
         <section className="container">
           <div className="d-flex pt-3 pb-3 gap-5">
            <div>
-           <button style={{padding:"4px 20px",backgroundColor:"#df0067",color:"white",borderRadius:"20px"}} onClick={handleReplace}>Back to shop</button>
+           <button style={{padding:"4px 20px",backgroundColor:"#df0067",color:"white",borderRadius:"20px"}} onClick={handleReplace}>Back </button>
            </div>
             <h4 className="mb-0" style={{ color: "#9867c5" }}>
               My Bag

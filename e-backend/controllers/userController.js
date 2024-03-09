@@ -322,7 +322,7 @@ class UserController {
   deleteUser = async (req, res, next) => {
     const { id } = req.params;
 
-    const user = await userModel.findByIdAndDelete(id);
+    const user = await userModel.findByIdAndUpdate(id,{isDelete:false});
 
     if (!user) {
       const error = new customError("User with Id is not found", 404);

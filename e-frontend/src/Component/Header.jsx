@@ -48,18 +48,19 @@ function Header() {
   // **********************************************************************
   const [searchTerm, setSearchTerm] = useState("");
 
+
   const [searchData, setSeachData] = useState(null);
 
- console.log(searchTerm)
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // document.getElementById("navLink").click();
+    
 
     if (searchTerm) {
       navigate(`/ourstore/${searchTerm}`);
-    }
+     
 window.location.reload()
+    }
 
    
 
@@ -124,7 +125,7 @@ window.location.reload()
 
   const handleSubmit=(e)=>{
     e.preventDefault()
-    navigate("/ourstore/")
+    navigate(`/ourstore/${searchTerm}`)
   }
 
   return (

@@ -67,6 +67,7 @@ class Addressdetails {
   };
 
   //update
+  
   // addressUpdateBilling = async (req, res, next) => {
   //   try {
   //     const {
@@ -175,7 +176,7 @@ class Addressdetails {
   //delete
   addressDelete = async function (req, res, next) {
     try {
-      await addressModel.findByIdAndDelete(req.params.id);
+      await addressModel.findByIdAndUpdate(req.params.id,{isDelete:false});
       res.status(204).json({ message: "deleted" });
     } catch (err) {
       return next(new CustomError(err.message, 500));

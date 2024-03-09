@@ -120,13 +120,14 @@ function Addproduct() {
         meta_title: data?.meta_title || "",
         meta_description: data?.meta_description || "",
         meta_keyboard: data?.meta_keyboard || "",
-        tax: "",
-        discount: "",
-        fabric: "",
-        material: "",
-        fit: "",
-        neck: "",
-        sleeve: "",
+        tax: data?.tax || "",
+        discount: data?.discount || "",
+        fabric: data?.fabric || "",
+        material:data?.material || "",
+        fit: data?.fit || "",
+        neck: data?.neck || "",
+        sleeve: data?.sleeve || "",
+        gender:data?.gender || ""
       },
       onSubmit: (value) => {
         const productDetails = {
@@ -135,6 +136,7 @@ function Addproduct() {
           images: images,
           size: selectedSizes,
         };
+      
         dispatch(postProductOnServer(productDetails));
         if(navigate_product !== "yogesh"){
           navigate("/admin/product-list")
@@ -146,7 +148,7 @@ function Addproduct() {
         description: Yup.string().required("Product Description is required"),
         brand: Yup.string().required("Brand is required"),
         model: Yup.string().required("Model is required"),
-        sku: Yup.string().required("SKU is required"),
+      
         stack: Yup.number().required("Stack is required"),
         price: Yup.number().required("Price is required"),
         Gst: Yup.string().required("GST is required"),
@@ -155,6 +157,7 @@ function Addproduct() {
         sort: Yup.string().required("Sort is required"),
         quantity: Yup.string().required("Quantity is required"),
         tax: Yup.string().required("Tax is required"),
+        gender: Yup.string().required("gender is required"),
       }),
     });
 
@@ -232,8 +235,28 @@ function Addproduct() {
                         ""
                       )}
                     </div>
-
                     <div className="col-lg-4">
+                      <label className="fw-bold fs-10">Gender</label>
+                      <select
+                          class="form-select"
+                          aria-label="Default select example"
+                          name="gender"
+                          value={values.gender}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        >
+                          <option>Select the Gender</option>
+                          <option>Male</option>
+                          <option>Female</option>
+                          <option>Kits</option>
+                        </select>
+                      {errors.gender && touched.gender ? (
+                        <div style={{ color: "red" }}>{errors.gender}</div>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                    {/* <div className="col-lg-4">
                       <label className="fw-bold fs-10">SKU</label>
                       <UseInput
                         type="text"
@@ -248,7 +271,7 @@ function Addproduct() {
                       ) : (
                         ""
                       )}
-                    </div>
+                      </div> */}
                   </div>
                   <div className="row mb-2  ">
                     <div className="col-lg-4">
@@ -607,6 +630,7 @@ function Addproduct() {
                           onBlur={handleBlur}
                         />
                       </div>
+                    
                   </div>
                   </div>
                 </div>

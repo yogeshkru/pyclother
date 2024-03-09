@@ -40,9 +40,10 @@ class Carts {
     const { _id } = req.user;
     const { id } = req.params;
     try {
-      const removeProduct = await cartModel.findOneAndDelete({
+      const removeProduct = await cartModel.findOneAndUpdate({
         userId: _id,
         _id: id,
+        isDelete:false
       });
       if (!removeProduct) {
         res.status(404).json({ message: "product not found in cart" });

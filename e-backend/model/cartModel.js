@@ -31,7 +31,8 @@ const cartSchema = new mongoose.Schema(
     },
     isDelete:{
       type:Boolean,
-      default:true
+      default:true,
+      select:false
   
   },
   
@@ -52,5 +53,11 @@ cartSchema.methods.setDeliveryData = async function () {
     this.cart_three_delivery_data = threeDaysLater;
   }
 };
+
+cartSchema.pre(/^find/,function(next){
+  // this.find({isDelete:true})
+  this.find({isDelete:{$ne:false}})
+  next()
+})
 
 module.exports = mongoose.model("Tbl_cart", cartSchema);

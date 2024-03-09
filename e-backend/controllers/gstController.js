@@ -44,8 +44,8 @@ exports.getgst = asyncErrorHandler(async(req,res,next)=>{
 exports.deletegst = asyncErrorHandler(async(req,res,next)=>{
     const { id } = req.params;
     try {
-      await gstModel.findByIdAndDelete(id);
-      res.status(200).json({ message: "Deleted" });
+      await gstModel.findByIdAndUpdate(id,{isdeleted:false});
+      res.status(200).json({ message: "Deleted", });
     } catch (error) {
       next(new CustomError(error.message, 500));
     }

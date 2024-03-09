@@ -1,7 +1,7 @@
 module.exports = (app) => {
   const Product = require("../controllers/productController");
-  
-  const { uploadPhoto,bannerImage } = require("../middleware/uploadImages");
+
+  const { uploadPhoto } = require("../middleware/uploadImages");
   const router = require("express").Router();
   const {
     createProduct,
@@ -11,7 +11,7 @@ module.exports = (app) => {
     deleteProduct,
     addToWishList,
     ratingfunc,
-    getAllShopProduct
+    getAllShopProduct,
   } = new Product();
 
   const asyncErrorHandler = require("../utils/asyncErrorhandler");
@@ -20,7 +20,9 @@ module.exports = (app) => {
 
   router.route("/product-id/:id").get(asyncErrorHandler(getOneProduct));
   router.route("/getall-product").get(asyncErrorHandler(getAllProduct));
-  router.route("/getshop-product").get(authenticateUser,asyncErrorHandler(getAllShopProduct))
+  router
+    .route("/getshop-product")
+    .get(authenticateUser, asyncErrorHandler(getAllShopProduct));
   // The below url's manipulate by user's
   router
     .route("/addwishlist/:prodId")

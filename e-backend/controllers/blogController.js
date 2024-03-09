@@ -58,7 +58,7 @@ class Blog {
 //   **************************************************************
 
   async deleteBlog(res, req, next) {
-    const deleteBlog = await blogModel.findByIdAndDelete(req.params.id);
+    const deleteBlog = await blogModel.findByIdAndUpdate(req.params.id,{isDelete:false});
 
     if (!deleteBlog) {
       const error = new CustomError("Blog not found", 404);

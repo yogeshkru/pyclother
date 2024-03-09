@@ -36,7 +36,7 @@ class EventController {
   deleteEvent = async function (req, res, next) {
     try {
       const { id } = req.params;
-      const deletedEvent = await Event.findByIdAndDelete(id);
+      const deletedEvent = await Event.findByIdAndUpdate(id,{isDelete:false});
       if (!deletedEvent) {
         return next(new CustomError("Product not found with this id", 404));
       }

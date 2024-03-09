@@ -35,9 +35,9 @@ const ProductCard = function ({ data }) {
   };
 
   useEffect(() => {
-    const timeOut = setTimeout(() => {
-      dispatch(getAllProduct());
-    }, 500);
+    // const timeOut = setTimeout(() => {
+      // dispatch(getAllProduct());
+    // }, 100);
     let extractWishList = [];
     Whislistget.forEach((elment) => {
       extractWishList.push(elment?._id);
@@ -45,9 +45,9 @@ const ProductCard = function ({ data }) {
 
     setwhishlistId(extractWishList);
 
-    return () => {
-      clearTimeout(timeOut);
-    };
+    // return () => {
+    //   clearTimeout(timeOut);
+    // };
   }, [dispatch, Whislistget]);
 
   return (

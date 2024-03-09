@@ -110,7 +110,7 @@ class BrandController {
   // Delete
   async deleteBrand(req, res, next) {
     try {
-      const deletedBrand = await brandModel.findByIdAndDelete(req.params.id);
+      const deletedBrand = await brandModel.findByIdAndUpdate(req.params.id,{isDelete:false});
       res.status(200).json({ deletedBrand });
     } catch (err) {
       return next(new customError(err.message, 500));

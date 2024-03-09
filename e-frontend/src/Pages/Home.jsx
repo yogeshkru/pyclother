@@ -46,8 +46,15 @@ import home_details9 from "../assets/image/home_details1.jpeg";
 import delivery from "../assets/image/delviery.png";
 import exchange from "../assets/image/exchange.png";
 import {useNavigate} from "react-router-dom"
+import {useSelector,useDispatch} from "react-redux";
+import {categoryGetData} from "../features/category/getCategoryslice"
+import URL from "../utils/Url";
+
 function Home() {
   const navigate=useNavigate()
+  const dispatch=useDispatch()
+  const {categoryGet}=useSelector((state)=>state.category)
+console.log(categoryGet)
   //slides
   const [data, setData] = useState(0);
 
@@ -56,6 +63,9 @@ function Home() {
   const handleSlides=()=>{
      navigate("/ourstore")
   }
+  useEffect(()=>{
+     dispatch(categoryGetData())
+  },[dispatch])
   useEffect(() => {
     const intervalId = setInterval(() => {
       setIndex((prevIndex) => (prevIndex + 1) % 4);
@@ -447,7 +457,7 @@ function Home() {
           </div>
         </div>
 
-        <div className="row justify-content-between">
+        {/* <div className="row justify-content-between">
           <div className="col-lg-2">
             <div className="home_background_details">
               <div className="home_details_img">
@@ -513,23 +523,26 @@ function Home() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
-        <div className="row justify-content-between">
-          <div className="col-lg-2">
-            <div className="home_background_details">
-              <div className="home_details_img">
-                <div className="home_details_img1">
-                  <img src={home_details5} width="100%" />
-                </div>
-              </div>
-              <div className="home_details_content1">
-                <h4>ETIHNIC WEAR</h4>
-                <h5 className="fw-bold">SHOP NOW</h5>
-              </div>
+        <div className="home_background_details--grid">
+         {
+          categoryGet?.map((item)=>(
+            <div key={item.id} className="home_background_details">
+            <div className="home_details_img">
+            <div className="home_details_img1">
+              <img src={`${URL.IMAGE_URL}${item?.image[0]}`} width="100%" />
             </div>
           </div>
-          <div className="col-lg-2">
+          <div className="home_details_content1">
+            <h4>{item?.category_title}</h4>
+            <h5 className="fw-bold">SHOP NOW</h5>
+          </div>
+          </div>
+          ))
+         }
+          </div>
+          {/* <div className="col-lg-2">
             <div className="home_background_details">
               <div className="home_details_img">
                 <div className="home_details_img1">
@@ -580,10 +593,10 @@ function Home() {
                 <h5 className="fw-bold">SHOP NOW</h5>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
-    </div>
+   
     </>
 
   );

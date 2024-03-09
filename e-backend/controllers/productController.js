@@ -40,7 +40,7 @@ class Product {
   };
 
   async deleteProduct(req, res, next) {
-    const deleteProduct = await productModel.findByIdAndDelete(req.params.id);
+    const deleteProduct = await productModel.findByIdAndUpdate(req.params.id,{isDelete:false});
 
     if (!deleteProduct) {
       const error = new CustomError("Product with that ID is not found", 404);

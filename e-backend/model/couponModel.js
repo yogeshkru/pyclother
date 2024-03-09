@@ -17,11 +17,17 @@ const couponSchmea=new mongoose.Schema(
         },
         isDelete:{
             type:Boolean,
-            default:true
+            default:true,
+            select:false
         
         },
         
     },{timestamps:true}
 )
+
+couponSchmea.pre(/^find/,function(next){
+    this.find({isDelete:{$ne:false}})
+    next()
+})
 
 module.exports = mongoose.model("Tbl_coupons",couponSchmea)

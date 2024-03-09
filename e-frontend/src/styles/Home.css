@@ -673,7 +673,19 @@ p {
   width: 250px;
   min-height: 300px;
   border-radius: 20px;
+
 }
+.home_background_details--grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); 
+  gap: 1rem;
+}
+@media screen and (max-width: 600px) {
+  .home_background_details--grid {
+    grid-template-columns: 1fr; /* Display 1 column for mobile screens */
+  }
+}
+
 .home_details_content1 {
   text-align: center;
   margin-top: 10px;

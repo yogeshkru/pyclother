@@ -12,8 +12,13 @@ const GSTSchema = new mongoose.Schema({
     },
     isdeleted:{
         type:Boolean,
-        default:true
+        default:true,
+        select:false
     }
 
+})
+GSTSchema.pre(/^find/,function(next){
+    this.find({isdeleted:{$ne:false}})
+    next()
 })
 module.exports = mongoose.model("Tbl_gst", GSTSchema);

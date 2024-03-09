@@ -59,7 +59,7 @@ app.use(
       "fit",
       "neck",
       "sleeve",
-      "length"
+      "length",
     ],
   })
 );
@@ -77,7 +77,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // app.use("/api", limiter);
 
 // ********************************************************************************************************
-function DataBaseConnect() {
+(function () {
   mongoose
     .connect(process.env.BASE_URL, {
       useNewUrlParser: true,
@@ -89,9 +89,9 @@ function DataBaseConnect() {
     .catch((err) => {
       console.log("connection error" + err);
     });
-}
+})()
 
-DataBaseConnect();
+// DataBaseConnect();
 
 // ********************************************************************************************************
 require("./routes/adminUserRoutes")(app);
@@ -111,6 +111,7 @@ require("./routes/productRoutes")(app);
 require("./routes/gstRoutes")(app);
 require("./routes/orderItemRoutes")(app);
 require("./routes/eventRoutes")(app);
+require("./routes/bannerRoute")(app)
 
 require("./routes/privarypolicyRoutes")(app);
 // ***********************************************************************

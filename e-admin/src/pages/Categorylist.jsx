@@ -18,23 +18,29 @@ import {
   categoryPatchData,
   categoryDeleteData,
 } from "../features/category/categorySlice";
+import URL from "../utilis/Url";
 
 function Categorylist() {
   const [render, setRender] = useState(0);
   const [edite, setEdite] = useState("");
-  const[searchTerm,setSearch]=useState("");
+  const [searchTerm, setSearch] = useState("");
+  const [files, setFiles] = useState("");
+
   const dispatch = useDispatch();
   const { categoryGet } = useSelector((state) => state.category);
 
   const handleEdite = (i) => {
     const categoryEdite = categoryGet.find((item) => item._id === i);
     setEdite(categoryEdite);
+    setRender((per) => per + 1);
   };
   const handleDelete = (i) => {
     dispatch(categoryDeleteData(i));
     setRender((per) => per - 1);
   };
- 
+  const handleFiles = (e) => {
+    setFiles(e.target.files[0]);
+  };
 
   const columns1 = [
     {
@@ -72,28 +78,23 @@ function Categorylist() {
       name: "Action",
       selector: (row) => row.action,
     },
-
- 
-
-  
   ];
 
-  const filterCategory = categoryGet.filter(row=>
-    Object.values(row).some(value=>
+  const filterCategory = categoryGet.filter((row) =>
+    Object.values(row).some((value) =>
       value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    ); 
-
+    )
+  );
 
   const data = [];
-  for (let id = 0; id < filterCategory.length; id++) {
+  for (let id = 0; id < filterCategory?.length; id++) {
     data.push({
       id: id + 1,
       category: filterCategory[id]?.category_title,
       description: filterCategory[id]?.category_description,
       meta_title: filterCategory[id]?.meta_title,
       meta_description: filterCategory[id]?.meta_description,
-      meta_keyword:filterCategory[id]?.meta_keyWord,
+      meta_keyword: filterCategory[id]?.meta_keyWord,
       sort: filterCategory[id]?.sort,
       action: (
         <>
@@ -137,32 +138,36 @@ function Categorylist() {
       sort: edite.sort || "",
     },
     onSubmit: (value) => {
+      const data = { ...value, images: files };
+
       if (edite !== "") {
         const data = { id: edite._id, categoryValue: value };
         dispatch(categoryPatchData(data));
+        setRender((per) => per + 1);
       } else {
-        dispatch(categoryPostData(value));
-      
+        dispatch(categoryPostData(data));
+        setRender((per) => per + 1);
       }
+
       resetForm();
       setEdite("");
       setRender((per) => per + 1);
     },
     validationSchema: Yup.object().shape({
       category_title: Yup.string().required("Category title is required "),
-      // category_description: Yup.string().required("Description is required "), 
+      // category_description: Yup.string().required("Description is required "),
       // meta_title: Yup.string().required("Meta title is required "),
       // meta_description: Yup.string().required("Meta description is required "),
-      // meta_keyWord: Yup.string().required("Meta keyword is required "),
+      // meta_keyWord: Yup.string().required("Meta keyword is required ")
       sort: Yup.string()
-        // .matches(/^\d$/, "Please enter a single digit.")
-        // .required("Sort is required."),
+        .matches(/^\d$/, "Please enter a single digit.")
+        .required("Sort is required."),
     }),
   });
 
   useEffect(() => {
     dispatch(categoryGetData());
-  }, [render]);
+  }, [render, dispatch]);
   return (
     <div>
       <div className="mt-2">
@@ -173,18 +178,21 @@ function Categorylist() {
           </div>
           <div className="col-lg-4">
             <form class="d-flex">
-            <div className="input-group w-75">
-                <span className="input-group-text"><IoIosSearch /></span>
+              <div className="input-group w-75">
+                <span className="input-group-text">
+                  <IoIosSearch />
+                </span>
                 <input
                   className="form-control me-2"
                   type="search"
                   placeholder="Search"
                   aria-label="Search"
                   value={searchTerm}
-                  onChange={(e) => { setSearch(e.target.value) }}
+                  onChange={(e) => {
+                    setSearch(e.target.value);
+                  }}
                 />
               </div>
-           
             </form>
           </div>
         </div>
@@ -192,7 +200,7 @@ function Categorylist() {
           <div className="col-lg-4">
             <div class="card">
               <div class="card-body shadow ">
-                <form>
+                <form onSubmit={handleSubmit}>
                   <div className="mb-2">
                     <UseInput
                       type="text"
@@ -304,12 +312,24 @@ function Categorylist() {
                     )}
                   </div>
 
+                  <div
+                    className=""
+                    style={{ display: edite ? "none" : "block" }}
+                  >
+                    <input
+                      type="file"
+                      id="image"
+                      name="image"
+                      accept="image/*"
+                      onChange={(e) => handleFiles(e)}
+                    />
+                  </div>
+                  {edite?.image?.map((item) => (
+                    <img src={`${URL.IMAGE_URL}${item}`} width="20%" />
+                  ))}
+
                   <div className="brand_padding">
-                    <button
-                      type="submit"
-                      className="brand_padding--border"
-                      onClick={handleSubmit}
-                    >
+                    <button type="submit" className="brand_padding--border">
                       {edite !== "" ? "Update Category" : "Add Category"}
                     </button>
                   </div>

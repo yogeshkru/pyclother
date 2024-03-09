@@ -34,7 +34,7 @@ const eventSchema = new mongoose.Schema(
       required: [true, "Please enter your event price"],
     },
     images: Array,
-    bannerImage:Array,
+ 
     shopId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Tbl_shop",
@@ -45,12 +45,18 @@ const eventSchema = new mongoose.Schema(
     },
     isDelete:{
       type:Boolean,
-      default:true
+      default:true,
+      select:false
   
   },
   
   },
   { timestamps: true }
 );
+
+eventSchema.pre(/^find/,function(next){
+  this.find({isDelete:{$ne:false}})
+  next()
+})
 
 module.exports = mongoose.model("Tbl_event", eventSchema);

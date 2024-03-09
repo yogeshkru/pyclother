@@ -28,12 +28,12 @@ import { RiMoneyPoundCircleLine } from "react-icons/ri";
 import { useSelector, useDispatch } from "react-redux";
 import { ShopByRoleId } from "../features/shop/shopSlice";
 import { BsCalendarEventFill } from "react-icons/bs";
+import { PiFlagBannerDuotone } from "react-icons/pi";
 
 const { Header, Sider, Content } = Layout;
 const Mainlayout = () => {
   const dispatch = useDispatch();
   const { Role } = useSelector((state) => state.shop);
-  console.log(Role);
 
   useEffect(() => {
     dispatch(ShopByRoleId());
@@ -105,6 +105,13 @@ const Mainlayout = () => {
       icon: <FaCartArrowDown style={{ fontSize: "25px", color: "#BEABC2" }} />,
     },
     {
+      key: "bannerget",
+      label: "BannerGet",
+      icon: (
+        <PiFlagBannerDuotone style={{ fontSize: "25px", color: "#BEABC2" }} />
+      ),
+    },
+    {
       key: "events",
       label: (
         <span className="label-style" style={{ color: "#3e4b5b" }}>
@@ -126,7 +133,6 @@ const Mainlayout = () => {
         },
       ],
     },
-   
 
     {
       key: "offers",
@@ -165,31 +171,107 @@ const Mainlayout = () => {
   ];
 
 
-  if (Role === "shop admin") {
+  const filterMenuitem = [
+    {
+      key: "",
+      label: "Dashboard",
+      icon: <MdHome style={{ fontSize: "25px", color: "#BEABC2" }} />,
+    },
+
    
-    const customersIndex = menuItems.findIndex(
-      (item) => item.key === "customers"
-    );
+    {
+      key: "catalog",
+      label: (
+        <span className="label-style" style={{ color: "#3e4b5b" }}>
+          Catalog
+        </span>
+      ),
+      icon: <MdShoppingCart style={{ fontSize: "25px", color: "#BEABC2" }} />,
+      children: [
+        {
+          key: "product-list",
+          label: "Product",
+          icon: <MdShoppingCart />,
+        },
+        {
+          key: "brand-list",
+          label: "Brand",
+          icon: <TbBrandBooking />,
+        },
+        {
+          key: "category-list",
+          label: "Category",
+          icon: <BiCategory />,
+        },
+        {
+          key: "color-list",
+          label: "Color",
+          icon: <IoColorFillOutline />,
+        },
+        {
+          key: "gst",
+          label: "Tax",
+          icon: <RiMoneyPoundCircleLine />,
+        },
+      ],
+    },
+   
+    {
+      key: "orders",
+      label: "Orders",
+      icon: <FaCartArrowDown style={{ fontSize: "25px", color: "#BEABC2" }} />,
+    },
+  
+    {
+      key: "events",
+      label: (
+        <span className="label-style" style={{ color: "#3e4b5b" }}>
+          Events
+        </span>
+      ),
+      icon: (
+        <BsCalendarEventFill style={{ fontSize: "25px", color: "#BEABC2" }} />
+      ),
+      children: [
+        {
+          key: "banners",
+          label: "Banners",
+          icon: (
+            <MdKeyboardDoubleArrowRight
+              style={{ fontSize: "25px", color: "#BEABC2" }}
+            />
+          ),
+        },
+      ],
+    },
+
+    {
+      key: "offers",
+      label: (
+        <span className="label-style" style={{ color: "#3e4b5b" }}>
+          Offers
+        </span>
+      ),
+      icon: <BiSolidOffer style={{ fontSize: "25px", color: "#BEABC2" }} />,
+      children: [
+        {
+          key: "coupon-list",
+          label: "Coupon",
+          icon: <RiCouponFill />,
+        },
+      ],
+    },
+
+   
+  
+    {
+      key: "signout",
+      label: "Signout",
+      icon: <FaSignOutAlt style={{ fontSize: "25px", color: "#BEABC2" }} />,
+    },
+  ];
 
  
-    const policyIndex = menuItems.findIndex((item) => item.key === "enquiries");
-    const catLogIndex = menuItems.findIndex((item) => item.key === "catalog"); 
-    const orderIndex = menuItems.findIndex((item) => item.key === "orders"); 
-    if (customersIndex !== -1 ) {
-      menuItems.splice(customersIndex, 1);
-      menuItems.splice(orderIndex, 4);
-    }
-    if (policyIndex !== -1) {
-      menuItems.splice(policyIndex, 1);
-    }
-    if (catLogIndex !== -1) {
-      menuItems.splice(catLogIndex, 1);
-    }
-   if(orderIndex !==-1){
-    menuItems.splice(orderIndex, 2);
-   }
-   
-  }
 
   return (
     <Layout>
@@ -203,7 +285,7 @@ const Mainlayout = () => {
           mode="inline"
           defaultSelectedKeys={[""]}
           onClick={({ key }) => {
-            console.log(key)
+            console.log(key);
             if (key === "signout") {
               localStorage.removeItem("admin_user");
               navigate("/");
@@ -211,147 +293,9 @@ const Mainlayout = () => {
               navigate(key);
             }
           }}
-          // items={[
-          //   {
-          //     key: "",
-          //     label: "Dashboard",
-          //     icon: <MdHome style={{ fontSize: "25px", color: "#BEABC2" }} />,
-          //   },
-          //   {
-          //     key: "customers",
-          //     label: "Customers",
-          //     icon: <FaUser style={{ fontSize: "20px", color: "#BEABC2" }} />,
-          //   },
-          //   {
-          //     key: "catalog",
-          //     label: (
-          //       <span className="label-style" style={{ color: "#3e4b5b" }}>
-          //         Catalog
-          //       </span>
-          //     ),
-          //     icon: (
-          //       <MdShoppingCart
-          //         style={{ fontSize: "25px", color: "#BEABC2" }}
-          //       />
-          //     ),
-          //     children: [
-          //       {
-          //         key: "product-list",
-          //         label: "Product",
-          //         icon: <MdShoppingCart />,
-          //       },
+          items={Role === "shop admin" ? filterMenuitem :menuItems} 
 
-          //       {
-          //         key: "brand-list",
-          //         label: "Brand",
-          //         icon: <TbBrandBooking />,
-          //       },
-
-          //       {
-          //         key: "category-list",
-          //         label: "Category",
-          //         icon: <BiCategory />,
-          //       },
-
-          //       {
-          //         key: "color-list",
-          //         label: "Color",
-          //         icon: <IoColorFillOutline />,
-          //       },
-          //       {
-          //         key: "gst",
-          //         label: "Tax",
-          //         icon: <RiMoneyPoundCircleLine />,
-          //       },
-          //     ],
-          //   },
-
-          //   {
-          //     key: "orders",
-          //     label: "Orders",
-          //     icon: (
-          //       <FaCartArrowDown
-          //         style={{ fontSize: "25px", color: "#BEABC2" }}
-          //       />
-          //     ),
-          //   },
-
-          //   {
-          //     key: "events",
-          //     label: (
-          //       <span className="label-style" style={{ color: "#3e4b5b" }}>
-          //         Events
-          //       </span>
-          //     ),
-          //     icon: (
-          //       <BsCalendarEventFill
-          //         style={{ fontSize: "25px", color: "#BEABC2" }}
-          //       />
-          //     ),
-          //     children: [
-          //       {
-          //         key: "banners",
-          //         label: "Banners",
-          //         icon: (
-          //           <MdKeyboardDoubleArrowRight
-          //             style={{ fontSize: "25px", color: "#BEABC2" }}
-          //           />
-          //         ),
-          //       },
-          //     ],
-          //   },
-          //   {
-          //     key: "payment",
-          //     label: "Payment",
-          //     icon: (
-          //       <MdPayment style={{ fontSize: "25px", color: "#BEABC2" }} />
-          //     ),
-          //   },
-
-          //   {
-          //     key: "offers",
-          //     label: (
-          //       <span className="label-style" style={{ color: "#3e4b5b" }}>
-          //         Offers
-          //       </span>
-          //     ),
-          //     icon: (
-          //       <BiSolidOffer style={{ fontSize: "25px", color: "#BEABC2" }} />
-          //     ),
-          //     children: [
-          //       {
-          //         key: "coupon-list",
-          //         label: "Coupon",
-          //         icon: <RiCouponFill />,
-          //       },
-          //     ],
-          //   },
-
-          //   {
-          //     key: "enquiries",
-          //     label: "Enquiries",
-          //     icon: (
-          //       <FaQuestion style={{ fontSize: "25px", color: "#BEABC2" }} />
-          //     ),
-          //   },
-          //   {
-          //     key: "policy",
-          //     label: "Private-Policy",
-          //     icon: (
-          //       <MdOutlinePrivacyTip
-          //         style={{ fontSize: "25px", color: "#BEABC2" }}
-          //       />
-          //     ),
-          //   },
-          //   {
-          //     key: "signout",
-          //     label: "Signout",
-          //     icon: (
-          //       <FaSignOutAlt style={{ fontSize: "25px", color: "#BEABC2" }} />
-          //     ),
-          //   },
-          // ]}
-          items={menuItems}
+         
         />
       </Sider>
       <Layout>

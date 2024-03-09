@@ -83,9 +83,10 @@ function Shopsignup() {
                 name="shop_name"
                 placeholder="Name"
                 onChange={handleChange}
-                value={values.shop_name}
+                // value={values.shop_name}
                 onBlur={handleBlur}
                 label="Name"
+                
               />
               {errors.shop_name && touched.shop_name ? (
                 <div style={{ color: "red" }}>{errors.shop_name}</div>

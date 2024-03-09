@@ -65,7 +65,7 @@ class EnquiryController {
   async deleteEnquiry(req, res, next) {
     const { id } = req.params;
     try {
-      await enquiryModel.findByIdAndDelete(id);
+      await enquiryModel.findByIdAndUpdate(id,{isDelete:false});
       res.status(200).json({ message: "Deleted" });
     } catch (error) {
       next(new CustomError(error.message, 500));

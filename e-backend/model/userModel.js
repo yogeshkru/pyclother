@@ -11,15 +11,14 @@ const userSchema = new mongoose.Schema(
     user_email: {
       type: String,
       required: [true, "Email is required"],
-      unique:true
+      unique: true,
     },
     user_phone: {
       type: String,
       required: [true, "Phone is required"],
-      unique:true,
-      minlength:[10,"Phone number must have atleast 10 characters"],
-      maxlength:[10]
-
+      unique: true,
+      minlength: [10, "Phone number must have atleast 10 characters"],
+      maxlength: [10],
     },
     user_password: {
       type: String,
@@ -36,16 +35,18 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "super admin"],
       default: "user",
     },
-    user_wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Tbl_product" }],
+
+    user_wishlist: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "Tbl_product" },
+    ],
     user_passwordChangedAt: Date,
     user_passwordResetToken: String,
     user_passwordResetTokenExpired: Date,
-    isDelete:{
-      type:Boolean,
-      default:true
-  
-  },
-  
+    isDelete: {
+      type: Boolean,
+      default: true,
+      select: false,
+    },
   },
 
   {
@@ -55,6 +56,10 @@ const userSchema = new mongoose.Schema(
 userSchema.pre("save", async function (next) {
   if (!this.isModified("user_password")) return next();
   this.user_password = await bcrypt.hash(this.user_password, 14);
+});
+userSchema.pre(/^find/, function (next) {
+  this.find({ isDelete: { $ne: false } });
+  next();
 });
 userSchema.methods.comparePasswordInDb = async function (pwd, pswDB) {
   return await bcrypt.compare(pwd, pswDB);

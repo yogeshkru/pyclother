@@ -31,10 +31,15 @@ const brandSchema = new mongoose.Schema({
   },
   isDelete:{
     type:Boolean,
-    default:true
+    default:true,
+    select:false
 
 },
 
 });
+brandSchema.pre(/^find/,function(next){
+   this.find({isDelete:{$ne:false}})
+   next()
+})
 
 module.exports = mongoose.model("Tbl_Brand", brandSchema);

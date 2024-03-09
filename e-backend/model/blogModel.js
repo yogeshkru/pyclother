@@ -37,12 +37,18 @@ let blogSchema = new mongoose.Schema(
     },
     isDelete:{
       type:Boolean,
-      default:true
+      default:true,
+      select:false
   
   },
+  
   
   },
   { timestamps: true }
 );
+blogSchema.pre(/^find/,function(next){
+  this.find({isDelete:{$ne:false}})
+  next()
+})
 
 module.exports = mongoose.model("Tbl_blog", blogSchema);

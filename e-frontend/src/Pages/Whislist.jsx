@@ -10,8 +10,9 @@ import otic from "../assets/image/ticgame.png";
 import ProductCard from "../Component/ProductCard";
 import { toast } from "react-toastify";
 import { getAllUserFromServer, wishListGetData } from "../features/usersSlice";
-import { getAllProduct} from "../features/product/productSlice"
+import { getAllProduct } from "../features/product/productSlice";
 function Whislist() {
+  const dispatch = useDispatch();
   const [dataDetails, setDataDetails] = useState([
     "",
     "",
@@ -112,7 +113,7 @@ function Whislist() {
   const { wholeProduct } = useSelector((state) => state.product);
   const [wishDetails, setWishDetails] = useState([]);
   const navigate = useNavigate();
- 
+
   // useEffect(() => {
   //   let data = [];
   //   for (let i = 0; i < Whislistget.length; i++) {
@@ -142,9 +143,7 @@ function Whislist() {
   //   setWishDetails(filtered);
   // }, [Whislistget, wholeProduct]);
 
-  
-
-   useEffect(()=>{
+  useEffect(() => {
     const data = new Set();
     Whislistget.forEach(({ category, description }) => {
       data.add(`${category}_${description}`);
@@ -161,10 +160,10 @@ function Whislist() {
     );
 
     // dispatch(wishListGetData())
-  // dispatch(getAllUserFromServer());
-//  dispatch(getAllProduct())
-    setWishDetails(filtered)
-   },[Whislistget,wholeProduct])
+    // dispatch(getAllUserFromServer());
+    dispatch(getAllProduct());
+    setWishDetails(filtered);
+  }, [Whislistget, wholeProduct]);
 
   return (
     <div className="mt-3 pb-5 mb-5 ">

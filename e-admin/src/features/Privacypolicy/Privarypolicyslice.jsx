@@ -14,7 +14,7 @@ export const privacy=createAsyncThunk("auth/privacy",async(data,thunkApi)=>{
 })
 
 const initialState={
-    status:"idle",
+    status:"idle",//success //loading
     error:null
 }
 

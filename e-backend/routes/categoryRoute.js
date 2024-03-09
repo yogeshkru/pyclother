@@ -11,6 +11,7 @@
 
 module.exports = (app) => {
   const CategoryController = require("../controllers/categoryController");
+  const { uploadPhoto } = require("../middleware/uploadImages");
   const router = require("express").Router();
   const asyncErrorhandler = require("../utils/asyncErrorhandler");
   let { authenticateUser, restrict } = require("../middleware/auth");
@@ -27,6 +28,7 @@ module.exports = (app) => {
     .post(
       authenticateUser,
       restrict("shop admin", "super admin"),
+      uploadPhoto.array("images", 1),
       asyncErrorhandler(categoryDetail)
     );
   router
@@ -34,6 +36,12 @@ module.exports = (app) => {
     .get(
       authenticateUser,
       restrict("shop admin", "super admin"),
+      asyncErrorhandler(categoriesAllget)
+    );
+    router
+    .route("/get-category-users")
+    .get(
+    
       asyncErrorhandler(categoriesAllget)
     );
   router

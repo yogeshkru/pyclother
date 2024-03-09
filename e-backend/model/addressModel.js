@@ -48,12 +48,19 @@ const addressModel = new mongoose.Schema({
     },
     isDelete:{
         type:Boolean,
-        default:true
+        default:true,
+        select:false
 
     }
 },
 {timestamps:true}
 
 );
+
+addressModel.pre(/^find/,function(next){
+    this.find({isDelete:{$ne:false}})
+    next()
+})
+  
 
 module.exports = mongoose.model("Tbl_address", addressModel);

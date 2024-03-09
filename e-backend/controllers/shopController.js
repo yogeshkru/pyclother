@@ -123,7 +123,7 @@ class Shop {
       );
     }
 
-    const filterObj = filterReqObj(
+    const filterObj = this.filterReqObj(
       req.body,
       "shop_name",
       "admin_email",
@@ -156,7 +156,7 @@ class Shop {
 
   async getUserDelete(req, res, next) {
     const { id } = req.params;
-    const user = await shopModel.findByIdAndDelete(id);
+    const user = await shopModel.findByIdAndUpdate(id,{isDelete:false});
 
     if (!user) {
       const error = new CustomError("User with Id is not found", 404);

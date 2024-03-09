@@ -31,13 +31,19 @@ const colorSchema = new mongoose.Schema(
           },
           isDelete:{
             type:Boolean,
-            default:true
+            default:true,
+            select:false
         
         },
+      
         
     }
     
 );
 
+colorSchema.pre(/^find/,function(next){
+  this.find({isDelete:{$ne:0}})
+  next()
+})
 
 module.exports =  mongoose.model("Tbl_color",colorSchema);
