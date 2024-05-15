@@ -7,15 +7,7 @@ import kids_wear from "../assets/image/Kids.png"
 import Marquee from "react-fast-marquee";
 import home_end from "../assets/image/end_of_season1.jpeg";
 
-import home_carousel1r from '../assets/image/home_carousel1r.png'
-import home_carousel2r from '../assets/image/home_carousel2r.png'
-import home_carouselbagr from '../assets/image/home_carouselbagr.png'
-import home_carousel3r from '../assets/image/home_carousel3r.png'
 
-import home_carousel5f from '../assets/image/home_carousel5f.png'
-
-
-import home_carousel6r from '../assets/image/home_carousel6r.png'
 
 import vector from "../assets/image/Vector.png";
 import home6 from "../assets/image/homeslide.jpeg";
@@ -33,28 +25,22 @@ import winter from "../assets/image/home_winter.jpeg";
 import dresses from "../assets/image/home_dresses.jpeg";
 import kids from "../assets/image/home_tshirts.jpeg";
 import infant from "../assets/image/home_infant.jpeg";
-import home_details from "../assets/image/home_details10.jpeg";
-import home_details1 from "../assets/image/home_details7.jpeg";
-import home_details2 from "../assets/image/home_details8.jpeg";
-import home_details3 from "../assets/image/home_details9.jpeg";
-import home_details4 from "../assets/image/home_details6.jpeg";
-import home_details5 from "../assets/image/home_details5.jpeg";
-import home_details6 from "../assets/image/home_details4.jpeg";
-import home_details7 from "../assets/image/home_details3.jpeg";
-import home_details8 from "../assets/image/home_details2.jpeg";
-import home_details9 from "../assets/image/home_details1.jpeg";
+
 import delivery from "../assets/image/delviery.png";
 import exchange from "../assets/image/exchange.png";
 import {useNavigate} from "react-router-dom"
 import {useSelector,useDispatch} from "react-redux";
-import {categoryGetData} from "../features/category/getCategoryslice"
+import {categoryGetData} from "../features/category/getCategoryslice";
+import {BannerData} from "../features/brand/Brandslice";
 import URL from "../utils/Url";
 
 function Home() {
   const navigate=useNavigate()
   const dispatch=useDispatch()
   const {categoryGet}=useSelector((state)=>state.category)
-console.log(categoryGet)
+  const {Getbanners} =useSelector((state)=>state.brand)
+
+
   //slides
   const [data, setData] = useState(0);
 
@@ -65,6 +51,7 @@ console.log(categoryGet)
   }
   useEffect(()=>{
      dispatch(categoryGetData())
+     dispatch(BannerData())
   },[dispatch])
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -75,31 +62,24 @@ console.log(categoryGet)
   }, [index]);
 
   //carousel
-  const slides = [
-    { id: 1, scr: home_carousel1r, alt: "home_carousel1" },
-    { id: 2, scr: home_carousel2r, alt: "home_carousel1" },
-    { id: 3, scr: home_carousel3r, alt: "home_carousel1" },
-    { id: 4, scr: home_carouselbagr, alt: "home_carouselbagr" },
-    { id: 5, scr: home_carousel5f, alt: "home_crousel5f" },
-    { id: 6, scr: home_carousel6r, alt: "home_carousel1" },
-  ];
+ 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setData((prevData) => (prevData + 1) % slides.length);
+      setData((prevData) => (prevData + 1) % Getbanners.length);
     }, 2000);
 
     return () => clearInterval(intervalId);
-  }, [slides.length]);
+  }, [Getbanners.length]);
 
   return (
     <>
     <div className=" container-fluid overflow-hidden">
     
       <div className="home_carousel mt-auto " onClick={handleSlides}>
-        {slides.map((item, i) => (
+        {Getbanners.map((item, i) => (
           <img
             key={i}
-            src={item.scr}
+            src={`${URL.IMAGE_URL}${item?.images[0]}`}
             alt={item.alt}
             width="100%"
             className={
@@ -109,7 +89,7 @@ console.log(categoryGet)
         ))}
         <div className="home_total_indicator">
           <span className="home_indicators">
-            {slides.map((_, i) => {
+            {Getbanners.map((_, i) => {
               return (
                 <button
                   key={i}

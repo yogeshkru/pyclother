@@ -25,19 +25,16 @@ class Addressdetails {
 
       // const address_type = billingAddressCount === 0 ? "billing" : "shipping";
 
-      const newAddress = await addressModel.create({ 
+      const newAddress = await addressModel.create({
         ...req.body,
-        user_id: _id 
-    });
-    
+        user_id: _id,
+      });
 
-      res
-        .status(201)
-        .json({
-          success: true,
-          data: newAddress,
-          message: "address added successfully",
-        });
+      res.status(201).json({
+        success: true,
+        data: newAddress,
+        message: "address added successfully",
+      });
     } catch (err) {
       return next(new CustomError(err.message, 500));
     }
@@ -59,7 +56,7 @@ class Addressdetails {
     try {
       const addressallget = await addressModel.find({
         address_type: "shipping",
-      });
+      }).sort("-createdAt").select("-__v")
       res.status(200).json({ addressallget });
     } catch (err) {
       next(new CustomError(err.message, 500));
@@ -67,7 +64,7 @@ class Addressdetails {
   };
 
   //update
-  
+
   // addressUpdateBilling = async (req, res, next) => {
   //   try {
   //     const {
@@ -114,18 +111,21 @@ class Addressdetails {
   //   }
   // };
 
-  addressUpdateBilling=async(req,res,next)=>{
-    try{
-      const UpdateAddress=await addressModel.findByIdAndUpdate(req.params.id,req.body,{runValidators:true,new:true})
-      if(!UpdateAddress){
-        return next(new CustomError("Give Id is not exists",409))
+  addressUpdateBilling = async (req, res, next) => {
+    try {
+      const UpdateAddress = await addressModel.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        { runValidators: true, new: true }
+      );
+      if (!UpdateAddress) {
+        return next(new CustomError("Give Id is not exists", 409));
       }
       res.status(200).json({ UpdateAddress });
-      
-    }catch(err){
+    } catch (err) {
       return next(new CustomError(err.message, 500));
     }
-  }
+  };
 
   addressUpdateShipping = async (req, res, next) => {
     try {
@@ -148,12 +148,10 @@ class Addressdetails {
       });
 
       if (!existingShippingAddress) {
-        return res
-          .status(404)
-          .json({
-            success: false,
-            message: "shipping address not found for the user",
-          });
+        return res.status(404).json({
+          success: false,
+          message: "shipping address not found for the user",
+        });
       }
 
       // Update the existing billing address
@@ -176,7 +174,7 @@ class Addressdetails {
   //delete
   addressDelete = async function (req, res, next) {
     try {
-      await addressModel.findByIdAndUpdate(req.params.id,{isDelete:false});
+      await addressModel.findByIdAndUpdate(req.params.id, { isDelete: false });
       res.status(204).json({ message: "deleted" });
     } catch (err) {
       return next(new CustomError(err.message, 500));
@@ -185,9 +183,9 @@ class Addressdetails {
 
   //findone
   addressfind = async (req, res, next) => {
-    const {_id} = req.user
+    const { _id } = req.user;
     try {
-      const addressFind = await addressModel.find({user_id:_id});
+      const addressFind = await addressModel.find({ user_id: _id });
       if (!addressFind) {
         return next(new CustomError("The give id is not found", 404));
       }

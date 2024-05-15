@@ -285,7 +285,7 @@ const Mainlayout = () => {
           mode="inline"
           defaultSelectedKeys={[""]}
           onClick={({ key }) => {
-            console.log(key);
+          
             if (key === "signout") {
               localStorage.removeItem("admin_user");
               navigate("/");

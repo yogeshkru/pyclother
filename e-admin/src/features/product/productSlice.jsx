@@ -7,7 +7,6 @@ export const resetState = createAction("Reset_all");
 export const postProductOnServer = createAsyncThunk(
   "product/post",
   async (product, thunkAPI) => {
- 
     try {
       const formData = new FormData();
       for (let i = 0; i < product?.images.length; i++) {
@@ -35,7 +34,7 @@ export const postProductOnServer = createAsyncThunk(
       formData.append("height", product?.height);
       formData.append("brether", product?.brether);
       formData.append("weight", product?.weight);
-      formData.append("tax",product?.tax)
+      formData.append("tax", product?.tax);
 
       formData.append("weight_class", product?.weight_class);
 
@@ -50,7 +49,7 @@ export const postProductOnServer = createAsyncThunk(
       formData.append("sleeve", product?.sleeve);
       formData.append("gender", product?.gender);
       const response = await productService.productPost(formData);
-      thunkAPI.dispatch(getAllProduct())
+      thunkAPI.dispatch(getAllProduct());
       return response;
     } catch (error) {
       toast.error(error?.response?.data?.message);
@@ -103,7 +102,50 @@ export const productUpdateOnServer = createAsyncThunk(
   "product/update",
   async (data, thunkAPI) => {
     try {
-      const response = await productService.productUpdate(data);
+
+      const formData = new FormData();
+      for (let i = 0; i < data?.images.length; i++) {
+        formData.append("images", data?.images[i]);
+      }
+
+
+      formData.append("name", data?.name);
+      formData.append("description", data?.description);
+      formData.append("brand", data?.brand);
+      formData.append("color", data?.color);
+
+      formData.append("price", data?.price);
+      formData.append("sku", data?.sku);
+      formData.append("tag", data?.tag);
+      formData.append("model", data?.model);
+      formData.append("stack", data?.stack);
+      formData.append("Gst", data?.Gst);
+      formData.append("quantity", data?.quantity);
+      formData.append("category", data?.category);
+      formData.append("diamension_class", data?.diamension_class);
+      formData.append("rewardpoint", data?.rewardpoint);
+      formData.append("sort", data?.sort);
+      formData.append("length", data?.length);
+      formData.append("size", data?.size);
+      formData.append("height", data?.height);
+      formData.append("brether", data?.brether);
+      formData.append("weight", data?.weight);
+      formData.append("tax", data?.tax);
+
+      formData.append("weight_class", data?.weight_class);
+
+      formData.append("meta_title", product?.meta_title);
+
+      formData.append("meta_description", product?.meta_description);
+      formData.append("meta_keyboard", product?.meta_keyboard);
+      formData.append("fabric", product?.fabric);
+      formData.append("material", product?.material);
+      formData.append("fit", product?.fit);
+      formData.append("neck", product?.neck);
+      formData.append("sleeve", product?.sleeve);
+      formData.append("gender", product?.gender);
+
+      const response = await productService.productUpdate(formData);
       thunkAPI.dispatch(shopData());
 
       return response;
@@ -129,7 +171,19 @@ export const deleteProductOnServer = createAsyncThunk(
   }
 );
 
-
+export const deleteOnlyImage = createAsyncThunk(
+  "product/deleteImage",
+  async (data, thunkAPI) => {
+    try {
+      const response = await productService.deleteOnlyImage(data);
+      thunkAPI.dispatch(shopData())
+      return response;
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
 const initialState = {
   isError: false,
@@ -138,7 +192,7 @@ const initialState = {
   message: "",
   getAllproduct: [],
   getAllShopProduct: [],
-  navigate_product:""
+  navigate_product: "",
 };
 
 export const productSlice = createSlice({
@@ -154,9 +208,9 @@ export const productSlice = createSlice({
         state.isError = false;
         state.isLoading = false;
         state.isSuccess = true;
-        state.navigate_product="yogesh"
-        if(state.isSuccess){
-          toast.success("Product Added")
+        state.navigate_product = "yogesh";
+        if (state.isSuccess) {
+          toast.success("Product Added");
         }
       })
       .addCase(postProductOnServer.rejected, (state, action) => {
@@ -235,6 +289,23 @@ export const productSlice = createSlice({
         state.getAllShopProduct = action.payload.shopData;
       })
       .addCase(shopData.rejected, (state, action) => {
+        state.isError = true;
+        state.isSuccess = false;
+        state.isLoading = false;
+        state.message = action.error;
+      })
+
+
+      //deleteOnlyImages
+      .addCase(deleteOnlyImage.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteOnlyImage.fulfilled, (state, action) => {
+        state.isError = false;
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(deleteOnlyImage.rejected, (state, action) => {
         state.isError = true;
         state.isSuccess = false;
         state.isLoading = false;

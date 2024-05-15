@@ -83,6 +83,7 @@ class UserController {
     const findUser = await userModel.findOne({ user_email });
     if (!findUser) {
       return next(
+        
         new customError(
           `we could not find the ${user_email} on the server `,
           404
@@ -140,12 +141,11 @@ class UserController {
   };
 
   updatePasswordByUserLogin = async (req, res, next) => {
-    //  Get Current User Data From DataBase
+  
     const user = await userModel
       .findById(req.user._id)
       .select("+user_password");
 
-    // check if the password
 
     if (
       !(await user.comparePasswordInDb(

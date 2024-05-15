@@ -27,6 +27,20 @@ export const categoryGetData = createAsyncThunk(
   }
 );
 
+export const BannerData = createAsyncThunk(
+  "auth/bannerGet",
+  async (_, thunkApi) => {
+    try {
+      const response = await brandeService.getEvent();
+
+      return response;
+    } catch (err) {
+      toast.error(err?.response?.data?.message);
+      return thunkApi.rejectWithValue(err);
+    }
+  }
+);
+
 
 const initialState = {
   isError: false,
@@ -34,7 +48,8 @@ const initialState = {
   isLoader: true,
   isMessage: "",
   Getbrand: [],
-  Getcategory:[]
+  Getcategory:[],
+  Getbanners:[]
 };
 
 export const brandSlice = createSlice({
@@ -74,7 +89,26 @@ export const brandSlice = createSlice({
         state.isLoader = false;
         state.isSuccess = false;
         state.isMessage = action.error;
+      })
+      .addCase(BannerData.pending,(state,action)=>{
+        state.isLoader=true
+       })
+     
+      .addCase(BannerData.fulfilled, (state, action) => {
+        state.isError = false;
+        state.isLoader = false;
+        state.isSuccess = action.payload;
+        state.Getbanners = action.payload?.bannergetShopAll;
+      })
+
+      .addCase(BannerData.rejected, (state, action) => {
+        state.isError = true;
+        state.isLoader = false;
+        state.isSuccess = false;
+        state.isMessage = action.error;
       });
+
+
   },
 });
 

@@ -9,6 +9,7 @@ module.exports = (app) => {
     getShopBanners,
     AdminAccessPatch,
     bannerDelete,
+    getUserBanners
   } = new bannner();
   let { authenticateUser, restrict } = require("../middleware/auth");
   router
@@ -32,6 +33,12 @@ module.exports = (app) => {
       authenticateUser,
       restrict("shop admin"),
       asyncErrorhandler(getShopBanners)
+    );
+    router
+    .route("/banner-user-get")
+    .get(
+     
+      asyncErrorhandler(getUserBanners)
     );
   router
     .route("/banner-patch/:id")

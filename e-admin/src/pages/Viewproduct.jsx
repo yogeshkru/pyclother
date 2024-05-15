@@ -5,13 +5,13 @@ import { useNavigate } from "react-router-dom";
 
 function Viewproduct() {
   const { state } = useLocation();
- 
 
-  const image=state?.images.map((item,i)=>(
-    <div key={i} className="col-lg-2">
-          <img src={`${URL.IMAGE_URL}${item}`} width="100%"/>
+
+  const image = state?.images.map((item, i) => (
+    <div key={i} className="col-lg-4">
+      <img src={`${URL.IMAGE_URL}${item}`} width="100%" />
     </div>
-  ))
+  ));
   const navigate = useNavigate();
   return (
     <div>
@@ -50,7 +50,7 @@ function Viewproduct() {
               <h6>Product SKU</h6>
             </div>
             <div className="col-lg-1">:</div>
-            <div className="col-lg-5">{state.sku}</div>
+            <div className="col-lg-5"> {state.sku ? state.sku : "--:--"}</div>
           </div>
           <div className="row mt-2">
             <div className="col-lg-6">
@@ -79,7 +79,17 @@ function Viewproduct() {
               <h6>Tag</h6>
             </div>
             <div className="col-lg-1">:</div>
-            <div className="col-lg-5">{state.tag}</div>
+            <div className="col-lg-5">{state.tag ? state.tag : "--:--"}</div>
+          </div>
+          <div className="row mt-2">
+            <div className="col-lg-6">
+              <h6>Gender</h6>
+            </div>
+
+            <div className="col-lg-1">:</div>
+            <div className={`col-lg-5`}>
+              {state.gender ? state.gender : "--:--"}
+            </div>
           </div>
         </div>
         <div className="col-lg-3 shadow p-3">
@@ -102,9 +112,7 @@ function Viewproduct() {
               <h6>Color</h6>
             </div>
             <div className="col-lg-1">:</div>
-            <div className="col-lg-5">
-              {state.color}
-            </div>
+            <div className="col-lg-5">{state.color}</div>
           </div>
           <div className="row ">
             <div className="col-lg-6">
@@ -265,7 +273,9 @@ function Viewproduct() {
             <div className="col-lg-5">
               <div
                 className="col-lg-5"
-                style={{ color: state && state.meta_description ? "" : "black" }}
+                style={{
+                  color: state && state.meta_description ? "" : "black",
+                }}
               >
                 {state.meta_description ? state.meta_description : "--:--"}
               </div>
@@ -293,10 +303,67 @@ function Viewproduct() {
           </div>
         </div>
 
-        <div className="col-lg-8 shadow">
+        <div className="col-lg-3 shadow p-3">
           <div className="row">
-           {image}
+            <div className="col-lg-6 ">
+              <h6>Discount</h6>
+            </div>
+            <div className="col-lg-1">:</div>
+            <div
+              className="col-lg-5"
+              style={{ color: state && state.discount ? "" : "black" }}
+            >
+              {state.discount ? state?.discount : "--:--"}
+            </div>
           </div>
+          <div className="row mt-2">
+            <div className="col-lg-6">
+              <h6>Fabric</h6>
+            </div>
+            <div className="col-lg-1">:</div>
+            <div
+              className="col-lg-5"
+              style={{ color: state && state.fabric ? "" : "black" }}
+            >
+              {state.fabric ? state.fabric : "--:--"}
+            </div>
+          </div>
+          <div className="row mt-2">
+            <div className="col-lg-6">
+              <h6>Neck</h6>
+            </div>
+            <div className="col-lg-1">:</div>
+            <div className="col-lg-5">
+              <div
+                className="col-lg-5"
+                style={{ color: state && state.neck ? "" : "black" }}
+              >
+                {state.neck ? state.neck : "--:--"}
+              </div>
+            </div>
+          </div>
+
+          <div className="row mt-2">
+            <div className="col-lg-6">
+              <h6>Sleeve</h6>
+            </div>
+            <div className="col-lg-1">:</div>
+            <div className="col-lg-5">
+              {state.sleeve ? state.sleeve : "--:--"}
+            </div>
+          </div>
+          <div className="row mt-2">
+            <div className="col-lg-6">
+              <h6>Fit</h6>
+            </div>
+
+            <div className="col-lg-1">:</div>
+            <div className={`col-lg-5`}>{state.fit ? state.fit : "--:--"}</div>
+          </div>
+        </div>
+
+        <div className="col-lg-3 shadow">
+          <div className="row">{image}</div>
         </div>
       </div>
     </div>

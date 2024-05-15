@@ -8,6 +8,8 @@ module.exports = (app) => {
     getAllProduct,
     getOneProduct,
     updateProduct,
+    uploadImageUpdate,
+    deleteOnlyImage,
     deleteProduct,
     addToWishList,
     ratingfunc,
@@ -32,12 +34,7 @@ module.exports = (app) => {
     .post(authenticateUser, asyncErrorHandler(ratingfunc));
 
   // The below url's manipulate by admin's
-  router
-    .route("/create-product")
-    .post(
-      authenticateUser,
-      restrict("shop admin", "super admin"),
-      uploadPhoto.array("images", 5),
+  router.route("/create-product").post(authenticateUser, restrict("shop admin", "super admin"), uploadPhoto.array("images", 5),
       asyncErrorHandler(createProduct)
     );
   router
@@ -53,6 +50,20 @@ module.exports = (app) => {
       authenticateUser,
       restrict("super admin", "shop admin"),
       asyncErrorHandler(deleteProduct)
+    );
+
+    router
+    .route("/deleteImage")
+    .post(
+   
+      asyncErrorHandler(deleteOnlyImage)
+    );
+    router
+    .route("/uploadImageUpdate/:id")
+    .patch(
+      authenticateUser,
+      restrict("super admin", "shop admin"),
+      asyncErrorHandler(uploadImageUpdate)
     );
 
   app.use("/api/product", router);

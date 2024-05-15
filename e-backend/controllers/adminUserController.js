@@ -625,11 +625,9 @@ class AdminUserController {
         subject: "password change request received",
         message: message,
       });
-      res
-        .status(200)
-        .json({
-          message: `password reset link send to the user email ${findUser.admin_email}`,
-        });
+      res.status(200).json({
+        message: `password reset link send to the user email ${findUser.admin_email}`,
+      });
     } catch (error) {
       findUser.admin_passwordResetToken = undefined;
       findUser.admin_passwordResetTokenExpired = undefined;
@@ -678,7 +676,10 @@ class AdminUserController {
   };
 
   fetchAllUser = asyncErrorhandler(async (req, res) => {
-    const AllUsers = await adminUserModel.find();
+    const AllUsers = await adminUserModel
+      .find()
+      .sort("-createdAt")
+      .select("-__v");
     res.status(200).json({ status: "success", AllUsers });
   });
 

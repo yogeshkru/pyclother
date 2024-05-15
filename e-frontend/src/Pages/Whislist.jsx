@@ -142,6 +142,7 @@ function Whislist() {
   //   );
   //   setWishDetails(filtered);
   // }, [Whislistget, wholeProduct]);
+  
 
   useEffect(() => {
     const data = new Set();

@@ -7,17 +7,20 @@ import { useDispatch, useSelector } from "react-redux";
 import UseInput from "../useCustom/useInput";
 import "../styles/Mainlayout.css";
 import { Getgst } from "../features/Gst/gstSlice";
+
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import SERVERURL from "../utilis/Url";
 import "dropify/dist/css/dropify.min.css";
 import { IoIosAddCircleOutline } from "react-icons/io";
+import { IoClose } from "react-icons/io5";
 
 import { useParams, useNavigate } from "react-router-dom";
 import {
   productUpdateOnServer,
   postProductOnServer,
   getAllProduct,
+  deleteOnlyImage
 } from "../features/product/productSlice";
 // import SERVERURL from "../utilis/SERVERURL";
 import {
@@ -32,6 +35,7 @@ function Addproduct() {
   const { id } = useParams();
   const sizeData = ["XS", "S", "M", "L", "XL", "XXL"];
   const [selectedSizes, setSelectedSizes] = useState([]);
+  const [dataImage, setImageData] = useState([]);
 
   const [Available, setAvailable] = useState(true);
 
@@ -39,9 +43,14 @@ function Addproduct() {
   const { categoryGet } = useSelector((state) => state.category);
   const { getAllColor } = useSelector((state) => state.color);
   const { getallGst } = useSelector((state) => state.gst);
-  const { getAllShopProduct,navigate_product } = useSelector((state) => state.product);
+  const { getAllShopProduct, navigate_product } = useSelector(
+    (state) => state.product
+  );
 
   const data = getAllShopProduct.find((item) => item._id === id);
+
+  // console.log(updateImages)
+
   // ***************** Images************************
   const [images, setImages] = useState([]);
   const [showSortNotification, setShowSortNotification] = useState(true);
@@ -77,7 +86,6 @@ function Addproduct() {
   };
   useEffect(() => {
     dispatch(getAllProduct());
-   
   }, [dispatch]);
 
   const handleCheckboxChange = (item) => {
@@ -123,32 +131,44 @@ function Addproduct() {
         tax: data?.tax || "",
         discount: data?.discount || "",
         fabric: data?.fabric || "",
-        material:data?.material || "",
+        material: data?.material || "",
         fit: data?.fit || "",
         neck: data?.neck || "",
         sleeve: data?.sleeve || "",
-        gender:data?.gender || ""
+        gender: data?.gender || "",
       },
       onSubmit: (value) => {
+      if(data !== null){
         const productDetails = {
           ...value,
           Available: Available,
           images: images,
           size: selectedSizes,
+          
         };
-      
-        dispatch(postProductOnServer(productDetails));
-        if(navigate_product !== "yogesh"){
-          navigate("/admin/product-list")
+        dispatch(productUpdateOnServer(productDetails))
+      }else{
+        const productDetails = {
+          ...value,
+          Available: Available,
+          images: images,
+          size: selectedSizes,
+          
+        };
+        dispatch(postProductOnServer(productDetails))
+        if (navigate_product !== "yogesh") {
+          navigate("/admin/product-list");
         }
+      }
 
+        
       },
       validationSchema: Yup.object().shape({
         name: Yup.string().required("Product Name is required"),
         description: Yup.string().required("Product Description is required"),
         brand: Yup.string().required("Brand is required"),
         model: Yup.string().required("Model is required"),
-      
+
         stack: Yup.number().required("Stack is required"),
         price: Yup.number().required("Price is required"),
         Gst: Yup.string().required("GST is required"),
@@ -185,14 +205,18 @@ function Addproduct() {
     </option>
   ));
 
-  
-
   useEffect(() => {
     dispatch(brandGets());
     dispatch(colorgets());
     dispatch(categoryGetData());
     dispatch(Getgst());
   }, [dispatch]);
+
+  const handleImageUpdate=(item)=>{
+     const data={id:id,images:item}
+     console.log(data)
+     dispatch(deleteOnlyImage(data))
+  }
 
   return (
     <div className="row">
@@ -238,18 +262,18 @@ function Addproduct() {
                     <div className="col-lg-4">
                       <label className="fw-bold fs-10">Gender</label>
                       <select
-                          class="form-select"
-                          aria-label="Default select example"
-                          name="gender"
-                          value={values.gender}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        >
-                          <option>Select the Gender</option>
-                          <option>Male</option>
-                          <option>Female</option>
-                          <option>Kits</option>
-                        </select>
+                        class="form-select"
+                        aria-label="Default select example"
+                        name="gender"
+                        value={values.gender}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      >
+                        <option>Select the Gender</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Kits</option>
+                      </select>
                       {errors.gender && touched.gender ? (
                         <div style={{ color: "red" }}>{errors.gender}</div>
                       ) : (
@@ -495,7 +519,7 @@ function Addproduct() {
                           onBlur={handleBlur}
                         >
                           <option>Select the Tax</option>
-                          <option value="Exclusive tax" >Exclusive Tax</option>
+                          <option value="Exclusive tax">Exclusive Tax</option>
                           <option value="Inclusive tax">Inclusive Tax</option>
                         </select>
                         {errors.tax && touched.tax ? (
@@ -592,34 +616,32 @@ function Addproduct() {
                       </div>
                     </div>
                   </div>
-                  <div>
-
-                  </div>
+                  <div></div>
                   <div className="row">
-                  <div class="mb-1 col-lg-8">
-                    <label
-                      for="exampleFormControlTextarea1"
-                      class="form-label fw-bold fs-10"
-                    >
-                      Description
-                    </label>
-                    <textarea
-                      class="form-control"
-                      id="exampleFormControlTextarea1"
-                      rows="3"
-                      value={values.description}
-                      name="description"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                    ></textarea>
+                    <div class="mb-1 col-lg-8">
+                      <label
+                        for="exampleFormControlTextarea1"
+                        class="form-label fw-bold fs-10"
+                      >
+                        Description
+                      </label>
+                      <textarea
+                        class="form-control"
+                        id="exampleFormControlTextarea1"
+                        rows="3"
+                        value={values.description}
+                        name="description"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      ></textarea>
                       {errors.description && touched.description ? (
-                  <div style={{ color: "red" }}>{errors.description}</div>
-                ) : (
-                  ""
-                )}
-                  </div>
-                  <div className="col-lg-4">
-                  <div className="">
+                        <div style={{ color: "red" }}>{errors.description}</div>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                    <div className="col-lg-4">
+                      <div className="">
                         <label className="fw-bold fs-10">Sleeve</label>
                         <UseInput
                           type="text"
@@ -630,11 +652,9 @@ function Addproduct() {
                           onBlur={handleBlur}
                         />
                       </div>
-                    
-                  </div>
+                    </div>
                   </div>
                 </div>
-               
               </div>
 
               <div className="col-lg-12 mt-2">
@@ -716,8 +736,9 @@ function Addproduct() {
                       <div className="row mt-1">
                         {data?.images.map((item) => (
                           <div
-                            className="col-lg-3 "
+                            className="col-lg-2 "
                             style={{ position: "relative" }}
+                            key={item._id}
                           >
                             <img
                               src={`${SERVERURL.IMAGE_URL}${item}`}
@@ -730,9 +751,10 @@ function Addproduct() {
                                 right: "15px",
                               }}
                             >
-                              <IoIosAddCircleOutline
+                              <IoClose
                                 style={{ color: "white" }}
                                 fontSize={20}
+                                onClick={()=>handleImageUpdate(item)}
                               />
                             </div>
                           </div>
@@ -744,155 +766,156 @@ function Addproduct() {
               </div>
             </div>
             <div className="col-lg-4">
-            <div className="col-lg-12">
-              <div class="card mt-2">
-                <div class="card-body product_input">
-                  <div className="">
-                    <h4>Dimension</h4>
-                  </div>
+              <div className="col-lg-12">
+                <div class="card mt-2">
+                  <div class="card-body product_input">
+                    <div className="">
+                      <h4>Dimension</h4>
+                    </div>
 
-                  <div className="row mb-1">
-                    <div className="col-lg-6">
-                      <label className="fw-bold fs-10">Length</label>
-                      <UseInput
-                        type="number"
-                        label="Length"
-                        name="length"
-                        onChange={handleChange}
-                        value={values.length}
-                        onBlur={handleBlur}
-                      />
-                    </div>
-                    <div className="col-lg-6">
-                      <label className="fw-bold fs-10">Breadth</label>
-                      <UseInput
-                        type="number"
-                        label="Brether"
-                        name="brether"
-                        value={values.brether}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                      />
-                    </div>
-                  </div>
-                  <div className="mt-3 mb-2">
-                    <div className="row">
+                    <div className="row mb-1">
                       <div className="col-lg-6">
-                        <label className="fw-bold fs-10">Height</label>
+                        <label className="fw-bold fs-10">Length</label>
                         <UseInput
                           type="number"
-                          label="height"
-                          name="height"
+                          label="Length"
+                          name="length"
                           onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values.height}
-                        />
-                      </div>
-                      <div className="col-lg-6">
-                        <label className="fw-bold fs-10">Dimension class</label>
-                        <select
-                          class="form-select"
-                          aria-label="Default select example"
-                          name="diamension_class"
-                          value={values.diamension_class}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        >
-                          <option selected>Open this select menu</option>
-                          <option value="Centimeter">Centimeter</option>
-                          <option value="Millimeter">Millimeter</option>
-                          <option value="Inch">Inch</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="mt-3 mb-2">
-                    <div className="row">
-                      <div className="col-lg-6">
-                        <label className="fw-bold fs-10">Weight</label>
-                        <UseInput
-                          type="number"
-                          label="Weight"
-                          name="weight"
-                          value={values.weight}
-                          onChange={handleChange}
+                          value={values.length}
                           onBlur={handleBlur}
                         />
                       </div>
                       <div className="col-lg-6">
-                        <label className="fw-bold fs-10">Weight class</label>
-                        <select
-                          class="form-select"
-                          aria-label="Default select example"
-                          name="weight_class"
+                        <label className="fw-bold fs-10">Breadth</label>
+                        <UseInput
+                          type="number"
+                          label="Brether"
+                          name="brether"
+                          value={values.brether}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          value={values.weight_class}
-                        >
-                          <option selected>Open this select menu</option>
-                          <option value="Kilogram">Kilogram</option>
-                          <option value="Gram">Gram</option>
-                          <option value="Pound">Pound</option>
-                        </select>
+                        />
+                      </div>
+                    </div>
+                    <div className="mt-3 mb-2">
+                      <div className="row">
+                        <div className="col-lg-6">
+                          <label className="fw-bold fs-10">Height</label>
+                          <UseInput
+                            type="number"
+                            label="height"
+                            name="height"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.height}
+                          />
+                        </div>
+                        <div className="col-lg-6">
+                          <label className="fw-bold fs-10">
+                            Dimension class
+                          </label>
+                          <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            name="diamension_class"
+                            value={values.diamension_class}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                          >
+                            <option selected>Open this select menu</option>
+                            <option value="Centimeter">Centimeter</option>
+                            <option value="Millimeter">Millimeter</option>
+                            <option value="Inch">Inch</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mt-3 mb-2">
+                      <div className="row">
+                        <div className="col-lg-6">
+                          <label className="fw-bold fs-10">Weight</label>
+                          <UseInput
+                            type="number"
+                            label="Weight"
+                            name="weight"
+                            value={values.weight}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                          />
+                        </div>
+                        <div className="col-lg-6">
+                          <label className="fw-bold fs-10">Weight class</label>
+                          <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            name="weight_class"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.weight_class}
+                          >
+                            <option selected>Open this select menu</option>
+                            <option value="Kilogram">Kilogram</option>
+                            <option value="Gram">Gram</option>
+                            <option value="Pound">Pound</option>
+                          </select>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="col-lg-12 ">
-              <div class="card mt-2">
-                <div
-                  class="card-body  product_input"
-                  style={{ padding: " 23px 12px" }}
-                >
-                  <div className="">
-                    <h4>SEO</h4>
-                  </div>
-                  <div className="mb-2">
-                    <label className="fw-bold fs-10">Meta Title </label>
-                    <UseInput
-                      type="text"
-                      label="Meta Title"
-                      name="meta_title"
-                      value={values.meta_title}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                    />
-                  </div>
-                  <div className="mb-2">
-                    <label className="fw-bold fs-10">Meta Description </label>
-                    <UseInput
-                      type="text"
-                      label="Meta Description"
-                      name="meta_description"
-                      value={values.meta_description}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                    />
-                  </div>
-                  <div className="mb-2">
-                    <label className="fw-bold fs-10">Meta Keyword </label>
-                    <UseInput
-                      type="text"
-                      label="Meta Keyword"
-                      name="meta_keyboard"
-                      value={values.meta_keyboard}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                    />
+              <div className="col-lg-12 ">
+                <div class="card mt-2">
+                  <div
+                    class="card-body  product_input"
+                    style={{ padding: " 23px 12px" }}
+                  >
+                    <div className="">
+                      <h4>SEO</h4>
+                    </div>
+                    <div className="mb-2">
+                      <label className="fw-bold fs-10">Meta Title </label>
+                      <UseInput
+                        type="text"
+                        label="Meta Title"
+                        name="meta_title"
+                        value={values.meta_title}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                    </div>
+                    <div className="mb-2">
+                      <label className="fw-bold fs-10">Meta Description </label>
+                      <UseInput
+                        type="text"
+                        label="Meta Description"
+                        name="meta_description"
+                        value={values.meta_description}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                    </div>
+                    <div className="mb-2">
+                      <label className="fw-bold fs-10">Meta Keyword </label>
+                      <UseInput
+                        type="text"
+                        label="Meta Keyword"
+                        name="meta_keyboard"
+                        value={values.meta_keyboard}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          </div>
-       
         </div>
 
         <div className="mt-2">
           <button type="submit" className="brand_padding--border">
-            Add Product
+            {data ? "Update Product":"Add Product"}
           </button>
         </div>
       </form>

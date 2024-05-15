@@ -80,7 +80,7 @@ const initialState={
     isSuccess:false,
     Message:"",
     isLoaders:false,
-    CrateShop:{},
+    createSign:{},
     LoginShop:"",
     patchShop:{},
     ResetShop:{},
@@ -94,6 +94,7 @@ export const shopSlice=createSlice({
     name:"shop",
     initialState,
     reducers:{},
+ 
     
     extraReducers:(builder)=>{
         builder
@@ -104,7 +105,11 @@ export const shopSlice=createSlice({
             state.isLoaders=false;
             state.isError=false;
             state.isSuccess=true;
-            state.CrateShop=action.payload
+            state.createSign=action.payload?.role
+
+            if(state.isSuccess){
+                toast.success(`Created Successfully `)
+            }
             
         })
         .addCase(shopSignData.rejected,(state,action)=>{

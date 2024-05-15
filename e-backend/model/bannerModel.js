@@ -27,7 +27,10 @@ const bannerSchma = new mongoose.Schema({
     default: true,
     select: false,
   },
-});
+},
+{ timestamps: true }
+
+);
 
 bannerSchma.pre(/^find/, function (next) {
   this.find({ isDelete: { $ne: false } });

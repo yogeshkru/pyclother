@@ -55,35 +55,35 @@ function SingleProduct() {
   const { singleProduct, wholeProduct } = useSelector(
     (state) => state?.product
   );
-  
 
   const { userCartProduct } = useSelector((state) => state?.users);
+  console.log(userCartProduct)
   const { Whislistget } = useSelector((state) => state.users);
 
-  const updateWishList = async (id)=>{
-  const response= await dispatch(wishListPostData(id))
+  const updateWishList = async (id) => {
+    const response = await dispatch(wishListPostData(id));
 
-  if (response.meta.requestStatus === "fulfilled"){
-
-    dispatch(wishListGetData());
-  }
-
-  }
+    if (response.meta.requestStatus === "fulfilled") {
+      dispatch(wishListGetData());
+    }
+  };
 
   useEffect(() => {
-    
+    // let cartfound = false;
+    // for (let i = 0; i < userCartProduct?.length; i++) {
+    //   if (userCartProduct[i]?.productId?._id === id) {
+    //     cartfound = true;
+    //     break;
+    //   }
+    // }
 
- let cartfound =false
-    for(let i=0;i<userCartProduct?.length;i++){
-
-      if(userCartProduct[i]?.productId?._id ===id){
-        cartfound=true
-        break;
-      }
+    const dataShop = userCartProduct.some(
+      (item) => item?.productId?._id === id
+    );
+    if (dataShop) {
+      setAlreadyAdded(dataShop);
     }
-
-    setAlreadyAdded(cartfound);
-  }, [userCartProduct,id]);
+  }, [userCartProduct, id]);
   useEffect(() => {
     let found = false;
     for (let i = 0; i < Whislistget.length; i++) {
@@ -116,10 +116,7 @@ function SingleProduct() {
       }
 
       setRatings(allRatings);
-
     }
-
-
   }, []);
 
   useEffect(() => {
@@ -140,7 +137,7 @@ function SingleProduct() {
 
       return false;
     } else {
-     const response = await dispatch(
+      const response = await dispatch(
         addUserProductToServer({
           productId: singleProduct?._id,
           price: singleProduct?.price,
@@ -148,15 +145,12 @@ function SingleProduct() {
         })
       );
 
-      if(response.meta.requestStatus === "fulfilled"){
-        dispatch(getUserCartProductFromServer())
+      if (response.meta.requestStatus === "fulfilled") {
+        dispatch(getUserCartProductFromServer());
       }
-
-
     }
   };
 
-  
   // ****************************************************************
 
   return (
@@ -292,7 +286,7 @@ function SingleProduct() {
                           className="radio-button_design label-1"
                           htmlFor={`radio-${i}`}
                         >
-                        <p className="size_length "> {item}</p> 
+                          <p className="size_length "> {item}</p>
                         </label>
                       </div>
                     </div>
@@ -329,11 +323,7 @@ function SingleProduct() {
                     <div
                       className="col-lg-4 col-5 button2-background ms-3"
                       style={handleStyle}
-                      onClick={() => 
-                      
-                      updateWishList(id)
-                      
-                      }
+                      onClick={() => updateWishList(id)}
                     >
                       {wishlistAlready ? (
                         <div className="d-flex justify-content-center gap-2 mb-0">
@@ -388,7 +378,7 @@ function SingleProduct() {
         </div>
       </section>
       <div className="container">
-        <Reviews details={singleProduct?._id}/>
+        <Reviews details={singleProduct?._id} />
       </div>
 
       <section className=" container py-5">

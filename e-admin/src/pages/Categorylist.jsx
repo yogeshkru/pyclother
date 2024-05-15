@@ -143,10 +143,10 @@ function Categorylist() {
       if (edite !== "") {
         const data = { id: edite._id, categoryValue: value };
         dispatch(categoryPatchData(data));
-        setRender((per) => per + 1);
+      
       } else {
         dispatch(categoryPostData(data));
-        setRender((per) => per + 1);
+      
       }
 
       resetForm();

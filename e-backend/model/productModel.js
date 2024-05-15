@@ -98,7 +98,7 @@ const productSchema = new mongoose.Schema(
     sleeve:String,
     gender:{
       type:String,
-      required:[true,"gender is"]
+      required:[true,"gender is required"]
     }
   
   },

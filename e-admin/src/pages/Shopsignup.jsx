@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import UseInput from "../useCustom/useInput";
 import "../styles/Mainlayout.css";
 import "../styles/Loginadmin.css";
@@ -7,12 +7,11 @@ import * as Yup from "yup";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { IoEyeOutline } from "react-icons/io5";
 import logo from "../assets/image/logo12.png";
-import {shopSignData} from "../features/shop/shopSlice";
-import {useDispatch,useSelector} from "react-redux";
-import {Link, useNavigate} from "react-router-dom"
+import { shopSignData } from "../features/shop/shopSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 function Shopsignup() {
-  const dispatch=useDispatch();
-
+  const dispatch = useDispatch();
 
   const [eye, setEye] = useState(false);
 
@@ -20,54 +19,61 @@ function Shopsignup() {
     setEye(!eye);
   };
 
-  const { values, errors, handleBlur, handleChange, handleSubmit, touched,resetForm } =
-    useFormik({
-      initialValues: {
-        shop_name: "",
-        shop_email: "",
-        shop_phone: "",
-        shop_password: "",
-        shop_address: "",
-        shop_zipcode: "",
-    
-      },
-      onSubmit: (value) => {
-        dispatch(shopSignData(value))
-     
-        resetForm()
-      },
-      validationSchema: Yup.object().shape({
-        shop_name: Yup.string()
-          .matches(
-            /^[A-Z][a-z]*$/,
-            "Name must start with a capital letter and be followed by lowercase letters"
-          )
-          .required("Name is required"),
-        shop_email: Yup.string()
-          .required("Email is required")
-          .matches(
-            /^[a-zA-Z][a-zA-Z0-9._-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-            "Invalid email address"
-          ),
-        shop_phone: Yup.string()
-          .matches(/^\d{10}$/, "Must be exactly 10 digits")
-          .required("Phone Number is required"),
-        shop_password: Yup.string()
-          .min(8, "Password must be 8 characters long")
-          .matches(/[0-9]/, "Password requires a number")
-          .matches(/[a-z]/, "Password requires a lowercase letter")
-          .matches(/[A-Z]/, "Password requires an uppercase letter")
-          .matches(/[^\w]/, "Password requires a symbol")
-          .required("Please Enter New Password"),
-        shop_address: Yup.string().required("Address is required"),
-        shop_zipcode: Yup.string()
-          .matches(/^\d{6}$/, "Must be exactly 6 digits")
-          .required("Pincode is required"),
-        
-         
-      }),
-    });
- 
+  const {
+    values,
+    errors,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    touched,
+    resetForm,
+  } = useFormik({
+    initialValues: {
+      shop_name: "",
+      shop_email: "",
+      shop_phone: "",
+      shop_password: "",
+      shop_address: "",
+      shop_zipcode: "",
+      role: "",
+    },
+    onSubmit: (value) => {
+      console.log(value);
+      dispatch(shopSignData(value));
+
+      resetForm();
+    },
+    validationSchema: Yup.object().shape({
+      shop_name: Yup.string()
+        .matches(
+          /^[A-Z][a-z]*$/,
+          "Name must start with a capital letter and be followed by lowercase letters"
+        )
+        .required("Name is required"),
+      shop_email: Yup.string()
+        .required("Email is required")
+        .matches(
+          /^[a-zA-Z][a-zA-Z0-9._-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+          "Invalid email address"
+        ),
+      shop_phone: Yup.string()
+        .matches(/^\d{10}$/, "Must be exactly 10 digits")
+        .required("Phone Number is required"),
+      shop_password: Yup.string()
+        .min(8, "Password must be 8 characters long")
+        .matches(/[0-9]/, "Password requires a number")
+        .matches(/[a-z]/, "Password requires a lowercase letter")
+        .matches(/[A-Z]/, "Password requires an uppercase letter")
+        .matches(/[^\w]/, "Password requires a symbol")
+        .required("Please Enter New Password"),
+      shop_address: Yup.string().required("Address is required"),
+      shop_zipcode: Yup.string()
+        .matches(/^\d{6}$/, "Must be exactly 6 digits")
+        .required("Pincode is required"),
+      role: Yup.string().required("Role is required"),
+    }),
+  });
+
   return (
     <div className="otp_background ">
       <div className="row justify-content-center shopSignup_row">
@@ -83,10 +89,9 @@ function Shopsignup() {
                 name="shop_name"
                 placeholder="Name"
                 onChange={handleChange}
-                // value={values.shop_name}
+                value={values.shop_name}
                 onBlur={handleBlur}
                 label="Name"
-                
               />
               {errors.shop_name && touched.shop_name ? (
                 <div style={{ color: "red" }}>{errors.shop_name}</div>
@@ -167,6 +172,27 @@ function Shopsignup() {
               )}
             </div>
             <div className="mb-2">
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                name="role"
+                value={values.role}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              >
+                <option>Select the Role</option>
+                <option value="admin">Shop admin</option>
+                <option value="manager">manager</option>
+                <option value="employee">employee</option>
+              </select>
+
+              {errors.role && touched.role ? (
+                <div style={{ color: "red" }}>{errors.role}</div>
+              ) : (
+                " "
+              )}
+            </div>
+            <div className="mb-2">
               <UseInput
                 type="number"
                 name="shop_zipcode"
@@ -183,13 +209,10 @@ function Shopsignup() {
               )}
             </div>
 
-           
-
             <button type="submit" className="shopSignupButton">
               Submit
             </button>
           </form>
-        
         </div>
       </div>
     </div>

@@ -23,9 +23,8 @@ const steps = [
 const StepHeader = () => {
   const { currentStep } = useSelector((state) => state.step);
 
- 
   const dispatch = useDispatch();
-  const [totalAmount,setTotalAmount]=useState(0)
+  const [totalAmount, setTotalAmount] = useState(0);
   const { userCartProduct } = useSelector((state) => state?.users);
 
   useEffect(() => {
@@ -36,28 +35,30 @@ const StepHeader = () => {
     return () => {
       clearTimeout(timeOut);
     };
-  }, [dispatch,totalAmount]);
+  }, [dispatch, totalAmount]);
 
-  useEffect(()=>{
-let sum =0;
-for(let index=0;index<userCartProduct?.length;index++){
-  sum = sum+Number(userCartProduct[index]?.cart_quantity) * userCartProduct[index]?.cart_price;
-  setTotalAmount(sum)
-}
-  },[userCartProduct])
-
+  useEffect(() => {
+    let sum = 0;
+    for (let index = 0; index < userCartProduct?.length; index++) {
+      sum =
+        sum +
+        Number(userCartProduct[index]?.cart_quantity) *
+          userCartProduct[index]?.cart_price;
+      setTotalAmount(sum);
+    }
+  }, [userCartProduct]);
 
   function stepData(step) {
     switch (step) {
       case 1:
         return <Cart />;
       // case 2:
-        // return <DeliveryDetails />;
+      // return <DeliveryDetails />;
       case 2:
         return <Delivery_address />;
 
       case 3:
-        return   
+        return;
     }
   }
   return (
@@ -80,21 +81,19 @@ for(let index=0;index<userCartProduct?.length;index++){
                 <StepLabel>
                   <span style={{ fontWeight: "bolder" }}>DELIVERY ADDRESS</span>
                 </StepLabel>
-
               </Step>
 
               <Step>
                 <StepLabel>
                   <span style={{ fontWeight: "bolder" }}>ORDER PLACED</span>
                 </StepLabel>
-
               </Step>
             </Stepper>
           </div>
           <div className="col-lg-6 col-12 ">
             <div className="d-flex justify-content-end step-border-radius">
-            <FaCashRegister className="d-flex align-items-center fs-3"/> 
-            {/* <span className="fs-3 ms-2 mt-0 mb-3 ">: </span> */}
+              <FaCashRegister className="d-flex align-items-center fs-3" />
+              {/* <span className="fs-3 ms-2 mt-0 mb-3 ">: </span> */}
               <p className="ms-2 fs-4">({totalAmount})</p>
             </div>
           </div>
